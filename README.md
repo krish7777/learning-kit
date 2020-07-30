@@ -8,3 +8,4 @@
  - Docker
  - AWS S3
  - Redis
+ - NGINX
