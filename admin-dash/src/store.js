@@ -1,12 +1,16 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import { composeWithDevTools as compose } from "redux-devtools-extension/developmentOnly";
 import thunk from "redux-thunk"
-import textEditorReducer from "./components/TextEditor/reducer";
+import textEditor2Reducer from "./components/TextEditor2/reducer";
 import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
+import modulesReducer from "./components/Modules/reducer";
+import addModuleReducer from "./components/Modules/AddModule/reducer";
 
 const rootReducer = combineReducers({
-    textEditorReducer
+    textEditor2Reducer,
+    modulesReducer,
+    addModuleReducer
 });
 
 const persistConfig = {

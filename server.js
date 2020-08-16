@@ -7,6 +7,7 @@ const path = require('path')
 const uploadRoutes = require('./routes/upload')
 const authRoutes = require('./routes/auth')
 const courseRoutes = require('./routes/course')
+const moduleRoutes = require('./routes/module')
 
 const app = express();
 const PORT = process.env.PORT || 3300
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
 app.use('/upload', uploadRoutes)
 app.use('/auth', authRoutes)
 app.use('/course', courseRoutes)
+app.use('/module', moduleRoutes)
 
 app.use((error, req, res, next) => {
     console.log(error);

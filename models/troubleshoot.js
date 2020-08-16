@@ -1,16 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const troubleShootSchema = new Schema({
-    html: {
-        type: String,
-        required: true
-    },
-    // courseId: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Course'
-    // }
+const troubleshootSchema = new Schema({
+    faqs: [{
+        question: String,
+        answer: String
+    }]
 });
-exports.troubleShootSchema = troubleShootSchema
+exports.troubleshootSchema = troubleshootSchema
 
-exports.TroubleShoot = mongoose.model('TroubleShoot', troubleShootSchema);
+exports.Troubleshoot = mongoose.model('Troubleshoot', troubleshootSchema);

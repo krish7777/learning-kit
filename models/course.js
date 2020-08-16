@@ -23,6 +23,10 @@ const courseSchema = new Schema({
     troubleshoot: {
         type: Schema.Types.ObjectId,
         ref: 'Troubleshoot'
+    },
+    excercise: {
+        type: Schema.Types.ObjectId,
+        ref: 'Excercise'
     }
 });
 

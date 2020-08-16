@@ -1,13 +1,15 @@
-const { Course } = require('../../models/course')
+const { Course } = require('../../models/course');
+const { Module } = require('../../models/module');
 
 exports.addCourse = async (req, res, next) => {
-    const { name, thumbnailPath } = req.body;
+    const { name, thumbnailPath, module_id } = req.body;
     const course = new Course({
         name,
         thumbnailPath
     });
     try {
         let resp = await course.save();
+        let module = await Module.updateOne({ _id: module_id }, { $push: { courses: resp._id } })
         console.log("resp", resp)
         res.json({ "course_id": resp._id })
     } catch (err) {
@@ -24,6 +26,7 @@ exports.getCourse = async (req, res, next) => {
         let course = await Course.findById(course_id).populate({
             path: 'buildCircuit', populate: {
                 path: 'steps',
+
                 model: 'Step',
                 populate: [{
                     path: 'upload_image',
@@ -33,7 +36,7 @@ exports.getCourse = async (req, res, next) => {
                     model: 'StepThumb'
                 }]
             }
-        }).populate('introduction')
+        }).populate('introduction').populate('troubleshoot')
         res.json({ course })
 
     } catch (err) {

@@ -6,14 +6,14 @@ const LivePreview = ({ content }) => {
     return (
         <div className="live-preview">
             <h2 style={{ color: "white", textAlign: "center", margin: "20px 0" }}>Live Preview</h2>
-            {/* <div className="live-preview-frame" dangerouslySetInnerHTML={{ __html: content }}></div> */}
-            <div>{content}</div>
+            <div className="live-preview-frame" dangerouslySetInnerHTML={{ __html: content }}></div>
+            {/* <div>{content}</div> */}
         </div>
     )
 }
 
 const mapStateToProps = state => ({
-    content: state.textEditorReducer.content
+    content: state.textEditor2Reducer.content
 })
 
 export default connect(mapStateToProps)(LivePreview);

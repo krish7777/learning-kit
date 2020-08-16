@@ -20,3 +20,16 @@ exports.addIntroduction = async (req, res, next) => {
         next(err)
     }
 }
+
+exports.getIntroduction = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+        let introduction = await Introduction.findById(id);
+        res.json({ introduction })
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500
+        }
+        next(err)
+    }
+}

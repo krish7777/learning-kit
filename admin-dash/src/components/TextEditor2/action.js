@@ -8,7 +8,7 @@ export const getSomeData = () => async dispatch => {
     })
 }
 
-export const setTextEditorContent = (content) => dispatch => {
+export const setTextEditor2Content = (content) => dispatch => {
     dispatch({
         type: ACTION.SET_CONTENT,
         payload: content

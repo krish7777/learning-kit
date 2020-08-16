@@ -4,7 +4,7 @@ const initialState = {
     content: ''
 }
 
-const textEditorReducer = (state = initialState, action) => {
+const textEditor2Reducer = (state = initialState, action) => {
     switch (action.type) {
         case ACTION.SET_CONTENT:
             state = { ...state, content: action.payload }
@@ -14,4 +14,4 @@ const textEditorReducer = (state = initialState, action) => {
     return state;
 }
 
-export default textEditorReducer;
+export default textEditor2Reducer;

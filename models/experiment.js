@@ -17,5 +17,6 @@ const experimentSchema = new Schema({
     }
 
 });
+exports.experimentSchema = experimentSchema;
 
-module.exports = mongoose.model('Experiment', experimentSchema);
+exports.Experiment = mongoose.model('Experiment', experimentSchema);

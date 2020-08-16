@@ -7,11 +7,11 @@ const experimentFormSchema = new Schema({
     //     ref: ' Course',
     // },
     formContent: [{
-        type: String,
+        field_type: String,
         name: String,
         label: String,
         values: [String],
-        required: Boolean
+        field_required: Boolean
     }]
 }, {
     strict: false
