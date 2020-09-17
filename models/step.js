@@ -9,9 +9,12 @@ const stepSchema = new Schema({
     },
     imagePath: {
         type: String,
-        required: true
+        //required: true --> since experiment dont need it
     },
-    sideImagePath: {
+    code:{//for arduino
+        type: String
+    },
+    sideImagePath: {//for digital
         type: String,
     },
     upload_side: [{

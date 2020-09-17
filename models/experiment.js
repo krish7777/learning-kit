@@ -11,6 +11,7 @@ const experimentSchema = new Schema({
     //     ref: 'Course',
     // },
     steps: [{ type: Schema.Types.ObjectId, ref: 'Step' }],
+    simulationLink: String, // for digital
     form: {
         type: Schema.Types.ObjectId,
         ref: 'ExperimentForm'

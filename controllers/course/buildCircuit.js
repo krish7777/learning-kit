@@ -5,21 +5,41 @@ const { BuildCircuit } = require('../../models/buildCircuit');
 const { StepThumb } = require('../../models/stepThumb');
 
 exports.addBuildCircuit = async (req, res, next) => {
-    const { course_id, steps } = req.body;
-    try {
+    const { course_id, steps, build_id } = req.body;
+
+    if(!build_id){
+        try {
+            let finalSteps = []
+
+            this.addSteps(steps).then(async (finalSteps) => {
+                console.log("finalSteps", finalSteps)
+                let buildCircuit = new BuildCircuit({
+                    course_id,
+                    steps: finalSteps
+                })
+                let resp = await buildCircuit.save()
+                let updatedCourse = await Course.updateOne({ _id: course_id }, { $set: { buildCircuit: resp._id } })
+                console.log("updatedCourse", updatedCourse)
+                console.log("resp", resp)
+                res.json({ "buildCircuit": resp })
+            })
+
+        } catch (err) {
+            if (!err.statusCode) {
+                err.statusCode = 500
+            }
+            next(err)
+        }
+    }else{
+
+    }try {
         let finalSteps = []
 
         this.addSteps(steps).then(async (finalSteps) => {
             console.log("finalSteps", finalSteps)
-            let buildCircuit = new BuildCircuit({
-                course_id,
-                steps: finalSteps
-            })
-            let resp = await buildCircuit.save()
-            let updatedCourse = await Course.updateOne({ _id: course_id }, { $set: { buildCircuit: resp._id } })
-            console.log("updatedCourse", updatedCourse)
-            console.log("resp", resp)
-            res.json({ "buildCircuit": resp })
+            let updatedBuildCircuit = await BuildCircuit.updateOne({_id:build_id},{$set : {steps: finalSteps}})
+            console.log("updatedBuildCircuit", updatedBuildCircuit)
+            res.json({ "buildCircuit": "updated" })
         })
 
     } catch (err) {
@@ -28,6 +48,8 @@ exports.addBuildCircuit = async (req, res, next) => {
         }
         next(err)
     }
+
+    
 }
 
 
@@ -58,10 +80,22 @@ exports.addSteps = async (steps) => {
 }
 
 
+
+
 exports.getBuildCircuit = async (req, res, next) => {
     const { id } = req.params;
     try {
-        let buildCircuit = await BuildCircuit.findById(id).populate('steps')
+        let buildCircuit = await BuildCircuit.findById(id).populate({
+            path: 'steps',
+            model: 'Step',
+            populate: [{
+                path: 'upload_image',
+                model: 'StepThumb'
+            }, {
+                path: 'upload_side',
+                model: 'StepThumb'
+            }]
+        })
         res.json({ buildCircuit })
     } catch (err) {
         if (!err.statusCode) {

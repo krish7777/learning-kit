@@ -17,6 +17,10 @@ const userSchema = new Schema({
     role: {
         type: String,
         required: true
+    },
+    student: {
+        type: Schema.Types.ObjectId,
+        ref:'Student'
     }
 });
 
