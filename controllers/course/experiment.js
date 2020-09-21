@@ -6,18 +6,15 @@ const { Experiment } = require('../../models/experiment');
 
 
 exports.addExperiment = async (req, res, next) => {
-    const { course_id, steps, formContent,simulationLink,exp_id} = req.body;
+    const { course_id, steps,simulationLink,exp_id} = req.body;
     if(!exp_id){
         try {
-            let experimentForm = new ExperimentForm({ formContent })
-            let formResp = await experimentForm.save();
             this.addSteps(steps).then(async (finalSteps) => {
                 console.log("finalSteps", finalSteps)
     
                 let experiment = new Experiment({
                     course_id,
                     steps: finalSteps,
-                    form: formResp._id,
                     simulationLink: simulationLink
                 })
                 let resp = await experiment.save()
@@ -35,22 +32,12 @@ exports.addExperiment = async (req, res, next) => {
         }
     }else{
         try {
-            let {form} = await Experiment.findById(exp_id)
-            let experimentForm = await ExperimentForm.updateOne({_id: form},{$set:{formContent:formContent} })
+
             this.addSteps(steps).then(async (finalSteps) => {
-                console.log("finalSteps", finalSteps)
-    
-                let experiment = new Experiment({
-                    course_id,
-                    steps: finalSteps,
-                    form: formResp._id,
-                    simulationLink: simulationLink
-                })
-                let resp = await experiment.save()
+
                 let updatedExperiment = await Experiment.updateOne({ _id: course_id }, { $set: { steps: finalSteps} })
-                console.log("updatedCourse", updatedCourse)
-                console.log("resp", resp)
-                res.json({ "experiment": resp })
+                console.log("updatedExpriment", updatedExperiment)
+                res.json({ "experiment": "updated" })
             })
     
         } catch (err) {
@@ -62,6 +49,26 @@ exports.addExperiment = async (req, res, next) => {
     }
 
 }
+
+
+exports.addExperimentForm = async (req, res, next) => {
+    const { course_id, formContent,exp_id} = req.body;
+        try {
+            let {form} = await Experiment.findById(exp_id)
+            let experimentForm = await ExperimentForm.updateOne({_id: form},{$set:{formContent:formContent} })
+            res.json({"experimentForm":"updated"})
+    
+        } catch (err) {
+            if (!err.statusCode) {
+                err.statusCode = 500
+            }
+            next(err)
+        }
+}
+
+
+
+
 
 //IF STEPS HAVE IMAGES
 

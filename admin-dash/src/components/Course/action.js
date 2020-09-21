@@ -117,12 +117,11 @@ export const getExperiment = (id) => async dispatch => {
     }
 }
 
-export const addExperiment = (id, steps,formContent,simulationLink, exp_id) => async dispatch => {
+export const addExperiment = (id, steps,simulationLink, exp_id) => async dispatch => {
     try {
         const res = await axios.post('http://localhost:3300/course/experiment', {
             course_id: id,
             steps,
-            formContent,
             simulationLink,
             exp_id: exp_id
         })
