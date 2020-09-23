@@ -17,10 +17,10 @@ class AddModule extends Component {
         const { name, introduction, addModule, clearAddModule } = this.props;
         if (name && introduction) {
             this.setState({ loading: true })
-            await addModule(name, introduction);
+            await addModule(name, introduction, this.props.match.params.type);
             this.setState({ loading: false })
             clearAddModule()
-            this.props.history.push('/modules')
+            this.props.history.goBack()
         } else {
             this.openNotificationWithIcon('warning', 'Please fill all the fields')
         }

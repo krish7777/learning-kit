@@ -16,7 +16,10 @@ const initialState = {
 
 
     troubleshoot: null,
-    addTroubleshootSuccess: false
+    addTroubleshootSuccess: false,
+
+    excercise: null,
+    addExcerciseSuccess: false
 
 }
 
@@ -98,6 +101,25 @@ const courseReducer = (state = initialState, action) => {
             state = { ...state, troubleshoot: null, addTroubleshootSuccess: false }
             break;
 
+
+        case ACTION.GET_EXCERCISE:
+            {
+                console.log("ehy  am i here")
+                console.log(action.payload)
+                state = { ...state, excercise: action.payload}
+                break;
+            }
+
+        case ACTION.ADD_EXCERCISE_SUCCESS:
+            {
+                console.log("add building")
+                state = { ...state, addExcerciseSuccess: true }
+                break;
+            }
+
+        case ACTION.CLEAR_EXCERCISE:
+            state = { ...state, excercise: null, addExcerciseSuccess: false }
+            break;
 
         default:
             state = state;

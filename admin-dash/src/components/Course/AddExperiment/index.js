@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import { addExperiment, clearExperiment, getExperiment } from '../action';
+import axios from "axios"
+import imageCompression from 'browser-image-compression';
 
-import { Form, Input, Button, notification } from "antd";
-import { MinusCircleOutlined, PlusOutlined,  } from '@ant-design/icons';
+import { Form, Input, Button, notification, Upload } from "antd";
+import { MinusCircleOutlined, PlusOutlined , UploadOutlined} from '@ant-design/icons';
 
 class AddExperiment extends Component {
     constructor(props) {
@@ -38,6 +40,24 @@ class AddExperiment extends Component {
             },
         };
 
+        const options = {
+            maxSizeMB: 1,
+            // maxWidthOrHeight: 720,
+            useWebWorker: true
+        }
+
+        const normFile = e => {
+            console.log('Upload event:', e);
+            if (Array.isArray(e)) {
+                return e;
+            }
+            if (e.fileList.length > 1) {
+                e.fileList.shift();
+            }
+            console.log("called")
+            return e && e.fileList;
+        };
+
         if (this.props.currentCourse.experiment && this.props.experiment) {
             console.log("FIRST FORM")
 
@@ -49,23 +69,55 @@ class AddExperiment extends Component {
                         const { steps , simulationLink} = val;
                         let success = 1;
                         if (steps.length) {
-                            // axios.post('http://localhost:3300/course/buildCircuit', { course_id: "5f1ef04ec0f8f301d4f0668f", steps: newSteps })
-                            //     .then(res => console.log("hmm seems fine"))
-                            //     .catch(err => console.log("error in adding"))
+                            let newSteps = steps.map(step => {
+                                const {upload_image, description} = step;
+                                if(upload_image[0].response && upload_image[0].response.location){
+                                    return {
+                                        description,
+                                        upload_image: [{
+                                            name: upload_image[0].name,
+                                            response : upload_image[0].response,
+                                            status: upload_image[0].status,
+                                            thumbUrl: upload_image[0].thumbUrl,
+                                            uid: upload_image[0].uid
+                                        }],
+                                        imagePath: upload_image[0].response.location
+                                    }
+
+                                }
+                                else{
+                                    success = 0;
+                                }
+                            })
+
+                            if(success){
+                                
                             this.setState({ loading: true })
-                            await this.props.addExperiment(this.props.match.params.id, steps,simulationLink, this.props.currentCourse.experiment)
+                            await this.props.addExperiment(this.props.match.params.id, newSteps,simulationLink, this.props.currentCourse.experiment)
                             this.setState({ loading: false })
                             console.log("aboutt to cler")
                             this.props.clearExperiment()
                             console.log("about to go back")
                             this.props.history.goBack()
+                            }else{
+                                this.openNotificationWithIcon('error', 'Please make sure all the images have been successfully uploaded')
+                            }
+
                         } else {
                             this.openNotificationWithIcon('error', 'Please make sure at least one step is there')
                         }
                     }}>
-                        <Form.Item name="simulationLink" label="Simulation Link" rules={[{required:true}]}>
-                            <Input/>
-                        </Form.Item>
+                        
+                     {/*FOR DIGITAL*/}
+
+                     {this.props.match.params.type=="digital" ?
+                     <Form.Item name="simulationLink" label="Simulation Link" rules={[{required:true}]}>
+                     <Input/>
+                 </Form.Item>
+                    :null}
+
+
+                        
                         <Form.List name="steps" label="steps" rules={[{ required: true }]}>
                             {(fields, { add, remove }) => {
                                 return (
@@ -83,6 +135,41 @@ class AddExperiment extends Component {
                                                     >
                                                         <Input.TextArea style={{ width: "90%" }} autoSize={{ minRows: 2 }} />
                                                     </Form.Item>
+
+                                                    <Form.Item
+                                                        {...field}
+                                                        key={"upload_image" + index}
+                                                        {...formItemLayoutWithOutLabel}
+                                                        name={[field.name, 'upload_image']}
+                                                        valuePropName="fileList"
+                                                        getValueFromEvent={normFile}
+                                                        fieldKey={[field.fieldKey, 'upload_image']}
+                                                        rules={[{ required: true, message: 'Missing Image!' }]}
+                                                    >
+                                                        <Upload multiple={false} accept=".png"
+                                                            name="file" customRequest={async ({ file, onSuccess, onError }) => {
+                                                                const compressedFile = await imageCompression(file, options);
+                                                                console.log("before compeee")
+                                                                console.log('originalFile instanceof Blob', file instanceof Blob); // true
+                                                                console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
+                                                                console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+                                                                console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`);
+                                                                let formData = new FormData()
+                                                                formData.set('expId', '123')
+                                                                formData.append('file', compressedFile)
+                                                                await axios.post('http://localhost:3300/upload/experiment', formData).then(res => {
+                                                                    onSuccess(res.data)
+                                                                    console.log(res.data)
+                                                                }).catch(err => { console.log("error in uploading"); onError("Error in uploading.Try again") })
+                                                            }}
+                                                            listType="picture"
+                                                        >
+                                                            <Button>
+                                                                <UploadOutlined /> Upload Image
+                                                        </Button>
+                                                        </Upload>
+                                                    </Form.Item> 
+
                                                 </div>
 
 
@@ -127,16 +214,45 @@ class AddExperiment extends Component {
                     <Form onFinish={async (val) => {
                         console.log("valllll", val)
                         const { steps, simulationLink } = val;
-                        
+                        let success=1;
                         if (steps.length) {
+                             
+                                let newSteps = steps.map(step => {
+                                    const {upload_image, description} = step;
+                                    if(upload_image[0].response && upload_image[0].response.location){
+                                        return {
+                                            description,
+                                            upload_image: [{
+                                                name: upload_image[0].name,
+                                                response: upload_image[0].response,
+                                                status: upload_image[0].status,
+                                                thumbUrl: upload_image[0].thumbUrl,
+                                                uid: upload_image[0].uid
+                                            }],
+                                            imagePath: upload_image[0].response.location
+                                        }
+                                    }else{
+                                        success =0;
+                                    }
+                                })
 
-                                this.setState({ loading: true })
-                                await this.props.addExperiment(this.props.match.params.id, steps, simulationLink ,this.props.currentCourse.experiment)
+                                if(success){
+
+                                    this.setState({ loading: true })
+                                await this.props.addExperiment(this.props.match.params.id, newSteps, simulationLink ,this.props.currentCourse.experiment)
                                 this.setState({ loading: false })
                                 console.log("abt to cler")
                                 this.props.clearExperiment()
                                 console.log("abt to go back")
                                 this.props.history.goBack()
+
+                                }
+                                else{
+                                    this.openNotificationWithIcon('error', 'Please make sure all the images have been successfully uploaded')
+
+                                }
+
+                                
                         } else {
                             this.openNotificationWithIcon('error', 'Please make sure at least one step is there')
 
@@ -144,9 +260,13 @@ class AddExperiment extends Component {
 
 
                     }}>
-                        <Form.Item name="simulationLink" label="Simulation Link" rules={[{required:true}]}>
-                            <Input/>
-                        </Form.Item>
+                        {/*FOR DIGITAL*/}
+
+                     {this.props.match.params.type=="digital" ?
+                     <Form.Item name="simulationLink" label="Simulation Link" rules={[{required:true}]}>
+                     <Input/>
+                 </Form.Item>
+                    :null}
                         <Form.List name="steps" label="steps" rules={[{ required: true }]}>
                             {(fields, { add, remove }) => {
                                 return (
@@ -164,6 +284,41 @@ class AddExperiment extends Component {
                                                     >
                                                         <Input.TextArea style={{ width: "90%" }} autoSize={{ minRows: 2 }} />
                                                     </Form.Item>
+
+                                                    <Form.Item
+                                                        {...field}
+                                                        key={"upload_image" + index}
+                                                        {...formItemLayoutWithOutLabel}
+                                                        name={[field.name, 'upload_image']}
+                                                        valuePropName="fileList"
+                                                        getValueFromEvent={normFile}
+                                                        fieldKey={[field.fieldKey, 'upload_image']}
+                                                        rules={[{ required: true, message: 'Missing Image!' }]}
+                                                    >
+                                                        <Upload multiple={false} accept=".png"
+                                                            name="file" customRequest={async ({ file, onSuccess, onError }) => {
+                                                                const compressedFile = await imageCompression(file, options);
+                                                                console.log("before compeee")
+                                                                console.log('originalFile instanceof Blob', file instanceof Blob); // true
+                                                                console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
+                                                                console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+                                                                console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`);
+                                                                let formData = new FormData()
+                                                                formData.set('expId', '123')
+                                                                formData.append('file', compressedFile)
+                                                                await axios.post('http://localhost:3300/upload/experiment', formData).then(res => {
+                                                                    onSuccess(res.data)
+                                                                    console.log(res.data)
+                                                                }).catch(err => { console.log("error in uploading"); onError("Error in uploading.Try again") })
+                                                            }}
+                                                            listType="picture"
+                                                        >
+                                                            <Button>
+                                                                <UploadOutlined /> Upload Image
+                                                        </Button>
+                                                        </Upload>
+                                                    </Form.Item>
+
                                                 </div>
 
 

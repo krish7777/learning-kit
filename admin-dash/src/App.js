@@ -16,6 +16,10 @@ import AddIntroduction from './components/Course/AddIntroduction';
 import AddExperiment from './components/Course/AddExperiment';
 import AddTroubleshoot from './components/Course/AddTroubleshoot';
 import AddBuildCircuit from './components/Course/AddBuildCircuit';
+import AddExperimentForm from './components/Course/AddExperimentForm';
+import AddExcercise from './components/Course/AddExcercise';
+import CreatorHome from './components/CreatorHome';
+import AddResults from './components/Course/AddResults';
 
 class App extends React.Component {
 
@@ -42,16 +46,20 @@ class App extends React.Component {
         <iframe width="600px" height="400px" src="https://circuitverse.org/simulator/embed/248" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe> */}
         {/* <Modules /> */}
         <Switch>
-          <Route path="/modules" component={Modules} />
-          <Route path="/module/:id" component={Module} />
-          <Route path="/course/introduction/:id" component={AddIntroduction} />
-          <Route path="/course/experiment/:id" component={AddExperiment} />
-          <Route path="/course/troubleshoot/:id" component={AddTroubleshoot} />
-          <Route path="/course/build-circuit/:id" component={AddBuildCircuit} />
+          <Route path="/:type/module/:id" component={Module} />
+          <Route path="/:type/course/introduction/:id" component={AddIntroduction} />
+          <Route path="/:type/course/experiment/:id" component={AddExperiment} />
+          <Route path="/:type/course/troubleshoot/:id" component={AddTroubleshoot} />
+          <Route path="/:type/course/build-circuit/:id" component={AddBuildCircuit} />
+          <Route path="/:type/course/experiment-form/:id/:expId" component={AddExperimentForm}/>
+          <Route path="/:type/course/results/:id" component={AddResults}/>
+          <Route path="/:type/course/excercise/:id" component={AddExcercise}/>
+          <Route exact path="/:type" component={Modules} />
 
-          <Route path="/course/:id" component={Course} />
-          <Route path="/add-module" component={AddModule} />
-          <Route path="/add-course/:module_id" component={AddCourse} />
+          <Route exact path="/:type/course/:id" component={Course} />
+          <Route path="/:type/add-module" component={AddModule} />
+          <Route path="/:type/add-course/:module_id" component={AddCourse} />
+          <Route path="/" component={CreatorHome} />
         </Switch>
 
 

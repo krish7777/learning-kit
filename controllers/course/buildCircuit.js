@@ -5,7 +5,7 @@ const { BuildCircuit } = require('../../models/buildCircuit');
 const { StepThumb } = require('../../models/stepThumb');
 
 exports.addBuildCircuit = async (req, res, next) => {
-    const { course_id, steps, build_id } = req.body;
+    const { course_id, steps, code, build_id } = req.body;
 
     if(!build_id){
         try {
@@ -15,6 +15,7 @@ exports.addBuildCircuit = async (req, res, next) => {
                 console.log("finalSteps", finalSteps)
                 let buildCircuit = new BuildCircuit({
                     course_id,
+                    code,
                     steps: finalSteps
                 })
                 let resp = await buildCircuit.save()
@@ -37,7 +38,7 @@ exports.addBuildCircuit = async (req, res, next) => {
 
         this.addSteps(steps).then(async (finalSteps) => {
             console.log("finalSteps", finalSteps)
-            let updatedBuildCircuit = await BuildCircuit.updateOne({_id:build_id},{$set : {steps: finalSteps}})
+            let updatedBuildCircuit = await BuildCircuit.updateOne({_id:build_id},{$set : {steps: finalSteps, code: code}})
             console.log("updatedBuildCircuit", updatedBuildCircuit)
             res.json({ "buildCircuit": "updated" })
         })

@@ -24,8 +24,8 @@ class AddCourse extends Component {
         })
         await this.props.addCourse(val)
         this.setState({ loading: false })
-        this.props.history.push(`/module/${this.props.match.params.module_id}`)
-
+        // this.props.history.push(`/module/${this.props.match.params.module_id}`)
+        this.props.history.goBack()
     }
 
 

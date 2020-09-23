@@ -8,7 +8,7 @@ import { Button } from 'antd'
 class Modules extends Component {
 
     componentDidMount = async () => {
-        await this.props.getModules()
+        await this.props.getModules(this.props.match.params.type)
         console.log("after fetch")
     }
 
@@ -16,13 +16,13 @@ class Modules extends Component {
         const { modules } = this.props;
         return (
             <div>
-
+                {this.props.match.params.type}
                 {modules.map(module => (
-                    <Link to={`/module/${module._id}`}>
+                    <Link to={`/${this.props.match.params.type}/module/${module._id}`}>
                         <div>{module.name}</div>
                     </Link>
                 ))}
-                <Link to="/add-module"><Button>Add Module</Button></Link>
+                <Link to={`/${this.props.match.params.type}/add-module`}><Button>Add Module</Button></Link>
             </div>
         )
     }

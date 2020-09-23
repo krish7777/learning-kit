@@ -18,9 +18,9 @@ import {
     Upload
 } from 'antd';
 import { MinusCircleOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
-import { addExperimentForm} from '../action'
+import { addResults} from '../action'
 
-class AddExperimentForm extends Component {
+class AddResults extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -45,17 +45,17 @@ class AddExperimentForm extends Component {
 
 
     componentDidMount() {
-        if (this.props.currentCourse) {
+        if (this.props.currentCourse.results) {
             console.log("has , gotta call server")
             // this.props.getExperimentForm(this.props.currentCourse.experiment)
-            axios.get(`http://localhost:3300/course/experimentForm/get/${this.props.match.params.expId}`)
+            axios.get(`http://localhost:3300/course/results/get/${this.props.currentCourse.results}`)
             .then(res=>res.data)
-            .then(expForm => {
-                if(expForm.form){
-                    this.setState({questions: expForm.form.formContent})
+            .then(results => {
+                if(results.form){
+                    this.setState({questions: results.form.formContent})
                 }
             })
-            .catch(err=>console.log("error in getting exp form"))
+            .catch(err=>console.log("error in getting results form"))
         } else {
             console.log("does not ahve any introduction astart from the first")
         }
@@ -187,7 +187,7 @@ class AddExperimentForm extends Component {
         if(this.state.questions.length){
             console.log(this.state.questions)
             this.setState({loading: true})
-            await this.props.addExperimentForm(this.props.match.params.id,this.state.questions,this.props.match.params.expId)
+            await this.props.addResults(this.props.match.params.id,this.state.questions,this.props.currentCourse.results)
             this.setState({loading: false})
             this.props.history.goBack()
         }
@@ -831,7 +831,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    addExperimentForm: bindActionCreators(addExperimentForm, dispatch)
+    addResults: bindActionCreators(addResults, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddExperimentForm)
+export default connect(mapStateToProps, mapDispatchToProps)(AddResults)

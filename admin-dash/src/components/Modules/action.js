@@ -9,10 +9,10 @@ export const getSomeData = () => async dispatch => {
     })
 }
 
-export const getModules = () => async dispatch => {
+export const getModules = (type) => async dispatch => {
     try {
         console.log("before call")
-        const res = await axios.get("http://localhost:3300/module/all")
+        const res = await axios.get(`http://localhost:3300/module/all/${type}`)
         console.log(res.data)
         dispatch({
             type: ACTION.GET_MODULES,

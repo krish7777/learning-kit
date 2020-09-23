@@ -74,11 +74,12 @@ export const getBuildCircuit = (id) => async dispatch => {
     }
 }
 
-export const addBuildCircuit = (id, steps, build_id) => async dispatch => {
+export const addBuildCircuit = (id, steps,code, build_id) => async dispatch => {
     try {
         const res = await axios.post('http://localhost:3300/course/buildCircuit', {
             course_id: id,
             steps,
+            code,
             build_id: build_id
         })
         console.log("after adding resp", res.data)
@@ -141,7 +142,49 @@ export const clearExperiment = () => dispatch => {
 }
 
 
+//<<<<<<<<<<<EXPERIMENT_FORM>>>>>>>>>>>>>
 
+
+export const addExperimentForm = (id,formContent,exp_id) => async dispatch => {
+    try{
+        console.log("herrrrrrrrrrrrrrrrrrrr")
+        const res = await axios.post('http://localhost:3300/course/experimentForm',{
+            course_id: id,
+            formContent,
+            exp_id: exp_id
+        })
+        console.log(res.data)
+        dispatch({
+            type: ACTION.ADD_EXPERIMENT_FORM_SUCCESS
+        })
+
+    }catch(err){
+        console.log("error in addExperimentForm")
+    }
+}
+
+
+
+//<<<<<<<<<<<RESULTS>>>>>>>>>>>>>
+
+
+export const addResults = (id,formContent,results_id) => async dispatch => {
+    try{
+        console.log("herrrrrrrrrrrrrrrrrrrr")
+        const res = await axios.post('http://localhost:3300/course/results',{
+            course_id: id,
+            formContent,
+            results_id
+        })
+        console.log(res.data)
+        dispatch({
+            type: ACTION.ADD_RESULTS_SUCCESS
+        })
+
+    }catch(err){
+        console.log("error in addResults")
+    }
+}
 
 
 //<<<<<<<<<<<<TROUBLESHOOT>>>>>>>>>>>

@@ -9,10 +9,10 @@ export const getSomeData = () => async dispatch => {
     })
 }
 
-export const addModule = (name, introduction) => async dispatch => {
+export const addModule = (name, introduction, type) => async dispatch => {
     try {
         console.log("before call")
-        const res = await axios.post("http://localhost:3300/module/add", { name, introduction })
+        const res = await axios.post("http://localhost:3300/module/add", { name, introduction, type })
         console.log(res.data)
         dispatch({
             type: ACTION.ADD_MODULE_SUCCESS,

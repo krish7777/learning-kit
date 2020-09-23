@@ -18,16 +18,25 @@ class Course extends Component {
                 COURSE {this.props.match.params.id}
                 <div>
                     <Button>
-                        <Link to={`/course/introduction/${this.props.match.params.id}`}>INTRODUCTION</Link>
+                        <Link to={`/${this.props.match.params.type}/course/introduction/${this.props.match.params.id}`}>INTRODUCTION</Link>
                     </Button>
                     <Button>
-                        <Link to={`/course/build-circuit/${this.props.match.params.id}`}>BUILD CIRCUIT</Link>
+                        <Link to={`/${this.props.match.params.type}/course/build-circuit/${this.props.match.params.id}`}>BUILD CIRCUIT</Link>
                     </Button>
                     <Button>
-                        <Link to={`/course/experiment/${this.props.match.params.id}`}>EXPERIMENT</Link>
+                        <Link to={`/${this.props.match.params.type}/course/experiment/${this.props.match.params.id}`}>EXPERIMENT</Link>
+                    </Button>
+                    {course.experiment? <Button>
+                        <Link to ={`/${this.props.match.params.type}/course/experiment-form/${this.props.match.params.id}/${course.experiment}`}>EXPERIMENT FORM</Link>
+                    </Button>:null}
+                    <Button>
+                        <Link to={`/${this.props.match.params.type}/course/troubleshoot/${this.props.match.params.id}`}>TROUBLESHOOT</Link>
                     </Button>
                     <Button>
-                        <Link to={`/course/troubleshoot/${this.props.match.params.id}`}>TROUBLESHOOT</Link>
+                        <Link to={`/${this.props.match.params.type}/course/results/${this.props.match.params.id}`}>RESULTS AND ANALYSIS</Link>
+                    </Button>
+                    <Button>
+                        <Link to={`/${this.props.match.params.type}/course/excercise/${this.props.match.params.id}`}>EXCERCISE</Link>
                     </Button>
                 </div>
 

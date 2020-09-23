@@ -13,9 +13,9 @@ import {
     Modal,
     InputNumber,
     notification,
-    Switch
+    Switch, Upload
 } from 'antd';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { MinusCircleOutlined, PlusOutlined , UploadOutlined} from '@ant-design/icons';
 
 
 class FormBuilder extends React.Component {
@@ -32,6 +32,7 @@ class FormBuilder extends React.Component {
             headingModal: false,
             textModal: false,
             tableModal: false,
+            uploadModal: false,
             tempTable: [],
             tempValue: '',
             questions: [],
@@ -83,6 +84,12 @@ class FormBuilder extends React.Component {
                 {
                     type: "row",
                     values: ["0", "1", "_switch_"],
+                },
+                {
+                    type: "upload",
+                    name:"Upload",
+                    label: "Upload",
+                    required: true
                 }
             ],
             answersExample: {
@@ -205,6 +212,17 @@ class FormBuilder extends React.Component {
             }
         })
     }
+
+    handleAddUpload = ({ label, required }) => {
+        this.setState(prevState => {
+            return {
+                ...prevState,
+                questions: [...prevState.questions, { type: "upload", required: required, name: label, label: label }],
+                uploadModal: false
+            }
+        })
+    }
+
     render() {
         const formItemLayout = {
             labelCol: {
@@ -222,6 +240,14 @@ class FormBuilder extends React.Component {
                 sm: { span: 20, offset: 4 },
             },
         };
+
+        const normFile = e => {
+            console.log('Upload event:', e);
+            if (Array.isArray(e)) {
+              return e;
+            }
+            return e && e.fileList;
+          };
         return (
             <div className="form-builder">
                 <div className="preview-form" >
@@ -338,10 +364,21 @@ class FormBuilder extends React.Component {
                                         )
                                     }
                                         break;
+                                    case 'upload': {
+                                        return(
+                                            <Form.Item name={name} label={label} valuePropName="fileList" getValueFromEvent={normFile} rules={[
+                                                { required: required }]}>
+                                                <Upload>
+                                                    <Button icon={<UploadOutlined />}>Click to upload</Button>
+                                                </Upload>
+                                            </Form.Item>
+                                        )
+                                    }
                                     default: return null
                                 }
                             })
                         }
+                        
                         <Form.Item >
                             <Button type="primary" htmlType="submit">
                                 Submit
@@ -361,6 +398,7 @@ class FormBuilder extends React.Component {
                     <Button onClick={() => this.setState({ textModal: true })}>Text</Button>
                     <Button onClick={() => this.setState({ headingModal: true })}>Heading</Button>
                     <Button onClick={() => this.setState({ tableModal: true })}>Table</Button>
+                    <Button onClick={() => this.setState({uploadModal: true})}>Upload</Button>
 
 
 
@@ -777,6 +815,29 @@ class FormBuilder extends React.Component {
                                 })}
                             </div>
                         ))}</Form>
+                    </Form>
+                </Modal>
+                <Modal
+                    visible={this.state.uploadModal}
+                    title="Upload"
+                    onCancel={() => this.setState({ uploadModal: false })}
+                    footer={[]}
+                    destroyOnClose
+                >
+                    <Form onFinish={this.handleAddUpload}>
+                        <Form.Item
+                            label="Label"
+                            name="label"
+                            rules={[{ required: true }]}
+                        >
+                            <Input.TextArea />
+                        </Form.Item>
+                        <Form.Item name="required" valuePropName="checked">
+                            <Checkbox>Required</Checkbox>
+                        </Form.Item>
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit">Add</Button>
+                        </Form.Item>
                     </Form>
                 </Modal>
             </div >

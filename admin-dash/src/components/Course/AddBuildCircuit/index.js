@@ -73,7 +73,7 @@ class AddBuildCircuit extends Component {
                     ***Don't Reload before Saving! Changes may get lost ***
                     <Form initialValues={this.props.buildCircuit} onFinish={async (val) => {
                         console.log("valllll", val)
-                        const { steps } = val;
+                        const { steps, code } = val;
                         let success = 1;
                         if (steps.length) {
                             let newSteps = steps.map(step => {
@@ -127,7 +127,7 @@ class AddBuildCircuit extends Component {
                                 //     .then(res => console.log("hmm seems fine"))
                                 //     .catch(err => console.log("error in adding"))
                                 this.setState({ loading: true })
-                                await this.props.addBuildCircuit(this.props.match.params.id, newSteps, this.props.currentCourse.buildCircuit)
+                                await this.props.addBuildCircuit(this.props.match.params.id, newSteps,code, this.props.currentCourse.buildCircuit)
                                 this.setState({ loading: false })
                                 console.log("abt to cler")
                                 this.props.clearBuildCircuit()
@@ -145,6 +145,16 @@ class AddBuildCircuit extends Component {
 
 
                     }}>
+
+                    {/*FOR ARDUINO*/}
+
+                    {this.props.match.params.type=="arduino" ? <Form.Item label="Code" name="code" 
+                                                                            rules={[{ required: true, message: 'Missing Code' }]}
+                                                                            >
+                        <Input.TextArea autoSize={{ minRows: 5 }}/>
+                    </Form.Item>:null}
+
+
                         <Form.List name="steps" label="steps" rules={[{ required: true }]}>
                             {(fields, { add, remove }) => {
                                 return (
@@ -343,6 +353,17 @@ class AddBuildCircuit extends Component {
 
 
                     }}>
+
+
+                     {/*FOR ARDUINO*/}
+
+                     {this.props.match.params.type=="arduino" ? <Form.Item label="Code" name="code" 
+                                                                            rules={[{ required: true, message: 'Missing Code' }]}
+                                                                            >
+                        <Input.TextArea autoSize={{ minRows: 5}}/>
+                    </Form.Item>:null}
+
+
                         <Form.List name="steps" label="steps" rules={[{ required: true }]}>
                             {(fields, { add, remove }) => {
                                 return (

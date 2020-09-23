@@ -28,6 +28,10 @@ const courseSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Troubleshoot'
     },
+    results: {
+        type: Schema.Types.ObjectId,
+        ref: 'ExperimentForm'
+    },
     excercise: {
         type: Schema.Types.ObjectId,
         ref: 'Excercise'

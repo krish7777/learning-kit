@@ -19,12 +19,12 @@ class Module extends Component {
                     <div>COURSES</div>
                     <div>
                         {module.courses && module.courses.map(course =>
-                            <Link to={`/course/${course._id}`}>
+                            <Link to={`/${this.props.match.params.type}/course/${course._id}`}>
                                 <div>{course.name}</div>
                             </Link>
                         )}
                     </div>
-                    <Link to={`/add-course/${module._id}`}><Button>Add Course</Button></Link>
+                    <Link to={`/${this.props.match.params.type}/add-course/${module._id}`}><Button>Add Course</Button></Link>
                 </div>
             )
         else
