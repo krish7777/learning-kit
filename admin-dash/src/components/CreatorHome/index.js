@@ -10,11 +10,14 @@ class CreatorHome extends React.Component{
         return(
             <div>
                 CREATOR HOME
+                <br/>
                 <Link to="/arduino">
                 ARDUINO
                 </Link>
+                <br/>
                 <Link to="/digital">
-                DIGITAL</Link>
+                DIGITAL
+                </Link>
             </div>
         )
     }

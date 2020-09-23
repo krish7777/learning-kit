@@ -3,9 +3,8 @@ import "./styles.scss";
 import Navbar from "../Navbar";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getSomeData } from "./action";
+import { getAllModules, getSomeData } from "./action";
 import { Button, Typography, Collapse, Input } from "antd";
-import Module from "../Module";
 import Background from "../../assets/images/background.png"
 import { Link } from "react-router-dom";
 const { Panel } = Collapse;
@@ -20,16 +19,24 @@ class Home extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.props.getAllModules(this.props.match.params.type)
+  }
+
   onSearchChange = (e) => {
     this.setState({
       searchValue: e.target.value
     })
   }
   render() {
-    const { allCourses } = this.props;
+    // const { allCourses } = this.props;
+    // const { searchValue } = this.state;
+    // const filteredCourses = allCourses.filter(module => module.module.toLowerCase().includes(searchValue.toLowerCase()) || module.courses.filter(course => course.name.toLowerCase().includes(searchValue.toLowerCase())).length)
+
+    const { allModules } = this.props;
     const { searchValue } = this.state;
-    const filteredCourses = allCourses.filter(module => module.module.toLowerCase().includes(searchValue.toLowerCase()) || module.courses.filter(course => course.name.toLowerCase().includes(searchValue.toLowerCase())).length)
-    // console.log(filteredCourses)
+    const filteredModules = allModules.filter(module => module.name.toLowerCase().includes(searchValue.toLowerCase()) || module.courses.filter(course => course.name.toLowerCase().includes(searchValue.toLowerCase())).length)
+    console.log(filteredModules)
     return (
       <div style={{ backgroundColor: "#001A2F", backgroundImage: `url(${Background})` }}>
         <Navbar />
@@ -73,22 +80,22 @@ class Home extends React.Component {
               https://www.geeksforgeeks.org/digital-electronics-logic-design-tutorials/
             </a>
             </p>
-            <Link to="/modules">
+            <Link to={`${this.props.match.params.type}/modules`}>
               <Button size={"large"} style={{ backgroundColor: "#56AC00", fontSize: "20px", fontWeight: "600", marginTop: "50px", padding: "10px 50px", display: "flex", alignItems: "center" }}>Let's Get Started</Button>
             </Link>
 
           </div>
           <div className="course-curriculum">
             <h3>Course Curriculum
-            <span>(10 modules)</span></h3>
+            <span>({filteredModules.length} modules)</span></h3>
 
             <div className="course-summary">
               <Input placeholder="Search any module/course" value={this.state.searchValue} onChange={this.onSearchChange} style={{ background: "transparent", color: "white", border: "1px solid #324454", fontSize: "18px" }} />
               <Collapse style={{ color: "red", marginTop: "10px" }} ghost accordion expandIconPosition={"right"} >
 
-                {filteredCourses.map(module =>
-                  <Panel style={{ border: "1px solid #324454" }} header={module.index + ". " + module.module} key={module.index}>
-                    {module.courses.map(course => <div key={course.expNo} className="sub-course">{course.name}</div>)}
+                {filteredModules.map((module, index) =>
+                  <Panel key={module._id} style={{ border: "1px solid #324454" }} header={index + 1 + ". " + module.name} key={module.index}>
+                    {module.courses.map(course => <Link to={`/${this.props.match.params.type}/course/${course._id}`}><div key={course._id} className="sub-course">{course.name}</div></Link>)}
                   </Panel>)}
 
               </Collapse>
@@ -105,11 +112,13 @@ class Home extends React.Component {
 
 const mapStateToProps = (state) => ({
   someData: state.homeReducer.someData,
-  allCourses: state.homeReducer.allCourses
+  allCourses: state.homeReducer.allCourses,
+  allModules: state.homeReducer.allModules
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getSomeData: bindActionCreators(getSomeData, dispatch),
+  getAllModules: bindActionCreators(getAllModules, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -26,7 +26,7 @@ class Course extends Component {
                     <Button>
                         <Link to={`/${this.props.match.params.type}/course/experiment/${this.props.match.params.id}`}>EXPERIMENT</Link>
                     </Button>
-                    {course.experiment? <Button>
+                    {course.experiment && this.props.match.params.type == "digital"? <Button>
                         <Link to ={`/${this.props.match.params.type}/course/experiment-form/${this.props.match.params.id}/${course.experiment}`}>EXPERIMENT FORM</Link>
                     </Button>:null}
                     <Button>

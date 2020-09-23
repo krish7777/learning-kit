@@ -4,55 +4,57 @@ import { ACTION } from "./constants";
 const initialState = {
   allCourses: [{
     index: 1,
-    module: "Introduction",
+    name: "Introduction",
     courses: [{ name: "AND Gate", expNo: "1" }, { name: "NOR Gate", expNo: "2" }]
   },
   {
     index: 2,
-    module: "Basic Logic Gates",
+    name: "Basic Logic Gates",
     courses: [{ name: "AND Gate", expNo: "1" }, { name: "NOR Gate", expNo: "2" }, { name: "NAND Gate", expNo: "3" }, { name: "OR Gate", expNo: "4" }, { name: "XOR Gate", expNo: "5" }]
   },
   {
     index: 3,
-    module: "Universal Logic Gates",
+    name: "Universal Logic Gates",
     courses: [{ name: "AND Gate", expNo: "1" }, { name: "NOR Gate", expNo: "2" }, { name: "NAND Gate", expNo: "3" }, { name: "OR Gate", expNo: "4" }, { name: "XOR Gate", expNo: "5" }]
   },
   {
     index: 4,
-    module: "Combinational Logic",
+    name: "Combinational Logic",
     courses: [{ name: "AND Gate", expNo: "1" }, { name: "NOR Gate", expNo: "2" }, { name: "NAND Gate", expNo: "3" }, { name: "OR Gate", expNo: "4" }, { name: "XOR Gate", expNo: "5" }]
   },
   {
     index: 5,
-    module: "Arithmetic Circuits",
+    name: "Arithmetic Circuits",
     courses: [{ name: "AND Gate", expNo: "1" }, { name: "NOR Gate", expNo: "2" }, { name: "NAND Gate", expNo: "3" }, { name: "OR Gate", expNo: "4" }, { name: "XOR Gate", expNo: "5" }]
   },
   {
     index: 6,
-    module: "Code Convertors",
+    name: "Code Convertors",
     courses: [{ name: "AND Gate", expNo: "1" }, { name: "NOR Gate", expNo: "2" }, { name: "NAND Gate", expNo: "3" }, { name: "OR Gate", expNo: "4" }, { name: "XOR Gate", expNo: "5" }]
   },
   {
     index: 7,
-    module: "Flip Flop",
+    name: "Flip Flop",
     courses: [{ name: "AND Gate", expNo: "1" }, { name: "NOR Gate", expNo: "2" }, { name: "NAND Gate", expNo: "3" }, { name: "OR Gate", expNo: "4" }, { name: "XOR Gate", expNo: "5" }]
   },
   {
     index: 8,
-    module: "Registers",
+    name: "Registers",
     courses: [{ name: "AND Gate", expNo: "1" }, { name: "NOR Gate", expNo: "2" }, { name: "NAND Gate", expNo: "3" }, { name: "OR Gate", expNo: "4" }, { name: "XOR Gate", expNo: "5" }]
   },
   {
     index: 9,
-    module: "Counters",
+    name: "Counters",
     courses: [{ name: "AND Gate", expNo: "1" }, { name: "NOR Gate", expNo: "2" }, { name: "NAND Gate", expNo: "3" }, { name: "OR Gate", expNo: "4" }, { name: "XOR Gate", expNo: "5" }]
   },
   {
     index: 10,
-    module: "Dislays",
+    name: "Dislays",
     courses: [{ name: "AND Gate", expNo: "1" }, { name: "NOR Gate", expNo: "2" }, { name: "NAND Gate", expNo: "3" }, { name: "OR Gate", expNo: "4" }, { name: "XOR Gate", expNo: "5" }]
   }
   ],
+
+  allModules: []
 
 };
 
@@ -61,6 +63,9 @@ const homeReducer = (state = initialState, action) => {
     case ACTION.GET_SOME_DATA: {
       state = { ...state, someData: action.payload };
       break;
+    }
+    case ACTION.GET_ALL_MODULES: {
+      state = {...state, allModules:[...action.payload]}
     }
   }
 

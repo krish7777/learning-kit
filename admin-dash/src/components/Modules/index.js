@@ -16,12 +16,13 @@ class Modules extends Component {
         const { modules } = this.props;
         return (
             <div>
-                {this.props.match.params.type}
+                <div>All {this.props.match.params.type} modules</div>
                 {modules.map(module => (
                     <Link to={`/${this.props.match.params.type}/module/${module._id}`}>
                         <div>{module.name}</div>
                     </Link>
                 ))}
+                <br/>
                 <Link to={`/${this.props.match.params.type}/add-module`}><Button>Add Module</Button></Link>
             </div>
         )

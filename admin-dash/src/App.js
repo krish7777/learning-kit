@@ -6,7 +6,7 @@ import FormBuilder from './components/FormBuilder';
 import 'antd/dist/antd.css';
 import BuildCircuitBuilder from './components/BuildCircuitBuilder';
 import Modules from './components/Modules';
-import { Route, Switch } from 'react-router-dom';
+import { Link, Route, Switch } from 'react-router-dom';
 import AddModule from './components/Modules/AddModule';
 import TextEditor from './components/TextEditor';
 import Module from './components/Modules/Module';
@@ -45,6 +45,7 @@ class App extends React.Component {
         {/* <iframe width="600px" height="400px" src="https://editor.p5js.org/SoumitroV/embed/Hwq52Cn0t"></iframe>
         <iframe width="600px" height="400px" src="https://circuitverse.org/simulator/embed/248" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe> */}
         {/* <Modules /> */}
+        <div><Link to="/">HOME</Link></div>
         <Switch>
           <Route path="/:type/module/:id" component={Module} />
           <Route path="/:type/course/introduction/:id" component={AddIntroduction} />

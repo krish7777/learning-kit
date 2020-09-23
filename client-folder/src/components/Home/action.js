@@ -8,3 +8,18 @@ export const getSomeData = (data) => async (dispatch) => {
     payload: data,
   });
 };
+
+
+export const getAllModules = (type) => async (dispatch) => {
+  try
+    {
+      const res = await axios.get(`http://localhost:3300/module/all/${type}`)
+
+    dispatch({
+      type: ACTION.GET_ALL_MODULES,
+      payload: res.data.modules || [] 
+    })
+  }catch(e){
+    console.log("error in getAllModules")
+  }
+}

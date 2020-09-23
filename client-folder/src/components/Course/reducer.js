@@ -15,12 +15,25 @@ const initialState = {
         "Similarly, we code for the remaining part. Now, you can test it out by connecting the arduino to a power source.",
     ],
     codeStepStart: 4,
+    simulationStepStart: 15,
     noOfSteps: 10,
     showCode: true,
-    currentStep: "Introduction"
+    showImages: true,
+    currentStep: "Introduction",
+
+    currentCourse: null,
+
+    introduction: null,
+    buildCircuit: null,
+    experiment: null,
+    results: null,
+    troubleshoot: null,
+    excercise: null,
+    experimentForm: null
+
 };
 
-const experimentReducer = (state = initialState, action) => {
+const courseReducer = (state = initialState, action) => {
     switch (action.type) {
         case ACTION.GET_SOME_DATA: {
             state = { ...state, someData: action.payload };
@@ -34,9 +47,45 @@ const experimentReducer = (state = initialState, action) => {
             state = { ...state, currentStep: action.payload };
             break;
         }
+
+        case ACTION.GET_CURRENT_COURSE: {
+            state = { ...state, currentCourse: action.payload }
+            break;
+        }
+
+        case ACTION.GET_INTRODUCTION: {
+            state = { ...state, introduction: action.payload }
+            break;
+        }
+
+        case ACTION.GET_BUILD_CIRCUIT: {
+            state = { ...state, buildCircuit: action.payload }
+            break;
+        }
+
+        case ACTION.GET_EXPERIMENT: {
+            state = { ...state, experiment: action.payload }
+            break;
+        }
+        case ACTION.GET_RESULTS: {
+            state = { ...state, results: action.payload }
+            break;
+        }
+        case ACTION.GET_EXCERCISE: {
+            state = { ...state, excercise: action.payload }
+            break;
+        }
+        case ACTION.GET_TROUBLESHOOT: {
+            state = { ...state, troubleshoot: action.payload }
+            break;
+        }
+        case ACTION.GET_EXPERIMENT_FORM: {
+            state = { ...state, experimentForm: action.payload }
+            break;
+        }
     }
 
     return state;
 };
 
-export default experimentReducer;
+export default courseReducer;

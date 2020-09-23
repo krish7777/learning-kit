@@ -10,16 +10,6 @@ import "ace-builds/src-noconflict/theme-tomorrow";
 import { connect } from "react-redux";
 
 const CodeEditor = (props) => {
-  const [code, setcode] = useState("");
-
-
-  useEffect(() => {
-    fetch(`/code/code${2}.txt`)
-      .then((r) => r.text())
-      .then((text) => {
-        setcode(text);
-      });
-  });
 
   return (
     <div className="code-editor" style={props.showCode ? { width: "35%" } : { width: "0%" }}>
@@ -45,7 +35,7 @@ const CodeEditor = (props) => {
           showPrintMargin={true}
           showGutter={false}
           highlightActiveLine={true}
-          value={code}
+          value={props.code}
           setOptions={{
             enableBasicAutocompletion: false,
             enableLiveAutocompletion: true,
@@ -60,7 +50,7 @@ const CodeEditor = (props) => {
 };
 
 const mapStateToProps = state => ({
-  showCode: state.experimentReducer.showCode
+  showCode: state.courseReducer.showCode
 })
 
 export default connect(mapStateToProps)(CodeEditor)

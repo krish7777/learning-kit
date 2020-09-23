@@ -14,7 +14,7 @@ import { toggleCode } from "../action";
 import Modal from "antd/lib/modal/Modal";
 
 const SlideShow = (
-  { noOfSteps, expNo, expSteps, codeStepStart, toggleCode, showCode }
+  { steps, codeStepStart, toggleCode, showCode }
 ) => {
 
 
@@ -34,8 +34,8 @@ const SlideShow = (
 
   useEffect(() => {
     const img = [];
-    for (let i = 0; i < noOfSteps; i++) {
-      img.push({ original: require(`../../../assets/images/exp${expNo}/ckt${i + 1}.png`) });
+    for (let i = 0; i < steps.length; i++) {
+      img.push({ original: steps[i].imagePath });
     }
     setStartModalIsOpen(true);
     setTimeout(() => {
@@ -43,7 +43,7 @@ const SlideShow = (
     }, 1500);
     setImages(img);
 
-  }, [noOfSteps, expNo]);
+  }, [steps]);
 
   const skipToCode = () => {
     inputEl.current.slideToIndex(codeStepStart);
@@ -55,7 +55,7 @@ const SlideShow = (
 
   const goRight = () => {
     inputEl.current.slideToIndex(
-      currentStep + 1 === noOfSteps ? currentStep : currentStep + 1
+      currentStep + 1 === steps.length ? currentStep : currentStep + 1
     );
   };
 
@@ -93,7 +93,7 @@ const SlideShow = (
       </div>
 
       <div className="code-step">
-        Step {currentStep + 1} : {expSteps[currentStep]}
+        Step {currentStep + 1} : {steps[currentStep].description}
       </div>
       <div className="nav">
         <div onClick={goLeft} className="left-arrow">
@@ -142,9 +142,9 @@ const SlideShow = (
 };
 
 const mapStateToProps = state => ({
-  expSteps: state.experimentReducer.currentExpSteps,
-  codeStepStart: state.experimentReducer.codeStepStart,
-  showCode: state.experimentReducer.showCode
+  expSteps: state.courseReducer.currentExpSteps,
+  codeStepStart: state.courseReducer.codeStepStart,
+  showCode: state.courseReducer.showCode
 })
 
 const mapDispatchToProps = dispatch => ({
