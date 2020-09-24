@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setTextEditor2Content } from './action';
 import imageCompression from 'browser-image-compression';
+import { baseUrl } from '../../config';
 
 class TextEditor2 extends React.Component {
 
@@ -77,7 +78,7 @@ class TextEditor2 extends React.Component {
                                     formData.set('expId', '12345')
                                     formData.append('file', compressedFile)
 
-                                    await axios.post('http://localhost:3300/upload/introduction', formData).then(
+                                    await axios.post(`${baseUrl}/api/upload/introduction`, formData).then(
                                         res => {
                                             console.log("res.data", res.data)
                                             console.log("path", process.env.PUBLIC_URL)

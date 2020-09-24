@@ -18,7 +18,8 @@ import {
     Upload
 } from 'antd';
 import { MinusCircleOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
-import { addExperimentForm} from '../action'
+import { addExperimentForm } from '../action'
+import { baseUrl } from '../../../config'
 
 class AddExperimentForm extends Component {
     constructor(props) {
@@ -45,17 +46,18 @@ class AddExperimentForm extends Component {
 
 
     componentDidMount() {
+
         if (this.props.currentCourse) {
             console.log("has , gotta call server")
             // this.props.getExperimentForm(this.props.currentCourse.experiment)
-            axios.get(`http://localhost:3300/course/experimentForm/get/${this.props.match.params.expId}`)
-            .then(res=>res.data)
-            .then(expForm => {
-                if(expForm.form){
-                    this.setState({questions: expForm.form.formContent})
-                }
-            })
-            .catch(err=>console.log("error in getting exp form"))
+            axios.get(`${baseUrl}/api/course/experimentForm/get/${this.props.match.params.expId}`)
+                .then(res => res.data)
+                .then(expForm => {
+                    if (expForm.form) {
+                        this.setState({ questions: expForm.form.formContent })
+                    }
+                })
+                .catch(err => console.log("error in getting exp form"))
         } else {
             console.log("does not ahve any introduction astart from the first")
         }
@@ -73,7 +75,7 @@ class AddExperimentForm extends Component {
         this.setState(prevState => {
             return {
                 ...prevState,
-                questions: [...prevState.questions, { type: "input", required: required?true:false, name: label, label: label }],
+                questions: [...prevState.questions, { type: "input", required: required ? true : false, name: label, label: label }],
                 inputModal: false
             }
         })
@@ -82,7 +84,7 @@ class AddExperimentForm extends Component {
         this.setState(prevState => {
             return {
                 ...prevState,
-                questions: [...prevState.questions, { type: "textarea", required: required?true:false, name: label, label: label }],
+                questions: [...prevState.questions, { type: "textarea", required: required ? true : false, name: label, label: label }],
                 textareaModal: false
             }
         })
@@ -91,7 +93,7 @@ class AddExperimentForm extends Component {
         this.setState(prevState => {
             return {
                 ...prevState,
-                questions: [...prevState.questions, { type: "number", required: required?true:false, name: label, label: label }],
+                questions: [...prevState.questions, { type: "number", required: required ? true : false, name: label, label: label }],
                 numberModal: false
             }
         })
@@ -142,7 +144,7 @@ class AddExperimentForm extends Component {
             this.setState(prevState => {
                 return {
                     ...prevState,
-                    questions: [...prevState.questions, { type: "checkboxgroup", name: label, required: required?true:false, label: label, values: values }],
+                    questions: [...prevState.questions, { type: "checkboxgroup", name: label, required: required ? true : false, label: label, values: values }],
                     checkboxgroupModal: false
                 }
             })
@@ -155,7 +157,7 @@ class AddExperimentForm extends Component {
             this.setState(prevState => {
                 return {
                     ...prevState,
-                    questions: [...prevState.questions, { type: "radio", name: label, required: required?true:false, label: label, values: values }],
+                    questions: [...prevState.questions, { type: "radio", name: label, required: required ? true : false, label: label, values: values }],
                     radioModal: false
                 }
             })
@@ -183,17 +185,17 @@ class AddExperimentForm extends Component {
     }
 
 
-   submitForm = async () =>{
-        if(this.state.questions.length){
+    submitForm = async () => {
+        if (this.state.questions.length) {
             console.log(this.state.questions)
-            this.setState({loading: true})
-            await this.props.addExperimentForm(this.props.match.params.id,this.state.questions,this.props.match.params.expId)
-            this.setState({loading: false})
+            this.setState({ loading: true })
+            await this.props.addExperimentForm(this.props.match.params.id, this.state.questions, this.props.match.params.expId)
+            this.setState({ loading: false })
             this.props.history.goBack()
         }
     }
 
-    
+
 
 
 
@@ -219,10 +221,10 @@ class AddExperimentForm extends Component {
         const normFile = e => {
             console.log('Upload event:', e);
             if (Array.isArray(e)) {
-              return e;
+                return e;
             }
             return e && e.fileList;
-          };
+        };
 
 
 
@@ -343,16 +345,16 @@ class AddExperimentForm extends Component {
                                     }
                                         break;
 
-                                        case 'upload': {
-                                            return(
-                                                <Form.Item name={name} label={label} valuePropName="fileList" getValueFromEvent={normFile} rules={[
-                                                    { required: required }]}>
-                                                    <Upload>
-                                                        <Button icon={<UploadOutlined />}>Click to upload</Button>
-                                                    </Upload>
-                                                </Form.Item>
-                                            )
-                                        }
+                                    case 'upload': {
+                                        return (
+                                            <Form.Item name={name} label={label} valuePropName="fileList" getValueFromEvent={normFile} rules={[
+                                                { required: required }]}>
+                                                <Upload>
+                                                    <Button icon={<UploadOutlined />}>Click to upload</Button>
+                                                </Upload>
+                                            </Form.Item>
+                                        )
+                                    }
                                     default: return null
                                 }
                             })
@@ -377,7 +379,7 @@ class AddExperimentForm extends Component {
                     <Button onClick={() => this.setState({ textModal: true })}>Text</Button>
                     <Button onClick={() => this.setState({ headingModal: true })}>Heading</Button>
                     <Button onClick={() => this.setState({ tableModal: true })}>Table</Button>
-                    <Button onClick={() => this.setState({uploadModal: true})}>Upload</Button>
+                    <Button onClick={() => this.setState({ uploadModal: true })}>Upload</Button>
 
 
 

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setFormData } from './action';
 import imageCompression from 'browser-image-compression';
+import { baseUrl } from '../../config';
 
 
 const { Dragger } = Upload;
@@ -107,9 +108,10 @@ class BuildCircuitBuilder extends Component {
                     }
                     )
                     if (success) {
+
                         this.setState({ ans: { steps: newSteps } });
                         console.log({ steps: newSteps })
-                        axios.post('http://localhost:3300/course/buildCircuit', { course_id: "5f1ef04ec0f8f301d4f0668f", steps: newSteps })
+                        axios.post(`${baseUrl}/api/course/buildCircuit`, { course_id: "5f1ef04ec0f8f301d4f0668f", steps: newSteps })
                             .then(res => console.log("hmm seems fine"))
                             .catch(err => console.log("error in adding"))
                     }
@@ -157,7 +159,7 @@ class BuildCircuitBuilder extends Component {
                                                             let formData = new FormData()
                                                             formData.set('expId', '123')
                                                             formData.append('file', compressedFile)
-                                                            await axios.post('http://localhost:3300/upload/experiment', formData).then(res => {
+                                                            await axios.post(`${baseUrl}/api/upload/experiment`, formData).then(res => {
                                                                 onSuccess(res.data)
                                                                 console.log(res.data)
                                                             }).catch(err => { console.log("error in uploading"); onError("Error in uploading.Try again") })
@@ -189,7 +191,7 @@ class BuildCircuitBuilder extends Component {
                                                             let formData = new FormData()
                                                             formData.set('expId', '123')
                                                             formData.append('file', compressedFile)
-                                                            await axios.post('http://localhost:3300/upload/experiment', formData).then(res => {
+                                                            await axios.post(`${baseUrl}/api/upload/experiment`, formData).then(res => {
                                                                 onSuccess(res.data)
                                                                 console.log(res.data)
                                                             }).catch(err => { console.log("error in uploading"); onError("Error in uploading.Try again") })
@@ -267,7 +269,7 @@ class BuildCircuitBuilder extends Component {
                                                             rules={[{ required: true, message: 'Missing step image' }]}
                                                         >
                                                             <Upload multiple={false} accept=".png"
-                                                                name="file" action="http://localhost:3300/uploadExperimentImages?expId=123" listType="picture">
+                                                                name="file" action={`${baseUrl}/api/uploadExperimentImages?expId=123`} listType="picture">
                                                                 <Button>
                                                                     <UploadOutlined /> Upload Image
           </Button>
@@ -282,7 +284,7 @@ class BuildCircuitBuilder extends Component {
                                                             fieldKey={[field.fieldKey, 'upload_side']}
                                                         >
                                                             <Upload multiple={false} accept=".png"
-                                                                name="file" action="http://localhost:3300/uploadExperimentImages?expId=123" listType="picture">
+                                                                name="file" action={`${baseUrl}/api/uploadExperimentImages?expId=123`} listType="picture">
                                                                 <Button>
                                                                     <UploadOutlined /> Upload Side Image(if any)
           </Button>

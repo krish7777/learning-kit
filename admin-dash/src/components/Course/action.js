@@ -1,9 +1,9 @@
 import { ACTION } from './constants';
 import axios from "axios"
-
+import { baseUrl } from "../../config"
 export const getCurrentCourse = (id) => async dispatch => {
     try {
-        const res = await axios.get(`http://localhost:3300/course/get/${id}`);
+        const res = await axios.get(`${baseUrl}/api/course/get/${id}`);
         console.log(res.data)
         dispatch({
             type: ACTION.GET_CURRENT_COURSE,
@@ -25,7 +25,7 @@ export const setIntroductionHtml = (html) => dispatch => {
 
 export const getIntroduction = (id) => async dispatch => {//it is introduction id, not course id
     try {
-        const res = await axios.get(`http://localhost:3300/course/introduction/get/${id}`);
+        const res = await axios.get(`${baseUrl}/api/course/introduction/get/${id}`);
         console.log(res.data)
         dispatch({
             type: ACTION.GET_INTRODCUTION_HTML,
@@ -38,7 +38,7 @@ export const getIntroduction = (id) => async dispatch => {//it is introduction i
 
 export const addIntroduction = (id, html, intro_id) => async dispatch => {
     try {
-        const res = await axios.post('http://localhost:3300/course/introduction', {
+        const res = await axios.post(`${baseUrl}/api/course/introduction`, {
             course_id: id,
             html: html,
             introduction_id: intro_id
@@ -62,7 +62,7 @@ export const clearIntroduction = () => dispatch => {
 
 export const getBuildCircuit = (id) => async dispatch => {
     try {
-        const res = await axios.get(`http://localhost:3300/course/buildCircuit/get/${id}`)
+        const res = await axios.get(`${baseUrl}/api/course/buildCircuit/get/${id}`)
         console.log("asking fro get build ckt", res.data)
 
         dispatch({
@@ -74,9 +74,9 @@ export const getBuildCircuit = (id) => async dispatch => {
     }
 }
 
-export const addBuildCircuit = (id, steps,code, build_id) => async dispatch => {
+export const addBuildCircuit = (id, steps, code, build_id) => async dispatch => {
     try {
-        const res = await axios.post('http://localhost:3300/course/buildCircuit', {
+        const res = await axios.post(`${baseUrl}/api/course/buildCircuit`, {
             course_id: id,
             steps,
             code,
@@ -106,7 +106,7 @@ export const clearBuildCircuit = () => dispatch => {
 
 export const getExperiment = (id) => async dispatch => {
     try {
-        const res = await axios.get(`http://localhost:3300/course/experiment/get/${id}`)
+        const res = await axios.get(`${baseUrl}/api/course/experiment/get/${id}`)
         console.log("asking fro get experiment", res.data)
 
         dispatch({
@@ -118,9 +118,9 @@ export const getExperiment = (id) => async dispatch => {
     }
 }
 
-export const addExperiment = (id, steps,simulationLink, exp_id) => async dispatch => {
+export const addExperiment = (id, steps, simulationLink, exp_id) => async dispatch => {
     try {
-        const res = await axios.post('http://localhost:3300/course/experiment', {
+        const res = await axios.post(`${baseUrl}/api/course/experiment`, {
             course_id: id,
             steps,
             simulationLink,
@@ -145,10 +145,10 @@ export const clearExperiment = () => dispatch => {
 //<<<<<<<<<<<EXPERIMENT_FORM>>>>>>>>>>>>>
 
 
-export const addExperimentForm = (id,formContent,exp_id) => async dispatch => {
-    try{
+export const addExperimentForm = (id, formContent, exp_id) => async dispatch => {
+    try {
         console.log("herrrrrrrrrrrrrrrrrrrr")
-        const res = await axios.post('http://localhost:3300/course/experimentForm',{
+        const res = await axios.post(`${baseUrl}/api/course/experimentForm`, {
             course_id: id,
             formContent,
             exp_id: exp_id
@@ -158,7 +158,7 @@ export const addExperimentForm = (id,formContent,exp_id) => async dispatch => {
             type: ACTION.ADD_EXPERIMENT_FORM_SUCCESS
         })
 
-    }catch(err){
+    } catch (err) {
         console.log("error in addExperimentForm")
     }
 }
@@ -168,10 +168,10 @@ export const addExperimentForm = (id,formContent,exp_id) => async dispatch => {
 //<<<<<<<<<<<RESULTS>>>>>>>>>>>>>
 
 
-export const addResults = (id,formContent,results_id) => async dispatch => {
-    try{
+export const addResults = (id, formContent, results_id) => async dispatch => {
+    try {
         console.log("herrrrrrrrrrrrrrrrrrrr")
-        const res = await axios.post('http://localhost:3300/course/results',{
+        const res = await axios.post(`${baseUrl}/api/course/results`, {
             course_id: id,
             formContent,
             results_id
@@ -181,7 +181,7 @@ export const addResults = (id,formContent,results_id) => async dispatch => {
             type: ACTION.ADD_RESULTS_SUCCESS
         })
 
-    }catch(err){
+    } catch (err) {
         console.log("error in addResults")
     }
 }
@@ -191,7 +191,7 @@ export const addResults = (id,formContent,results_id) => async dispatch => {
 
 export const getTroubleshoot = (id) => async dispatch => {
     try {
-        const res = await axios.get(`http://localhost:3300/course/troubleshoot/get/${id}`)
+        const res = await axios.get(`${baseUrl}/api/course/troubleshoot/get/${id}`)
         console.log("asking for get troubleshoot", res.data)
 
         dispatch({
@@ -203,9 +203,9 @@ export const getTroubleshoot = (id) => async dispatch => {
     }
 }
 
-export const addTroubleshoot = (id,faqs, troubleshoot_id) => async dispatch => {
+export const addTroubleshoot = (id, faqs, troubleshoot_id) => async dispatch => {
     try {
-        const res = await axios.post('http://localhost:3300/course/troubleshoot', {
+        const res = await axios.post(`${baseUrl}/api/course/troubleshoot`, {
             course_id: id,
             faqs: faqs,
             troubleshoot_id: troubleshoot_id
@@ -237,7 +237,7 @@ export const clearTroubleshoot = () => dispatch => {
 
 export const getExcercise = (id) => async dispatch => {
     try {
-        const res = await axios.get(`http://localhost:3300/course/excercise/get/${id}`)
+        const res = await axios.get(`${baseUrl}/api/course/excercise/get/${id}`)
         console.log("asking for get excercise", res.data)
 
         dispatch({
@@ -249,9 +249,9 @@ export const getExcercise = (id) => async dispatch => {
     }
 }
 
-export const addExcercise = (id,excercise_list, excercise_id) => async dispatch => {
+export const addExcercise = (id, excercise_list, excercise_id) => async dispatch => {
     try {
-        const res = await axios.post('http://localhost:3300/course/excercise', {
+        const res = await axios.post(`${baseUrl}/api/course/excercise`, {
             course_id: id,
             excercise_list: excercise_list,
             excercise_id: excercise_id

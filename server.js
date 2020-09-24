@@ -14,16 +14,37 @@ const PORT = process.env.PORT || 3300
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors())
+
+app.use(express.static(path.join(__dirname, 'client-folder', 'build')));
+app.use(express.static(path.join(__dirname, 'admin-dash', 'build')));
+
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
     res.send("test from krish")
 })
 
-app.use('/upload', uploadRoutes)
-app.use('/auth', authRoutes)
-app.use('/course', courseRoutes)
-app.use('/module', moduleRoutes)
+app.use('/api/upload', uploadRoutes)
+app.use('/api/auth', authRoutes)
+app.use('/api/course', courseRoutes)
+app.use('/api/module', moduleRoutes)
+
+// app.get('/i', (req, res) => {
+//     res.json("dsads")
+// })
+
+
+app.get('/i*', (req, res) => {
+    console.log("jhasdjhasd")
+    console.log(path.resolve(__dirname, 'admin-dash', 'build', 'index.html'))
+    res.sendFile(path.resolve(__dirname, 'admin-dash', 'build', 'index.html'))
+})
+
+app.get('/*', (req, res) => {
+    console.log("jhasdjhasd")
+    console.log(path.resolve(__dirname, 'admin-dash', 'build', 'index.html'))
+    res.sendFile(path.resolve(__dirname, 'client-folder', 'build', 'index.html'))
+})
 
 app.use((error, req, res, next) => {
     console.log(error);

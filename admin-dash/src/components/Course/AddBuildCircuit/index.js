@@ -6,6 +6,7 @@ import axios from "axios"
 import imageCompression from 'browser-image-compression';
 import { bindActionCreators } from 'redux';
 import { addBuildCircuit, clearBuildCircuit, getBuildCircuit } from '../action';
+import { baseUrl } from '../../../config';
 
 class AddBuildCircuit extends Component {
 
@@ -127,7 +128,7 @@ class AddBuildCircuit extends Component {
                                 //     .then(res => console.log("hmm seems fine"))
                                 //     .catch(err => console.log("error in adding"))
                                 this.setState({ loading: true })
-                                await this.props.addBuildCircuit(this.props.match.params.id, newSteps,code, this.props.currentCourse.buildCircuit)
+                                await this.props.addBuildCircuit(this.props.match.params.id, newSteps, code, this.props.currentCourse.buildCircuit)
                                 this.setState({ loading: false })
                                 console.log("abt to cler")
                                 this.props.clearBuildCircuit()
@@ -146,13 +147,13 @@ class AddBuildCircuit extends Component {
 
                     }}>
 
-                    {/*FOR ARDUINO*/}
+                        {/*FOR ARDUINO*/}
 
-                    {this.props.match.params.type=="arduino" ? <Form.Item label="Code" name="code" 
-                                                                            rules={[{ required: true, message: 'Missing Code' }]}
-                                                                            >
-                        <Input.TextArea autoSize={{ minRows: 5 }}/>
-                    </Form.Item>:null}
+                        {this.props.match.params.type == "arduino" ? <Form.Item label="Code" name="code"
+                            rules={[{ required: true, message: 'Missing Code' }]}
+                        >
+                            <Input.TextArea autoSize={{ minRows: 5 }} />
+                        </Form.Item> : null}
 
 
                         <Form.List name="steps" label="steps" rules={[{ required: true }]}>
@@ -193,7 +194,7 @@ class AddBuildCircuit extends Component {
                                                                 let formData = new FormData()
                                                                 formData.set('expId', '123')
                                                                 formData.append('file', compressedFile)
-                                                                await axios.post('http://localhost:3300/upload/experiment', formData).then(res => {
+                                                                await axios.post(`${baseUrl}/api/upload/experiment`, formData).then(res => {
                                                                     onSuccess(res.data)
                                                                     console.log(res.data)
                                                                 }).catch(err => { console.log("error in uploading"); onError("Error in uploading.Try again") })
@@ -225,7 +226,8 @@ class AddBuildCircuit extends Component {
                                                                 let formData = new FormData()
                                                                 formData.set('expId', '123')
                                                                 formData.append('file', compressedFile)
-                                                                await axios.post('http://localhost:3300/upload/experiment', formData).then(res => {
+
+                                                                await axios.post(`${baseUrl}/api/upload/experiment`, formData).then(res => {
                                                                     onSuccess(res.data)
                                                                     console.log(res.data)
                                                                 }).catch(err => { console.log("error in uploading"); onError("Error in uploading.Try again") })
@@ -335,7 +337,7 @@ class AddBuildCircuit extends Component {
                                 //     .then(res => console.log("hmm seems fine"))
                                 //     .catch(err => console.log("error in adding"))
                                 this.setState({ loading: true })
-                                await this.props.addBuildCircuit(this.props.match.params.id, newSteps,this.props.currentCourse.buildCircuit)
+                                await this.props.addBuildCircuit(this.props.match.params.id, newSteps, this.props.currentCourse.buildCircuit)
                                 this.setState({ loading: false })
                                 console.log("abt to cler")
                                 this.props.clearBuildCircuit()
@@ -355,13 +357,13 @@ class AddBuildCircuit extends Component {
                     }}>
 
 
-                     {/*FOR ARDUINO*/}
+                        {/*FOR ARDUINO*/}
 
-                     {this.props.match.params.type=="arduino" ? <Form.Item label="Code" name="code" 
-                                                                            rules={[{ required: true, message: 'Missing Code' }]}
-                                                                            >
-                        <Input.TextArea autoSize={{ minRows: 5}}/>
-                    </Form.Item>:null}
+                        {this.props.match.params.type == "arduino" ? <Form.Item label="Code" name="code"
+                            rules={[{ required: true, message: 'Missing Code' }]}
+                        >
+                            <Input.TextArea autoSize={{ minRows: 5 }} />
+                        </Form.Item> : null}
 
 
                         <Form.List name="steps" label="steps" rules={[{ required: true }]}>
@@ -402,7 +404,7 @@ class AddBuildCircuit extends Component {
                                                                 let formData = new FormData()
                                                                 formData.set('expId', '123')
                                                                 formData.append('file', compressedFile)
-                                                                await axios.post('http://localhost:3300/upload/experiment', formData).then(res => {
+                                                                await axios.post(`${baseUrl}/api/upload/experiment`, formData).then(res => {
                                                                     onSuccess(res.data)
                                                                     console.log(res.data)
                                                                 }).catch(err => { console.log("error in uploading"); onError("Error in uploading.Try again") })
@@ -434,7 +436,7 @@ class AddBuildCircuit extends Component {
                                                                 let formData = new FormData()
                                                                 formData.set('expId', '123')
                                                                 formData.append('file', compressedFile)
-                                                                await axios.post('http://localhost:3300/upload/experiment', formData).then(res => {
+                                                                await axios.post(`${baseUrl}/api/upload/experiment`, formData).then(res => {
                                                                     onSuccess(res.data)
                                                                     console.log(res.data)
                                                                 }).catch(err => { console.log("error in uploading"); onError("Error in uploading.Try again") })

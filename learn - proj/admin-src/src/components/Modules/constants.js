@@ -1,4 +1,0 @@
-export const ACTION = {
-    GET_MODULES: 'GET_MODULES',
-    GET_CURRENT_MODULE: "GET_CURRENT_MODULE"
-};

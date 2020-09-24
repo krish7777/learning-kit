@@ -2,21 +2,21 @@ import React from "react"
 import { Link } from "react-router-dom"
 
 
-class CreatorHome extends React.Component{
-    constructor(){
+class CreatorHome extends React.Component {
+    constructor() {
         super()
     }
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 CREATOR HOME
-                <br/>
-                <Link to="/arduino">
-                ARDUINO
+                <br />
+                <Link to="i/arduino">
+                    ARDUINO
                 </Link>
-                <br/>
-                <Link to="/digital">
-                DIGITAL
+                <br />
+                <Link to="i/digital">
+                    DIGITAL
                 </Link>
             </div>
         )

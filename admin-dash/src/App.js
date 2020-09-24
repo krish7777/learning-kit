@@ -45,22 +45,22 @@ class App extends React.Component {
         {/* <iframe width="600px" height="400px" src="https://editor.p5js.org/SoumitroV/embed/Hwq52Cn0t"></iframe>
         <iframe width="600px" height="400px" src="https://circuitverse.org/simulator/embed/248" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe> */}
         {/* <Modules /> */}
-        <div><Link to="/">HOME</Link></div>
+        <div><Link to="/i">HOME</Link></div>
         <Switch>
-          <Route path="/:type/module/:id" component={Module} />
-          <Route path="/:type/course/introduction/:id" component={AddIntroduction} />
-          <Route path="/:type/course/experiment/:id" component={AddExperiment} />
-          <Route path="/:type/course/troubleshoot/:id" component={AddTroubleshoot} />
-          <Route path="/:type/course/build-circuit/:id" component={AddBuildCircuit} />
-          <Route path="/:type/course/experiment-form/:id/:expId" component={AddExperimentForm}/>
-          <Route path="/:type/course/results/:id" component={AddResults}/>
-          <Route path="/:type/course/excercise/:id" component={AddExcercise}/>
-          <Route exact path="/:type" component={Modules} />
+          <Route path="/i/:type/module/:id" component={Module} />
+          <Route path="/i/:type/course/introduction/:id" component={AddIntroduction} />
+          <Route path="/i/:type/course/experiment/:id" component={AddExperiment} />
+          <Route path="/i/:type/course/troubleshoot/:id" component={AddTroubleshoot} />
+          <Route path="/i/:type/course/build-circuit/:id" component={AddBuildCircuit} />
+          <Route path="/i/:type/course/experiment-form/:id/:expId" component={AddExperimentForm} />
+          <Route path="/i/:type/course/results/:id" component={AddResults} />
+          <Route path="/i/:type/course/excercise/:id" component={AddExcercise} />
+          <Route exact path="/i/:type" component={Modules} />
 
-          <Route exact path="/:type/course/:id" component={Course} />
-          <Route path="/:type/add-module" component={AddModule} />
-          <Route path="/:type/add-course/:module_id" component={AddCourse} />
-          <Route path="/" component={CreatorHome} />
+          <Route exact path="/i/:type/course/:id" component={Course} />
+          <Route path="/i/:type/add-module" component={AddModule} />
+          <Route path="/i/:type/add-course/:module_id" component={AddCourse} />
+          <Route path="/i" component={CreatorHome} />
         </Switch>
 
 

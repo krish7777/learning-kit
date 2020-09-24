@@ -1,5 +1,6 @@
 import { ACTION } from "./constants";
 import axios from "axios";
+import { baseUrl } from "../../config";
 
 export const getSomeData = (data) => async (dispatch) => {
     // const res = await axios.get("/some-api-route");
@@ -26,7 +27,7 @@ export const changeCurrentStep = (step) => dispatch => {
 export const getCurrentCourse = (id) => async dispatch => {
     try {
 
-        const res = await axios.get(`http://localhost:3300/course/get/${id}`)
+        const res = await axios.get(`${baseUrl}/api/course/get/${id}`)
         dispatch({
             type: ACTION.GET_CURRENT_COURSE,
             payload: res.data.course
@@ -41,7 +42,7 @@ export const getCurrentCourse = (id) => async dispatch => {
 export const getIntroduction = (id) => async dispatch => {
     try {
 
-        const res = await axios.get(`http://localhost:3300/course/introduction/get/${id}`)
+        const res = await axios.get(`${baseUrl}/api/course/introduction/get/${id}`)
         dispatch({
             type: ACTION.GET_INTRODUCTION,
             payload: res.data.introduction
@@ -55,7 +56,7 @@ export const getIntroduction = (id) => async dispatch => {
 export const getBuildCircuit = (id) => async dispatch => {
     try {
 
-        const res = await axios.get(`http://localhost:3300/course/buildCircuit/get/${id}`)
+        const res = await axios.get(`${baseUrl}/api/course/buildCircuit/get/${id}`)
         console.log("respomsasd", res.data)
         dispatch({
             type: ACTION.GET_BUILD_CIRCUIT,
@@ -70,7 +71,7 @@ export const getBuildCircuit = (id) => async dispatch => {
 export const getExperiment = (id) => async dispatch => {
     try {
 
-        const res = await axios.get(`http://localhost:3300/course/experiment/get/${id}`)
+        const res = await axios.get(`${baseUrl}/api/course/experiment/get/${id}`)
         dispatch({
             type: ACTION.GET_EXPERIMENT,
             payload: res.data.experiment
@@ -84,7 +85,7 @@ export const getExperiment = (id) => async dispatch => {
 export const getResults = (id) => async dispatch => {
     try {
 
-        const res = await axios.get(`http://localhost:3300/course/results/get/${id}`)
+        const res = await axios.get(`${baseUrl}/api/course/results/get/${id}`)
         dispatch({
             type: ACTION.GET_RESULTS,
             payload: res.data.results
@@ -98,7 +99,7 @@ export const getResults = (id) => async dispatch => {
 export const getTroubleshoot = (id) => async dispatch => {
     try {
 
-        const res = await axios.get(`http://localhost:3300/course/troubleshoot/get/${id}`)
+        const res = await axios.get(`${baseUrl}/api/course/troubleshoot/get/${id}`)
         dispatch({
             type: ACTION.GET_TROUBLESHOOT,
             payload: res.data.troubleshoot
@@ -112,7 +113,8 @@ export const getTroubleshoot = (id) => async dispatch => {
 export const getExcercise = (id) => async dispatch => {
     try {
 
-        const res = await axios.get(`http://localhost:3300/course/excercise/get/${id}`)
+        const res = await axios.get(`${baseUrl}/api/course/excercise/get/${id}`)
+
         dispatch({
             type: ACTION.GET_EXCERCISE,
             payload: res.data.excercise

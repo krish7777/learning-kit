@@ -3,6 +3,7 @@ import { Editor } from '@tinymce/tinymce-react';
 import axios from "axios"
 import "./styles.scss"
 import imageCompression from 'browser-image-compression';
+import { baseUrl } from '../../config';
 
 const TextEditor = ({ handleEditorChange, content }) => {
 
@@ -66,7 +67,7 @@ const TextEditor = ({ handleEditorChange, content }) => {
                                 formData.set('expId', '12345')//maybe in future pass some props
                                 formData.append('file', compressedFile)
 
-                                await axios.post('http://localhost:3300/upload/introduction', formData).then(
+                                await axios.post(`${baseUrl}/api/upload/introduction`, formData).then(
                                     res => {
                                         console.log("res.data", res.data)
                                         console.log("path", process.env.PUBLIC_URL)

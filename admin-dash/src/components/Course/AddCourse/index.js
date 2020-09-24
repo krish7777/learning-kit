@@ -6,6 +6,7 @@ import { Form, Input, Button, Upload } from 'antd';
 import imageCompression from 'browser-image-compression';
 import axios from 'axios'
 import { UploadOutlined } from '@ant-design/icons';
+import { baseUrl } from '../../../config';
 
 
 class AddCourse extends Component {
@@ -83,7 +84,8 @@ class AddCourse extends Component {
                                 let formData = new FormData()
                                 formData.set('expId', '123')
                                 formData.append('file', compressedFile)
-                                await axios.post('http://localhost:3300/upload/experiment', formData).then(res => {
+
+                                await axios.post(`${baseUrl}/api/upload/experiment`, formData).then(res => {
                                     onSuccess(res.data)
                                     console.log(res.data)
                                 }).catch(err => { console.log("error in uploading"); onError("Error in uploading.Try again") })

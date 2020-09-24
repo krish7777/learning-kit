@@ -1,5 +1,6 @@
 import { ACTION } from "./constants";
 import axios from "axios";
+import { baseUrl } from "../../config";
 
 export const getSomeData = (data) => async (dispatch) => {
   // const res = await axios.get("/some-api-route");
@@ -11,15 +12,14 @@ export const getSomeData = (data) => async (dispatch) => {
 
 
 export const getAllModules = (type) => async (dispatch) => {
-  try
-    {
-      const res = await axios.get(`http://localhost:3300/module/all/${type}`)
+  try {
+    const res = await axios.get(`${baseUrl}/api/module/all/${type}`)
 
     dispatch({
       type: ACTION.GET_ALL_MODULES,
-      payload: res.data.modules || [] 
+      payload: res.data.modules || []
     })
-  }catch(e){
+  } catch (e) {
     console.log("error in getAllModules")
   }
 }

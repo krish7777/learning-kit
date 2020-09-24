@@ -18,12 +18,12 @@ class Modules extends Component {
             <div>
                 <div>All {this.props.match.params.type} modules</div>
                 {modules.map(module => (
-                    <Link to={`/${this.props.match.params.type}/module/${module._id}`}>
+                    <Link to={`/i/${this.props.match.params.type}/module/${module._id}`}>
                         <div>{module.name}</div>
                     </Link>
                 ))}
-                <br/>
-                <Link to={`/${this.props.match.params.type}/add-module`}><Button>Add Module</Button></Link>
+                <br />
+                <Link to={`/i/${this.props.match.params.type}/add-module`}><Button>Add Module</Button></Link>
             </div>
         )
     }

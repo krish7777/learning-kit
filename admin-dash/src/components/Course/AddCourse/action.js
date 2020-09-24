@@ -1,9 +1,10 @@
 import { ACTION } from './constants';
 import axios from "axios"
+import { baseUrl } from '../../../config';
 
 export const addCourse = (val) => async dispatch => {
     try {
-        const res = await axios.post("http://localhost:3300/course/add", val)
+        const res = await axios.post(`${baseUrl}/api/course/add`, val)
         console.log(res.data)
         dispatch({
             type: ACTION.ADD_COURSE_SUCCESS,
@@ -11,6 +12,7 @@ export const addCourse = (val) => async dispatch => {
     } catch (err) {
         console.log("error in addCourse")
     }
+
 
 }
 
