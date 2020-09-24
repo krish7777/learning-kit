@@ -14,7 +14,7 @@ const introStorage = multer.diskStorage({
         cb(null, reqPath)
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname+'.png')
+        cb(null, Date.now() + '-' + file.originalname + '.png')
     }
 })
 
@@ -34,14 +34,14 @@ const fileFilterIntroduction = (req, file, cb) => {
 const experimentStorage = multer.diskStorage({
     destination: function (req, file, cb) {
         console.log("req.data", req.body)
-        const reqPath = path.join(__dirname, '..', 'images', 'experiments', req.body.expId)
+        const reqPath = path.join(__dirname, '..', 'images', 'experiment', req.body.expId)
         if (!fs.existsSync(reqPath)) {
             fs.mkdirSync(reqPath, { recursive: true });
         }
         cb(null, reqPath)
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname)
+        cb(null, Date.now() + '-' + file.originalname + '.png')
     }
 })
 
