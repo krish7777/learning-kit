@@ -42,7 +42,7 @@ class Home extends React.Component {
         <Navbar />
         <div className="home">
           <div className="main-page-intro">
-            <h1>Hands On Arduino Basics Course</h1>
+            <h1>Hands On {this.props.match.params.type === 'arduino' ? ('Arduino') : ('Digital')} Basics Course</h1>
             <h3>By Prof. T S Natarajan | NPTEL Course</h3>
             <p>
               Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
