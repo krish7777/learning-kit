@@ -33,8 +33,7 @@ const fileFilterIntroduction = (req, file, cb) => {
 
 const experimentStorage = multer.diskStorage({
     destination: function (req, file, cb) {
-        console.log("req.data", req.body)
-        const reqPath = path.join(__dirname, '..', 'images', 'experiment', req.body.expId)
+        const reqPath = path.join(__dirname, '..', 'images', 'experiment')
         if (!fs.existsSync(reqPath)) {
             fs.mkdirSync(reqPath, { recursive: true });
         }
@@ -77,7 +76,6 @@ const uploadExperiment = multer({
 
 router.post('/introduction', uploadIntro.single('file'),
     (req, res) => {
-        console.log('req.file', req.file)
         res.json({
             "location": `http://localhost:3300/images/introduction/${req.file.filename}`, "originalName": req.file.originalname
         })
@@ -87,7 +85,7 @@ router.post('/experiment',
     uploadExperiment.single('file'),
     (req, res) => {
         console.log('req.file', req.file)
-        res.status(200).json({ "location": `http://localhost:3300/images/experiment/${req.body.expId}/${req.file.filename}`, "originalName": req.file.originalname })
+        res.status(200).json({ "location": `http://localhost:3300/images/experiment/${req.file.filename}`, "originalName": req.file.originalname })
     })
 
 module.exports = router;

@@ -1,8 +1,7 @@
 const { Module } = require('../models/module');
 
 exports.addModule = async (req, res, next) => {
-    const { name, thumbnailPath, introduction , type } = req.body;
-    // console.log("here")
+    const { name, thumbnailPath, introduction, type } = req.body;
     const module = new Module({
         name,
         thumbnailPath,
@@ -11,7 +10,6 @@ exports.addModule = async (req, res, next) => {
     });
     try {
         let resp = await module.save();
-        console.log("resp", resp)
         res.json({ "module_id": resp._id })
     } catch (err) {
         if (!err.statusCode) {
@@ -36,9 +34,9 @@ exports.getModule = async (req, res, next) => {
 }
 
 exports.getAllModules = async (req, res, next) => {
-    const {type} = req.params;
+    const { type } = req.params;
     try {
-        let modules = await Module.find({type}).populate('courses')
+        let modules = await Module.find({ type }).populate('courses')
         res.json({ modules })
     } catch (err) {
         if (!err.statusCode) {
