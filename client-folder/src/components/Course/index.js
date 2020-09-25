@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./styles.scss";
-import SlideShow from "./SlideShow";
-import CodeEditor from "./CodeEditor";
+
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { changeCurrentStep, getCurrentCourse } from "./action";

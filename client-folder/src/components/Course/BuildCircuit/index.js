@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { getBuildCircuit } from '../action'
 import SlideShow from '../SlideShow'
 import CodeEditor from '../CodeEditor'
-import DigitalImages from '../../DigitalExperiment/DigitalImages'
+import DigitalImages from '../DigitalImages'
 
 class BuildCircuit extends Component {
     constructor(props) {
@@ -18,11 +18,10 @@ class BuildCircuit extends Component {
 
     render() {
         const { buildCircuit, type } = this.props;
-        console.log("props", this.props)
         return (
             <>
-                {buildCircuit && type === 'arduino' ? (<> <SlideShow steps={this.props.buildCircuit?.steps} noOfSteps={10} expNo={2} /> <CodeEditor code={this.props.buildCircuit?.code} /></>) : null}
-                {buildCircuit && type === 'digital' ? (<><SlideShow steps={this.props.buildCircuit?.steps} noOfSteps={21} expNo={3} /><DigitalImages /></>) : null}
+                {buildCircuit && type === 'arduino' ? (<> <SlideShow steps={this.props.buildCircuit?.steps} codeStepStart={2} /> <CodeEditor code={this.props.buildCircuit?.code} /></>) : null}
+                {buildCircuit && type === 'digital' ? (<><SlideShow steps={this.props.buildCircuit?.steps} codeStepStart={2} /><DigitalImages /></>) : null}
             </>
         )
     }
@@ -37,5 +36,3 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BuildCircuit)
-
-//<> <SlideShow noOfSteps={10} expNo={2} /> <CodeEditor /></>

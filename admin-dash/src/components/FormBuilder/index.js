@@ -4,6 +4,12 @@ import React from 'react'
 import "./styles.scss"
 import { uuid } from 'uuidv4'
 
+
+//JUST UTILITY CODE ONLY!!! NOT PART OF PROJECT
+
+
+
+
 import {
     Form,
     Input,
@@ -15,7 +21,7 @@ import {
     notification,
     Switch, Upload
 } from 'antd';
-import { MinusCircleOutlined, PlusOutlined , UploadOutlined} from '@ant-design/icons';
+import { MinusCircleOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
 
 
 class FormBuilder extends React.Component {
@@ -87,7 +93,7 @@ class FormBuilder extends React.Component {
                 },
                 {
                     type: "upload",
-                    name:"Upload",
+                    name: "Upload",
                     label: "Upload",
                     required: true
                 }
@@ -244,10 +250,10 @@ class FormBuilder extends React.Component {
         const normFile = e => {
             console.log('Upload event:', e);
             if (Array.isArray(e)) {
-              return e;
+                return e;
             }
             return e && e.fileList;
-          };
+        };
         return (
             <div className="form-builder">
                 <div className="preview-form" >
@@ -365,7 +371,7 @@ class FormBuilder extends React.Component {
                                     }
                                         break;
                                     case 'upload': {
-                                        return(
+                                        return (
                                             <Form.Item name={name} label={label} valuePropName="fileList" getValueFromEvent={normFile} rules={[
                                                 { required: required }]}>
                                                 <Upload>
@@ -378,7 +384,7 @@ class FormBuilder extends React.Component {
                                 }
                             })
                         }
-                        
+
                         <Form.Item >
                             <Button type="primary" htmlType="submit">
                                 Submit
@@ -398,7 +404,7 @@ class FormBuilder extends React.Component {
                     <Button onClick={() => this.setState({ textModal: true })}>Text</Button>
                     <Button onClick={() => this.setState({ headingModal: true })}>Heading</Button>
                     <Button onClick={() => this.setState({ tableModal: true })}>Table</Button>
-                    <Button onClick={() => this.setState({uploadModal: true})}>Upload</Button>
+                    <Button onClick={() => this.setState({ uploadModal: true })}>Upload</Button>
 
 
 

@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 const CodeEditor = (props) => {
 
   return (
-    <div className="code-editor" style={props.showCode ? { width: "35%" } : { width: "0%" }}>
+    <div className="code-editor" style={props.showSide ? { width: "35%" } : { width: "0%" }}>
       <div style={{
         backgroundImage: `url(${IdeHeader})`,
         minWidth: "100%",
@@ -50,7 +50,7 @@ const CodeEditor = (props) => {
 };
 
 const mapStateToProps = state => ({
-  showCode: state.courseReducer.showCode
+  showSide: state.courseReducer.showSide
 })
 
 export default connect(mapStateToProps)(CodeEditor)
