@@ -7,12 +7,9 @@ const { StepThumb } = require('../../models/stepThumb');
 exports.addBuildCircuit = async (req, res, next) => {
     const { course_id, steps, code, build_id } = req.body;
 
-    if(!build_id){
+    if (!build_id) {
         try {
-            let finalSteps = []
-
             this.addSteps(steps).then(async (finalSteps) => {
-                console.log("finalSteps", finalSteps)
                 let buildCircuit = new BuildCircuit({
                     course_id,
                     code,
@@ -20,8 +17,6 @@ exports.addBuildCircuit = async (req, res, next) => {
                 })
                 let resp = await buildCircuit.save()
                 let updatedCourse = await Course.updateOne({ _id: course_id }, { $set: { buildCircuit: resp._id } })
-                console.log("updatedCourse", updatedCourse)
-                console.log("resp", resp)
                 res.json({ "buildCircuit": resp })
             })
 
@@ -31,15 +26,11 @@ exports.addBuildCircuit = async (req, res, next) => {
             }
             next(err)
         }
-    }else{
+    } else {
 
-    }try {
-        let finalSteps = []
-
+    } try {
         this.addSteps(steps).then(async (finalSteps) => {
-            console.log("finalSteps", finalSteps)
-            let updatedBuildCircuit = await BuildCircuit.updateOne({_id:build_id},{$set : {steps: finalSteps, code: code}})
-            console.log("updatedBuildCircuit", updatedBuildCircuit)
+            let updatedBuildCircuit = await BuildCircuit.updateOne({ _id: build_id }, { $set: { steps: finalSteps, code: code } })
             res.json({ "buildCircuit": "updated" })
         })
 
@@ -49,8 +40,6 @@ exports.addBuildCircuit = async (req, res, next) => {
         }
         next(err)
     }
-
-    
 }
 
 
@@ -59,20 +48,16 @@ exports.addSteps = async (steps) => {
         const { description, imagePath, sideImagePath, upload_image, upload_side } = step;
         let stepThumb = new StepThumb({ ...upload_image[0] })
         let imgResp = await stepThumb.save();
-        console.log("upload_image[0]", upload_image[0])
-        console.log("stepThumb", stepThumb)
-        console.log("imgResp", imgResp)
+
         if (upload_side && upload_side.length) {
             let sideStepThumb = new StepThumb({ ...upload_side[0] })
             let sideImgResp = await sideStepThumb.save();
             let step1 = new Step({ description, imagePath, sideImagePath, upload_image: imgResp._id, upload_side: sideImgResp._id })
             let resp = await step1.save();
-            console.log(resp._id)
             return resp._id
         } else {
             let step1 = new Step({ description, imagePath, upload_image: imgResp._id })
             let resp = await step1.save();
-            console.log(resp._id)
             return resp._id
         }
 

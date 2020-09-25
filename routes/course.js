@@ -1,6 +1,5 @@
 const express = require('express')
 
-const { signup, login } = require('../controllers/auth');
 const isAuth = require('../middlewares/is-auth');
 const { addCourse, getCourse } = require('../controllers/course');
 const { addIntroduction, getIntroduction } = require('../controllers/course/introduction');
@@ -21,9 +20,9 @@ router.get('/troubleshoot/get/:id', getTroubleshoot)
 router.post('/excercise', addExcercise)
 router.get('/excercise/get/:id', getExcercise)
 router.post('/experiment', addExperiment)
-router.get('/experimentForm/get/:id',getExperimentForm)
+router.get('/experimentForm/get/:id', getExperimentForm)
 router.post('/experimentForm', addExperimentForm)
-router.get('/results/get/:id',getResults)
+router.get('/results/get/:id', getResults)
 router.post('/results', addResults)
 router.post('/introduction', addIntroduction)
 router.get('/introduction/get/:id', getIntroduction)

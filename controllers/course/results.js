@@ -5,31 +5,29 @@ const { ExperimentForm } = require('../../models/experimentForm');
 
 
 exports.addResults = async (req, res, next) => {
-    const { course_id, formContent,results_id} = req.body;
-    console.log("hehre")
-    if(!results_id){
+    const { course_id, formContent, results_id } = req.body;
+    if (!results_id) {
 
         let results = new ExperimentForm({
             formContent
         })
-        try{
+        try {
             let form_id = await results.save();
-            let updatedCourse = await Course.updateOne({_id:course_id},{$set: {results: form_id}})
-           console.log("updadas")
-            res.json({"course":"updated"})
+            let updatedCourse = await Course.updateOne({ _id: course_id }, { $set: { results: form_id } })
+            res.json({ "course": "updated" })
 
-        }catch(err){
+        } catch (err) {
             if (!err.statusCode) {
                 err.statusCode = 500
             }
             next(err)
         }
-        
-    }else{
+
+    } else {
         try {
-            let results = await ExperimentForm.updateOne({_id: results_id},{$set:{formContent:formContent} })
-            res.json({"results":"updated"})
-    
+            let results = await ExperimentForm.updateOne({ _id: results_id }, { $set: { formContent: formContent } })
+            res.json({ "results": "updated" })
+
         } catch (err) {
             if (!err.statusCode) {
                 err.statusCode = 500
@@ -37,7 +35,7 @@ exports.addResults = async (req, res, next) => {
             next(err)
         }
     }
-        
+
 }
 
 

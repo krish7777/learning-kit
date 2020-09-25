@@ -11,7 +11,7 @@ const moduleSchema = new Schema({
         ref: 'Course'
     }],
     type: String // arduino, digital
-    //excersices
+    //troubleshoot
 });
 
 exports.moduleSchema = moduleSchema

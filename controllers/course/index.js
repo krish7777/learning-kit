@@ -9,7 +9,6 @@ exports.addCourse = async (req, res, next) => {
     try {
         let stepThumb = new StepThumb({ ...thumbnailImage })
         let imgResp = await stepThumb.save();
-        console.log(imgResp)
         const course = new Course({
             name,
             thumbnailPath,
@@ -18,7 +17,6 @@ exports.addCourse = async (req, res, next) => {
         console.log("course", course)
         let resp = await course.save();
         let module = await Module.updateOne({ _id: module_id }, { $push: { courses: resp._id } })
-        console.log("resp", resp)
         res.json({ "course_id": resp._id })
     } catch (err) {
         if (!err.statusCode) {

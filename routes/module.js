@@ -8,5 +8,4 @@ router.post('/add', addModule)
 router.get('/get/:module_id', getModule)
 router.get('/all/:type', getAllModules)
 
-
 module.exports = router

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { stepThumbSchema } = require('./stepThumb');
 const Schema = mongoose.Schema;
 
 const stepSchema = new Schema({
@@ -9,9 +8,8 @@ const stepSchema = new Schema({
     },
     imagePath: {
         type: String,
-        //required: true --> since experiment dont need it
     },
-    code:{//for arduino
+    code: {//for arduino
         type: String
     },
     sideImagePath: {//for digital
