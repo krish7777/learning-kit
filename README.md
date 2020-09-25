@@ -1,10 +1,17 @@
 # An Online Electronics Learning Platform
 
+## Prerequisites
 
+- mongo
+- npm
+- node
 
 ## Installation
 
 ```bash
+
+mongod
+
 npm install
 npm start (or) node server.js
 
