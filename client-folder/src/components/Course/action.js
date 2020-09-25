@@ -10,9 +10,9 @@ export const getSomeData = (data) => async (dispatch) => {
     });
 };
 
-export const toggleCode = () => dispatch => {
+export const toggleSide = () => dispatch => {
     dispatch({
-        type: ACTION.TOGGLE_CODE
+        type: ACTION.TOGGLE_SIDE
     })
 }
 
@@ -123,4 +123,11 @@ export const getExcercise = (id) => async dispatch => {
     } catch (err) {
         console.log("error in getExcercise")
     }
+}
+
+export const changeStep = (slideNo) => async dispatch => {
+    dispatch(({
+        type: ACTION.CHANGE_STEP,
+        payload: slideNo
+    }))
 }

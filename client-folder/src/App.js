@@ -4,7 +4,6 @@ import "antd/dist/antd.css";
 import Modules from "./components/Modules";
 import Course from "./components/Course";
 import { Route } from "react-router-dom";
-import DigitalExperiment from "./components/DigitalExperiment";
 import MainHome from "./components/MainHome";
 
 const App = () => {
@@ -12,7 +11,6 @@ const App = () => {
     <div>
 
       <Route path="/:type/course/:id" component={Course} />
-      <Route path="/digital-experiment" component={DigitalExperiment} />
       <Route exact path="/:type" component={Home} />
       <Route path="/:type/modules" component={Modules} />
       <Route exact path="/" component={MainHome} />

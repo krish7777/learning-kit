@@ -8,6 +8,7 @@ import { setFormData } from './action';
 import imageCompression from 'browser-image-compression';
 import { baseUrl } from '../../config';
 
+//JUST UTILITY CODE ONLY!!! NOT PART OF PROJECT
 
 const { Dragger } = Upload;
 

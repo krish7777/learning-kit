@@ -3,13 +3,11 @@ import { composeWithDevTools as compose } from "redux-devtools-extension/develop
 import thunk from "redux-thunk";
 import homeReducer from "./components/Home/reducer";
 import courseReducer from "./components/Course/reducer";
-import digitalExperimentReducer from "./components/DigitalExperiment/reducer";
 
 const store = createStore(
   combineReducers({
     homeReducer,
     courseReducer,
-    digitalExperimentReducer
   }),
   {},
   compose(applyMiddleware(thunk))

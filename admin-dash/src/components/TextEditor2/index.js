@@ -8,6 +8,10 @@ import { setTextEditor2Content } from './action';
 import imageCompression from 'browser-image-compression';
 import { baseUrl } from '../../config';
 
+//JUST UTILITY CODE ONLY!!! NOT PART OF PROJECT
+
+
+
 class TextEditor2 extends React.Component {
 
     constructor(props) {
