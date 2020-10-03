@@ -70,26 +70,35 @@ class AddExperiment extends Component {
                         const { steps, simulationLink } = val;
                         let success = 1;
                         if (steps.length) {
-                            let newSteps = steps.map(step => {
-                                const { upload_image, description } = step;
-                                if (upload_image[0].response && upload_image[0].response.location) {
-                                    return {
-                                        description,
-                                        upload_image: [{
-                                            name: upload_image[0].name,
-                                            response: upload_image[0].response,
-                                            status: upload_image[0].status,
-                                            thumbUrl: upload_image[0].thumbUrl,
-                                            uid: upload_image[0].uid
-                                        }],
-                                        imagePath: upload_image[0].response.location
-                                    }
 
-                                }
-                                else {
-                                    success = 0;
-                                }
-                            })
+                            let newSteps;
+
+                            if (this.props.match.params.type == "arduino") {
+                                newSteps = steps.map(step => {
+                                    const { upload_image, description } = step;
+                                    if (upload_image[0].response && upload_image[0].response.location) {
+                                        return {
+                                            description,
+                                            upload_image: [{
+                                                name: upload_image[0].name,
+                                                response: upload_image[0].response,
+                                                status: upload_image[0].status,
+                                                thumbUrl: upload_image[0].thumbUrl,
+                                                uid: upload_image[0].uid
+                                            }],
+                                            imagePath: upload_image[0].response.location
+                                        }
+
+                                    }
+                                    else {
+                                        success = 0;
+                                    }
+                                })
+                            } else {
+                                newSteps = steps;
+                            }
+
+
 
                             if (success) {
 
@@ -137,7 +146,7 @@ class AddExperiment extends Component {
                                                         <Input.TextArea style={{ width: "90%" }} autoSize={{ minRows: 2 }} />
                                                     </Form.Item>
 
-                                                    <Form.Item
+                                                    {this.props.match.params.type == "arduino" ? <Form.Item
                                                         {...field}
                                                         key={"upload_image" + index}
                                                         {...formItemLayoutWithOutLabel}
@@ -170,7 +179,9 @@ class AddExperiment extends Component {
                                                                 <UploadOutlined /> Upload Image
                                                         </Button>
                                                         </Upload>
-                                                    </Form.Item>
+                                                    </Form.Item> : null}
+
+
 
                                                 </div>
 
@@ -219,24 +230,32 @@ class AddExperiment extends Component {
                         let success = 1;
                         if (steps.length) {
 
-                            let newSteps = steps.map(step => {
-                                const { upload_image, description } = step;
-                                if (upload_image[0].response && upload_image[0].response.location) {
-                                    return {
-                                        description,
-                                        upload_image: [{
-                                            name: upload_image[0].name,
-                                            response: upload_image[0].response,
-                                            status: upload_image[0].status,
-                                            thumbUrl: upload_image[0].thumbUrl,
-                                            uid: upload_image[0].uid
-                                        }],
-                                        imagePath: upload_image[0].response.location
+                            let newSteps;
+
+                            if (this.props.match.params.type == "arduino") {
+                                newSteps = steps.map(step => {
+                                    const { upload_image, description } = step;
+                                    if (upload_image[0].response && upload_image[0].response.location) {
+                                        return {
+                                            description,
+                                            upload_image: [{
+                                                name: upload_image[0].name,
+                                                response: upload_image[0].response,
+                                                status: upload_image[0].status,
+                                                thumbUrl: upload_image[0].thumbUrl,
+                                                uid: upload_image[0].uid
+                                            }],
+                                            imagePath: upload_image[0].response.location
+                                        }
+
                                     }
-                                } else {
-                                    success = 0;
-                                }
-                            })
+                                    else {
+                                        success = 0;
+                                    }
+                                })
+                            } else {
+                                newSteps = steps;
+                            }
 
                             if (success) {
 
@@ -287,7 +306,9 @@ class AddExperiment extends Component {
                                                         <Input.TextArea style={{ width: "90%" }} autoSize={{ minRows: 2 }} />
                                                     </Form.Item>
 
-                                                    <Form.Item
+
+
+                                                    {this.props.match.params.type == "arduino" ? <Form.Item
                                                         {...field}
                                                         key={"upload_image" + index}
                                                         {...formItemLayoutWithOutLabel}
@@ -307,6 +328,7 @@ class AddExperiment extends Component {
                                                                 console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`);
                                                                 let formData = new FormData()
                                                                 formData.set('expId', '123')
+
                                                                 formData.append('file', compressedFile)
                                                                 await axios.post(`${baseUrl}/api/upload/experiment`, formData).then(res => {
                                                                     onSuccess(res.data)
@@ -319,7 +341,7 @@ class AddExperiment extends Component {
                                                                 <UploadOutlined /> Upload Image
                                                         </Button>
                                                         </Upload>
-                                                    </Form.Item>
+                                                    </Form.Item> : null}
 
                                                 </div>
 
