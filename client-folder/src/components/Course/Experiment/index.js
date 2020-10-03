@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { getExperiment } from '../action'
 import SlideShow from '../ExpShow'
+import IframeShow from '../IframeShow'
 
 class Experiment extends Component {
 
@@ -11,11 +12,11 @@ class Experiment extends Component {
     }
 
     render() {
-        const { experiment } = this.props;
+        const { experiment,type } = this.props;
         return (
             <>
-                {experiment && type === 'digital' ? (<SlideShow steps={this.props.experiment?.steps} codeStepStart={2} />) : null}
                 {experiment && type === 'arduino' ? (<SlideShow steps={this.props.experiment?.steps} codeStepStart={2} />) : null}
+                {experiment && type === 'digital' ? (<IframeShow steps={this.props.experiment?.steps} simulation={this.props.experiment?.simulationLink} codeStepStart={2} />) : null}
             </>
         )
     }
