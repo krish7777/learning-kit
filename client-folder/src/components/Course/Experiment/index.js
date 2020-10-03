@@ -14,7 +14,8 @@ class Experiment extends Component {
         const { experiment } = this.props;
         return (
             <>
-                {experiment ? (<SlideShow steps={this.props.experiment?.steps} codeStepStart={2} />) : null}
+                {experiment && type === 'digital' ? (<SlideShow steps={this.props.experiment?.steps} codeStepStart={2} />) : null}
+                {experiment && type === 'arduino' ? (<SlideShow steps={this.props.experiment?.steps} codeStepStart={2} />) : null}
             </>
         )
     }
