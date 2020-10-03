@@ -11,31 +11,16 @@ import { ReactComponent as SkipIcon } from "../../../assets/images/SkipIcon.svg"
 import { ReactComponent as TroubleshootIcon } from "../../../assets/images/TroubleshootIcon.svg"
 import { bindActionCreators } from "redux";
 import { changeStep} from "../action";
-import Modal from "antd/lib/modal/Modal";
 
 const SlideShow = (
-  { steps, codeStepStart, changeStep }
+  { steps, changeStep }
 ) => {
 
 
   const [images, setImages] = useState([]);
   const [currentStep, setCurrentStep] = useState(0);
   const inputEl = useRef(null);
-
-  const [codeModalIsOpen, setCodeModalIsOpen] = useState(false);
-  const [startModalIsOpen, setStartModalIsOpen] = useState(false);
   const [overlayIsOpen, setOverlayIsOpen] = useState(true);
-
-
-  const closePrevExpModal = () => {
-    setStartModalIsOpen(false);
-  };
-  const closeCodeModal = () => {
-    setCodeModalIsOpen(false);
-  };
-  const closeOverlay = () => {
-    setOverlayIsOpen(false);
-  };
 
   useEffect(() => {
     const img = [];
@@ -50,8 +35,12 @@ const SlideShow = (
 
   }, [steps]);
 
-  const skipToCode = () => {
-    inputEl.current.slideToIndex(codeStepStart);
+  const skipToCode = (index) => {
+    inputEl.current.slideToIndex(index);
+  };
+
+  const closeOverlay = () => {
+    setOverlayIsOpen(false);
   };
 
   const goLeft = () => {
@@ -69,18 +58,9 @@ const SlideShow = (
     changeStep(slideNo)
   }
 
-
   const modalChecker = (x) => {
     onSlide(x)
-    if (x === codeStepStart + 1 && currentStep === codeStepStart) {
-      setCodeModalIsOpen(true);
-
-      setTimeout(() => {
-        setCodeModalIsOpen(false);
-      }, 1500);
-    }
   };
-
 
   return (
     <div className="slideshow" style={{ width: "65%", margin: "0 20%" }}>
@@ -135,25 +115,6 @@ const SlideShow = (
         </div>
       </div>
 
-      <Modal
-        title=""
-        visible={startModalIsOpen}
-        footer={[]}
-        closable={false}
-        style={{ textAlign: "center" }}
-      >
-        <h1>LET'S BEGIN</h1>
-      </Modal>
-      <Modal
-        title=""
-        visible={codeModalIsOpen}
-        footer={[]}
-        closable={false}
-        style={{ textAlign: "center" }}
-
-      >
-        <h1>LET'S START CODING</h1>
-      </Modal>
     </div >
   );
 };

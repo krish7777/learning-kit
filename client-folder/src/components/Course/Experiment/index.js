@@ -5,10 +5,6 @@ import { getExperiment } from '../action'
 import SlideShow from '../ExpShow'
 
 class Experiment extends Component {
-    constructor(props) {
-        super(props)
-    }
-
 
     componentDidMount() {
         this.props.getExperiment(this.props.id)
