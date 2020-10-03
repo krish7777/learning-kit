@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon"
+    "start": "concurrently \"mongod\" \"nodemon server.js\" \"cd admin-dash && npm run start\" \"cd client-folder && npm run start\""
   },
   "author": "Krishnendu Sudheesh",
   "license": "ISC",
@@ -15,6 +15,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.25",
-    "multer": "^1.4.2"
+    "multer": "^1.4.2",
+    "concurrently":"^5.3.0"
   }
 }
