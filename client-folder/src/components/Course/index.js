@@ -7,6 +7,7 @@ import { changeCurrentStep, getCurrentCourse } from "./action";
 import Introduction from "./Introduction";
 import { Link } from "react-router-dom";
 import BuildCircuit from "./BuildCircuit";
+import Experiment from "./Experiment";
 
 
 class Course extends React.Component {
@@ -172,7 +173,9 @@ class Course extends React.Component {
           <div className="steps-bar">
             <div onClick={() => changeCurrentStep('Introduction')} className={currentStep === "Introduction" ? "active" : ""}>INTRODUCTION</div>
             <div onClick={() => changeCurrentStep('BuildCircuit')} className={currentStep === "BuildCircuit" ? "active" : ""}>BUILD CIRCUIT</div>
-            {currentCourse?.experiment ? <div>EXPERIMENT</div> : null}
+            <div onClick={() => changeCurrentStep('Simulation')} className={currentStep === "Simulation" ? "active" : ""}>SIMULATION</div>
+            <div onClick={() => changeCurrentStep('Experiment')} className={currentStep === "Experiment" ? "active" : ""}>EXPERIMENT</div>
+            {/* {currentCourse?.experiment ? <div>EXPERIMENT</div> : null} */}
             {currentCourse?.results ? <div>RESULTS & ANALYSIS</div> : null}
             {currentCourse?.troubleshoot ? <div>TROUBLESHOOT</div> : null}
             {currentCourse?.excercise ? <div>EXCERCISES</div> : null}
@@ -180,7 +183,10 @@ class Course extends React.Component {
           <div className="body">
             {currentCourse && currentStep === 'BuildCircuit' ? <BuildCircuit id={currentCourse.buildCircuit} type={this.props.match.params.type} /> : null}
             {currentCourse && currentStep === 'Introduction' ? <Introduction id={currentCourse.introduction} /> : null}
-
+            {/* temporary placeholder [TODO] */}
+            {currentCourse && currentStep === 'Simulation' ? <Introduction id={currentCourse.introduction} /> : null} 
+            {/* placeholder end [TODO] */}
+            {currentCourse && currentStep === 'Experiment' ? <Experiment id={currentCourse.experiment}/> : null}
 
           </div>
           {/* <div className="footer">
