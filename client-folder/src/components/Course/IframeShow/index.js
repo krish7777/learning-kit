@@ -46,7 +46,7 @@ const IframeShow = (
   return (
     <div className="slideshow" style={{ width: "65%", margin: "0 20%" }}>
       <div className={overlayIsOpen?"overlayed gallerycontainer":"gallerycontainer"}>
-        <div class="resp-container">
+        <div className="resp-container">
           <iframe className="resp-iframe" src={iFrame} scrolling="yes" allowfullscreen></iframe>
           {/* media query TODO */}
         </div>
