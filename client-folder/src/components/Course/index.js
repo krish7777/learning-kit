@@ -171,11 +171,13 @@ class Course extends React.Component {
           </div>
           <div className="progress-bar"></div>
           <div className="steps-bar">
-            <div onClick={() => changeCurrentStep('Introduction')} className={currentStep === "Introduction" ? "active" : ""}>INTRODUCTION</div>
-            <div onClick={() => changeCurrentStep('BuildCircuit')} className={currentStep === "BuildCircuit" ? "active" : ""}>BUILD CIRCUIT</div>
-            <div onClick={() => changeCurrentStep('Simulation')} className={currentStep === "Simulation" ? "active" : ""}>SIMULATION</div>
-            <div onClick={() => changeCurrentStep('Experiment')} className={currentStep === "Experiment" ? "active" : ""}>EXPERIMENT</div>
-            {/* {currentCourse?.experiment ? <div>EXPERIMENT</div> : null} */}
+
+            {currentCourse?.introduction ? <div onClick={() => changeCurrentStep('Introduction')} className={currentStep === "Introduction" ? "active" : ""}>INTRODUCTION</div> : null}
+            {currentCourse?.buildCircuit ? <div onClick={() => changeCurrentStep('BuildCircuit')} className={currentStep === "BuildCircuit" ? "active" : ""}>BUILD CIRCUIT</div>
+              : null}
+            {currentCourse?.experiment ? <div onClick={() => changeCurrentStep('Experiment')} className={currentStep === "Experiment" ? "active" : ""}>EXPERIMENT</div>
+              : null}
+
             {currentCourse?.results ? <div>RESULTS & ANALYSIS</div> : null}
             {currentCourse?.troubleshoot ? <div>TROUBLESHOOT</div> : null}
             {currentCourse?.excercise ? <div>EXCERCISES</div> : null}
@@ -184,9 +186,9 @@ class Course extends React.Component {
             {currentCourse && currentStep === 'BuildCircuit' ? <BuildCircuit id={currentCourse.buildCircuit} type={this.props.match.params.type} /> : null}
             {currentCourse && currentStep === 'Introduction' ? <Introduction id={currentCourse.introduction} /> : null}
             {/* temporary placeholder [TODO] */}
-            {currentCourse && currentStep === 'Simulation' ? <Introduction id={currentCourse.introduction} /> : null} 
+            {currentCourse && currentStep === 'Simulation' ? <Introduction id={currentCourse.introduction} /> : null}
             {/* placeholder end [TODO] */}
-            {currentCourse && currentStep === 'Experiment' ? <Experiment id={currentCourse.experiment } type={this.props.match.params.type}/> : null}
+            {currentCourse && currentStep === 'Experiment' ? <Experiment id={currentCourse.experiment} type={this.props.match.params.type} /> : null}
 
           </div>
           {/* <div className="footer">
