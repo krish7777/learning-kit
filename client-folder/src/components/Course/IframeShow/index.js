@@ -7,7 +7,7 @@ import { ReactComponent as SkipIcon } from "../../../assets/images/SkipIcon.svg"
 import { ReactComponent as TroubleshootIcon } from "../../../assets/images/TroubleshootIcon.svg"
 import { ReactComponent as HideIcon } from "../../../assets/images/HideIcon.svg"
 import { bindActionCreators } from "redux";
-import { changeStep} from "../action";
+import { changeStep } from "../action";
 
 const IframeShow = (
   { steps, changeStep, simulation }
@@ -19,7 +19,7 @@ const IframeShow = (
   const [overlayIsOpen, setOverlayIsOpen] = useState(true);
 
   useEffect(() => {
-    const ifr=simulation||"";
+    const ifr = simulation || "";
     setIframe(ifr);
 
   }, [steps]);
@@ -45,7 +45,7 @@ const IframeShow = (
 
   return (
     <div className="slideshow" style={{ width: "65%", margin: "0 20%" }}>
-      <div className={overlayIsOpen?"overlayed gallerycontainer":"gallerycontainer"}>
+      <div className={overlayIsOpen ? "overlayed gallerycontainer" : "gallerycontainer"}>
         <div className="resp-container">
           <iframe className="resp-iframe" src={iFrame} scrolling="yes" allowfullscreen></iframe>
           {/* media query TODO */}
@@ -53,14 +53,14 @@ const IframeShow = (
         {/* <div class="wrap">
             <iframe className="frame" src={iFrame}></iframe>
         </div> */}
-        {overlayIsOpen&&
-        <div className="overlay-content">
-          <span>You have successfuly built the circuit. Now lets start the experiment.</span>
-        </div>
+        {overlayIsOpen &&
+          <div className="overlay-content">
+            <span>You have successfuly built the circuit. Now lets start the experiment.</span>
+          </div>
         }
       </div>
 
-      <div className={overlayIsOpen?"overlayed code-step":"code-step"}>
+      <div className={overlayIsOpen ? "overlayed code-step" : "code-step"}>
         Step {currentStep + 1} : {steps[currentStep].description}
       </div>
       <div className="nav">
@@ -70,22 +70,22 @@ const IframeShow = (
         </div>
         <div className="divider"></div>
 
-        {overlayIsOpen&&
-        <>
-        <div onClick={closeOverlay} className="codeUp-btn">
-          <SkipIcon />
+        {overlayIsOpen &&
+          <>
+            <div onClick={closeOverlay} className="codeUp-btn">
+              <SkipIcon />
           CODE UPLOAD SUCCESSFUL
         </div>
-        <div className="divider"></div>
+            {/* <div className="divider"></div>
         <div onClick={()=>{}} className="hide-btn">
           <HideIcon />
           SHOW PIN DIAGRAMS
-        </div>
-        </>
+        </div> */}
+          </>
         }
-        {!overlayIsOpen&&
-        <div onClick={()=>{}} className="troubleshoot-btn">
-          <TroubleshootIcon />
+        {!overlayIsOpen &&
+          <div onClick={() => { }} className="troubleshoot-btn">
+            <TroubleshootIcon />
           TROUBLESHOOT
         </div>
         }
