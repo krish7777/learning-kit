@@ -4,13 +4,14 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon"
+    "start": "concurrently \"mongod\" \"nodemon server.js\" \"cd admin-dash && npm run start\" \"cd client-folder && npm run start\""
   },
   "author": "Krishnendu Sudheesh",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "concurrently": "^5.3.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",

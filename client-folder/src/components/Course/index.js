@@ -186,7 +186,7 @@ class Course extends React.Component {
             {/* temporary placeholder [TODO] */}
             {currentCourse && currentStep === 'Simulation' ? <Introduction id={currentCourse.introduction} /> : null} 
             {/* placeholder end [TODO] */}
-            {currentCourse && currentStep === 'Experiment' ? <Experiment id={currentCourse.experiment}/> : null}
+            {currentCourse && currentStep === 'Experiment' ? <Experiment id={currentCourse.experiment } type={this.props.match.params.type}/> : null}
 
           </div>
           {/* <div className="footer">
