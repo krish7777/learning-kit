@@ -110,7 +110,7 @@ const SlideShow = (
 
         <div onClick={toggleSide} className="hide-btn">
           <HideIcon />
-          HIDE IDE
+          SHOW PIN DIAGRAMS
         </div>
         <div className="divider"></div>
 
