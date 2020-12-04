@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { getCurrentCourse } from './action';
 import { Link } from 'react-router-dom';
 import { Button } from 'antd';
+import { SUBMODULE } from '../../config';
 
 class Course extends Component {
     componentDidMount() {
@@ -15,7 +16,7 @@ class Course extends Component {
         const { course } = this.props;
         return (
             <div>
-                COURSE {this.props.match.params.id}
+                {SUBMODULE.toUpperCase()} {this.props.match.params.id}
                 <div>
                     <Button>
                         <Link to={`/i/${this.props.match.params.type}/course/introduction/${this.props.match.params.id}`}>INTRODUCTION</Link>

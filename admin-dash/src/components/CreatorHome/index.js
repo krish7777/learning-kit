@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { COURSE } from "../../config"
 
 
 class CreatorHome extends React.Component {
@@ -10,6 +11,8 @@ class CreatorHome extends React.Component {
         return (
             <div>
                 CREATOR HOME
+                <br />
+                {COURSE.toUpperCase()}S:
                 <br />
                 <Link to="i/arduino">
                     ARDUINO
