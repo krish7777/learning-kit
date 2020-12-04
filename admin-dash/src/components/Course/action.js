@@ -74,12 +74,13 @@ export const getBuildCircuit = (id) => async dispatch => {
     }
 }
 
-export const addBuildCircuit = (id, steps, code, build_id) => async dispatch => {
+export const addBuildCircuit = (id, steps, code, codeStepStart, build_id) => async dispatch => {
     try {
         const res = await axios.post(`${baseUrl}/api/course/buildCircuit`, {
             course_id: id,
             steps,
             code,
+            codeStepStart,
             build_id: build_id
         })
         console.log("after adding resp", res.data)
@@ -249,11 +250,13 @@ export const getExcercise = (id) => async dispatch => {
     }
 }
 
-export const addExcercise = (id, excercise_list, excercise_id) => async dispatch => {
+export const addExcercise = (id, excercise_list, excerciseFiles, excerciseFilePaths, excercise_id) => async dispatch => {
     try {
         const res = await axios.post(`${baseUrl}/api/course/excercise`, {
             course_id: id,
             excercise_list: excercise_list,
+            excerciseFiles,
+            excerciseFilePaths,
             excercise_id: excercise_id
         })
         console.log("after adding resp", res.data)

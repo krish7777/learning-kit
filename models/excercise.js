@@ -5,6 +5,13 @@ const excerciseSchema = new Schema({
     excercise_list: [{
         question: String,
         hint: String
+    }],
+    excerciseFilePaths: [{
+        type: String
+    }],
+    excerciseFiles: [{
+        type: Schema.Types.ObjectId,
+        ref: 'StepThumb'
     }]
 });
 exports.excerciseSchema = excerciseSchema

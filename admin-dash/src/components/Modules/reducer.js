@@ -2,7 +2,8 @@ import { ACTION } from "./constants";
 
 const initialState = {
     modules: [],
-    currentModule: {}
+    currentModule: {},
+    courseTroubleshoot: []
 }
 
 const modulesReducer = (state = initialState, action) => {
@@ -12,6 +13,9 @@ const modulesReducer = (state = initialState, action) => {
             break;
         case ACTION.GET_CURRENT_MODULE:
             state = { ...state, currentModule: action.payload }
+            break;
+        case ACTION.GET_COURSE_TROUBLESHOOT:
+            state = { ...state, courseTroubleshoot: action.payload }
             break;
     }
 

@@ -54,6 +54,29 @@ const fileFilterExperiment = (req, file, cb) => {
     }
 };
 
+const excerciseStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        const reqPath = path.join(__dirname, '..', 'images', 'excercise')
+        if (!fs.existsSync(reqPath)) {
+            fs.mkdirSync(reqPath, { recursive: true });
+        }
+        cb(null, reqPath)
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname)
+    }
+})
+
+
+const fileFilterExcercise = (req, file, cb) => {
+    if (
+        file.mimetype === 'application/pdf'
+    ) {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+};
 
 const uploadIntro = multer({
     storage: introStorage,
@@ -71,6 +94,13 @@ const uploadExperiment = multer({
     fileFilter: fileFilterExperiment
 })
 
+const uploadExcercise = multer({
+    storage: excerciseStorage,
+    limits: {
+        fileSize: 4000000
+    },
+    fileFilter: fileFilterExcercise
+})
 
 
 
@@ -86,6 +116,12 @@ router.post('/experiment',
     (req, res) => {
         console.log('req.file', req.file)
         res.status(200).json({ "location": `http://localhost:3300/images/experiment/${req.file.filename}`, "originalName": req.file.originalname })
+    })
+
+router.post('/excercise',
+    uploadExcercise.single('file'),
+    (req, res) => {
+        res.status(200).json({ "location": `http://localhost:3300/images/excercise/${req.file.filename}`, "originalName": req.file.originalname })
     })
 
 module.exports = router;

@@ -98,7 +98,7 @@ class AddCourse extends Component {
                         </Upload>
                     </Form.Item>
                     <Form.Item>
-                        <Button loading={this.state.loading} type="primary" htmlType="submit">ADD COURSE</Button >
+                        <Button loading={this.state.loading} type="primary" htmlType="submit">ADD SUB-MODULE</Button >
                     </Form.Item>
                 </Form>
 

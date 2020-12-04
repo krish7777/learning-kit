@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { getCurrentModule } from '../action';
 import { Link } from 'react-router-dom';
 import { Button } from 'antd';
+import { SUBMODULE } from '../../../config';
 
 class Module extends Component {
     componentDidMount() {
@@ -16,7 +17,7 @@ class Module extends Component {
             return (
                 <div>
                     <div>{module.name}</div>
-                    <div>COURSES</div>
+                    <div>{SUBMODULE.toUpperCase()}S</div>
                     <div>
                         {module.courses && module.courses.map(course =>
                             <Link to={`/i/${this.props.match.params.type}/course/${course._id}`}>
@@ -24,7 +25,7 @@ class Module extends Component {
                             </Link>
                         )}
                     </div>
-                    <Link to={`/i/${this.props.match.params.type}/add-course/${module._id}`}><Button>Add Course</Button></Link>
+                    <Link to={`/i/${this.props.match.params.type}/add-course/${module._id}`}><Button>Add {SUBMODULE}</Button></Link>
                 </div>
             )
         else

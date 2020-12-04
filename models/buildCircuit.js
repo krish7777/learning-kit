@@ -10,7 +10,8 @@ const buildCircuitSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Step'
     }],
-    code: String
+    code: String,
+    codeStepStart: Number
 });
 exports.buildCircuitSchema = buildCircuitSchema
 exports.BuildCircuit = mongoose.model('BuildCircuit', buildCircuitSchema);
