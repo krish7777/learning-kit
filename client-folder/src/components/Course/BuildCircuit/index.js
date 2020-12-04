@@ -21,7 +21,7 @@ class BuildCircuit extends Component {
         return (
             <>
                 {buildCircuit && type === 'arduino' ? (<> <SlideShow steps={this.props.buildCircuit?.steps} codeStepStart={this.props.buildCircuit?.codeStepStart} /> <CodeEditor code={this.props.buildCircuit?.code} /></>) : null}
-                {buildCircuit && type === 'digital' ? (<><SlideShow steps={this.props.buildCircuit?.steps} codeStepStart={2} /><DigitalImages /></>) : null}
+                {buildCircuit && type === 'digital' ? (<><SlideShow steps={this.props.buildCircuit?.steps} codeStepStart={2} /><DigitalImages steps={this.props.buildCircuit?.steps} /></>) : null}
             </>
         )
     }
