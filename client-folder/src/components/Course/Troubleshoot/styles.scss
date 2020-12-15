@@ -1,0 +1,18 @@
+.troubleshoot{
+    display: flex;
+    width: 100%;
+    color: white;
+    padding: 50px 100px;
+    justify-content: space-evenly;
+    // max-height: 100vh;
+    background:#2B2A29;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    .troubleshoot-inner{
+        width: 80%;
+        min-width: 400px;
+        max-width: 1000px;
+        overflow: auto;
+    }
+}

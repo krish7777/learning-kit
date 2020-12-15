@@ -1,0 +1,57 @@
+.form-builder {
+    display: flex;
+    width: 100%;
+    color: white;
+    padding: 50px 100px;
+    justify-content: space-evenly;
+    // max-height: 100vh;
+    background:#2B2A29;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    h1,h2,h3,h4,h5,h6 {
+        color: white;
+    }
+
+    label{
+        color: white;
+    }
+
+    .preview-form {
+
+        width: 70%;
+        min-width: 400px;
+        max-width: 700px;
+        overflow: auto;
+
+        h2 {
+            text-align: center;
+        }
+    }
+}
+
+
+.ant-form-item-label {
+    overflow-wrap: anywhere;
+}
+
+.ant-form-item {
+    margin: 24px 0 !important;
+}
+
+.truth-table-row {
+    display: flex;
+
+    input {
+        text-align: center;
+    }
+
+    .ant-form-item {
+        margin: 0 !important;
+        margin-bottom: 2px !important;
+    }
+
+    .switch {
+        margin: 0 23px !important;
+    }
+}

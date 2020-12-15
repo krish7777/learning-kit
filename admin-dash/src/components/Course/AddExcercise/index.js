@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import TextEditor from '../../TextEditor'
 import { bindActionCreators } from 'redux'
-import { Input, Form, Button, notification, Upload } from 'antd'
+import { Input, Form, Button, notification, Upload, Checkbox } from 'antd'
 import { addExcercise, clearExcercise, getExcercise } from '../action'
 import { MinusCircleOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import axios from "axios"
@@ -70,6 +70,7 @@ class AddExcercise extends Component {
                     ***Don't Reload before Saving! Changes may get lost ***
                     <Form initialValues={this.props.excercise} onFinish={async (val) => {
                         const { excercise_list, excerciseFiles } = val;
+                        console.log(excercise_list);
                         let newExcerciseFiles = []
                         let excerciseFilePaths = []
                         if (excerciseFiles) {
@@ -140,12 +141,36 @@ class AddExcercise extends Component {
                                                     <Form.Item
                                                         label={`Hint${index + 1}`}
                                                         {...field}
-                                                        key={"desc" + index}
+                                                        key={"desc-hint" + index}
                                                         name={[field.name, 'hint']}
                                                         fieldKey={[field.fieldKey, 'hint']}
                                                     // rules={[{ required: true, message: 'Missing Hint' }]}
                                                     >
                                                         <Input.TextArea style={{ width: "90%" }} autoSize={{ minRows: 2 }} />
+                                                    </Form.Item>
+                                                    <Form.Item
+                                                        label={`Upload Needed? `}
+                                                        {...field}
+                                                        key={"desc-isUpload" + index}
+                                                        name={[field.name, 'isUpload']}
+                                                        fieldKey={[field.fieldKey, 'isUpload']}
+                                                        valuePropName="checked"
+                                                        initialValue={false}
+
+                                                    >
+                                                        <Checkbox />
+                                                    </Form.Item>
+                                                    <Form.Item
+                                                        label={`Code Needed ?`}
+                                                        {...field}
+                                                        key={"desc-isCode" + index}
+                                                        name={[field.name, 'isCode']}
+                                                        fieldKey={[field.fieldKey, 'isCode']}
+                                                        valuePropName="checked"
+                                                        initialValue={false}
+
+                                                    >
+                                                        <Checkbox />
                                                     </Form.Item>
                                                 </div>
 
@@ -259,7 +284,7 @@ class AddExcercise extends Component {
                                                     <Form.Item
                                                         label={`Question${index + 1}`}
                                                         {...field}
-                                                        key={"desc" + index}
+                                                        key={"desc-question" + index}
                                                         name={[field.name, 'question']}
                                                         fieldKey={[field.fieldKey, 'question']}
                                                         rules={[{ required: true, message: 'Missing Question' }]}
@@ -269,12 +294,37 @@ class AddExcercise extends Component {
                                                     <Form.Item
                                                         label={`Hint${index + 1}`}
                                                         {...field}
-                                                        key={"desc" + index}
+                                                        key={"desc-hint" + index}
                                                         name={[field.name, 'hint']}
                                                         fieldKey={[field.fieldKey, 'hint']}
                                                     // rules={[{ required: true, message: 'Missing hint' }]}
                                                     >
                                                         <Input.TextArea style={{ width: "90%" }} autoSize={{ minRows: 2 }} />
+                                                    </Form.Item>
+                                                    <Form.Item
+                                                        label={`Upload Needed ?`}
+                                                        {...field}
+                                                        key={"desc-isUpload" + index}
+                                                        name={[field.name, 'isUpload']}
+                                                        fieldKey={[field.fieldKey, 'isUpload']}
+                                                        valuePropName="checked"
+                                                        initialValue={false}
+
+                                                    >
+                                                        <Checkbox />
+                                                    </Form.Item>
+                                                    <Form.Item
+                                                        label={`Code Needed ?`}
+                                                        {...field}
+                                                        key={"desc-isCode" + index}
+                                                        name={[field.name, 'isCode']}
+                                                        fieldKey={[field.fieldKey, 'isCode']}
+                                                        valuePropName="checked"
+                                                        initialValue={false}
+
+
+                                                    >
+                                                        <Checkbox />
                                                     </Form.Item>
                                                 </div>
 

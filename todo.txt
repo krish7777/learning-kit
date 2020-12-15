@@ -1,0 +1,25 @@
+back to experiment , remember step
+
+
+link in excercise
+
+
+
+
+progress bar.
+final circuit step. -> BACKEND COMPLETE, FRONTEND LEFT for both this and codestepstart --> //DONE
+either embed link or image. for digital experiment -->LITTLE TOUGH
+
+info for each module ->back done , front left --> //DONE
+
+
+
+Getting started to some juniors.
+frontend perfectly
+third, hosting.
+aws uploading.
+
+naming scheme.
+
+
+IN excercise, upload {optional] ; submit code[optional]}, in backend also //DONE

@@ -4,7 +4,9 @@ const Schema = mongoose.Schema;
 const excerciseSchema = new Schema({
     excercise_list: [{
         question: String,
-        hint: String
+        hint: String,
+        isUpload: Boolean,
+        isCode: Boolean
     }],
     excerciseFilePaths: [{
         type: String
