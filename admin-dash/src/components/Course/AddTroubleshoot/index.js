@@ -81,7 +81,7 @@ class AddTroubleshoot extends Component {
                                                         key={"desc" + index}
                                                         name={[field.name, 'question']}
                                                         fieldKey={[field.fieldKey, 'question']}
-                                                        rules={[{ required: true, message: 'Missing Step Question' }]}
+                                                    // rules={[{ required: true, message: 'Missing Step Question' }]}
                                                     >
                                                         <Input.TextArea style={{ width: "90%" }} autoSize={{ minRows: 2 }} />
                                                     </Form.Item>
@@ -169,7 +169,7 @@ class AddTroubleshoot extends Component {
                                                         key={"desc" + index}
                                                         name={[field.name, 'question']}
                                                         fieldKey={[field.fieldKey, 'question']}
-                                                        rules={[{ required: true, message: 'Missing Step Question' }]}
+                                                    // rules={[{ required: true, message: 'Missing Step Question' }]}
                                                     >
                                                         <Input.TextArea style={{ width: "90%" }} autoSize={{ minRows: 2 }} />
                                                     </Form.Item>
@@ -179,6 +179,8 @@ class AddTroubleshoot extends Component {
                                                         key={"desc" + index}
                                                         name={[field.name, 'answer']}
                                                         fieldKey={[field.fieldKey, 'answer']}
+                                                        rules={[{ required: true, message: 'Missing Step Answer' }]}
+
                                                     >
                                                         <TextEditor />
                                                     </Form.Item>

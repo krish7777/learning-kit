@@ -53,8 +53,8 @@ class AddResults extends Component {
             axios.get(`${baseUrl}/api/course/results/get/${this.props.currentCourse.results}`)
                 .then(res => res.data)
                 .then(results => {
-                    if (results.form) {
-                        this.setState({ questions: results.form.formContent })
+                    if (results.results) {
+                        this.setState({ questions: results.results.formContent })
                     }
                 })
                 .catch(err => console.log("error in getting results form"))
@@ -232,7 +232,7 @@ class AddResults extends Component {
             <div className="form-builder">
                 <div className="preview-form" >
                     <h2>Live Preview</h2>
-                    <Form onFinish={(values) => { console.log(values, this.state.questions) }}>
+                    <Form layout="vertical" onFinish={(values) => { console.log(values, this.state.questions) }}>
 
                         {
                             this.state.questions.map(field => {

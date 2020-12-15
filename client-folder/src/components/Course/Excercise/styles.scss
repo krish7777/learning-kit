@@ -1,0 +1,41 @@
+.excercise{
+    display: flex;
+    width: 100%;
+    color: white;
+    padding: 50px 100px;
+    justify-content: space-evenly;
+    background:#2B2A29;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    .excercise-inner{
+        width: 80%;
+        min-width: 400px;
+        max-width: 1000px;
+        overflow: auto;
+        .excercise-files{
+            
+        }
+        .excercise-list{
+            display: flex;
+            flex-direction: column;
+
+            .excercise-item{
+                margin:10px 5px;
+                padding: 10px;
+                background-color: #403F3E;
+                border: 1px solid #C4C4C4;
+                .excercise-question{
+                    font-size: 16px;
+                    margin: 8px;
+                }
+                .excercise-options{
+                    display: flex;
+                    margin:8px;
+
+                }
+            }
+        }
+    }
+   
+}

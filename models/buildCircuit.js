@@ -11,7 +11,8 @@ const buildCircuitSchema = new Schema({
         ref: 'Step'
     }],
     code: String,
-    codeStepStart: Number
+    codeStepStart: Number,//Same as finalCircuitStep for digital, NAMING SHOULD BE MODIFIED
+    finalCircuitStep: Number
 });
 exports.buildCircuitSchema = buildCircuitSchema
 exports.BuildCircuit = mongoose.model('BuildCircuit', buildCircuitSchema);

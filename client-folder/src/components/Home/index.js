@@ -4,10 +4,13 @@ import Navbar from "../Navbar";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getAllModules, getSomeData } from "./action";
-import { Button, Typography, Collapse, Input } from "antd";
+import { Button, Popover, Collapse, Input } from "antd";
 import Background from "../../assets/images/background.png"
+import ReactHtmlParser from 'react-html-parser';
+
 import { Link } from "react-router-dom";
 const { Panel } = Collapse;
+
 
 class Home extends React.Component {
 
@@ -32,7 +35,6 @@ class Home extends React.Component {
     // const { allCourses } = this.props;
     // const { searchValue } = this.state;
     // const filteredCourses = allCourses.filter(module => module.module.toLowerCase().includes(searchValue.toLowerCase()) || module.courses.filter(course => course.name.toLowerCase().includes(searchValue.toLowerCase())).length)
-
     const { allModules } = this.props;
     const { searchValue } = this.state;
     const filteredModules = allModules.filter(module => module.name.toLowerCase().includes(searchValue.toLowerCase()) || module.courses.filter(course => course.name.toLowerCase().includes(searchValue.toLowerCase())).length)
@@ -88,22 +90,31 @@ class Home extends React.Component {
           <div className="course-curriculum">
             <h3>Course Curriculum
             <span>({filteredModules.length} modules)</span></h3>
-
             <div className="course-summary">
-              <Input placeholder="Search any module/course" value={this.state.searchValue} onChange={this.onSearchChange} style={{ background: "transparent", color: "white", border: "1px solid #324454", fontSize: "18px" }} />
-              <Collapse style={{ color: "red", marginTop: "10px" }} ghost accordion expandIconPosition={"right"} >
+              <Input placeholder="Search any module/course" value={this.state.searchValue} onChange={this.onSearchChange} style={{ background: "transparent", color: "white", border: "1px solid #324454", fontSize: "18px", marginBottom: "10px" }} />
 
-                {filteredModules.map((module, index) =>
-                  <Panel key={module._id} style={{ border: "1px solid #324454" }} header={index + 1 + ". " + module.name} key={module.index}>
-                    {module.courses.map(course => <Link to={`/${this.props.match.params.type}/course/${course._id}`}><div key={course._id} className="sub-course">{course.name}</div></Link>)}
-                  </Panel>)}
+              {filteredModules.map((module, index) => {
+                return (
+                  <Popover content={ReactHtmlParser(module?.introduction)}
+                  >
+                    <></>
 
-              </Collapse>
+                    <Collapse ghost accordion expandIconPosition={"right"} >
+
+                      <Panel key={module._id} style={{ border: "1px solid #324454" }} header={index + 1 + ". " + module.name} key={module.index}>
+                        {module.courses.map(course => <Link to={`/${this.props.match.params.type}/course/${course._id}`}><div key={course._id} className="sub-course">{course.name}</div></Link>)}
+                      </Panel>
+                    </Collapse>
+
+                  </Popover>
+                )
+              })}
+
             </div>
 
           </div>
         </div>
-      </div>
+      </div >
 
     );
   }

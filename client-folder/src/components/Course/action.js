@@ -82,7 +82,7 @@ export const getExperiment = (id) => async dispatch => {
     }
 }
 
-export const getResults = (id) => async dispatch => {
+export const getResultsAnalysis = (id) => async dispatch => {
     try {
 
         const res = await axios.get(`${baseUrl}/api/course/results/get/${id}`)
@@ -92,7 +92,7 @@ export const getResults = (id) => async dispatch => {
         })
 
     } catch (err) {
-        console.log("error in getResults")
+        console.log("error in getResultsAnalysis")
     }
 }
 
