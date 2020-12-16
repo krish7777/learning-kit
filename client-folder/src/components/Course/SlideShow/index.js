@@ -14,7 +14,7 @@ import { changeStep, toggleSide } from "../action";
 import Modal from "antd/lib/modal/Modal";
 
 const SlideShow = (
-  { steps, codeStepStart, toggleSide, showSide, changeStep }
+  { steps, codeStepStart, finalCircuitStep, toggleSide, showSide, changeStep, rightText }
 ) => {
 
 
@@ -46,7 +46,11 @@ const SlideShow = (
   }, [steps]);
 
   const skipToCode = () => {
-    inputEl.current.slideToIndex(codeStepStart);
+    if (codeStepStart)
+      inputEl.current.slideToIndex(codeStepStart - 1);
+    else if (finalCircuitStep)
+      inputEl.current.slideToIndex(finalCircuitStep - 1);
+
   };
 
   const goLeft = () => {
@@ -67,19 +71,20 @@ const SlideShow = (
 
   const modalChecker = (x) => {
     onSlide(x)
-    if (x === codeStepStart + 1 && currentStep === codeStepStart) {
+    if (codeStepStart && x === codeStepStart - 1 && currentStep === codeStepStart - 2) {
       setCodeModalIsOpen(true);
 
       setTimeout(() => {
         setCodeModalIsOpen(false);
       }, 1500);
     }
+
   };
 
 
   return (
     <div className="slideshow" style={showSide ? { width: "65%" } : { width: "65%", margin: "0 20%" }}>
-      <div>
+      <div style={{ background: "white" }}>
         <ImageGallery
           ref={inputEl}
           items={images}
@@ -104,13 +109,13 @@ const SlideShow = (
         <div className="divider"></div>
         <div onClick={skipToCode} className="skip-btn">
           <SkipIcon />
-          SKIP TO FINAL CIRCUIT
+          SKIP TO {codeStepStart ? "CODE" : "FINAL CIRCUIT"}
         </div>
         <div className="divider"></div>
 
         <div onClick={toggleSide} className="hide-btn">
           <HideIcon />
-          SHOW PIN DIAGRAMS
+          {rightText}
         </div>
         <div className="divider"></div>
 

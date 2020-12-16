@@ -1,5 +1,5 @@
 const { Module } = require('../models/module');
-
+const { Track } = require('../models/track')
 exports.addModule = async (req, res, next) => {
     const { name, thumbnailPath, introduction, type } = req.body;
     const module = new Module({
@@ -44,4 +44,35 @@ exports.getAllModules = async (req, res, next) => {
         }
         next(err)
     }
+}
+
+exports.getCourseTroubleshoot = async (req, res, next) => {
+    const { type } = req.params;
+    try {
+        let troubleshoot = await Track.findOne({ name: type })
+        res.json({ troubleshoot })
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500
+        }
+        next(err)
+    }
+}
+
+exports.addCourseTroubleshoot = async (req, res, next) => {
+    const { faqs } = req.body;
+    const { type } = req.params;
+
+
+    try {
+        let troubleshoot = await Track.findOneAndUpdate({ name: type }, { $set: { faqs: faqs } }, { new: true })
+        res.json({ troubleshoot })
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500
+        }
+        next(err)
+    }
+
+
 }

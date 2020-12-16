@@ -56,7 +56,8 @@ app.use((error, req, res, next) => {
 //Connecting to MongoDB
 mongoose.connect('mongodb://127.0.0.1:27017/learning', {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 }).then(res => {
     app.listen(PORT, () => {
         console.log('Server Started')

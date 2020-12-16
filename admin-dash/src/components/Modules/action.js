@@ -1,6 +1,7 @@
 import { ACTION } from './constants';
 import axios from "axios"
 import { baseUrl } from '../../config';
+
 export const getSomeData = () => async dispatch => {
     const res = await axios.get("/some-api-route");
     console.log(res.data)
@@ -36,5 +37,33 @@ export const getCurrentModule = (id) => async dispatch => {
         })
     } catch (err) {
         console.log("error in getCurrentModule")
+    }
+}
+
+export const getCourseTroubleshoot = (name) => async dispatch => {
+    try {
+        const res = await axios.get(`${baseUrl}/api/module/course-troubleshoot/${name}`);
+        dispatch({
+            type: ACTION.GET_COURSE_TROUBLESHOOT,
+            payload: res.data.troubleshoot
+        })
+    }
+    catch (err) {
+        console.log("error in getCourseTroubleshoot")
+    }
+}
+
+export const addCourseTroubleshoot = (name, faqs) => async dispatch => {
+    try {
+        const res = await axios.post(`${baseUrl}/api/module/course-troubleshoot/${name}`, {
+            faqs
+        });
+        console.log("res.data", res.data);
+        dispatch({
+            type: ACTION.GET_COURSE_TROUBLESHOOT,
+            payload: res.data.troubleshoot
+        })
+    } catch (err) {
+        console.log("error in addCourseTroubleshoot")
     }
 }

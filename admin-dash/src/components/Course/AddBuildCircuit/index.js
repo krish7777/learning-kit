@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Form, Input, Button, Upload, notification } from "antd";
+import { Form, Input, Button, Upload, notification, InputNumber } from "antd";
 import { MinusCircleOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import axios from "axios"
 import imageCompression from 'browser-image-compression';
@@ -13,14 +13,14 @@ class AddBuildCircuit extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: false
+            loading: false,
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         if (this.props.currentCourse.buildCircuit) {
             console.log("has buildcircuit, gotta call server")
-            this.props.getBuildCircuit(this.props.currentCourse.buildCircuit)
+            await this.props.getBuildCircuit(this.props.currentCourse.buildCircuit)
         } else {
             console.log("does not ahve any buildckt astart from the first")
         }
@@ -30,6 +30,11 @@ class AddBuildCircuit extends Component {
     componentWillReceiveProps(pres, next) {
         console.log("pres", pres)
         console.log("next", next)
+    }
+
+    componentWillUnmount() {
+        console.log("unmounting addBuildCircuit")
+        this.props.clearBuildCircuit();
     }
 
 
@@ -74,9 +79,9 @@ class AddBuildCircuit extends Component {
                     ***Don't Reload before Saving! Changes may get lost ***
                     <Form initialValues={this.props.buildCircuit} onFinish={async (val) => {
                         console.log("valllll", val)
-                        const { steps, code } = val;
+                        const { steps, code, codeStepStart, finalCircuitStep } = val;
                         let success = 1;
-                        if (steps.length) {
+                        if (steps?.length) {
                             let newSteps = steps.map(step => {
                                 const { upload_image, upload_side, description } = step;
                                 if (upload_side && upload_side.length && upload_image[0].response && upload_image[0].response.location && upload_side[0].response && upload_side[0].response.location)
@@ -128,7 +133,7 @@ class AddBuildCircuit extends Component {
                                 //     .then(res => console.log("hmm seems fine"))
                                 //     .catch(err => console.log("error in adding"))
                                 this.setState({ loading: true })
-                                await this.props.addBuildCircuit(this.props.match.params.id, newSteps, code, this.props.currentCourse.buildCircuit)
+                                await this.props.addBuildCircuit(this.props.match.params.id, newSteps, code, codeStepStart, finalCircuitStep, this.props.currentCourse.buildCircuit)
                                 this.setState({ loading: false })
                                 console.log("abt to cler")
                                 this.props.clearBuildCircuit()
@@ -154,7 +159,12 @@ class AddBuildCircuit extends Component {
                         >
                             <Input.TextArea autoSize={{ minRows: 5 }} />
                         </Form.Item> : null}
-
+                        {this.props.match.params.type == "arduino" ? <Form.Item label="Code starting step" name="codeStepStart" rules={[{ required: true }]}>
+                            <InputNumber />
+                        </Form.Item> : null}
+                        {this.props.match.params.type == "digital" ? <Form.Item label="Final Circuit step" name="finalCircuitStep" rules={[{ required: true }]}>
+                            <InputNumber />
+                        </Form.Item> : null}
 
                         <Form.List name="steps" label="steps" rules={[{ required: true }]}>
                             {(fields, { add, remove }) => {
@@ -206,39 +216,44 @@ class AddBuildCircuit extends Component {
                                                         </Button>
                                                         </Upload>
                                                     </Form.Item>
-                                                    <Form.Item
-                                                        {...field}
-                                                        key={"upload_side" + index}
-                                                        {...formItemLayoutWithOutLabel}
-                                                        name={[field.name, 'upload_side']}
-                                                        valuePropName="fileList"
-                                                        getValueFromEvent={normFile}
-                                                        fieldKey={[field.fieldKey, 'upload_side']}
-                                                    >
-                                                        <Upload multiple={false} accept=".png"
-                                                            name="file" customRequest={async ({ file, onSuccess, onError }) => {
-                                                                const compressedFile = await imageCompression(file, options);
-                                                                console.log("before compeee")
-                                                                console.log('originalFile instanceof Blob', file instanceof Blob); // true
-                                                                console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
-                                                                console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
-                                                                console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`);
-                                                                let formData = new FormData()
-                                                                formData.set('expId', '123')
-                                                                formData.append('file', compressedFile)
 
-                                                                await axios.post(`${baseUrl}/api/upload/experiment`, formData).then(res => {
-                                                                    onSuccess(res.data)
-                                                                    console.log(res.data)
-                                                                }).catch(err => { console.log("error in uploading"); onError("Error in uploading.Try again") })
-                                                            }}
-                                                            listType="picture"
+                                                    {this.props.match.params.type == "digital" ? (
+                                                        <Form.Item
+                                                            {...field}
+                                                            key={"upload_side" + index}
+                                                            {...formItemLayoutWithOutLabel}
+                                                            name={[field.name, 'upload_side']}
+                                                            valuePropName="fileList"
+                                                            getValueFromEvent={normFile}
+                                                            fieldKey={[field.fieldKey, 'upload_side']}
                                                         >
-                                                            <Button>
-                                                                <UploadOutlined /> Upload Side Image (if any)
+                                                            <Upload multiple={false} accept=".png"
+                                                                name="file" customRequest={async ({ file, onSuccess, onError }) => {
+                                                                    const compressedFile = await imageCompression(file, options);
+                                                                    console.log("before compeee")
+                                                                    console.log('originalFile instanceof Blob', file instanceof Blob); // true
+                                                                    console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
+                                                                    console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+                                                                    console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`);
+                                                                    let formData = new FormData()
+                                                                    formData.set('expId', '123')
+                                                                    formData.append('file', compressedFile)
+
+                                                                    await axios.post(`${baseUrl}/api/upload/experiment`, formData).then(res => {
+                                                                        onSuccess(res.data)
+                                                                        console.log(res.data)
+                                                                    }).catch(err => { console.log("error in uploading"); onError("Error in uploading.Try again") })
+                                                                }}
+                                                                listType="picture"
+                                                            >
+                                                                <Button>
+                                                                    <UploadOutlined /> Upload Side Image (if any)
                                                         </Button>
-                                                        </Upload>
-                                                    </Form.Item>
+                                                            </Upload>
+                                                        </Form.Item>
+                                                    ) : null}
+
+
                                                 </div>
 
 
@@ -283,9 +298,9 @@ class AddBuildCircuit extends Component {
                     ***Don't Reload before Saving! Changes may get lost ***
                     <Form onFinish={async (val) => {
                         console.log("valllll", val)
-                        const { steps } = val;
+                        const { steps, code, codeStepStart, finalCircuitStep } = val;
                         let success = 1;
-                        if (steps.length) {
+                        if (steps?.length) {
                             let newSteps = steps.map(step => {
                                 const { upload_image, upload_side, description } = step;
                                 if (upload_side && upload_side.length && upload_image[0].response && upload_image[0].response.location && upload_side[0].response && upload_side[0].response.location)
@@ -337,7 +352,7 @@ class AddBuildCircuit extends Component {
                                 //     .then(res => console.log("hmm seems fine"))
                                 //     .catch(err => console.log("error in adding"))
                                 this.setState({ loading: true })
-                                await this.props.addBuildCircuit(this.props.match.params.id, newSteps, this.props.currentCourse.buildCircuit)
+                                await this.props.addBuildCircuit(this.props.match.params.id, newSteps, code, codeStepStart, finalCircuitStep, finalCircuitStep, this.props.currentCourse.buildCircuit)
                                 this.setState({ loading: false })
                                 console.log("abt to cler")
                                 this.props.clearBuildCircuit()
@@ -364,6 +379,15 @@ class AddBuildCircuit extends Component {
                         >
                             <Input.TextArea autoSize={{ minRows: 5 }} />
                         </Form.Item> : null}
+
+                        {this.props.match.params.type == "arduino" ? <Form.Item label="Code starting step" name="codeStepStart, finalCircuitStep" rules={[{ required: true }]}>
+                            <InputNumber />
+                        </Form.Item> : null}
+
+                        {this.props.match.params.type == "digital" ? <Form.Item label="Final Circuit step" name="finalCircuitStep" rules={[{ required: true }]}>
+                            <InputNumber />
+                        </Form.Item> : null}
+
 
 
                         <Form.List name="steps" label="steps" rules={[{ required: true }]}>
@@ -416,38 +440,40 @@ class AddBuildCircuit extends Component {
                                                         </Button>
                                                         </Upload>
                                                     </Form.Item>
-                                                    <Form.Item
-                                                        {...field}
-                                                        key={"upload_side" + index}
-                                                        {...formItemLayoutWithOutLabel}
-                                                        name={[field.name, 'upload_side']}
-                                                        valuePropName="fileList"
-                                                        getValueFromEvent={normFile}
-                                                        fieldKey={[field.fieldKey, 'upload_side']}
-                                                    >
-                                                        <Upload multiple={false} accept=".png"
-                                                            name="file" customRequest={async ({ file, onSuccess, onError }) => {
-                                                                const compressedFile = await imageCompression(file, options);
-                                                                console.log("before compeee")
-                                                                console.log('originalFile instanceof Blob', file instanceof Blob); // true
-                                                                console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
-                                                                console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
-                                                                console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`);
-                                                                let formData = new FormData()
-                                                                formData.set('expId', '123')
-                                                                formData.append('file', compressedFile)
-                                                                await axios.post(`${baseUrl}/api/upload/experiment`, formData).then(res => {
-                                                                    onSuccess(res.data)
-                                                                    console.log(res.data)
-                                                                }).catch(err => { console.log("error in uploading"); onError("Error in uploading.Try again") })
-                                                            }}
-                                                            listType="picture"
+                                                    {this.props.match.params.type == "digital" ? (
+                                                        <Form.Item
+                                                            {...field}
+                                                            key={"upload_side" + index}
+                                                            {...formItemLayoutWithOutLabel}
+                                                            name={[field.name, 'upload_side']}
+                                                            valuePropName="fileList"
+                                                            getValueFromEvent={normFile}
+                                                            fieldKey={[field.fieldKey, 'upload_side']}
                                                         >
-                                                            <Button>
-                                                                <UploadOutlined /> Upload Side Image (if any)
+                                                            <Upload multiple={false} accept=".png"
+                                                                name="file" customRequest={async ({ file, onSuccess, onError }) => {
+                                                                    const compressedFile = await imageCompression(file, options);
+                                                                    console.log("before compeee")
+                                                                    console.log('originalFile instanceof Blob', file instanceof Blob); // true
+                                                                    console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
+                                                                    console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+                                                                    console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`);
+                                                                    let formData = new FormData()
+                                                                    formData.set('expId', '123')
+                                                                    formData.append('file', compressedFile)
+                                                                    await axios.post(`${baseUrl}/api/upload/experiment`, formData).then(res => {
+                                                                        onSuccess(res.data)
+                                                                        console.log(res.data)
+                                                                    }).catch(err => { console.log("error in uploading"); onError("Error in uploading.Try again") })
+                                                                }}
+                                                                listType="picture"
+                                                            >
+                                                                <Button>
+                                                                    <UploadOutlined /> Upload Side Image (if any)
                                                         </Button>
-                                                        </Upload>
-                                                    </Form.Item>
+                                                            </Upload>
+                                                        </Form.Item>
+                                                    ) : null}
                                                 </div>
 
 

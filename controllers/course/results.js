@@ -43,8 +43,8 @@ exports.addResults = async (req, res, next) => {
 exports.getResults = async (req, res, next) => {
     const { id } = req.params;
     try {
-        let form = await ExperimentForm.findById(id)
-        res.json({ form })
+        let results = await ExperimentForm.findById(id)
+        res.json({ results })
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500
