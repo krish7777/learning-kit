@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { addTroubleshoot, clearTroubleshoot, getTroubleshoot } from '../action'
 
 import { Form, Input, Button, notification } from "antd";
-import { MinusCircleOutlined, PlusOutlined,  } from '@ant-design/icons';
+import { MinusCircleOutlined, PlusOutlined, } from '@ant-design/icons';
 import TextEditor from '../../TextEditor/text';
 
 class AddTroubleshoot extends Component {
@@ -23,6 +23,10 @@ class AddTroubleshoot extends Component {
         } else {
             console.log("does not have any troubleshoot start from the first")
         }
+    }
+
+    componentWillUnmount() {
+        this.props.clearTroubleshoot()
     }
 
     openNotificationWithIcon = (type, message) => {
@@ -77,11 +81,11 @@ class AddTroubleshoot extends Component {
                                                         key={"desc" + index}
                                                         name={[field.name, 'question']}
                                                         fieldKey={[field.fieldKey, 'question']}
-                                                        rules={[{ required: true, message: 'Missing Step Question' }]}
+                                                    // rules={[{ required: true, message: 'Missing Step Question' }]}
                                                     >
                                                         <Input.TextArea style={{ width: "90%" }} autoSize={{ minRows: 2 }} />
                                                     </Form.Item>
-                                                    <Form.Item 
+                                                    <Form.Item
                                                         label={`Answer${index + 1}`}
                                                         {...field}
                                                         key={"desc" + index}
@@ -89,8 +93,8 @@ class AddTroubleshoot extends Component {
                                                         fieldKey={[field.fieldKey, 'answer']}
                                                         rules={[{ required: true, message: 'Missing Step Answer' }]}
                                                     >
-                                                     <TextEditor/>
-                                                    
+                                                        <TextEditor />
+
                                                     </Form.Item>
                                                 </div>
 
@@ -128,30 +132,30 @@ class AddTroubleshoot extends Component {
                     </Form>
                 </div>
             )
-        }else if (!this.props.currentCourse.troubleshoot) {
+        } else if (!this.props.currentCourse.troubleshoot) {
             console.log("SECOND FORM")
             return (
                 <div style={{ width: "800px", margin: "auto", padding: "20px 0" }}>
                     ***Don't Reload before Saving! Changes may get lost ***
                     <Form onFinish={async (val) => {
                         console.log("valllll", val)
-                        const { faqs} = val;
-                        
+                        const { faqs } = val;
+
                         if (faqs.length) {
-                                this.setState({ loading: true })
-                                await this.props.addTroubleshoot(this.props.match.params.id, faqs, this.props.currentCourse.troubleshoot)
-                                this.setState({ loading: false })
-                                console.log("abt to cler")
-                                this.props.clearTroubleshoot()
-                                console.log("abt to go back")
-                                this.props.history.goBack()
+                            this.setState({ loading: true })
+                            await this.props.addTroubleshoot(this.props.match.params.id, faqs, this.props.currentCourse.troubleshoot)
+                            this.setState({ loading: false })
+                            console.log("abt to cler")
+                            this.props.clearTroubleshoot()
+                            console.log("abt to go back")
+                            this.props.history.goBack()
                         } else {
                             this.openNotificationWithIcon('error', 'Please make sure at least one step is there')
                         }
 
 
                     }}>
-                        
+
                         <Form.List name="faqs" label="faqs" rules={[{ required: true }]}>
                             {(fields, { add, remove }) => {
                                 return (
@@ -165,7 +169,7 @@ class AddTroubleshoot extends Component {
                                                         key={"desc" + index}
                                                         name={[field.name, 'question']}
                                                         fieldKey={[field.fieldKey, 'question']}
-                                                        rules={[{ required: true, message: 'Missing Step Question' }]}
+                                                    // rules={[{ required: true, message: 'Missing Step Question' }]}
                                                     >
                                                         <Input.TextArea style={{ width: "90%" }} autoSize={{ minRows: 2 }} />
                                                     </Form.Item>
@@ -175,8 +179,10 @@ class AddTroubleshoot extends Component {
                                                         key={"desc" + index}
                                                         name={[field.name, 'answer']}
                                                         fieldKey={[field.fieldKey, 'answer']}
-                                                        >
-                                                        <TextEditor/>
+                                                        rules={[{ required: true, message: 'Missing Step Answer' }]}
+
+                                                    >
+                                                        <TextEditor />
                                                     </Form.Item>
                                                 </div>
 
@@ -216,7 +222,7 @@ class AddTroubleshoot extends Component {
         else {
             console.log("ddd")
             return null;
-        }   
+        }
 
 
 

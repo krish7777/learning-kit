@@ -64,6 +64,8 @@ class BuildCircuitBuilder extends Component {
                 <Form onFinish={(val) => {
                     const { steps } = val;
                     let success = 1;
+                    if (!steps)
+                        return
                     let newSteps = steps.map(step => {
                         const { upload_image, upload_side, description } = step;
                         if (upload_side && upload_image[0].response && upload_image[0].response.location && upload_side[0].response && upload_side[0].response.location)

@@ -7,10 +7,10 @@ import { ReactComponent as SkipIcon } from "../../../assets/images/SkipIcon.svg"
 import { ReactComponent as TroubleshootIcon } from "../../../assets/images/TroubleshootIcon.svg"
 import { ReactComponent as HideIcon } from "../../../assets/images/HideIcon.svg"
 import { bindActionCreators } from "redux";
-import { changeStep } from "../action";
+import { changeCurrentStep, changeStep } from "../action";
 
 const IframeShow = (
-  { steps, changeStep, simulation }
+  { steps, changeStep, simulation, changeCurrentStep }
 ) => {
 
 
@@ -84,7 +84,7 @@ const IframeShow = (
           </>
         }
         {!overlayIsOpen &&
-          <div onClick={() => { }} className="troubleshoot-btn">
+          <div onClick={() => { changeCurrentStep('Troubleshoot') }} className="troubleshoot-btn">
             <TroubleshootIcon />
           TROUBLESHOOT
         </div>
@@ -106,6 +106,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   changeStep: bindActionCreators(changeStep, dispatch),
+  changeCurrentStep: bindActionCreators(changeCurrentStep, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(IframeShow);

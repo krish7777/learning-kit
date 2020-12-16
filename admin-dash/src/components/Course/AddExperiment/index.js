@@ -26,6 +26,10 @@ class AddExperiment extends Component {
         }
     }
 
+    componentWillUnmount() {
+        this.props.clearExperiment()
+    }
+
     openNotificationWithIcon = (type, message) => {
         notification[type]({
             message: message,

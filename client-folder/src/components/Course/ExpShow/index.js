@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./styles.scss";
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/scss/image-gallery.scss";
 import "react-image-gallery/styles/css/image-gallery.css";
@@ -10,10 +10,10 @@ import { ReactComponent as RightArrow } from "../../../assets/images/RightArrow.
 import { ReactComponent as SkipIcon } from "../../../assets/images/SkipIcon.svg"
 import { ReactComponent as TroubleshootIcon } from "../../../assets/images/TroubleshootIcon.svg"
 import { bindActionCreators } from "redux";
-import { changeStep} from "../action";
+import { changeCurrentStep, changeStep } from "../action";
 
 const SlideShow = (
-  { steps, changeStep }
+  { steps, changeStep, changeCurrentStep }
 ) => {
 
 
@@ -64,7 +64,7 @@ const SlideShow = (
 
   return (
     <div className="slideshow" style={{ width: "65%", margin: "0 20%" }}>
-      <div className={overlayIsOpen?"overlayed gallerycontainer":"gallerycontainer"}>
+      <div style={{ background: "white" }} className={overlayIsOpen ? "overlayed gallerycontainer" : "gallerycontainer"}>
         <ImageGallery
           ref={inputEl}
           items={images}
@@ -76,16 +76,16 @@ const SlideShow = (
           showNav={false}
           onBeforeSlide={modalChecker}
         />
-        {overlayIsOpen&&
-        <div className="overlay-content">
-          <span>You have successfuly completed the code required to do this experiment. Now upload the code to the Arduino Uno board and lets get started with the experiment.</span>
-          <Link to="/" onClick={ (event) => event.preventDefault() }>
-          <span style={{color:"#0C6A9F",fontSize:"medium"}}> HINT: How to upload IDE code to Arduino board</span></Link>
-        </div>
+        {overlayIsOpen &&
+          <div className="overlay-content">
+            <span>You have successfuly completed the code required to do this experiment. Now upload the code to the Arduino Uno board and lets get started with the experiment.</span>
+            <Link to="/" onClick={(event) => event.preventDefault()}>
+              <span style={{ color: "#0C6A9F", fontSize: "medium" }}> HINT: How to upload IDE code to Arduino board</span></Link>
+          </div>
         }
       </div>
 
-      <div className={overlayIsOpen?"overlayed code-step":"code-step"}>
+      <div className={overlayIsOpen ? "overlayed code-step" : "code-step"}>
         Step {currentStep + 1} : {steps[currentStep].description}
       </div>
       <div className="nav">
@@ -95,16 +95,16 @@ const SlideShow = (
         </div>
         <div className="divider"></div>
 
-        {overlayIsOpen&&
-        <>
-        <div onClick={closeOverlay} className="codeUp-btn">
-          <SkipIcon />
+        {overlayIsOpen &&
+          <>
+            <div onClick={closeOverlay} className="codeUp-btn">
+              <SkipIcon />
           CODE UPLOAD SUCCESSFUL
         </div>
-        <div className="divider"></div>
-        </>
+            <div className="divider"></div>
+          </>
         }
-        <div onClick={()=>{}} className="troubleshoot-btn">
+        <div onClick={() => { changeCurrentStep('Troubleshoot') }} className="troubleshoot-btn">
           <TroubleshootIcon />
           TROUBLESHOOT
         </div>
@@ -125,6 +125,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   changeStep: bindActionCreators(changeStep, dispatch),
+  changeCurrentStep: bindActionCreators(changeCurrentStep, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SlideShow);
