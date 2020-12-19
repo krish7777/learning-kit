@@ -8,16 +8,6 @@ const trackSchema = new Schema({
     faqs: [{
         question: String,
         answer: String
-    }],
-    gettingStarted: [{
-        name: String,
-        thumbnailPath: String,
-        introduction: String,
-        starters: [{
-            type: Schema.Types.ObjectId,
-            ref: 'Starting'
-        }],
-        type: String 
     }]
 });
 exports.trackSchema = trackSchema

@@ -4,7 +4,7 @@ import { baseUrl } from "../../config"
 export const getCurrentCourse = (id) => async dispatch => {
     try {
         const res = await axios.get(`${baseUrl}/api/course/get/${id}`);
-        console.log(res.data)
+        // console.log("this is current course data",res.data)
         dispatch({
             type: ACTION.GET_CURRENT_COURSE,
             payload: res.data.course
@@ -14,6 +14,17 @@ export const getCurrentCourse = (id) => async dispatch => {
     }
 }
 
+export const getParentModule = (id) => async dispatch => {
+    try {
+        const res = await axios.get(`${baseUrl}/api/course/getp/${id}`);
+        dispatch({
+            type: ACTION.GET_CURRENT_PARENT,
+            payload: res.data.name
+        })
+    } catch (err) {
+        console.log("error in getParentModule")
+    }
+}
 //<<<<<<<<<<<<<<<INTRODUCTION>>>>>>>>>>>>>>>>>>>>
 
 export const setIntroductionHtml = (html) => dispatch => {
