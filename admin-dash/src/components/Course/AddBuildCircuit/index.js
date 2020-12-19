@@ -154,15 +154,15 @@ class AddBuildCircuit extends Component {
 
                         {/*FOR ARDUINO*/}
 
-                        {this.props.match.params.type == "arduino" ? <Form.Item label="Code" name="code"
+                        {this.props.match.params.type === "arduino" ? <Form.Item label="Code" name="code"
                             rules={[{ required: true, message: 'Missing Code' }]}
                         >
                             <Input.TextArea autoSize={{ minRows: 5 }} />
                         </Form.Item> : null}
-                        {this.props.match.params.type == "arduino" ? <Form.Item label="Code starting step" name="codeStepStart" rules={[{ required: true }]}>
+                        {this.props.match.params.type === "arduino" ? <Form.Item label="Code starting step" name="codeStepStart" rules={[{ required: true }]}>
                             <InputNumber />
                         </Form.Item> : null}
-                        {this.props.match.params.type == "digital" ? <Form.Item label="Final Circuit step" name="finalCircuitStep" rules={[{ required: true }]}>
+                        {this.props.match.params.type === "digital" ? <Form.Item label="Final Circuit step" name="finalCircuitStep" rules={[{ required: true }]}>
                             <InputNumber />
                         </Form.Item> : null}
 
@@ -217,7 +217,7 @@ class AddBuildCircuit extends Component {
                                                         </Upload>
                                                     </Form.Item>
 
-                                                    {this.props.match.params.type == "digital" ? (
+                                                    {this.props.match.params.type === "digital" ? (
                                                         <Form.Item
                                                             {...field}
                                                             key={"upload_side" + index}
@@ -374,17 +374,17 @@ class AddBuildCircuit extends Component {
 
                         {/*FOR ARDUINO*/}
 
-                        {this.props.match.params.type == "arduino" ? <Form.Item label="Code" name="code"
+                        {this.props.match.params.type === "arduino" ? <Form.Item label="Code" name="code"
                             rules={[{ required: true, message: 'Missing Code' }]}
                         >
                             <Input.TextArea autoSize={{ minRows: 5 }} />
                         </Form.Item> : null}
 
-                        {this.props.match.params.type == "arduino" ? <Form.Item label="Code starting step" name="codeStepStart, finalCircuitStep" rules={[{ required: true }]}>
+                        {this.props.match.params.type === "arduino" ? <Form.Item label="Code starting step" name="codeStepStart, finalCircuitStep" rules={[{ required: true }]}>
                             <InputNumber />
                         </Form.Item> : null}
 
-                        {this.props.match.params.type == "digital" ? <Form.Item label="Final Circuit step" name="finalCircuitStep" rules={[{ required: true }]}>
+                        {this.props.match.params.type === "digital" ? <Form.Item label="Final Circuit step" name="finalCircuitStep" rules={[{ required: true }]}>
                             <InputNumber />
                         </Form.Item> : null}
 
@@ -440,7 +440,7 @@ class AddBuildCircuit extends Component {
                                                         </Button>
                                                         </Upload>
                                                     </Form.Item>
-                                                    {this.props.match.params.type == "digital" ? (
+                                                    {this.props.match.params.type === "digital" ? (
                                                         <Form.Item
                                                             {...field}
                                                             key={"upload_side" + index}

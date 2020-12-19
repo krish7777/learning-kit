@@ -50,6 +50,7 @@ exports.getCourseTroubleshoot = async (req, res, next) => {
     const { type } = req.params;
     try {
         let troubleshoot = await Track.findOne({ name: type })
+        console.log("viola",{troubleshoot})
         res.json({ troubleshoot })
     } catch (err) {
         if (!err.statusCode) {
