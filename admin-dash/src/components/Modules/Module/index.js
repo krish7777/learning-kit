@@ -19,8 +19,8 @@ class Module extends Component {
                     <div>{module.name}</div>
                     <div>{SUBMODULE.toUpperCase()}S</div>
                     <div>
-                        {module.courses && module.courses.map(course =>
-                            <Link to={`/i/${this.props.match.params.type}/course/${course._id}`}>
+                        {module.courses && module.courses.map((course,index) =>
+                            <Link key={"unique" + index} to={`/i/${this.props.match.params.type}/course/${course._id}`}>
                                 <div>{course.name}</div>
                             </Link>
                         )}
