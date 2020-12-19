@@ -17,6 +17,7 @@ class Course extends Component {
         return (
             <div>
             {SUBMODULE.toUpperCase()} {this.props.match.params.id}
+            <br/>
             {parent!==GETTINGSTARTED&&
                 <div>
                     <Button>
@@ -42,9 +43,12 @@ class Course extends Component {
                     </Button>
                 </div>
             }
-            {parent!==GETTINGSTARTED&&
-                <>
-                </>
+            {parent===GETTINGSTARTED&&
+            <>
+                <Button>
+                    <Link to={`/i/${this.props.match.params.type}/course/experiment/${this.props.match.params.id}/${course.experiment}`}>ADD INFOGRAPHICS</Link>
+                </Button>
+            </>
             }
             </div>
         )
