@@ -12,7 +12,7 @@ const MainHome = () => {
                 <Card
                     bordered={false}
                     hoverable
-                    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+                    cover={<img alt="example" src="https://a.pololu-files.com/picture/0J7808.1200.jpg?8a7bee07ca7ffbb11e11f74e99f5c3a9" />}
                     style={{ width: 240, padding: 0, backgroundColor: "rgba(130, 199, 254, 0.2)" }}
                 >
                     <p style={{ color: "white", margin: 0, textAlign: "center" }}>ARDUINO</p>
@@ -23,7 +23,7 @@ const MainHome = () => {
                 <Card
                     bordered={false}
                     hoverable
-                    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+                    cover={<img alt="example" src="https://www.ie.edu/insights/wp-content/uploads/2017/05/Prueba-y-aprendizaje-transformacion-cultural-en-la-era-digital.jpg" />}
                     style={{ width: 240, padding: 0, backgroundColor: "rgba(130, 199, 254, 0.2)" }}
                 >
                     <p style={{ color: "white", margin: 0, textAlign: "center" }}>DIGITAL</p>

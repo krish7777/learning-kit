@@ -95,18 +95,16 @@ class Home extends React.Component {
 
               {filteredModules.map((module, index) => {
                 return (
-                  <Popover content={ReactHtmlParser(module?.introduction)}
-                  >
-                    <></>
 
-                    <Collapse ghost accordion expandIconPosition={"right"} >
 
-                      <Panel key={module._id} style={{ border: "1px solid #324454" }} header={index + 1 + ". " + module.name} key={module.index}>
-                        {module.courses.map(course => <Link to={`/${this.props.match.params.type}/course/${course._id}`}><div key={course._id} className="sub-course">{course.name}</div></Link>)}
-                      </Panel>
-                    </Collapse>
+                  <Collapse ghost accordion expandIconPosition={"right"} >
 
-                  </Popover>
+                    <Panel key={module._id} style={{ border: "1px solid #324454" }} header={index + 1 + ". " + module.name} key={module.index}>
+                      {module.courses.map(course => <Link to={`/${this.props.match.params.type}/course/${course._id}`}><div key={course._id} className="sub-course">{course.name}</div></Link>)}
+                    </Panel>
+                  </Collapse>
+
+
                 )
               })}
 
