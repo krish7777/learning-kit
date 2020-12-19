@@ -4,17 +4,30 @@
 
     .module-navbar {
         display: flex;
-        flex-direction: row;
-        background-color: rgb(220, 192, 247);
+        flex-direction: column;
+        background-color: rgb(199, 159, 240);
         justify-content: center;
         align-items: center;
 
-        .module-name,
-        .submodule-name {
+        .module-name {
             font-size: 2rem;
-            margin: auto;
-            padding: auto;
-            display: block;
+        }
+        .navbar-horizontal {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+
+            .module-details,
+            .submodule-name {
+                font-size: 1.6rem;
+                margin: auto;
+                padding: auto;
+                display: block;
+                width: 46.5vw;
+                background-color: #20415c;
+                color: aliceblue;
+            }
         }
     }
 
