@@ -8,6 +8,7 @@ import BuildCircuitBuilder from './components/BuildCircuitBuilder';
 import Modules from './components/Modules';
 import { Link, Route, Switch } from 'react-router-dom';
 import AddModule from './components/Modules/AddModule';
+import AddModuleConf from './components/Starter/AddModule';
 import TextEditor from './components/TextEditor';
 import Module from './components/Modules/Module';
 import AddCourse from './components/Course/AddCourse';
@@ -56,9 +57,9 @@ class App extends React.Component {
           <Route path="/i/:type/course/results/:id" component={AddResults} />
           <Route path="/i/:type/course/excercise/:id" component={AddExcercise} />
           <Route exact path="/i/:type" component={Modules} />
-
           <Route exact path="/i/:type/course/:id" component={Course} />
           <Route path="/i/:type/add-module" component={AddModule} />
+          <Route exact path="/i/:type/add-starter" component={AddModuleConf} />
           <Route path="/i/:type/add-course/:module_id" component={AddCourse} />
           <Route path="/i" component={CreatorHome} />
         </Switch>

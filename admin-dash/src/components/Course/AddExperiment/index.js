@@ -77,7 +77,7 @@ class AddExperiment extends Component {
 
                             let newSteps;
 
-                            if (this.props.match.params.type == "arduino") {
+                            if (this.props.match.params.type === "arduino") {
                                 newSteps = steps.map(step => {
                                     const { upload_image, description } = step;
                                     if (upload_image[0].response && upload_image[0].response.location) {
@@ -124,7 +124,7 @@ class AddExperiment extends Component {
 
                         {/*FOR DIGITAL*/}
 
-                        {this.props.match.params.type == "digital" ?
+                        {this.props.match.params.type === "digital" ?
                             <Form.Item name="simulationLink" label="Simulation Link" rules={[{ required: true }]}>
                                 <Input />
                             </Form.Item>
@@ -150,7 +150,7 @@ class AddExperiment extends Component {
                                                         <Input.TextArea style={{ width: "90%" }} autoSize={{ minRows: 2 }} />
                                                     </Form.Item>
 
-                                                    {this.props.match.params.type == "arduino" ? <Form.Item
+                                                    {this.props.match.params.type === "arduino" ? <Form.Item
                                                         {...field}
                                                         key={"upload_image" + index}
                                                         {...formItemLayoutWithOutLabel}
@@ -236,7 +236,7 @@ class AddExperiment extends Component {
 
                             let newSteps;
 
-                            if (this.props.match.params.type == "arduino") {
+                            if (this.props.match.params.type === "arduino") {
                                 newSteps = steps.map(step => {
                                     const { upload_image, description } = step;
                                     if (upload_image[0].response && upload_image[0].response.location) {
@@ -287,7 +287,7 @@ class AddExperiment extends Component {
                     }}>
                         {/*FOR DIGITAL*/}
 
-                        {this.props.match.params.type == "digital" ?
+                        {this.props.match.params.type === "digital" ?
                             <Form.Item name="simulationLink" label="Simulation Link" rules={[{ required: true }]}>
                                 <Input />
                             </Form.Item>
@@ -312,7 +312,7 @@ class AddExperiment extends Component {
 
 
 
-                                                    {this.props.match.params.type == "arduino" ? <Form.Item
+                                                    {this.props.match.params.type === "arduino" ? <Form.Item
                                                         {...field}
                                                         key={"upload_image" + index}
                                                         {...formItemLayoutWithOutLabel}
