@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "concurrently \"mongod\" \"nodemon server.js\" \"cd admin-dash && npm run start\" \"cd client-folder && npm run start\""
+    "start": "concurrently \"mongod\" \"nodemon server.js\" \"cd admin-dash && npm run start\" \"cd client-folder && npm run start\"",
+    "fstart": "concurrently \"node server.js\" \"cd admin-dash && npm run start\" \"cd client-folder && npm run start\""
   },
   "author": "Krishnendu Sudheesh",
   "license": "ISC",
