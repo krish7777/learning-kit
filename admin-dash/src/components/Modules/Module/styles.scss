@@ -1,0 +1,41 @@
+.module-container {
+    margin: 3%;
+    border: 2px solid black;
+
+    .module-navbar {
+        display: flex;
+        flex-direction: row;
+        background-color: rgb(220, 192, 247);
+        justify-content: center;
+        align-items: center;
+
+        .module-name,
+        .submodule-name {
+            font-size: 2rem;
+            margin: auto;
+            padding: auto;
+            display: block;
+        }
+    }
+
+    .submodule-list {
+        font-size: 1.5rem;
+        .submodule-listItem {
+            color: rgb(56, 49, 49);
+            margin: 1%;
+            padding: 0.5%;
+            box-shadow: 5px 5px 20px 1px #cecbcb;
+            border-right: 4px groove rgb(186, 187, 189);
+        }
+    }
+    .add-button {
+        margin: 1%;
+        font-size: 1.4rem;
+        font-weight: 500;
+        padding: 1%;
+        width: 15%;
+        height: 12%;
+        background-color: rgb(1, 139, 139);
+        color: aliceblue;
+    }
+}
