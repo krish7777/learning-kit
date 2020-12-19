@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { addCourseTroubleshoot, getCourseTroubleshoot, getModules } from './action'
 import { bindActionCreators } from 'redux'
 import { Link } from "react-router-dom"
-import { MODULE,SUBMODULE } from '../../config'
+import { MODULE,SUBMODULE,GETTINGSTARTED } from '../../config'
 
 import { Form, Input, Button, notification } from "antd";
 import { MinusCircleOutlined, PlusOutlined, } from '@ant-design/icons';
@@ -42,15 +42,23 @@ class Modules extends Component {
             <div>
                 <div>All {this.props.match.params.type} {MODULE}s</div>
                 {modules.map(module => (
+                    <>
+                    {module.name !== GETTINGSTARTED+"ignore" &&
                     <Link to={`/i/${this.props.match.params.type}/module/${module._id}`}>
                         <div>{module.name}</div>
                     </Link>
+                    }
+                    </>
                 ))}
                 <br />
                 <Link to={`/i/${this.props.match.params.type}/add-module`}><Button>Add {MODULE}</Button></Link>
                 <br/>
-                <Link to={`/i/${this.props.match.params.type}/add-starter`}><Button>Add {SUBMODULE} / Starter</Button></Link>
-
+                {!modules.some(el => el.name === GETTINGSTARTED)&&
+                <Link to={`/i/${this.props.match.params.type}/add-starter`}><Button>Add Starter {MODULE}</Button></Link>
+                }
+                {modules.some(el => el.name === GETTINGSTARTED)&&
+                <Link to={`/i/${this.props.match.params.type}/add-course/${modules.find(el => el.name === GETTINGSTARTED)._id}`}><Button>Add Starter {SUBMODULE}</Button></Link>
+                }
                 <p>COURSE-LEVEL-TROUBLESHOOT</p>
 
                 <div style={{ width: "800px", margin: "auto", padding: "20px 0" }}>

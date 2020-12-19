@@ -1,5 +1,6 @@
 const { Module } = require('../models/module');
 const { Track } = require('../models/track')
+
 exports.addModule = async (req, res, next) => {
     const { name, thumbnailPath, introduction, type } = req.body;
     const module = new Module({
@@ -37,6 +38,12 @@ exports.getAllModules = async (req, res, next) => {
     const { type } = req.params;
     try {
         let modules = await Module.find({ type }).populate('courses')
+        modules.some((item, idx) => 
+        item.name === "Getting Started" && 
+        modules.unshift( 
+          modules.splice(idx,1)[0] 
+        ) 
+      )
         res.json({ modules })
     } catch (err) {
         if (!err.statusCode) {
