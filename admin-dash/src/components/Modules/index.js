@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { addCourseTroubleshoot, getCourseTroubleshoot, getModules } from './action'
 import { bindActionCreators } from 'redux'
 import { Link } from "react-router-dom"
-import { MODULE } from '../../config'
+import { MODULE,SUBMODULE } from '../../config'
 
 import { Form, Input, Button, notification } from "antd";
 import { MinusCircleOutlined, PlusOutlined, } from '@ant-design/icons';
@@ -48,6 +48,8 @@ class Modules extends Component {
                 ))}
                 <br />
                 <Link to={`/i/${this.props.match.params.type}/add-module`}><Button>Add {MODULE}</Button></Link>
+                <br/>
+                <Link to={`/i/${this.props.match.params.type}/add-starter`}><Button>Add {SUBMODULE} / Starter</Button></Link>
 
                 <p>COURSE-LEVEL-TROUBLESHOOT</p>
 
