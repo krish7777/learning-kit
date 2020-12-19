@@ -6,6 +6,7 @@ const { StepThumb } = require('../../models/stepThumb');
 
 exports.addBuildCircuit = async (req, res, next) => {
     const { course_id, steps, code, codeStepStart, finalCircuitStep, build_id } = req.body;
+    console.log("the body", req.body)
 
     if (!build_id) {
         try {
