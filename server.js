@@ -54,7 +54,7 @@ app.use((error, req, res, next) => {
 });
 
 //Connecting to MongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/learning', {
+mongoose.connect('mongodb+srv://krish:krish@cluster0.fdsor.gcp.mongodb.net/learning?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
