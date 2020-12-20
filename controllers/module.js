@@ -84,3 +84,17 @@ exports.addCourseTroubleshoot = async (req, res, next) => {
 
 
 }
+
+exports.updateModuleName = async (req, res, next) => {
+    const name = req.body.name;
+    const { module_id } = req.params;
+    try {
+        let resp = await Module.update({_id: module_id}, {$set: {name:name}});
+        res.json({ "module_id": resp._id,"name":resp.name })
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500
+        }
+        next(err)
+    }
+}
