@@ -27,6 +27,21 @@ export const getModules = (type) => async dispatch => {
 
 }
 
+export const updateModuleName = (name,id) => async dispatch => {
+    try {
+        const res = await axios.post(`${baseUrl}/api/module/update-name/${id}`, {name})
+        console.log(res.data)
+        dispatch({
+            type: ACTION.UPDATE_COURSE_NAME,
+            payload: name
+        })
+    } catch (err) {
+        // console.log("Failed method : updateModuleName")
+        console.log(err);
+    }
+
+}
+
 export const getCurrentModule = (id) => async dispatch => {
     try {
         const res = await axios.get(`${baseUrl}/api/module/get/${id}`);
