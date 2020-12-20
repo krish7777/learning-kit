@@ -67,3 +67,21 @@ exports.getParentModule = async(req,res,next)=>{
         next(err)
     }
 }
+
+exports.updateSubModule = async (req, res, next) => {
+    // const { name, thumbnailPath, introduction } = req.body;
+    const name = req.body.name;
+    const { course_id } = req.params;
+    try {
+        let resp = await Course.update(
+            { _id: course_id },
+            { $set: { name: name } }
+        );
+        res.json({ course_id: resp._id, name: resp.name });
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+};
