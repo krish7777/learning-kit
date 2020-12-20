@@ -87,6 +87,7 @@ exports.addCourseTroubleshoot = async (req, res, next) => {
 exports.updateModule = async (req, res, next) => {
     // const { name, thumbnailPath, introduction } = req.body;
     const name = req.body.name;
+    const introduction = req.body.introduction;
     const { module_id } = req.params;
     // const module = new Module({
     //     name,
@@ -96,7 +97,7 @@ exports.updateModule = async (req, res, next) => {
     try {
         let resp = await Module.update(
             { _id: module_id },
-            { $set: { name: name } }
+            { $set: { name: name, introduction:introduction } }
         );
         res.json({ module_id: resp._id, name: resp.name });
     } catch (err) {

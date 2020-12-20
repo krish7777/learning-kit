@@ -20,6 +20,7 @@ class Module extends Component {
             name: '',
             introduction: '',
         };
+        this.handleEditorChange=this.handleEditorChange.bind(this);
     }
 
     componentDidMount() {
@@ -37,12 +38,14 @@ class Module extends Component {
             selectedWindow: selectedOptionWord,
         });
     };
-
+    handleEditorChange(e){
+        // console.log('Content was updated:', e.target.getContent());
+        this.setState({introduction: e.target.getContent()});
+    }
     onFinish = async (event) => {
         // event.preventDefault();
-        console.log('You are submitting ' + JSON.stringify(this.props.module));
-
-        await this.props.updateModule(event.name, this.props.match.params.id);
+        // console.log('You are submitting ' + JSON.stringify(this.props.module));
+        await this.props.updateModule(event.name,this.state.introduction, this.props.match.params.id);
         this.props.history.goBack();
     };
 
@@ -108,12 +111,12 @@ class Module extends Component {
                                 <Form.Item
                                     name="introduction"
                                     noStyle
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'This field is required',
-                                        },
-                                    ]}
+                                    // rules={[
+                                    //     {
+                                    //         required: true,
+                                    //         message: 'This field is required',
+                                    //     },
+                                    // ]}
                                 >
                                     {/* <Input
                                         name="introduction"
@@ -121,9 +124,8 @@ class Module extends Component {
                                         placeholder={module.introduction}
                                     /> */}
                                     <Editor
-                                        // key={"uniq"+module.introduction}
+                                        textareaName="introduction"
                                         apiKey="n7942578kkai07fww91ixztab3vfa874swodd4i2e1ymki4i"
-                                        value={this.state.content}
                                         init={{
                                             height: "90vh",
                                             skin: "oxide-dark",
@@ -208,7 +210,7 @@ class Module extends Component {
                                             paste_data_images: true,
                                         }}
                                         initialValue={module.introduction}
-                                        onEditorChange={this.handleChange}
+                                        onChange={this.handleEditorChange}
                                     />
                                 </Form.Item>
                             </Form.Item>

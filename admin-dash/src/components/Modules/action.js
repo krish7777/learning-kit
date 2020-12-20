@@ -70,16 +70,16 @@ export const addCourseTroubleshoot = (name, faqs) => async (dispatch) => {
     }
 };
 
-export const updateModule = (name, id) => async (dispatch) => {
+export const updateModule = (name,introduction, id) => async (dispatch) => {
     try {
         const res = await axios.post(
-            `${baseUrl}/api/module/update-name/${id}`,
-            { name }
+            `${baseUrl}/api/module/update-info/${id}`,
+            { name,introduction }
         );
         console.log("data post:",res.data);
         dispatch({
             type: ACTION.UPDATE_COURSE,
-            payload: name,
+            payload: [name,introduction],
         });
     } catch (err) {
         console.log('Error in updateModule:' + err);
