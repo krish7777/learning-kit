@@ -15,6 +15,8 @@ const modulesReducer = (state = initialState, action) => {
         case ACTION.GET_CURRENT_MODULE:
             state = { ...state, currentModule: action.payload };
             break;
+        case ACTION.UPDATE_COURSE_NAME:
+            state = {...state, updateCourseName:true}
         case ACTION.GET_COURSE_TROUBLESHOOT:
             state = { ...state, courseTroubleshoot: action.payload };
             break;
