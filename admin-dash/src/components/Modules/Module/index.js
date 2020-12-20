@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getCurrentModule } from '../action';
+import { getCurrentModule, updateModule } from '../action';
 import { Link } from 'react-router-dom';
-import { Button } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { SUBMODULE } from '../../../config';
 import './styles.scss';
 
@@ -12,6 +12,8 @@ class Module extends Component {
         super(props);
         this.state = {
             selectedWindow: 'module-details',
+            name: '',
+            introduction: '',
         };
     }
 
@@ -29,6 +31,15 @@ class Module extends Component {
             selectedWindow: selectedOptionWord,
         });
     };
+
+    onFinish = async (event) => {
+        // event.preventDefault();
+        console.log('You are submitting ' + JSON.stringify(this.props.module));
+
+        await this.props.updateModule(event.name, this.props.match.params.id);
+        this.props.history.goBack();
+    };
+
     render() {
         const { module } = this.props;
         if (module)
@@ -61,32 +72,58 @@ class Module extends Component {
 
                     {/* SHOW MODULE DETAILS / SUBMODULES*/}
                     {this.state.selectedWindow === 'module-details' ? (
-                        <form>
-                            <h2 style={{ right: '4%', position: 'absolute' }}>
-                                Hello !
-                            </h2>
-                            <label>Name:</label>
-                            <input
-                                type="text"
-                                name="name"
-                                placeholder={module.name}
-                                onChange={this.myChangeHandler}
-                            />
-                            <br />
-                            <label> Introduction:</label>
-                            <input
-                                type="text"
-                                name="introduction"
-                                placeholder={module.introduction}
-                                onChange={this.myChangeHandler}
-                            />
-                            <br />
-                            <Link
-                                to={`/i/${this.props.match.params.type}/module/${module._id}`}
-                            >
-                                <Button className="add-button">UPDATE</Button>
-                            </Link>
-                        </form>
+                        <Form
+                            name="update-form"
+                            onFinish={this.onFinish}
+                            labelCol={{ span: 8 }}
+                            wrapperCol={{ span: 16 }}
+                        >
+                            <Form.Item label="Name">
+                                <Form.Item
+                                    name="name"
+                                    noStyle
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'This field is required',
+                                        },
+                                    ]}
+                                >
+                                    <Input
+                                        name="name"
+                                        style={{ width: 160 }}
+                                        placeholder={module.name}
+                                    />
+                                </Form.Item>
+                            </Form.Item>
+                            <Form.Item label="Introduction">
+                                <Form.Item
+                                    name="introduction"
+                                    noStyle
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'This field is required',
+                                        },
+                                    ]}
+                                >
+                                    <Input
+                                        name="introduction"
+                                        style={{ width: 260, height: '7vw' }}
+                                        placeholder={module.introduction}
+                                    />
+                                </Form.Item>
+                            </Form.Item>
+                            <Form.Item>
+                                <Button
+                                    type="primary"
+                                    htmlType="submit"
+                                    style={{ marginLeft: '60%' }}
+                                >
+                                    Update
+                                </Button>
+                            </Form.Item>
+                        </Form>
                     ) : (
                         <div>
                             <ol className="submodule-list">
@@ -124,6 +161,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     getCurrentModule: bindActionCreators(getCurrentModule, dispatch),
+    updateModule: bindActionCreators(updateModule, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Module);
