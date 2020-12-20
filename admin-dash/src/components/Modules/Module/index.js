@@ -8,6 +8,7 @@ import { SUBMODULE } from '../../../config';
 import './styles.scss';
 
 class Module extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -21,6 +22,7 @@ class Module extends Component {
         console.log(this.props.match.params.id);
         this.props.getCurrentModule(this.props.match.params.id);
     }
+
 
     changeCurrentWindow = (selectedOptionWord) => {
         // console.log(
