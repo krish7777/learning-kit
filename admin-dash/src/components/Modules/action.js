@@ -85,3 +85,18 @@ export const updateModule = (name,introduction, id) => async (dispatch) => {
         console.log('Error in updateModule:' + err);
     }
 };
+
+export const updateSubModule = (name,id) => async dispatch => {
+    try {
+        const res = await axios.post(`${baseUrl}/api/course/update/${id}`, {name})
+        console.log(res.data)
+        dispatch({
+            type: ACTION.UPDATE_SUBMOD,
+            payload: name
+        })
+    } catch (err) {
+        // console.log("Failed method : updateModuleName")
+        console.log(err);
+    }
+
+}

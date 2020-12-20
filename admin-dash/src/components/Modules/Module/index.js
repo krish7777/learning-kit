@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getCurrentModule, updateModule } from '../action';
+import { getCurrentModule, updateModule, updateSubModule } from '../action';
 import { Link } from 'react-router-dom';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Divider } from 'antd';
 import { baseUrl, SUBMODULE } from '../../../config';
 import './styles.scss';
 import imageCompression from 'browser-image-compression';
@@ -48,7 +48,10 @@ class Module extends Component {
         await this.props.updateModule(event.name,this.state.introduction, this.props.match.params.id);
         this.props.history.goBack();
     };
-
+    onSubFinish = async (values) =>{
+        await this.props.updateSubModule(values.name,values.id)
+        // this.props.history.goBack()
+    } 
     render() {
         const { module } = this.props;
         if (module)
@@ -229,14 +232,39 @@ class Module extends Component {
                             <ol className="submodule-list">
                                 {module.courses &&
                                     module.courses.map((course) => (
-                                        <Link
-                                            key={Math.random()}
-                                            to={`/i/${this.props.match.params.type}/course/${course._id}`}
-                                        >
-                                            <li className="submodule-listItem">
-                                                {course.name}
-                                            </li>
-                                        </Link>
+                                            <>
+                                            <Divider />
+                                            <Form name="update-form"
+                                            layout={'inline'}
+                                            onFinish={this.onSubFinish}
+                                            initialValues={{"name":course.name,"id":course._id}}
+                                            >
+                                                <Form.Item
+                                                name="name"
+                                                noStyle
+                                                rules={[{ required: true, message: 'This field is required' }]}
+                                                >
+                                                <Input name="name" style={{ width: 160 }} placeholder={course.name}/>
+                                                </Form.Item>
+                                                <Form.Item
+                                                name="id"
+                                                noStyle
+                                                >
+                                                <Input name="id" style={{ display:"none" }}/>
+                                                </Form.Item>
+                                                <Button type="primary" htmlType="submit">
+                                                Update
+                                                </Button>
+                                                <Link
+                                                    key={Math.random()}
+                                                    to={`/i/${this.props.match.params.type}/course/${course._id}`}
+                                                >
+                                                <Button type="dashed">Edit SubModule</Button>
+                                                </Link>   
+                                            </Form> 
+                                            <Divider />
+                                            </>
+
                                     ))}
                             </ol>
 
@@ -262,6 +290,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     getCurrentModule: bindActionCreators(getCurrentModule, dispatch),
     updateModule: bindActionCreators(updateModule, dispatch),
+    updateSubModule: bindActionCreators(updateSubModule, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Module);

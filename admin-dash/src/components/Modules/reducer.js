@@ -5,6 +5,7 @@ const initialState = {
     currentModule: {},
     courseTroubleshoot: [],
     updateModule: false,
+    updateSubModule: false,
 };
 
 const modulesReducer = (state = initialState, action) => {
@@ -20,6 +21,9 @@ const modulesReducer = (state = initialState, action) => {
             break;
         case ACTION.UPDATE_COURSE:
             state = { ...state, updateModule: true };
+            break;
+        case ACTION.UPDATE_SUBMOD:
+            state = {...state, updateSubModule:true}
             break;
     }
 
