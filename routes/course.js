@@ -1,7 +1,7 @@
 const express = require('express')
 
 const isAuth = require('../middlewares/is-auth');
-const { addCourse, getCourse, getParentModule } = require('../controllers/course');
+const { addCourse, getCourse, getParentModule, updateSubModule  } = require('../controllers/course');
 const { addIntroduction, getIntroduction } = require('../controllers/course/introduction');
 const { addBuildCircuit, getBuildCircuit } = require('../controllers/course/buildCircuit');
 const { addTroubleshoot, getTroubleshoot } = require('../controllers/course/troubleshoot');
@@ -18,6 +18,7 @@ router.get('/buildCircuit/get/:id', getBuildCircuit)
 router.get('/experiment/get/:id', getExperiment)
 router.post('/troubleshoot', addTroubleshoot)
 router.get('/troubleshoot/get/:id', getTroubleshoot)
+router.post('/update/:course_id', updateSubModule)
 router.post('/excercise', addExcercise)
 router.get('/excercise/get/:id', getExcercise)
 router.post('/experiment', addExperiment)

@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "concurrently \"nodemon server.js\" \"cd admin-dash && npm run start\" \"cd client-folder && npm run start\"",
-    "fstart": "concurrently \"node server.js\" \"cd admin-dash && npm run start\" \"cd client-folder && npm run start\""
+    "fstart": "concurrently \"node server.js\" \"cd admin-dash && npm run start\" \"cd client-folder && npm run start\"",
+    "bstart": "concurrently \"node server.js\" \"cd admin-dash && npm run start\""
   },
   "author": "Krishnendu Sudheesh",
   "license": "ISC",
