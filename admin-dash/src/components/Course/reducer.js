@@ -28,6 +28,9 @@ const courseReducer = (state = initialState, action) => {
         case ACTION.GET_CURRENT_COURSE:
             state = { ...state, currentCourse: action.payload }
             break;
+        case ACTION.GET_CURRENT_PARENT:
+            state = { ...state, currentParent: action.payload }
+            break;
         case ACTION.SET_INTRODUCTION_HTML:
             state = { ...state, introductionHtml: action.payload }
             break;

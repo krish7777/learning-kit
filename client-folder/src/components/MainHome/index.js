@@ -13,20 +13,23 @@ const MainHome = () => {
         display: 'flex',
         justifyContent: 'space-around',
         alignItems: 'center',
-        flexWrap: 'wrap',
       }}
     >
-      <Link to="/arduino" className="client-mainHome-link">
+      <Link to="/arduino">
         <Card
           bordered={false}
           hoverable
           cover={
             <img
               alt="example"
-              src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+              src="https://a.pololu-files.com/picture/0J7808.1200.jpg?8a7bee07ca7ffbb11e11f74e99f5c3a9"
             />
           }
-          className="client-mainHome-card"
+          style={{
+            width: 240,
+            padding: 0,
+            backgroundColor: 'rgba(130, 199, 254, 0.2)',
+          }}
         >
           <p style={{color: 'white', margin: 0, textAlign: 'center'}}>
             ARDUINO
@@ -34,26 +37,23 @@ const MainHome = () => {
         </Card>
       </Link>
 
-      <Link to="/digital" className="client-mainHome-link">
+      <Link to="/digital">
         <Card
           bordered={false}
           hoverable
           cover={
             <img
               alt="example"
-              src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+              src="https://www.ie.edu/insights/wp-content/uploads/2017/05/Prueba-y-aprendizaje-transformacion-cultural-en-la-era-digital.jpg"
             />
           }
-          className="client-mainHome-card"
+          style={{
+            width: 240,
+            padding: 0,
+            backgroundColor: 'rgba(130, 199, 254, 0.2)',
+          }}
         >
-          <p
-            style={{
-              color: 'white',
-              margin: 0,
-              textAlign: 'center',
-              textDecoration: 'bold',
-            }}
-          >
+          <p style={{color: 'white', margin: 0, textAlign: 'center'}}>
             DIGITAL
           </p>
         </Card>
