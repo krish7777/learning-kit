@@ -1,0 +1,21 @@
+.client-mainHome-link:hover {
+  box-shadow: -2px -2px 2px rgba(193, 191, 202, 0.712),
+    2px 2px 3px rgba(193, 191, 202, 0.712),
+    -10px -10px 15px rgba(193, 191, 202, 0.712),
+    10px 10px 10px rgba(193, 191, 202, 0.712);
+
+  border-radius: 0px;
+}
+
+.client-mainHome-link > div > div > img {
+  margin: auto;
+  border-radius: 20px;
+}
+
+.client-mainHome-card {
+  width: 240px;
+  padding: 0px;
+  margin: auto 5px;
+  background-color: rgba(130, 199, 254, 0.2);
+  border-radius: 20px;
+}

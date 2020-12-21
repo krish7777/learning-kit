@@ -1,28 +1,39 @@
 .navbar {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    background-color: rgba(130, 199, 254, 0.2);
-    height: 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background-color: rgba(130, 199, 254, 0.2);
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+
+  .main-title {
     color: white;
+    margin: 0;
+    margin-left: 40px;
+    font-weight: 500;
+  }
 
+  div {
+    padding: 20px 40px;
+    font-size: 16px;
+  }
+  .options {
+    cursor: pointer;
+  }
 
-    .main-title {
-        color: white;
-        margin: 0;
-        margin-left: 40px;
-        font-weight: 500;
-    }
+  .spacer {
+    flex: 1;
+  }
+}
 
+@media screen and (max-width: 1200px) {
+  .navbar {
     div {
-        padding: 20px 40px;
-        font-size: 16px;
+      padding: 15px 30px;
+      font-size: 15px;
     }
-
-    .spacer {
-        flex: 1
-    }
+  }
 }

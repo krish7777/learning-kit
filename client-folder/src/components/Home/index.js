@@ -4,7 +4,7 @@ import Navbar from "../Navbar";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getAllModules, getSomeData } from "./action";
-import { Button, Popover, Collapse, Input } from "antd";
+import { Button, Popover, Collapse, Input, Menu } from "antd";
 import Background from "../../assets/images/background.png"
 import ReactHtmlParser from 'react-html-parser';
 
@@ -40,8 +40,9 @@ class Home extends React.Component {
     const filteredModules = allModules.filter(module => module.name.toLowerCase().includes(searchValue.toLowerCase()) || module.courses.filter(course => course.name.toLowerCase().includes(searchValue.toLowerCase())).length)
     console.log(filteredModules)
     return (
-      <div style={{ backgroundColor: "#001A2F", backgroundImage: `url(${Background})` }}>
+      <div className="mainBody" style={{ backgroundColor: "#001A2F", backgroundImage: `url(${Background})` }}>
         <Navbar />
+        
         <div className="home">
           <div className="main-page-intro">
             <h1>Hands On {this.props.match.params.type === 'arduino' ? ('Arduino') : ('Digital')} Basics Course</h1>
@@ -97,7 +98,7 @@ class Home extends React.Component {
                 return (
                   <Popover content={ReactHtmlParser(module?.introduction)}
                   >
-                    <></>
+                    
 
                     <Collapse ghost accordion expandIconPosition={"right"} >
 
@@ -114,7 +115,9 @@ class Home extends React.Component {
 
           </div>
         </div>
-      </div >
+      
+
+      </div>
 
     );
   }
