@@ -64,7 +64,7 @@ const SlideShow = (
 
   return (
     <div className="expshow-slideshow" >
-      <div style={{ background: "white", borderTopLeftRadius: 5, borderTopRightRadius: 5 }} className={overlayIsOpen ? "overlayed gallerycontainer" : "gallerycontainer"}>
+      <div style={{ background: "white" }} className={overlayIsOpen ? "overlayed gallerycontainer" : "gallerycontainer"}>
         <ImageGallery
           ref={inputEl}
           items={images}
