@@ -96,6 +96,7 @@
             background: #68CF00;
             color: #ffffff;
         }
+        // Not yet implemented
         .visited {
             background: #FF7456;
             color: #ffffff;
@@ -116,9 +117,9 @@
         justify-content: space-between;
         background-color: #7CAFA9;
 
-        @media only screen and (max-width : 820px) {
-            display: none;
-        }
+        // @media only screen and (max-width : 820px) {
+        //     display: none;
+        // }
     }
 
 }
