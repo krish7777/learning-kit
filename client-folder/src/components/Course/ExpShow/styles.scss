@@ -1,6 +1,5 @@
-.slideshow {
+.expshow-slideshow {
     // background-color: red;
-    width: 65%;
     display: flex;
     flex-direction: column;
     min-height: 100%;
@@ -8,6 +7,15 @@
     padding: 15px;
     transition: all 0.5s ease-in;
     // margin: auto;
+    margin: 2% 12.5%;
+    background: #001A2F;
+    box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.1), -20px -20px 20px rgba(234, 234, 234, 0.02), 4px 4px 4px rgba(0, 0, 0, 0.25), -4px -4px 4px rgba(235, 235, 235, 0.08);
+    border-radius: 10px;
+
+    @media only screen and (max-width : 440px) {
+        margin: 3% 1.5%;
+    }
+
     .overlay-content{
         position: absolute;;
         top: 50%;
@@ -112,12 +120,14 @@
 
     .nav {
         flex: 1;
-        min-height: 50px;
+        min-height: 40px;
         height: 50px;
-
         display: flex;
         align-items: center;
-
+        margin-top: 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        
         .divider {
             border: 1px solid #B4C1CA;
             height: 50%;
