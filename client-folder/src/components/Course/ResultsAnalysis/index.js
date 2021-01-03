@@ -38,147 +38,146 @@ class ResultsAnalysis extends React.Component {
             return e && e.fileList;
         };
         return (
-            <div className="form-builder">
 
+            <div className="result-analysis-container">
+                
+                <div className="form-builder">
+                    <div className="preview-form">
+                        <Form layout="vertical" onFinish={(values) => { console.log(values) }}>
 
-                < div className="preview-form">
+                            {
+                                results?.formContent?.map(field => {
+                                    const { type, name, label, required } = field;
 
-                    <Form layout="vertical" onFinish={(values) => { console.log(values) }}>
-
-                        {
-                            results?.formContent?.map(field => {
-                                const { type, name, label, required } = field;
-
-                                switch (type) {
-                                    case 'input': return (
-                                        <Form.Item label={label} name={name} rules={[
-                                            { required: required }
-                                        ]}>
-                                            <Input />
-                                        </Form.Item>
-                                    )
-                                        break;
-                                    case 'textarea': return (
-                                        <Form.Item label={label} name={name} rules={[
-                                            { required: required }
-                                        ]}>
-                                            <Input.TextArea autoSize={{ minRows: 3, maxRows: 100 }} />
-                                        </Form.Item>
-                                    )
-                                        break;
-                                    case 'number': return (
-                                        <Form.Item label={label} name={name} rules={[
-                                            { required: required }
-                                        ]}>
-                                            <InputNumber />
-                                        </Form.Item>
-                                    )
-                                    case 'checkbox': return (
-                                        <Form.Item name={name} valuePropName="checked" label={label} initialValue={false}>
-                                            <Checkbox></Checkbox>
-                                        </Form.Item>
-                                    )
-                                        break;
-                                    case 'radio': return (
-                                        <Form.Item label={label} name={name} rules={[
-                                            { required: required }
-                                        ]}>
-                                            <Radio.Group>
-                                                {field.values.map(rad =>
-                                                    <Radio value={rad}>{rad}</Radio>)}
-                                            </Radio.Group>
-
-                                        </Form.Item>
-                                    )
-                                        break;
-                                    case 'switch': return (
-                                        <Form.Item name="switch" label="Switch" valuePropName="checked">
-                                            <Switch checkedChildren="1" unCheckedChildren="0" />
-                                        </Form.Item>
-                                    )
-                                        break;
-                                    case 'text': {
-                                        console.log(label)
-                                        return (
-                                            <Form.Item >
-                                                <div style={{ whiteSpace: "pre-wrap", color: "white" }}>{name}</div>
-                                            </Form.Item>
-                                        )
-                                    }
-                                        break;
-                                    case 'heading': {
-                                        return (
-                                            <Form.Item >
-                                                {label === 'h1' ? <h1>{name}</h1> : label === 'h2' ? <h2>{name}</h2> : label === 'h3' ? <h3>{name}</h3> : label === 'h4' ? <h4>{name}</h4> : label === 'h5' ? <h5>{name}</h5> : <h6>{name}</h6>}
-                                                {/* <div style={{ whiteSpace: "pre-wrap" }}>{name}</div> */}
-                                            </Form.Item>
-                                        )
-                                    }
-                                        break;
-                                    case 'checkboxgroup': {
-                                        return (
+                                    switch (type) {
+                                        case 'input': return (
                                             <Form.Item label={label} name={name} rules={[
                                                 { required: required }
                                             ]}>
-                                                <Checkbox.Group>
-                                                    {field.values.map(check =>
-                                                        <Checkbox value={check}>{check}</Checkbox>)}
-                                                </Checkbox.Group>
+                                                <Input />
                                             </Form.Item>
                                         )
-                                    }
-                                        break;
-                                    case 'row': {
-                                        return (
-                                            <div className="truth-table-row">
-                                                {field.values.map(value => {
-                                                    if (value.startsWith('_switch_')) {
-                                                        return (
-                                                            <Form.Item className="switch" name={value} valuePropName="checked" initialValue={false}>
-                                                                <Switch checkedChildren="1" unCheckedChildren="0" />
-                                                            </Form.Item>
+                                            break;
+                                        case 'textarea': return (
+                                            <Form.Item label={label} name={name} rules={[
+                                                { required: required }
+                                            ]}>
+                                                <Input.TextArea autoSize={{ minRows: 3, maxRows: 100 }} />
+                                            </Form.Item>
+                                        )
+                                            break;
+                                        case 'number': return (
+                                            <Form.Item label={label} name={name} rules={[
+                                                { required: required }
+                                            ]}>
+                                                <InputNumber />
+                                            </Form.Item>
+                                        )
+                                        case 'checkbox': return (
+                                            <Form.Item name={name} valuePropName="checked" label={label} initialValue={false}>
+                                                <Checkbox></Checkbox>
+                                            </Form.Item>
+                                        )
+                                            break;
+                                        case 'radio': return (
+                                            <Form.Item label={label} name={name} rules={[
+                                                { required: required }
+                                            ]}>
+                                                <Radio.Group>
+                                                    {field.values.map(rad =>
+                                                        <Radio value={rad}>{rad}</Radio>)}
+                                                </Radio.Group>
 
-                                                        )
-                                                        {/* <Form.Item>
-                                        <InputNumber defaultValue={value} disabled style={{ color: "black", textAlign: "center" }} />
-                                    </Form.Item> */}
-                                                    }
-                                                    else {
-                                                        return (
-                                                            <Form.Item >
+                                            </Form.Item>
+                                        )
+                                            break;
+                                        case 'switch': return (
+                                            <Form.Item name="switch" label="Switch" valuePropName="checked">
+                                                <Switch checkedChildren="1" unCheckedChildren="0" />
+                                            </Form.Item>
+                                        )
+                                            break;
+                                        case 'text': {
+                                            console.log(label)
+                                            return (
+                                                <Form.Item >
+                                                    <div style={{ whiteSpace: "pre-wrap", color: "white" }}>{name}</div>
+                                                </Form.Item>
+                                            )
+                                        }
+                                            break;
+                                        case 'heading': {
+                                            return (
+                                                <Form.Item >
+                                                    {label === 'h1' ? <h1>{name}</h1> : label === 'h2' ? <h2>{name}</h2> : label === 'h3' ? <h3>{name}</h3> : label === 'h4' ? <h4>{name}</h4> : label === 'h5' ? <h5>{name}</h5> : <h6>{name}</h6>}
+                                                    {/* <div style={{ whiteSpace: "pre-wrap" }}>{name}</div> */}
+                                                </Form.Item>
+                                            )
+                                        }
+                                            break;
+                                        case 'checkboxgroup': {
+                                            return (
+                                                <Form.Item label={label} name={name} rules={[
+                                                    { required: required }
+                                                ]}>
+                                                    <Checkbox.Group>
+                                                        {field.values.map(check =>
+                                                            <Checkbox value={check}>{check}</Checkbox>)}
+                                                    </Checkbox.Group>
+                                                </Form.Item>
+                                            )
+                                        }
+                                            break;
+                                        case 'row': {
+                                            return (
+                                                <div className="truth-table-row">
+                                                    {field.values.map(value => {
+                                                        if (value.startsWith('_switch_')) {
+                                                            return (
+                                                                <Form.Item className="switch" name={value} valuePropName="checked" initialValue={false}>
+                                                                    <Switch checkedChildren="1" unCheckedChildren="0" />
+                                                                </Form.Item>
+                                                            )
+                                                            {/* <Form.Item>
                                                                 <InputNumber defaultValue={value} disabled style={{ color: "black", textAlign: "center" }} />
-                                                            </Form.Item>
-                                                        )
-                                                    }
-                                                })}
-                                            </div>
-                                        )
+                                                            </Form.Item> */}
+                                                        }
+                                                        else {
+                                                            return (
+                                                                <Form.Item >
+                                                                    <InputNumber defaultValue={value} disabled style={{ color: "black", textAlign: "center" }} />
+                                                                </Form.Item>
+                                                            )
+                                                        }
+                                                    })}
+                                                </div>
+                                            )
+                                        }
+                                            break;
+                                        case 'upload': {
+                                            return (
+                                                <Form.Item name={name} label={label} valuePropName="fileList" getValueFromEvent={normFile} rules={[
+                                                    { required: required }]} className="result-analysis-upload-photo-btn">
+                                                    <Upload>
+                                                        <Button icon={<UploadOutlined />} className="upload-photo-button">Click to upload</Button>
+                                                    </Upload>
+                                                </Form.Item>
+                                            )
+                                        }
+                                        default: return null
                                     }
-                                        break;
+                                })
+                            }
+                            <Form.Item className="result-analysis-submit-btn">
+                                <Button type="primary" htmlType="submit" className="result-analysis-submit-button">
+                                    Submit
+                                </Button>
+                            </Form.Item>
 
-                                    case 'upload': {
-                                        return (
-                                            <Form.Item name={name} label={label} valuePropName="fileList" getValueFromEvent={normFile} rules={[
-                                                { required: required }]}>
-                                                <Upload>
-                                                    <Button icon={<UploadOutlined />}>Click to upload</Button>
-                                                </Upload>
-                                            </Form.Item>
-                                        )
-                                    }
-                                    default: return null
-                                }
-                            })
-                        }
-                        <Form.Item >
-                            <Button type="primary" htmlType="submit">
-                                Submit
-</Button>
-                        </Form.Item>
-                    </Form>
+                        </Form>
+                    </div>
+                </div>
 
-
-                </div >
             </div>
         )
     }
