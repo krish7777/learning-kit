@@ -28,9 +28,9 @@ class TextEditor2 extends React.Component {
                     apiKey="n7942578kkai07fww91ixztab3vfa874swodd4i2e1ymki4i"
                     value={this.props.content}
                     init={{
+                        // content_css: "dark",
                         height: "90vh",
                         skin: "oxide-dark",
-                        // content_css: "dark",
                         content_style: '.mce-content-body{background-color:#041D32; color:white}',
                         menubar: false,
                         image_dimensions: false,
