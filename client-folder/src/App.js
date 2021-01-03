@@ -9,7 +9,6 @@ import MainHome from "./components/MainHome";
 const App = () => {
   return (
     <div>
-
       <Route path="/:type/course/:id" component={Course} />
       <Route exact path="/:type" component={Home} />
       <Route path="/:type/modules" component={Modules} />

@@ -30,7 +30,7 @@ class Excercise extends React.Component {
                         </div>
                         <div className="excercise-files">
                             {excercise?.excerciseFilePaths?.map(ex =>
-                                <Button href={ex} target="_blank">Downloads</Button>
+                                <Button href={ex} target="_blank" className="exercise-download-button">Downloads</Button>
                             )
                             }
                         </div>
@@ -42,23 +42,24 @@ class Excercise extends React.Component {
                                     <div className="excercise-question">{i + 1}.) {ex.question}</div>
                                     <div className="excercise-options">
                                         {ex.isUpload ? (
-                                            <Upload >
-                                                <Button type="primary" icon={<UploadOutlined />}>Upload Photo</Button>
-                                            </Upload>
+                                            <div className="exercise-buttons-div" >
+                                                <Upload >
+                                                    <Button type="primary" icon={<UploadOutlined />} className="exercise-buttons" >Upload Photo</Button>
+                                                </Upload>
+                                            </div>
                                         ) : null}
                                         {ex.isCode ? (
-                                            <div style={{ "marginLeft": "8px" }}>
+                                            <div className="exercise-buttons-div" >
                                                 <Upload >
-                                                    <Button type="primary" icon={<UploadOutlined />}>Submit Code</Button>
+                                                    <Button type="primary" icon={<UploadOutlined />} className="exercise-buttons" >Submit Code</Button>
                                                 </Upload>
                                             </div>
                                         ) : null}
 
                                         {ex.hint ? (
-                                            <div style={{ "marginLeft": "8px" }}>
+                                            <div className="exercise-buttons-div" >
                                                 <Popover content={ex.hint} trigger="click">
-                                                    <Button >View Hint</Button>
-
+                                                    <Button className="exercise-buttons" >View Hint</Button>
                                                 </Popover>
                                             </div>
                                         ) : null}
