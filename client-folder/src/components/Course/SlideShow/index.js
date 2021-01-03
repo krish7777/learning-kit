@@ -83,7 +83,7 @@ const SlideShow = (
 
 
   return (
-    <div className="slideshow" style={showSide ? { width: "65%" } : { width: "65%", margin: "0 20%" }}>
+    <div className="slideshow"  style={showSide ? { width: "65%" } : { width: "65%", margin: "0 20%" }}>
       <div style={{ background: "white" }}>
         <ImageGallery
           ref={inputEl}
@@ -104,21 +104,18 @@ const SlideShow = (
       <div className="nav">
         <div onClick={goLeft} className="left-arrow">
           <LeftArrow />
-
         </div>
-        <div className="divider"></div>
+        <div className="divider"></div> {/* Divider Here */}
         <div onClick={skipToCode} className="skip-btn">
           <SkipIcon />
           SKIP TO {codeStepStart ? "CODE" : "FINAL CIRCUIT"}
         </div>
-        <div className="divider"></div>
-
+        <div className="divider"></div> {/* Divider Here */}
         <div onClick={toggleSide} className="hide-btn">
           <HideIcon />
           {rightText}
         </div>
-        <div className="divider"></div>
-
+        <div className="divider"></div> {/* Divider Here */}
         <div onClick={goRight} className="right-arrow">
           <RightArrow />
         </div>
@@ -143,7 +140,7 @@ const SlideShow = (
       >
         <h1>LET'S START CODING</h1>
       </Modal>
-    </div >
+    </div>
   );
 };
 
