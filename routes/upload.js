@@ -1,25 +1,32 @@
+
+require('dotenv/config')
+
 const express = require('express')
 const multer = require('multer')
 const fs = require('fs')
 const path = require('path')
 const router = express.Router();
 
+const AWS = require('aws-sdk')
 
-const introStorage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        const reqPath = path.join(__dirname, '..', 'images', 'introduction')
-        if (!fs.existsSync(reqPath)) {
-            fs.mkdirSync(reqPath, { recursive: true });
-        }
-        cb(null, reqPath)
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname + '.png')
-    }
+
+const s3 = new AWS.S3({
+    accessKeyId: process.env.AWS_ID,
+    secretAccessKey: process.env.AWS_SECRET
 })
 
 
-const fileFilterIntroduction = (req, file, cb) => {
+const pngFilter = (req, file, cb) => {
+    if (
+        file.mimetype === 'image/png'
+    ) {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+};
+
+const imageFilter = (req, file, cb) => {
     if (
         file.mimetype === 'image/png' ||
         file.mimetype === 'image/jpg' ||
@@ -31,44 +38,7 @@ const fileFilterIntroduction = (req, file, cb) => {
     }
 };
 
-const experimentStorage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        const reqPath = path.join(__dirname, '..', 'images', 'experiment')
-        if (!fs.existsSync(reqPath)) {
-            fs.mkdirSync(reqPath, { recursive: true });
-        }
-        cb(null, reqPath)
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname + '.png')
-    }
-})
-
-const fileFilterExperiment = (req, file, cb) => {
-    if (
-        file.mimetype === 'image/png'
-    ) {
-        cb(null, true);
-    } else {
-        cb(null, false);
-    }
-};
-
-const excerciseStorage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        const reqPath = path.join(__dirname, '..', 'images', 'excercise')
-        if (!fs.existsSync(reqPath)) {
-            fs.mkdirSync(reqPath, { recursive: true });
-        }
-        cb(null, reqPath)
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname)
-    }
-})
-
-
-const fileFilterExcercise = (req, file, cb) => {
+const pdfFilter = (req, file, cb) => {
     if (
         file.mimetype === 'application/pdf'
     ) {
@@ -78,50 +48,135 @@ const fileFilterExcercise = (req, file, cb) => {
     }
 };
 
-const uploadIntro = multer({
-    storage: introStorage,
+const storage = multer.memoryStorage({
+    destination: function (req, file, cb) {
+        cb(null, '')
+    }
+})
+
+const uploadAws = multer({
+    storage: storage,
     limits: {
-        fileSize: 3000000
+        fileSize: 4000000
     },
-    fileFilter: fileFilterIntroduction
+    fileFilter: pngFilter
+})
+
+const uploadIntro = multer({
+    storage: storage,
+    limits: {
+        fileSize: 4000000
+    },
+    fileFilter: imageFilter
 })
 
 const uploadExperiment = multer({
-    storage: experimentStorage,
+    storage: storage,
     limits: {
         fileSize: 4000000
     },
-    fileFilter: fileFilterExperiment
+    fileFilter: pngFilter
 })
 
 const uploadExcercise = multer({
-    storage: excerciseStorage,
+    storage: storage,
     limits: {
         fileSize: 4000000
     },
-    fileFilter: fileFilterExcercise
+    fileFilter: pdfFilter
 })
 
 
+router.post('/aws-check', uploadAws.single('file'), (req, res) => {
+    const params = {
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: `images/${Date.now() + '-' + req.file.originalname}`,
+        Body: req.file.buffer,
+        ACL: "public-read"
+    }
+
+    s3.upload(params, (error, data) => {
+        if (error) {
+            res.status(500).send(error)
+        }
+        else {
+            console.log("response from AWS", data)
+            res.status(200).json({ "location": data.Location })
+        }
+    })
+}
+)
 
 router.post('/introduction', uploadIntro.single('file'),
     (req, res) => {
-        res.json({
-            "location": `http://localhost:3300/images/introduction/${req.file.filename}`, "originalName": req.file.originalname
+        const params = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: `introduction/${Date.now() + '-' + req.file.originalname + '.png'}`,
+            Body: req.file.buffer,
+            ACL: "public-read"
+        }
+
+        s3.upload(params, (error, data) => {
+            if (error) {
+                res.status(500).send(error)
+            }
+            else {
+                res.status(200).json({ "location": data.Location })
+            }
         })
     })
 
 router.post('/experiment',
     uploadExperiment.single('file'),
     (req, res) => {
-        console.log('req.file', req.file)
-        res.status(200).json({ "location": `http://localhost:3300/images/experiment/${req.file.filename}`, "originalName": req.file.originalname })
+        const params = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: `experiment/${Date.now() + '-' + req.file.originalname + '.png'}`,
+            Body: req.file.buffer,
+            ACL: "public-read"
+        }
+
+        s3.upload(params, (error, data) => {
+            if (error) {
+                res.status(500).send(error)
+            }
+            else {
+                res.status(200).json({ "location": data.Location })
+            }
+        })
     })
 
 router.post('/excercise',
     uploadExcercise.single('file'),
     (req, res) => {
-        res.status(200).json({ "location": `http://localhost:3300/images/excercise/${req.file.filename}`, "originalName": req.file.originalname })
+        const params = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: `excercise/${Date.now() + '-' + req.file.originalname}`,
+            Body: req.file.buffer,
+            ACL: "public-read"
+        }
+
+        s3.upload(params, (error, data) => {
+            if (error) {
+                res.status(500).send(error)
+            }
+            else {
+                res.status(200).json({ "location": data.Location })
+            }
+        })
     })
+
+// const introStorage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         const reqPath = path.join(__dirname, '..', 'images', 'introduction')
+//         if (!fs.existsSync(reqPath)) {
+//             fs.mkdirSync(reqPath, { recursive: true });
+//         }
+//         cb(null, reqPath)
+//     },
+//     filename: function (req, file, cb) {
+//         cb(null, Date.now() + '-' + file.originalname + '.png')
+//     }
+// })
 
 module.exports = router;
