@@ -26,7 +26,7 @@
     border-bottom-right-radius: 4px;
 }
 
-@media (min-width: 630px) {
+@media only screen and (min-width: 630px) {
     .client-mainHome-container {
         display: flex;
         justify-content: space-around;
@@ -35,7 +35,7 @@
     }
 }
 
-@media (max-width: 630px) {
+@media only screen and (max-width: 630px) {
     .client-mainHome-container {
         display: flex;
         justify-content: space-around;
@@ -51,7 +51,7 @@
     }
 }
 
-@media (max-width: 500px) {
+@media only screen and (max-width: 500px) {
     .client-mainHome-link > div {
         width: 200px;
     }
