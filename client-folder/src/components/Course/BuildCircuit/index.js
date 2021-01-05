@@ -21,6 +21,7 @@ class BuildCircuit extends Component {
         console.log("Build Circuit Props");
         console.log(this.props);
         const { buildCircuit, type } = this.props;
+        // console.log(buildCircuit);
         return (
             <div className="build-circuit-main-container">
                     {buildCircuit && type === 'arduino' ? (

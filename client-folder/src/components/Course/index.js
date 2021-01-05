@@ -187,7 +187,7 @@ class Course extends React.Component {
             {currentCourse?.excercise ? <div onClick={() => changeCurrentStep('Excercise')} className={currentStep === "Excercise" ? "active" : ""}>EXCERCISE </div> : null}
           </div>
 
-          <ProgressBar />
+          <ProgressBar currentNav={currentStep} buildCircuitSteps={currentCourse} />
 
           <div className="body">
             {currentCourse && currentStep === 'BuildCircuit' ? <BuildCircuit id={currentCourse.buildCircuit} type={this.props.match.params.type} /> : null}
