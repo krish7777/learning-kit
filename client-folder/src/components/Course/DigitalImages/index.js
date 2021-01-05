@@ -28,9 +28,9 @@ const DigitalImages = ({ stepNo, showSide, steps }) => {
     }
     return (
         <div
-            className="code-editor"
-            style={showSide ? { width: '35%' } : { width: '0%' }}
-        >
+            className="digital-images-code-editor"
+            style={showSide ? { width: '35%' } : { width: '0%' }} >
+
             <div style={{ flex: 1, backgroundColor: 'white' }}>
                 <img
                     src={currOriginal}
@@ -41,6 +41,7 @@ const DigitalImages = ({ stepNo, showSide, steps }) => {
                     }}
                 ></img>
             </div>
+
         </div>
     );
 };

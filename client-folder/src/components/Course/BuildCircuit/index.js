@@ -5,7 +5,7 @@ import { getBuildCircuit } from '../action'
 import SlideShow from '../SlideShow'
 import CodeEditor from '../CodeEditor'
 import DigitalImages from '../DigitalImages'
-// import './styles.scss'
+import './styles.scss'
 
 class BuildCircuit extends Component {
     constructor(props) {
@@ -22,21 +22,21 @@ class BuildCircuit extends Component {
         console.log(this.props);
         const { buildCircuit, type } = this.props;
         return (
-            <>
-                {buildCircuit && type === 'arduino' ? (
-                    <>
-                        <SlideShow steps={this.props.buildCircuit?.steps} codeStepStart={this.props.buildCircuit?.codeStepStart} rightText="SHOW CODE" /> 
-                        <CodeEditor code={this.props.buildCircuit?.code} />
-                    </>
-                    ) : null}
+            <div className="build-circuit-main-container">
+                    {buildCircuit && type === 'arduino' ? (
+                        <>
+                            <SlideShow steps={this.props.buildCircuit?.steps} codeStepStart={this.props.buildCircuit?.codeStepStart} rightText="SHOW CODE" /> 
+                            <CodeEditor code={this.props.buildCircuit?.code} />
+                        </>
+                        ) : null}
 
-                {buildCircuit && type === 'digital' ? (
-                    <>
-                        <SlideShow steps={this.props.buildCircuit?.steps} finalCircuitStep={this.props.buildCircuit?.finalCircuitStep} rightText="SHOW PIN DIAGRAMS" />
-                        <DigitalImages steps={this.props.buildCircuit?.steps} />
-                    </>
-                    ) : null}
-            </>
+                    {buildCircuit && type === 'digital' ? (
+                        <>
+                            <SlideShow steps={this.props.buildCircuit?.steps} finalCircuitStep={this.props.buildCircuit?.finalCircuitStep} rightText="SHOW PIN DIAGRAMS" />
+                            <DigitalImages steps={this.props.buildCircuit?.steps} />
+                        </>
+                        ) : null}
+            </div>
         )
     }
 }
