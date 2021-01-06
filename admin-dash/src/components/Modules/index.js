@@ -4,10 +4,11 @@ import { addCourseTroubleshoot, getCourseTroubleshoot, getModules } from './acti
 import { bindActionCreators } from 'redux'
 import { Link } from "react-router-dom"
 import { MODULE,SUBMODULE,GETTINGSTARTED } from '../../config'
-
-import { Form, Input, Button, notification } from "antd";
+import './styles.scss'
+import { Form, Input, Button, notification, Tabs, Col, Divider } from "antd";
 import { MinusCircleOutlined, PlusOutlined, } from '@ant-design/icons';
 import TextEditor from '../TextEditor/text'
+const { TabPane } = Tabs;
 
 class Modules extends Component {
 
@@ -39,8 +40,11 @@ class Modules extends Component {
             },
         };
         return (
-            <div>
-                <div>All {this.props.match.params.type} {MODULE}s</div>
+            <div className="card-container">
+            <Tabs type="card" centered>
+              <TabPane tab="Modules" key="1">
+              <Col justify="space-around" align="middle">
+              <Divider>All {this.props.match.params.type} {MODULE}s</Divider>
                 {modules.map(module => (
                     <>
                     {module.name !== GETTINGSTARTED+"ignore" &&
@@ -51,15 +55,19 @@ class Modules extends Component {
                     </>
                 ))}
                 <br />
-                <Link to={`/i/${this.props.match.params.type}/add-module`}><Button>Add {MODULE}</Button></Link>
+                <Link to={`/i/${this.props.match.params.type}/add-module`}><Button style={{margin:"10px"}}>Add {MODULE}</Button></Link>
                 <br/>
                 {!modules.some(el => el.name === GETTINGSTARTED)&&
-                <Link to={`/i/${this.props.match.params.type}/add-starter`}><Button>Add Starter {MODULE}</Button></Link>
+                <Link to={`/i/${this.props.match.params.type}/add-starter`}><Button style={{margin:"10px"}}>Add Starter {MODULE}</Button></Link>
                 }
                 {modules.some(el => el.name === GETTINGSTARTED)&&
-                <Link to={`/i/${this.props.match.params.type}/add-course/${modules.find(el => el.name === GETTINGSTARTED)._id}`}><Button>Add Starter {SUBMODULE}</Button></Link>
+                <Link to={`/i/${this.props.match.params.type}/add-course/${modules.find(el => el.name === GETTINGSTARTED)._id}`}><Button style={{margin:"10px"}}>Add Starter {SUBMODULE}</Button></Link>
                 }
-                <p>COURSE-LEVEL-TROUBLESHOOT</p>
+                </Col>
+              </TabPane>
+              <TabPane tab="FAQ" key="2">
+              <Col justify="space-around" align="middle">
+              <Divider>COURSE-LEVEL-TROUBLESHOOT</Divider>
 
                 <div style={{ width: "800px", margin: "auto", padding: "20px 0" }}>
                     ***Don't Reload before Saving! Changes may get lost ***
@@ -140,10 +148,10 @@ class Modules extends Component {
 
                     </Form>
                 </div>
-
-
-
-            </div>
+              </Col>
+              </TabPane>
+            </Tabs>
+          </div>
         )
     }
 }
