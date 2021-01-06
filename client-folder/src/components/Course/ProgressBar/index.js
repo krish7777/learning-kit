@@ -26,10 +26,10 @@ class ProgressBar extends Component {
     }
 
     getBuildCircuitProgress = () => {
-        console.log("Current Step");
-        let currStep = this.props;
-        // console.log(this.props.buildCircuitSteps);
-        console.log(currStep);
+        // console.log("Current Step");
+        // let currStep = this.props;
+        // // console.log(this.props.buildCircuitSteps);
+        // console.log(currStep);
         
         return 0;
     }
