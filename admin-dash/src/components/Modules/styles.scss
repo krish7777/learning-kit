@@ -1,0 +1,55 @@
+.allmodules-container {
+    margin: 3%;
+    border: 2px solid black;
+
+    .allmodules-navbar {
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(193, 144, 243);
+        justify-content: center;
+        align-items: center;
+
+        .allmodules-name {
+            font-size: 2rem;
+        }
+        .navbar-horizontal {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+
+            .faqs-tab,
+            .modules-tab {
+                font-size: 1.6rem;
+                margin: auto;
+                padding: auto;
+                display: block;
+                width: 46.4vw;
+                background-color: #20415c;
+                color: aliceblue;
+            }
+        }
+    }
+
+   
+    .submodule-list {
+        font-size: 1.5rem;
+        .submodule-listItem {
+            color: rgb(56, 49, 49);
+            margin: 1%;
+            padding: 0.5%;
+            box-shadow: 5px 5px 20px 1px #cecbcb;
+            border-right: 4px groove rgb(186, 187, 189);
+        }
+    }
+    .add-button {
+        margin: 1%;
+        font-size: 1.3rem;
+        font-weight: 500;
+        padding: 1%;
+        width: 15%;
+        height: 12%;
+        background-color: rgb(1, 139, 139);
+        color: aliceblue;
+    }
+}
