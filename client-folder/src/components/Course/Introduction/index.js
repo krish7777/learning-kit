@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { changeCurrentStep, getIntroduction } from '../action'
 
+import sampleImage from './sampleImage.jpg'
+
 class Introduction extends React.Component {
 
     componentDidMount() {
@@ -20,9 +22,12 @@ class Introduction extends React.Component {
         console.log("html", introduction)
         return (
             <div className="exp-introduction">
-                <div dangerouslySetInnerHTML={{ __html: introduction ? introduction.html : '' }}></div>
-
-                <Button onClick={() => changeCurrentStep('BuildCircuit')} size={"large"} style={{ backgroundColor: "#56AC00", fontSize: "20px", fontWeight: "600", marginTop: "50px", padding: "10px 50px", display: "flex", alignItems: "center" }}>Let's Start Making</Button>
+                <div className="introduction-container-card" dangerouslySetInnerHTML={{ __html: introduction ? introduction.html : '' }}></div>
+                
+                <div className="introduction-container-card">
+                    <div><img src={sampleImage} alt="image" /></div>
+                    <Button onClick={() => changeCurrentStep('BuildCircuit')} className="introduction-start-button" size={"large"}>Let's Start Making</Button>
+                </div>
             </div>
         )
     }
