@@ -53,7 +53,8 @@ class App extends React.Component {
         <iframe width="600px" height="400px" src="https://circuitverse.org/simulator/embed/248" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe> */}
         {/* <Modules /> */}
         {/* <div><Link to="/i">HOME</Link></div> */}
-          <Menu theme={location.pathname=="/i"?"dark":"light"} 
+          <Menu theme={location.pathname=="/i"?"dark":"light"}
+           style={{background:location.pathname!="/i"?"linear-gradient(to right, #FFFFFF, #ECE9E6)":""}}
            mode="horizontal"
            defaultSelectedKeys={['/i']}
            selectedKeys={[location.pathname]}>
