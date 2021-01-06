@@ -1,6 +1,16 @@
 .exp-introduction {
-    padding: 30px;
+    padding: 5%;
     color: white;
+    width: 100%;
+    height: auto;
+
+    @media only screen and (max-width: 700px) {
+        padding: 4% 3%;
+    }
+
+    @media only screen and (max-width: 450px) {
+        padding: 3% 2%;
+    }
 
     h3 {
         color: white;
@@ -24,5 +34,76 @@
         font-size: 20px;
         color: white;
         font-weight: 300;
+    }
+
+    .introduction-container-card {
+        background: #001A2F;
+        box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.1), -20px -20px 20px rgba(234, 234, 234, 0.02), 4px 4px 4px rgba(0, 0, 0, 0.25), -4px -4px 4px rgba(235, 235, 235, 0.08);
+        border-radius: 10px;
+        padding: 6px;
+
+        div {
+            img {
+                width: 100%;
+                height: auto;
+                border-radius: 5px;
+            }
+        }
+
+        .introduction-start-button {
+            background: rgba(0, 120, 188, 0.3);
+            border-radius: 5px;
+            font-size: 20px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+            margin-right: auto;
+            height: 40px;
+            width: 100%;
+            border: none;
+
+            @media only screen and (max-width: 700px) {
+                margin-top: 30px;
+                height: 35px;
+                font-size: 18px;
+            }
+
+            @media only screen and (max-width: 450px) {
+                margin-top: 35px;
+                height: 25px;
+                font-size: 15px;
+                margin-bottom: 10px;
+            }
+
+            span {
+                margin-right: auto;
+                margin-left: auto;
+                font-style: normal;
+                font-weight: 500;
+                text-align: center;
+                text-transform: uppercase;
+                color: rgba(36, 214, 128, 0.9);
+            }
+
+            p {
+                font-size: 20px;
+                font-style: normal;
+                line-height: 150.69%;
+                text-indent: 1px;
+                color: #000000;
+                @media only screen and (max-width: 450px) {
+                    font-size: 17px;
+                }
+            }
+        }
+
+        .introduction-start-button:hover {
+            background: rgba(36, 214, 128, 0.9);
+            span {
+                color:  rgba(0, 100, 168, 1);
+            }
+        }
+
     }
 }

@@ -63,7 +63,7 @@ const SlideShow = (
   };
 
   return (
-    <div className="slideshow" style={{ width: "65%", margin: "0 20%" }}>
+    <div className="expshow-slideshow" >
       <div style={{ background: "white" }} className={overlayIsOpen ? "overlayed gallerycontainer" : "gallerycontainer"}>
         <ImageGallery
           ref={inputEl}
@@ -85,37 +85,35 @@ const SlideShow = (
         }
       </div>
 
-      <div className={overlayIsOpen ? "overlayed code-step" : "code-step"}>
+      <div className={overlayIsOpen ? "overlayed code-step" : "code-step"} style={{ borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
         Step {currentStep + 1} : {steps[currentStep].description}
       </div>
+
       <div className="nav">
         <div onClick={goLeft} className="left-arrow">
           <LeftArrow />
-
         </div>
-        <div className="divider"></div>
-
+        <div className="divider"></div> {/* Divider Here */}
         {overlayIsOpen &&
           <>
             <div onClick={closeOverlay} className="codeUp-btn">
               <SkipIcon />
-          CODE UPLOAD SUCCESSFUL
-        </div>
-            <div className="divider"></div>
+            CODE UPLOAD SUCCESSFUL
+            </div>
+            <div className="divider"></div> {/* Divider Here */}
           </>
         }
         <div onClick={() => { changeCurrentStep('Troubleshoot') }} className="troubleshoot-btn">
           <TroubleshootIcon />
           TROUBLESHOOT
         </div>
-        <div className="divider"></div>
-
+        <div className="divider"></div> {/* Divider Here */}
         <div onClick={goRight} className="right-arrow">
           <RightArrow />
         </div>
       </div>
 
-    </div >
+    </div>
   );
 };
 
