@@ -39,7 +39,8 @@ class AddModule extends Component {
     render() {
         const { name, introduction, setModuleName, setModuleIntroduction } = this.props;
         return (
-            <div className="add-module" style={{ "display": "flex", "flexDirection": "column", justifyContent: "center" }}>
+            <div className="add-module" >
+                <h2>Add Module</h2>
                 <Form.Item label="Name" rules={[{ required: true }]} >
                     <Input value={name} onChange={(e) => setModuleName(e.target.value)} />
                 </Form.Item>
