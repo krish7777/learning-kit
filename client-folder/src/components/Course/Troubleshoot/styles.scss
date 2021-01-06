@@ -47,4 +47,45 @@
             }
         }
     }
+
+    .troubleshoot-bottom-buttons {
+        background: rgba(0, 120, 188, 0.3);
+        border-radius: 5px;
+        margin-top: 20px;
+        max-height: 50px;
+        height: 45px;
+        min-height: 35px;
+
+        @media only screen and (max-width: 540px) {
+            height: 40px;
+        }
+
+        .troubleshoot-back-button {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            align-items: center;
+            // flex: 1;
+            display: flex;
+            justify-content: center;
+            cursor: pointer;
+
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 22px;
+            line-height: 28px;
+            text-transform: uppercase;
+            color: rgba(36, 214, 128, 0.9);
+
+            @media only screen and (max-width: 720px) {
+                font-size: 20px;
+            }
+
+            @media only screen and (max-width: 540px) {
+                font-size: 18px;
+                font-weight: 450;
+            }
+        }
+    }
 }
