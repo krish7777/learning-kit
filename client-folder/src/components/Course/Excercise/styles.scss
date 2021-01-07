@@ -31,15 +31,60 @@
             // min-width: 400px;
             max-width: 1600px;
             overflow: auto;
+
             .excercise-files{
-                
+                margin-top: 25px;
+
+                .exercise-download-button {
+                    background: rgba(0, 110, 178, 0.9);
+                    border: 2px solid #C4C4C4;
+                    box-sizing: border-box;
+                    border-radius: 5px;
+                    
+                    font-size: 22px;
+                    font-weight: 600;
+                    line-height: 22px;
+                    // align-items: center;
+                    // text-align: center;
+                    text-transform: uppercase;
+                    color: #68CF00;
+                    min-height: 45px;
+                    height: fit-content;
+                    width: 40%;
+                    min-width: 350px;
+                    padding: auto 0;
+                    
+                    span {
+                        margin-top: 10px;
+                    }
+
+                    @media only screen and (max-width : 540px) {
+                        height: 40px;
+                        min-height: 36px;
+                        width: 100%;
+                        min-width: none;
+                        font-size: 18px;
+
+                        span {
+                            margin-top: 7px;
+                        }
+                    }
+                }
+
+                .exercise-download-button:hover {
+                    background:  rgba(0, 80, 148, 0.75);
+                    border: 2px solid #1ab068;
+                }
             }
+
             .excercise-list{
                 display: flex;
                 flex-direction: column;
+                margin-top: 25px;
     
                 .excercise-item{
                     margin:10px 5px;
+                    margin-left: 0;
                     padding: 10px;
                     background-color: #403F3E;
                     border: 1px solid #C4C4C4;
@@ -50,7 +95,58 @@
                     .excercise-options{
                         display: flex;
                         margin:8px;
+
+                        @media only screen and (max-width : 810px) {
+                            flex-direction: column;
+
+                            .exercise-buttons-div {
+                                margin-top: 4px;
+                                margin-bottom: 4px;
+                                margin-left: 12px;
+                                margin-right: 0;
+
+                                span {
+                                    div {
+                                        width: 100%;
+                                    }
+                                }
+                            }
+
+                            .exercise-buttons {
+                                width: 100%;
+                            }
+                        }
+
+                        .exercise-buttons-div {
+                            margin-right: 10px;
+
+                            .exercise-buttons {
+                                background: rgba(0, 120, 188, 0.75);
+                                border: 1.5px solid #C4C4C4;
+                                box-sizing: border-box;
+                                border-radius: 5px;
+                                
+                                font-size: 18px;
+                                font-weight: 600;
+                                line-height: 22px;
+                                align-items: center;
+                                text-align: center;
+                                text-transform: uppercase;
+                                color: #FFFFFF;
+                                min-height: 38px;
+                                height: fit-content;
+
+                                @media only screen and (max-width : 540px) {
+                                    font-size: 15px;
+                                    min-height: 34px;
+                                }
+                            }
     
+                            .exercise-buttons:hover {
+                                border: 1.5px solid #001A2F;
+                            }
+                        }
+                        
                     }
                 }
             }
