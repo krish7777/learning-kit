@@ -1,10 +1,11 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import "./styles.scss";
 
 const Navbar = () => {
   return (
     <div className="navbar">
-      <h1 className="main-title">Learning Kits Tutorial.</h1>
+      <Link to="/"><h1 className="main-title">Learning Kits Tutorial</h1></Link>
       <div className="spacer"></div>
       <div>About Us</div>
       <div>FAQs</div>
