@@ -5,7 +5,7 @@
     .module-navbar {
         display: flex;
         flex-direction: column;
-        background-color: rgb(199, 159, 240);
+        background-color: rgb(193, 144, 243);
         justify-content: center;
         align-items: center;
 
@@ -24,11 +24,19 @@
                 margin: auto;
                 padding: auto;
                 display: block;
-                width: 46.5vw;
+                width: 46.4vw;
                 background-color: #20415c;
                 color: aliceblue;
             }
         }
+    }
+
+    .module-form {
+        position: relative;
+        right: 18%;
+        width: 110%;
+        margin: 0px;
+        padding: 0px;
     }
 
     .submodule-list {
@@ -43,7 +51,7 @@
     }
     .add-button {
         margin: 1%;
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         font-weight: 500;
         padding: 1%;
         width: 15%;

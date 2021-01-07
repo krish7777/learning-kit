@@ -1,12 +1,12 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import "./styles.scss";
 
 const Navbar = () => {
   return (
     <div className="navbar">
-
       <div className="navbar-main-title">
-        <div className="main-title">Learning Kits Tutorial</div>
+        <Link to="/"><div className="main-title">Learning Kits Tutorial</div></Link>
       </div>
 
       {/* <div className="spacer"></div> */}
@@ -17,7 +17,6 @@ const Navbar = () => {
         <div className="navbar-nav-link">Language</div>
         <div className="navbar-nav-link">Your Dashboard</div>
       </div>
-
     </div>
   );
 };
