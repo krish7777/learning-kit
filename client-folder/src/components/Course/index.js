@@ -19,7 +19,8 @@ class Course extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentOrientation: 'landscape-primary'
+      currentOrientation: 'landscape-primary',
+      overlayUnread: true
     }
 
   }
@@ -27,6 +28,13 @@ class Course extends React.Component {
   setCurrentOrientation = (orientation) => {
     this.setState({ currentOrientation: orientation })
   }
+
+  setOverlayUnread = () => {
+    console.log("the setoverlay main function called")
+    this.setState({ overlayUnread: false })
+  }
+
+
 
   // const [currentOrientation, setCurrentOrientation] = useState("landscape-primary");
 
@@ -195,7 +203,7 @@ class Course extends React.Component {
             {/* temporary placeholder [TODO] */}
             {currentCourse && currentStep === 'ResultsAnalysis' ? <ResultsAnalysis id={currentCourse.results} /> : null}
             {/* placeholder end [TODO] */}
-            {currentCourse && currentStep === 'Experiment' ? <Experiment id={currentCourse.experiment} type={this.props.match.params.type} /> : null}
+            {currentCourse && currentStep === 'Experiment' ? <Experiment id={currentCourse.experiment} type={this.props.match.params.type} overlayUnread={this.state.overlayUnread} setOverlayUnread={this.setOverlayUnread} /> : null}
             {currentCourse && currentStep === 'Troubleshoot' ? <Troubleshoot id={currentCourse.troubleshoot} /> : null}
             {currentCourse && currentStep === 'Excercise' ? <Excercise id={currentCourse.excercise} /> : null}
           </div>
