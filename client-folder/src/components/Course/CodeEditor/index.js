@@ -13,16 +13,11 @@ const CodeEditor = (props) => {
 
   return (
     <div className="code-editor" style={props.showSide ? { width: "35%" } : { width: "0%" }}>
-      <div style={{
-        backgroundImage: `url(${IdeHeader})`,
-        minWidth: "100%",
-        height: "15%",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center top",
-        backgroundSize: "100% 100%"
-      }}>
+      <div className="code-editor-header" style={{
+        backgroundImage: `url(${IdeHeader})`
+        }}>
       </div>
-      <div style={{ flex: 1, backgroundColor: "blue" }}>
+      <div className="code-editor-text-area">
         <AceEditor
           width="100%"
           height="100%"
