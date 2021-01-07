@@ -13,14 +13,14 @@ import { bindActionCreators } from "redux";
 import { changeCurrentStep, changeStep } from "../action";
 
 const SlideShow = (
-  { steps, changeStep, changeCurrentStep }
+  { steps, changeStep, changeCurrentStep, overlayUnread, setOverlayUnread }
 ) => {
 
 
   const [images, setImages] = useState([]);
   const [currentStep, setCurrentStep] = useState(0);
   const inputEl = useRef(null);
-  const [overlayIsOpen, setOverlayIsOpen] = useState(true);
+  const [overlayIsOpen, setOverlayIsOpen] = useState(overlayUnread);
 
   useEffect(() => {
     const img = [];
@@ -41,6 +41,7 @@ const SlideShow = (
 
   const closeOverlay = () => {
     setOverlayIsOpen(false);
+    setOverlayUnread()
   };
 
   const goLeft = () => {
