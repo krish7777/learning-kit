@@ -11,6 +11,7 @@ import Experiment from "./Experiment";
 import ResultsAnalysis from "./ResultsAnalysis";
 import Troubleshoot from "./Troubleshoot";
 import Excercise from "./Excercise";
+import ProgressBar from "./ProgressBar";
 
 
 class Course extends React.Component {
@@ -18,7 +19,8 @@ class Course extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentOrientation: 'landscape-primary'
+      currentOrientation: 'landscape-primary',
+      overlayUnread: true
     }
 
   }
@@ -26,6 +28,13 @@ class Course extends React.Component {
   setCurrentOrientation = (orientation) => {
     this.setState({ currentOrientation: orientation })
   }
+
+  setOverlayUnread = () => {
+    console.log("the setoverlay main function called")
+    this.setState({ overlayUnread: false })
+  }
+
+
 
   // const [currentOrientation, setCurrentOrientation] = useState("landscape-primary");
 
@@ -59,10 +68,6 @@ class Course extends React.Component {
 
   // }, [])
 
-  fullScreenCheck = () => {
-    if (document.fullscreenElement) return;
-    return document.documentElement.requestFullscreen();
-  }
   getOppositeOrientation = () => {
     const { type } = window.screen.orientation;
     return type.startsWith("portrait") ? "landscape" : "portrait";
@@ -78,12 +83,16 @@ class Course extends React.Component {
     await window.screen.orientation.lock(newOrientation);
   }
 
-
-
-
-  openFullscreen = () => {
-    this.fullScreenCheck()
+  fullScreenCheck = () => {
+    if (document.fullscreenElement) {
+      return this.closeFullscreen();
+    }
+    return document.documentElement.requestFullscreen();
   }
+
+  // openFullscreen = () => {
+  //   this.fullScreenCheck()
+  // }
 
   closeFullscreen = () => {
     if (document.exitFullscreen) {
@@ -103,8 +112,9 @@ class Course extends React.Component {
   }
 
 
-
   render() {
+    // console.log("fdfsf");
+    // console.log(this.props);
     const { currentStep, changeCurrentStep, currentCourse } = this.props;
     const { currentOrientation } = this.state;
 
@@ -157,7 +167,7 @@ class Course extends React.Component {
               />
             </svg>
 
-            <div onClick={this.openFullscreen} style={{ cursor: "pointer" }}>
+            <div onClick={this.fullScreenCheck} style={{ cursor: "pointer" }}>
               <svg
                 width="26"
                 height="25"
@@ -172,47 +182,48 @@ class Course extends React.Component {
               </svg>
             </div>
           </div>
-          <div className="progress-bar"></div>
+
           <div className="steps-bar">
-
-            {currentCourse?.introduction ? <div onClick={() => changeCurrentStep('Introduction')} className={currentStep === "Introduction" ? "active" : ""}>INTRODUCTION</div> : null}
-            {currentCourse?.buildCircuit ? <div onClick={() => changeCurrentStep('BuildCircuit')} className={currentStep === "BuildCircuit" ? "active" : ""}>BUILD CIRCUIT</div>
+            {currentCourse?.introduction ? <div onClick={() => changeCurrentStep('Introduction')} className={currentStep === "Introduction" ? "active" : ""}>INTRODUCTION </div> : null}
+            {currentCourse?.buildCircuit ? <div onClick={() => changeCurrentStep('BuildCircuit')} className={currentStep === "BuildCircuit" ? "active" : ""}>BUILD CIRCUIT </div>
               : null}
-            {currentCourse?.experiment ? <div onClick={() => changeCurrentStep('Experiment')} className={currentStep === "Experiment" ? "active" : ""}>EXPERIMENT</div>
+            {currentCourse?.experiment ? <div onClick={() => changeCurrentStep('Experiment')} className={currentStep === "Experiment" ? "active" : ""}>EXPERIMENT </div>
               : null}
 
-            {currentCourse?.results ? <div onClick={() => changeCurrentStep('ResultsAnalysis')} className={currentStep === "ResultsAnalysis" ? "active" : ""}>RESULTS & ANALYSIS</div> : null}
-            {currentCourse?.troubleshoot ? <div onClick={() => changeCurrentStep('Troubleshoot')} className={currentStep === "Troubleshoot" ? "active" : ""}>TROUBLESHOOT</div> : null}
-            {currentCourse?.excercise ? <div onClick={() => changeCurrentStep('Excercise')} className={currentStep === "Excercise" ? "active" : ""}>EXCERCISE</div> : null}
+            {currentCourse?.results ? <div onClick={() => changeCurrentStep('ResultsAnalysis')} className={currentStep === "ResultsAnalysis" ? "active" : ""}>RESULTS & ANALYSIS </div> : null}
+            {currentCourse?.troubleshoot ? <div onClick={() => changeCurrentStep('Troubleshoot')} className={currentStep === "Troubleshoot" ? "active" : ""}>TROUBLESHOOT </div> : null}
+            {currentCourse?.excercise ? <div onClick={() => changeCurrentStep('Excercise')} className={currentStep === "Excercise" ? "active" : ""}>EXCERCISE </div> : null}
           </div>
+
+          <ProgressBar currentNav={currentStep} buildCircuitSteps={currentCourse} />
+
           <div className="body">
             {currentCourse && currentStep === 'BuildCircuit' ? <BuildCircuit id={currentCourse.buildCircuit} type={this.props.match.params.type} /> : null}
             {currentCourse && currentStep === 'Introduction' ? <Introduction id={currentCourse.introduction} /> : null}
             {/* temporary placeholder [TODO] */}
             {currentCourse && currentStep === 'ResultsAnalysis' ? <ResultsAnalysis id={currentCourse.results} /> : null}
             {/* placeholder end [TODO] */}
-            {currentCourse && currentStep === 'Experiment' ? <Experiment id={currentCourse.experiment} type={this.props.match.params.type} /> : null}
+            {currentCourse && currentStep === 'Experiment' ? <Experiment id={currentCourse.experiment} type={this.props.match.params.type} overlayUnread={this.state.overlayUnread} setOverlayUnread={this.setOverlayUnread} /> : null}
             {currentCourse && currentStep === 'Troubleshoot' ? <Troubleshoot id={currentCourse.troubleshoot} /> : null}
             {currentCourse && currentStep === 'Excercise' ? <Excercise id={currentCourse.excercise} /> : null}
-
-
           </div>
-          {/* <div className="footer">
-        <p>Copyright</p>
-        <svg
-          width="25"
-          height="25"
-          viewBox="0 0 25 25"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M13.75 10H11.25V5H13.75V10ZM13.75 12.5H11.25V15H13.75V12.5ZM25 2.5V17.5C25 18.163 24.7366 18.7989 24.2678 19.2678C23.7989 19.7366 23.163 20 22.5 20H5L0 25V2.5C0 1.83696 0.263392 1.20107 0.732233 0.732233C1.20107 0.263392 1.83696 0 2.5 0H22.5C23.163 0 23.7989 0.263392 24.2678 0.732233C24.7366 1.20107 25 1.83696 25 2.5ZM22.5 2.5H2.5V19L4 17.5H22.5V2.5Z"
-            fill="#002E48"
-          />
-        </svg>
-      </div> */}
-        </div >
+
+          <div className="footer">
+            <p>Copyright</p>
+            <svg
+              width="25"
+              height="25"
+              viewBox="0 0 25 25"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M13.75 10H11.25V5H13.75V10ZM13.75 12.5H11.25V15H13.75V12.5ZM25 2.5V17.5C25 18.163 24.7366 18.7989 24.2678 19.2678C23.7989 19.7366 23.163 20 22.5 20H5L0 25V2.5C0 1.83696 0.263392 1.20107 0.732233 0.732233C1.20107 0.263392 1.83696 0 2.5 0H22.5C23.163 0 23.7989 0.263392 24.2678 0.732233C24.7366 1.20107 25 1.83696 25 2.5ZM22.5 2.5H2.5V19L4 17.5H22.5V2.5Z"
+                fill="#002E48"
+              />
+            </svg>
+          </div>
+        </div>
     );
 
 

@@ -1,0 +1,15 @@
+.build-circuit-main-container {
+    display: flex;
+    flex-direction: row;
+    // background: green;
+    padding: 20px 15px;
+    // height: 100%;
+    width: 100%;
+    height: fit-content;
+    
+
+    @media only screen and (max-width : 820px) {
+        flex-direction: column;
+    }
+
+}
