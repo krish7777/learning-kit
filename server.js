@@ -17,9 +17,9 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors())
 
-//STATICALLY SERVE THE ADMIN DASHBOARD AND CLIENT FOLDER
-app.use(express.static(path.join(__dirname, 'client-folder', 'build')));
-app.use(express.static(path.join(__dirname, 'admin-dash', 'build')));
+// //STATICALLY SERVE THE ADMIN DASHBOARD AND CLIENT FOLDER
+// app.use(express.static(path.join(__dirname, 'client-folder', 'build')));
+// app.use(express.static(path.join(__dirname, 'admin-dash', 'build')));
 
 //STATICALLY SERVE IMAGES
 app.use('/images', express.static(path.join(__dirname, 'images')));
