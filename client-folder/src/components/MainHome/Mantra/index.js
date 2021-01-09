@@ -4,10 +4,10 @@ import './styles.scss';
 
 class Mantra extends Component {
 
-
     render() {
+
         return (
-            <div className="client-mainHome-Mantra">
+            <div className="client-mainHome-Mantra" id="client-mainhome-mantra">
                 <p id="Mantra-component-title">Our Mantra</p>
                 <div className="Mantra-mainTitle"><h1>Learning By Doing</h1></div>
                 <div className="Mantra-data">

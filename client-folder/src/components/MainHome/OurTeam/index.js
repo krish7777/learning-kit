@@ -10,7 +10,7 @@ class OurTeam extends Component {
 
     render() {
         return (
-            <div className="client-mainHome-ourTeam">
+            <div className="client-mainHome-ourTeam" id="client-mainhome-ourteam">
                 <div className="client-mainHome-ourTeam-title"><h1>Meet Our Team</h1></div>
 
                 <div className="mainHome-ourTeam-mainProfile">

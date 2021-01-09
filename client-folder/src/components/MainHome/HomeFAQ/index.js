@@ -14,7 +14,7 @@ class HomeFAQ extends Component {
         const { Panel } = Collapse;
 
         return (
-            <div className="client-mainHome-faq">
+            <div className="client-mainHome-faq" id="client-mainhome-faq">
                 <div className="client-mainHome-faq-title"><h1>FAQs</h1></div>
 
                 <div className="client-maiHome-faq-body">
