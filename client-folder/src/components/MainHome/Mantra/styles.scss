@@ -1,0 +1,144 @@
+.client-mainHome-Mantra {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: #e0e0e0;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    padding-top: 1vh;
+    padding-bottom: 10vh;
+
+    #Mantra-component-title {
+        font-size: 18px;
+        line-height: 150.69%;
+        text-indent: 1px;
+
+        @media only screen and (max-width: 540px) {
+            font-size: 16px;
+        }
+    }
+
+    .Mantra-mainTitle {
+        h1 {
+            margin-top: -25px;
+            font-weight: 500;
+            color: #e0e0e0;
+            font-size: 48px;
+            line-height: 175%;
+            text-indent: 1px;
+            text-transform: capitalize;
+
+            @media only screen and (max-width: 540px) {
+                font-size: 38px;
+            }
+        }
+    }
+
+    .Mantra-data {
+        margin-bottom: 30px;
+
+        p{
+            font-size: 18px;
+            line-height: 150.69%;
+            text-indent: 1px;
+
+            @media only screen and (max-width: 540px) {
+                font-size: 16px;
+            }
+        }
+    }
+
+    .Mantra-demo-blog {
+        display: flex;
+        width: 100%;
+        height: fit-content;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 15px 25px;
+        background: #003659;
+        border: 2px solid #484848;
+        box-sizing: border-box;
+        border-radius: 5px;
+
+        @media only screen and (max-width: 915px) {
+            flex-direction: column;
+        }
+
+        @media only screen and (max-width: 540px) {
+            padding: 10px 12px;
+        }
+
+        .Mantra-blog-text {
+            font-size: 20px;
+            width: 75%;
+            line-height: 150.69%;
+            align-items: center;
+            text-indent: 1px;
+            color: #F0F0F0;
+
+            @media only screen and (max-width: 915px) {
+                width: 100%;
+                padding-bottom: 25px;
+            }
+
+            @media only screen and (max-width: 540px) {
+                font-size: 17px;
+            }
+        }
+
+        .Mantra-demo-button-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 25%;
+            min-width: 50px;
+
+            @media only screen and (max-width: 915px) {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            a {
+                margin: 0 auto;
+
+                @media only screen and (max-width: 915px) {
+                    width: 100%;
+                    margin: 0;
+                }
+            }
+
+            .Mantra-blog-button {
+                display: flex;
+                padding: 5px;
+                width: 110%;
+                height: 35px;
+                background: #F0F0F0;
+                border: 2px solid #F0F0F0;
+                box-sizing: border-box;
+                border-radius: 5px;
+
+                @media only screen and (max-width: 915px) {
+                    width: 100%;
+                }
+
+                span {
+                    margin: 0 auto;
+                    font-weight: 500;
+                    font-size: 20px;
+                    line-height: 33px;
+                    display: flex;
+                    align-items: center;
+                    text-align: center;
+                    text-indent: 1px;
+                    text-transform: capitalize;
+                    color: #003659;
+
+                    @media only screen and (max-width: 540px) {
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+}
