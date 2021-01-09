@@ -1,0 +1,65 @@
+.client-mainHome-card-container {
+    background-color: #001A2F;
+    height: fit-content;
+    min-height: 70vh;
+    align-items: center;
+    margin: 20px 60px;
+
+    @media only screen and (min-width: 630px) { // MIN Width
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        // flex-direction: column;
+    }
+
+    @media only screen and (max-width: 630px) { // MAX Width
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+}
+
+.client-mainHome-link {
+    transition: box-shadow 0.3s;
+    -webkit-transition: box-shadow 0.3s;
+    -moz-transition: box-shadow 0.3s;
+    -ms-transition: box-shadow 0.3s;
+    -o-transition: box-shadow 0.3s;
+}
+
+.client-mainHome-link:hover {
+    box-shadow: -2px -2px 2px rgba(191, 189, 200, 0.08), 2px 2px 3px rgba(0, 0, 0, 0.4), -10px -10px 15px rgba(208, 197, 249, 0.005), 10px 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+.client-mainHome-link > div {
+    width: 260px;
+}
+
+.client-mainHome-link > div > div > p {
+    font-size: 150%;
+}
+
+.client-mainHome-link > div > div > img {
+    margin: auto;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+@media only screen and (max-width: 630px) {
+    .client-mainHome-link > div {
+        width: 230px;
+    }
+    .client-mainHome-link > div > div > p {
+        font-size: 110%;
+        height: 20px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .client-mainHome-link > div {
+        width: 200px;
+    }
+}
