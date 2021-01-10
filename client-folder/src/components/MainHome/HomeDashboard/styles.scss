@@ -1,0 +1,108 @@
+.client-mainHome-homeDashboard {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    margin-top: 2vh;
+    margin-bottom: 22vh;
+
+    @media only screen and (max-width: 600px) {
+        margin-bottom: 16vh;
+    }
+
+    > div {
+        display: flex;
+    }
+
+    .client-homeDashboard-container {
+        width: 100%;
+        height: 100%;
+        background: #001A2F;
+        box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.1), -20px -20px 20px rgba(234, 234, 234, 0.02), 4px 4px 4px rgba(0, 0, 0, 0.25), -4px -4px 4px rgba(235, 235, 235, 0.08);
+        border-radius: 10px;
+        padding: 10px;
+
+        @media only screen and (max-width: 600px) {
+            padding: 7px;
+        }
+
+        .client-homeDashboard-image {
+            width: 100%;
+            height: 100%;
+
+            .client-homeDashoard-carousel-content {
+                height: 100%;
+                width: 100%;
+
+                img {
+                    height: auto;
+                    width: 100%;
+                    border-radius: 5px;
+                    -webkit-border-radius: 5px;
+                    -moz-border-radius: 5px;
+                    -ms-border-radius: 5px;
+                    -o-border-radius: 5px;
+                }
+            }
+
+            .ant-carousel .slick-dots li {
+                width: 20px;
+            }
+
+            .ant-carousel .slick-dots li.slick-active {
+                width: 36px;
+            }
+
+            .ant-carousel .slick-dots li button {
+                height: 6px;
+            }
+        }
+    }
+
+    // .client-mainHome-homeDashoard-title {
+    //     display: none;
+    //     font-family: 'Roboto';
+    //     font-style: normal;
+    //     font-weight: 500;
+    //     font-size: 20px;
+    //     line-height: 175%;
+    //     text-indent: 1px;
+    //     text-transform: capitalize;
+    //     color: #e0e0e0;
+
+    //     @media only screen and (max-width: 540px) {
+    //         display: flex;
+    //     }
+    // }
+}
+
+// .client-mainHome-homeDashboard::after {
+//     position: initial;
+//     content: 'Dashboard.';
+//     top: 30vh !important;
+//     left: -70.5vw !important;
+
+//     font-family: 'Roboto';
+//     font-style: normal;
+//     font-weight: 500;
+//     font-size: 26px;
+//     line-height: 175%;
+//     text-indent: 1px;
+//     text-transform: capitalize;
+//     color: #e0e0e0;
+//     transform: rotate(-90deg);
+
+//     @media only screen and (max-width: 880px) {
+//         top: 15vh;
+//         left: -72vw;
+//     }
+
+//     @media only screen and (max-width: 600px) {
+//         top: 10vh;
+//         left: -73vw;
+//     }
+
+//     @media only screen and (max-width: 540px) {
+//         // display: none;
+//     }
+// }
