@@ -41,7 +41,7 @@ class Home extends React.Component {
     console.log(filteredModules)
     return (
       <div className="home-main-container">
-        <Navbar />
+        <Navbar type={this.props.match.params.type}/>
         <div className="home">
           <div className="main-page-intro">
             <h1>Hands On {this.props.match.params.type === 'arduino' ? ('Arduino') : ('Digital')} Basics Course</h1>

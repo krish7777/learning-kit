@@ -23,3 +23,18 @@ export const getAllModules = (type) => async (dispatch) => {
     console.log("error in getAllModules")
   }
 }
+
+export const getAllFAQs = (type) => async (dispatch) => {
+  try {
+    const res = await axios.get(`${baseUrl}/api/module/course-troubleshoot/${type}`)
+
+    dispatch({
+      type: ACTION.GET_ALL_FAQS,
+      payload: res.data.troubleshoot || []
+    })
+    // console.log("FAQ coming"+ JSON.stringify( res.data));
+  } catch (e) {
+    console.log("error in getAllFAQs")
+  }
+}
+
