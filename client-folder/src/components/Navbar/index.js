@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import "./styles.scss";
 
-const Navbar = () => {
+const Navbar = ({type}) => {
   return (
     <div className="navbar">
       <div className="navbar-main-title">
@@ -13,7 +13,9 @@ const Navbar = () => {
 
       <div className="navbar-nav-links-container">
         <div className="navbar-nav-link">About Us</div>
-        <div className="navbar-nav-link">FAQs</div>
+        <div className="navbar-nav-link">
+          <Link to={`${type}/course-troubleshoot`}>FAQs</Link>
+          </div>
         <div className="navbar-nav-link">Language</div>
         <div className="navbar-nav-link">Your Dashboard</div>
       </div>
