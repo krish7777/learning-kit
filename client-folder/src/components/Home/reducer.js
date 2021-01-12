@@ -55,7 +55,7 @@ const initialState = {
   ],
 
   allModules: [],
-  allFAQs: false
+  allFAQs: []
 
 };
 
