@@ -1,3 +1,4 @@
+
 .course {
     display: flex;
     flex-direction: column;
@@ -44,6 +45,110 @@
         height: auto;
         min-height: 100vh;
         color: aquamarine;
+
+        .troubleshoot-container {
+            width: 100%;
+            margin: 2% 10%;
+            padding: 10px;
+            background: #001a2f;
+            box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.1),
+                -20px -20px 20px rgba(234, 234, 234, 0.02),
+                4px 4px 4px rgba(0, 0, 0, 0.25),
+                -4px -4px 4px rgba(235, 235, 235, 0.08);
+            border-radius: 10px;
+            height: fit-content;
+
+            @media only screen and (max-width: 540px) {
+                margin: 2% 2%;
+            }
+
+            .heading-troubleshoot {
+                color: burlywood;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 3.6vh ;
+            }
+            .troubleshoot {
+                display: flex;
+                width: 100%;
+                color: white;
+                padding: 40px 4%;
+                justify-content: space-evenly;
+                //max-height: 100vh;
+                background: #2b2a29;
+                box-sizing: border-box;
+                overflow: hidden;
+                border-radius: 5px;
+                height: 100%;
+
+                @media only screen and (max-width: 540px) {
+                    padding: 35px 8px;
+                }
+
+                .troubleshoot-inner {
+                    width: 100%;
+                    // min-width: 400px;
+                    max-width: 1400px;
+                    overflow: auto;
+
+                    .ant-collapse,
+                    .ant-collapse-icon-position-right,
+                    .ant-collapse-ghost {
+                        margin-bottom: 8px;
+                        background: rgba(255, 255, 255, 0.1);
+                        border: 1px solid #c4c4c4;
+                        box-sizing: border-box;
+                        border-radius: 2px;
+
+                        .ant-collapse-item-active {
+                            background: rgba(255, 255, 255, 0.25);
+                        }
+                    }
+                }
+            }
+
+            .troubleshoot-bottom-buttons {
+                background: rgba(0, 120, 188, 0.3);
+                border-radius: 5px;
+                margin-top: 20px;
+                max-height: 50px;
+                height: 45px;
+                min-height: 35px;
+
+                @media only screen and (max-width: 540px) {
+                    height: 40px;
+                }
+
+                .troubleshoot-back-button {
+                    width: 100%;
+                    height: 100%;
+                    text-align: center;
+                    align-items: center;
+                    // flex: 1;
+                    display: flex;
+                    justify-content: center;
+                    cursor: pointer;
+
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 22px;
+                    line-height: 28px;
+                    text-transform: uppercase;
+                    color: rgba(36, 214, 128, 0.9);
+
+                    @media only screen and (max-width: 720px) {
+                        font-size: 20px;
+                    }
+
+                    @media only screen and (max-width: 540px) {
+                        font-size: 18px;
+                        font-weight: 450;
+                    }
+                }
+            }
+        }
     }
 
     .footer {
