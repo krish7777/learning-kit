@@ -10,13 +10,13 @@ import { bindActionCreators } from "redux";
 import { changeCurrentStep, changeStep } from "../action";
 
 const IframeShow = (
-  { steps, changeStep, simulation, changeCurrentStep }
+  { steps, changeStep, simulation, changeCurrentStep, overlayUnread, setOverlayUnread }
 ) => {
 
 
   const [iFrame, setIframe] = useState("");
   const [currentStep, setCurrentStep] = useState(0);
-  const [overlayIsOpen, setOverlayIsOpen] = useState(true);
+  const [overlayIsOpen, setOverlayIsOpen] = useState(overlayUnread);
 
   useEffect(() => {
     const ifr = simulation || "";
@@ -26,6 +26,7 @@ const IframeShow = (
 
   const closeOverlay = () => {
     setOverlayIsOpen(false);
+    setOverlayUnread();
   };
 
   const goLeft = () => {
@@ -44,7 +45,7 @@ const IframeShow = (
   }
 
   return (
-    <div className="slideshow" style={{ width: "65%", margin: "0 20%" }}>
+    <div className="iframeShow-slideshow">
       <div className={overlayIsOpen ? "overlayed gallerycontainer" : "gallerycontainer"}>
         <div className="resp-container">
           <iframe className="resp-iframe" src={iFrame} scrolling="yes" allowfullscreen></iframe>
@@ -63,6 +64,7 @@ const IframeShow = (
       <div className={overlayIsOpen ? "overlayed code-step" : "code-step"}>
         Step {currentStep + 1} : {steps[currentStep].description}
       </div>
+
       <div className="nav">
         <div onClick={goLeft} className="left-arrow">
           <LeftArrow />
@@ -74,13 +76,13 @@ const IframeShow = (
           <>
             <div onClick={closeOverlay} className="codeUp-btn">
               <SkipIcon />
-          CODE UPLOAD SUCCESSFUL
-        </div>
+              CODE UPLOAD SUCCESSFUL
+            </div>
             {/* <div className="divider"></div>
-        <div onClick={()=>{}} className="hide-btn">
-          <HideIcon />
-          SHOW PIN DIAGRAMS
-        </div> */}
+            <div onClick={()=>{}} className="hide-btn">
+              <HideIcon />
+              SHOW PIN DIAGRAMS
+            </div> */}
           </>
         }
         {!overlayIsOpen &&
@@ -96,7 +98,7 @@ const IframeShow = (
         </div>
       </div>
 
-    </div >
+    </div>
   );
 };
 

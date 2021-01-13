@@ -40,8 +40,8 @@ class Home extends React.Component {
     const filteredModules = allModules.filter(module => module.name.toLowerCase().includes(searchValue.toLowerCase()) || module.courses.filter(course => course.name.toLowerCase().includes(searchValue.toLowerCase())).length)
     console.log(filteredModules)
     return (
-      <div style={{ backgroundColor: "#001A2F", backgroundImage: `url(${Background})` }}>
-        <Navbar />
+      <div className="home-main-container">
+        <Navbar type={this.props.match.params.type}/>
         <div className="home">
           <div className="main-page-intro">
             <h1>Hands On {this.props.match.params.type === 'arduino' ? ('Arduino') : ('Digital')} Basics Course</h1>
@@ -53,42 +53,42 @@ class Home extends React.Component {
               ullamco est sit aliqua dolor do amet sint. ullamco est sit aliqua
               dolor do amet sint. Velit officia consequat duis enim velit mollit.
               Exercitation veniam consequat sunt nostrud amet.
-          </p>
+            </p>
             <p>
               Velit officia consequat duis enim velit mollit. Exercitation veniam
               consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco
               veniam consequat sunt nostrud amet. est sit aliqua dolor do amet
               sint. Velit officia consequat duis enim velit mollit. Exercitation
-            veniam consequat sunt nostrud amet.{" "}
+              veniam consequat sunt nostrud amet.{" "}
+            </p>
+
+            {/* ALL LINKS */}
+            <p>
+              Link to Study Material -{" "}
+              <a href="https://www.geeksforgeeks.org/digital-electronics-logic-design-tutorials/">
+                {" "}
+                https://www.geeksforgeeks.org/digital-electronics-logic-design-tutorials/
+              </a>
             </p>
             <p>
               Link to Study Material -{" "}
               <a href="https://www.geeksforgeeks.org/digital-electronics-logic-design-tutorials/">
                 {" "}
-              https://www.geeksforgeeks.org/digital-electronics-logic-design-tutorials/
-            </a>
+                https://www.geeksforgeeks.org/digital-electronics-logic-design-tutorials/
+              </a>
             </p>
             <p>
               Link to Study Material -{" "}
               <a href="https://www.geeksforgeeks.org/digital-electronics-logic-design-tutorials/">
                 {" "}
-              https://www.geeksforgeeks.org/digital-electronics-logic-design-tutorials/
-            </a>
+                https://www.geeksforgeeks.org/digital-electronics-logic-design-tutorials/
+              </a>
             </p>
-            <p>
-              Link to Study Material -{" "}
-              <a href="https://www.geeksforgeeks.org/digital-electronics-logic-design-tutorials/">
-                {" "}
-              https://www.geeksforgeeks.org/digital-electronics-logic-design-tutorials/
-            </a>
-            </p>
-            <Link to={`${this.props.match.params.type}/modules`}>
-              <Button size={"large"} style={{ backgroundColor: "#56AC00", fontSize: "20px", fontWeight: "600", marginTop: "50px", padding: "10px 50px", display: "flex", alignItems: "center" }}>Let's Get Started</Button>
-            </Link>
 
           </div>
+
           <div className="course-curriculum">
-            <h3>Course Curriculum
+            <h3>Course Curriculum{" "}
             <span>({filteredModules.length} modules)</span></h3>
             <div className="course-summary">
               <Input placeholder="Search any module/course" value={this.state.searchValue} onChange={this.onSearchChange} style={{ background: "transparent", color: "white", border: "1px solid #324454", fontSize: "18px", marginBottom: "10px" }} />
@@ -112,7 +112,13 @@ class Home extends React.Component {
 
           </div>
         </div>
-      </div >
+        
+        <div className="home-getStarted-button-container">
+          <Link to={`${this.props.match.params.type}/modules`}>
+            <Button size={"large"} className="home-getStarted-button" >Let's Get Started</Button>
+          </Link>
+        </div>
+      </div>
 
     );
   }

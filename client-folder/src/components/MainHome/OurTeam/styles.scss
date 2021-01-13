@@ -1,0 +1,149 @@
+.client-mainHome-ourTeam {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: #e0e0e0;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: normal;
+    padding: 10vh 0;
+
+    .client-mainHome-ourTeam-title {
+        h1 {
+            font-family: 'Roboto';
+            font-weight: 500;
+            color: #e0e0e0;
+            font-size: 48px;
+            line-height: 175%;
+            text-indent: 1px;
+            text-transform: capitalize;
+
+            @media only screen and (max-width: 540px) {
+                font-size: 38px;
+            }
+        }
+    }
+
+    .mainHome-ourTeam-mainProfile {
+        display: flex;
+        flex-direction: row;
+        padding: 15px;
+        height: fit-content;
+        width: 100%;
+        background: #003659;
+        border: 2px solid #484848;
+        box-sizing: border-box;
+        border-radius: 5px;
+        margin-top: 2vh;
+        margin-bottom: 9vh;
+
+        @media only screen and (max-width: 800px) {
+            flex-direction: column;
+        }
+
+        .mainHome-mainProfile-pic {
+            width: 20%;
+            min-width: 200px;
+            // height: 100%;
+            padding: 5px;
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        .mainHome-mainProfile-container {
+            display: flex;
+            flex-direction: column;
+            padding: 5px;
+            width: 80%;
+            padding-left: 20px;
+
+            font-family: 'Roboto';
+            font-style: normal;
+            line-height: 150.69%;
+            text-align: justify;
+            text-indent: 1px;
+            text-transform: capitalize;
+
+            @media only screen and (max-width: 800px) {
+                padding-left: 5px;
+                padding-top: 15px;
+                width: 100%;
+            }
+
+            .mainHome-mainProfile-name {
+                font-weight: bold;
+                font-size: 22px;
+            }
+
+            .mainHome-mainProfile-data {
+                font-size: 18px;
+                font-weight: normal;
+                padding: 15px 0;
+                line-height: 150.69%;
+                text-align: justify;
+                text-indent: 1px;
+                text-transform: capitalize;
+            }
+
+            .mainHome-mainProfile-button-container {
+
+                display: flex;
+                width: 100%;
+
+                a {
+                    width: fit-content;
+                    @media only screen and (max-width: 540px) {
+                        width: 100%;
+                    }
+                }
+
+                .mainHome-mainProfile-button {
+                    display: flex;
+                    width: 235px;
+                    height: 40px;
+                    background: #F0F0F0;
+                    border: 2px solid #F0F0F0;
+                    box-sizing: border-box;
+                    border-radius: 5px;
+                    padding: 5px;
+    
+                    @media only screen and (max-width: 800px) {
+                        margin-top: 10px;
+                    }
+    
+                    svg {
+                        margin-left: 22px;
+                    }
+    
+                    span {
+                        margin: 0 auto;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 20px;
+                        line-height: 33px;
+                        display: flex;
+                        align-items: center;
+                        text-align: center;
+                        text-indent: 1px;
+                        font-variant: small-caps;
+                        color: #003659;
+                    }
+                }
+            } 
+        }
+    }
+
+    .mainHome-ourTeam-data {
+        font-size: 18px;
+        line-height: 150.69%;
+        text-indent: 1px;
+
+        @media only screen and (max-width: 540px) {
+            font-size: 16px;
+        }
+    }
+
+}

@@ -1,0 +1,26 @@
+.client-mainHome-introduction {
+    margin: 20px;
+    margin-top: 45px;
+
+    p {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 150.69%;
+        /* or 36px */
+        text-align: center;
+        text-indent: 1px;
+        color: #f0f0f0;
+
+        @media only screen and (max-width: 1300px) {
+            font-size: 21px;
+        }
+        @media only screen and (max-width: 800px) {
+            font-size: 18px;
+        }
+        @media only screen and (max-width: 540px) {
+            font-size: 16px;
+        }
+    }
+}

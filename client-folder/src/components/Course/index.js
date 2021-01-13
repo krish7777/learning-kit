@@ -19,7 +19,8 @@ class Course extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentOrientation: 'landscape-primary'
+      currentOrientation: 'landscape-primary',
+      overlayUnread: true
     }
 
   }
@@ -27,6 +28,13 @@ class Course extends React.Component {
   setCurrentOrientation = (orientation) => {
     this.setState({ currentOrientation: orientation })
   }
+
+  setOverlayUnread = () => {
+    console.log("the setoverlay main function called")
+    this.setState({ overlayUnread: false })
+  }
+
+
 
   // const [currentOrientation, setCurrentOrientation] = useState("landscape-primary");
 
@@ -60,10 +68,6 @@ class Course extends React.Component {
 
   // }, [])
 
-  fullScreenCheck = () => {
-    if (document.fullscreenElement) return;
-    return document.documentElement.requestFullscreen();
-  }
   getOppositeOrientation = () => {
     const { type } = window.screen.orientation;
     return type.startsWith("portrait") ? "landscape" : "portrait";
@@ -79,12 +83,16 @@ class Course extends React.Component {
     await window.screen.orientation.lock(newOrientation);
   }
 
-
-
-
-  openFullscreen = () => {
-    this.fullScreenCheck()
+  fullScreenCheck = () => {
+    if (document.fullscreenElement) {
+      return this.closeFullscreen();
+    }
+    return document.documentElement.requestFullscreen();
   }
+
+  // openFullscreen = () => {
+  //   this.fullScreenCheck()
+  // }
 
   closeFullscreen = () => {
     if (document.exitFullscreen) {
@@ -159,7 +167,7 @@ class Course extends React.Component {
               />
             </svg>
 
-            <div onClick={this.openFullscreen} style={{ cursor: "pointer" }}>
+            <div onClick={this.fullScreenCheck} style={{ cursor: "pointer" }}>
               <svg
                 width="26"
                 height="25"
@@ -187,7 +195,7 @@ class Course extends React.Component {
             {currentCourse?.excercise ? <div onClick={() => changeCurrentStep('Excercise')} className={currentStep === "Excercise" ? "active" : ""}>EXCERCISE </div> : null}
           </div>
 
-          <ProgressBar />
+          <ProgressBar currentNav={currentStep} buildCircuitSteps={currentCourse} />
 
           <div className="body">
             {currentCourse && currentStep === 'BuildCircuit' ? <BuildCircuit id={currentCourse.buildCircuit} type={this.props.match.params.type} /> : null}
@@ -195,7 +203,7 @@ class Course extends React.Component {
             {/* temporary placeholder [TODO] */}
             {currentCourse && currentStep === 'ResultsAnalysis' ? <ResultsAnalysis id={currentCourse.results} /> : null}
             {/* placeholder end [TODO] */}
-            {currentCourse && currentStep === 'Experiment' ? <Experiment id={currentCourse.experiment} type={this.props.match.params.type} /> : null}
+            {currentCourse && currentStep === 'Experiment' ? <Experiment id={currentCourse.experiment} type={this.props.match.params.type} overlayUnread={this.state.overlayUnread} setOverlayUnread={this.setOverlayUnread} /> : null}
             {currentCourse && currentStep === 'Troubleshoot' ? <Troubleshoot id={currentCourse.troubleshoot} /> : null}
             {currentCourse && currentStep === 'Excercise' ? <Excercise id={currentCourse.excercise} /> : null}
           </div>
