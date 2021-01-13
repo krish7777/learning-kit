@@ -54,7 +54,8 @@ const initialState = {
   }
   ],
 
-  allModules: []
+  allModules: [],
+  allFAQs: []
 
 };
 
@@ -66,6 +67,10 @@ const homeReducer = (state = initialState, action) => {
     }
     case ACTION.GET_ALL_MODULES: {
       state = {...state, allModules:[...action.payload]}
+    }
+    case ACTION.GET_ALL_FAQS:{
+      state = {...state, allFAQs: action.payload}
+      break;
     }
   }
 

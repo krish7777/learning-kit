@@ -1,3 +1,4 @@
+
 // .card-container p {
 //     margin: 0;
 //   }
@@ -47,3 +48,40 @@
     border-color: #141414;
     background: #141414;
   }
+
+.allmodules-container {
+    margin: 3%;
+    border: 2px solid black;
+
+    .allmodules-navbar {
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(193, 144, 243);
+        justify-content: center;
+        align-items: center;
+
+        .allmodules-name {
+            font-size: 2rem;
+        }
+        .navbar-horizontal {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+
+            .faqs-tab,
+            .modules-tab {
+                font-size: 1.6rem;
+                margin: auto;
+                padding: auto;
+                display: block;
+                width: 46.4vw;
+                background-color: #20415c;
+                color: aliceblue;
+            }
+        }
+    }
+
+   
+    
+}

@@ -1,15 +1,24 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import "./styles.scss";
 
-const Navbar = () => {
+const Navbar = ({type}) => {
   return (
     <div className="navbar">
-      <h1 className="main-title">Learning Kits Tutorial.</h1>
-      <div className="spacer"></div>
-      <div>About Us</div>
-      <div>FAQs</div>
-      <div>Language</div>
-      <div>Your Dashboard</div>
+      <div className="navbar-main-title">
+        <Link to="/"><div className="main-title">Learning Kits Tutorial</div></Link>
+      </div>
+
+      {/* <div className="spacer"></div> */}
+
+      <div className="navbar-nav-links-container">
+        <div className="navbar-nav-link">About Us</div>
+        <div className="navbar-nav-link">
+          <Link to={`${type}/course-troubleshoot`}>FAQs</Link>
+          </div>
+        <div className="navbar-nav-link">Language</div>
+        <div className="navbar-nav-link">Your Dashboard</div>
+      </div>
     </div>
   );
 };
