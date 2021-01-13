@@ -13,7 +13,7 @@ import { bindActionCreators } from "redux";
 import { changeCurrentStep, changeStep } from "../action";
 
 const SlideShow = (
-  { steps, changeStep, changeCurrentStep, overlayUnread, setOverlayUnread }
+  { steps, changeStep, changeCurrentStep, overlayUnread, setOverlayUnread, isGettingStarted }
 ) => {
 
 
@@ -104,10 +104,16 @@ const SlideShow = (
             <div className="divider"></div> {/* Divider Here */}
           </>
         }
-        <div onClick={() => { changeCurrentStep('Troubleshoot') }} className="troubleshoot-btn">
-          <TroubleshootIcon />
+        {!overlayIsOpen && !isGettingStarted &&
+          <div onClick={() => { changeCurrentStep('Troubleshoot') }} className="troubleshoot-btn">
+            <TroubleshootIcon />
           TROUBLESHOOT
         </div>
+        }
+        {isGettingStarted &&
+          <div style={{
+            width: "100%"
+          }}></div>}
         <div className="divider"></div> {/* Divider Here */}
         <div onClick={goRight} className="right-arrow">
           <RightArrow />

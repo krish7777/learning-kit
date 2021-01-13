@@ -380,7 +380,7 @@ class AddBuildCircuit extends Component {
                             <Input.TextArea autoSize={{ minRows: 5 }} />
                         </Form.Item> : null}
 
-                        {this.props.match.params.type === "arduino" ? <Form.Item label="Code starting step" name="codeStepStart, finalCircuitStep" rules={[{ required: true }]}>
+                        {this.props.match.params.type === "arduino" ? <Form.Item label="Code starting step" name="codeStepStart" rules={[{ required: true }]}>
                             <InputNumber />
                         </Form.Item> : null}
 

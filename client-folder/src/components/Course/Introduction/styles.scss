@@ -38,72 +38,84 @@
 
     .introduction-container-card {
         background: #001A2F;
-        box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.1), -20px -20px 20px rgba(234, 234, 234, 0.02), 4px 4px 4px rgba(0, 0, 0, 0.25), -4px -4px 4px rgba(235, 235, 235, 0.08);
+        box-shadow: 20px  20px 20px rgba(0, 0, 0, 0.1), -20px -20px 20px rgba(234, 234, 234, 0.02), 4px 4px 4px rgba(0, 0, 0, 0.25), -4px -4px 4px rgba(235, 235, 235, 0.08);
         border-radius: 10px;
-        padding: 6px;
+        padding: 20px 60px;
 
-        div {
+        // @media only screen and (max-width: 700px) {
+        //     margin-top: 30px;
+        //     height: 35px;
+        //     font-size: 18px;
+        // }
             img {
-                width: 100%;
-                height: auto;
+                // width: 100%;
+                // height: auto;
+                display: block;
+                margin: 0 auto;
+                max-width: 100%;
                 border-radius: 5px;
             }
-        }
-
-        .introduction-start-button {
-            background: rgba(0, 120, 188, 0.3);
-            border-radius: 5px;
-            font-size: 20px;
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            margin-left: auto;
-            margin-right: auto;
-            height: 40px;
-            width: 100%;
-            border: none;
-
+        
             @media only screen and (max-width: 700px) {
-                margin-top: 30px;
-                height: 35px;
-                font-size: 18px;
+                padding: 10px ;
             }
+    
+        
 
+    }
+
+    .introduction-start-button {
+        background: rgba(0, 120, 188, 0.3);
+        border-radius: 5px;
+        font-size: 20px;
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        height: 40px;
+        width: 100%;
+        border: none;
+
+        @media only screen and (max-width: 700px) {
+            margin-top: 30px;
+            height: 35px;
+            font-size: 18px;
+        }
+
+        @media only screen and (max-width: 450px) {
+            margin-top: 35px;
+            height: 25px;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        span {
+            margin-right: auto;
+            margin-left: auto;
+            font-style: normal;
+            font-weight: 500;
+            text-align: center;
+            text-transform: uppercase;
+            color: rgba(36, 214, 128, 0.9);
+        }
+
+        p {
+            font-size: 20px;
+            font-style: normal;
+            line-height: 150.69%;
+            text-indent: 1px;
+            color: #000000;
             @media only screen and (max-width: 450px) {
-                margin-top: 35px;
-                height: 25px;
-                font-size: 15px;
-                margin-bottom: 10px;
-            }
-
-            span {
-                margin-right: auto;
-                margin-left: auto;
-                font-style: normal;
-                font-weight: 500;
-                text-align: center;
-                text-transform: uppercase;
-                color: rgba(36, 214, 128, 0.9);
-            }
-
-            p {
-                font-size: 20px;
-                font-style: normal;
-                line-height: 150.69%;
-                text-indent: 1px;
-                color: #000000;
-                @media only screen and (max-width: 450px) {
-                    font-size: 17px;
-                }
+                font-size: 17px;
             }
         }
+    }
 
-        .introduction-start-button:hover {
-            background: rgba(36, 214, 128, 0.9);
-            span {
-                color:  rgba(0, 100, 168, 1);
-            }
+    .introduction-start-button:hover {
+        background: rgba(36, 214, 128, 0.9);
+        span {
+            color:  rgba(0, 100, 168, 1);
         }
-
     }
 }

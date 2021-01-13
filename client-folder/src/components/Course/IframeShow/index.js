@@ -10,7 +10,7 @@ import { bindActionCreators } from "redux";
 import { changeCurrentStep, changeStep } from "../action";
 
 const IframeShow = (
-  { steps, changeStep, simulation, changeCurrentStep, overlayUnread, setOverlayUnread }
+  { steps, changeStep, simulation, changeCurrentStep, overlayUnread, setOverlayUnread, isGettingStarted }
 ) => {
 
 
@@ -85,12 +85,16 @@ const IframeShow = (
             </div> */}
           </>
         }
-        {!overlayIsOpen &&
+        {!overlayIsOpen && !isGettingStarted &&
           <div onClick={() => { changeCurrentStep('Troubleshoot') }} className="troubleshoot-btn">
             <TroubleshootIcon />
           TROUBLESHOOT
         </div>
         }
+        {isGettingStarted &&
+          <div style={{
+            width: "100%"
+          }}></div>}
         <div className="divider"></div>
 
         <div onClick={goRight} className="right-arrow">
