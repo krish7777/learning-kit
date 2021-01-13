@@ -4,6 +4,8 @@ import './styles.scss';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllModules, getSomeData, getAllFAQs } from '../action';
+import { Button, Collapse } from 'antd';
+const { Panel } = Collapse;
 
 class FAQs extends React.Component {
     constructor(props) {
@@ -73,6 +75,8 @@ class FAQs extends React.Component {
                 Please click to rotate the screen
             </button>
         ) : (
+            // HEADER
+
             <div className="course">
                 <div className="header">
                     <Link
@@ -144,22 +148,77 @@ class FAQs extends React.Component {
                     </div>
                 </div>
 
+                {/* FAQSLOGGED */}
+
                 <div className="body">
-                    {allFAQs === false ? (
-                        <div>Loading FAQs</div>
+                    {allFAQs.length === 0 ? (
+                        <div style={{ margin: '1em auto' }}>Loading FAQs</div>
                     ) : (
-                        <ul>
-                            {allFAQs.faqs.map((singlefaq) => {
-                                return (
-                                    <li key={Math.random()}>
-                                        {singlefaq.question} <br />
-                                        {singlefaq.answer}
-                                    </li>
-                                );
-                            })}
-                        </ul>
+                        <div className="troubleshoot-container">
+                            <h2 className="heading-troubleshoot">
+                                Listed FAQs:
+                            </h2>
+                            <div className="troubleshoot">
+                                <div className="troubleshoot-inner">
+                                    {allFAQs?.faqs?.map((singlefaq, i) =>
+                                        singlefaq.question ? (
+                                            <Collapse
+                                                ghost
+                                                expandIconPosition={'right'}
+                                                key={singlefaq.question + i}
+                                            >
+                                                <Panel
+                                                    header={
+                                                        i +
+                                                        1 +
+                                                        '. ' +
+                                                        singlefaq.question
+                                                    }
+                                                    style={{
+                                                        border:
+                                                            '1px solid #403F3E',
+                                                    }}
+                                                >
+                                                    <div
+                                                        className="exp-introduction"
+                                                        dangerouslySetInnerHTML={{
+                                                            __html:
+                                                                singlefaq.answer,
+                                                        }}
+                                                    ></div>
+                                                </Panel>
+                                            </Collapse>
+                                        ) : (
+                                            <Collapse
+                                                activeKey={'0'}
+                                                ghost
+                                                expandIconPosition={'right'}
+                                            >
+                                                <Panel
+                                                    header={singlefaq.question}
+                                                    style={{
+                                                        border:
+                                                            '1px solid #403F3E',
+                                                    }}
+                                                >
+                                                    <div
+                                                        className="exp-introduction"
+                                                        dangerouslySetInnerHTML={{
+                                                            __html:
+                                                                singlefaq.answer,
+                                                        }}
+                                                    ></div>
+                                                </Panel>
+                                            </Collapse>
+                                        )
+                                    )}
+                                </div>
+                            </div>
+                        </div>
                     )}
                 </div>
+
+                {/* FOOTER */}
 
                 <div className="footer">
                     <p>Copyright</p>
