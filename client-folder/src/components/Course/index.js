@@ -109,6 +109,7 @@ class Course extends React.Component {
 
   componentDidMount() {
     this.props.getCurrentCourse(this.props.match.params.id)
+    this.props.changeCurrentStep('Introduction')
   }
 
 
