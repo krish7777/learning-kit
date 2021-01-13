@@ -126,8 +126,15 @@ export const getExcercise = (id) => async dispatch => {
 }
 
 export const changeStep = (slideNo) => async dispatch => {
-    dispatch(({
+    dispatch({
         type: ACTION.CHANGE_STEP,
         payload: slideNo
-    }))
+    })
+}
+
+export const removeCurrentCourse = () => dispatch => {
+    dispatch({
+        type: ACTION.GET_CURRENT_COURSE,
+        payload: null
+    })
 }

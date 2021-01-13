@@ -3,7 +3,7 @@ import "./styles.scss";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { changeCurrentStep, getCurrentCourse } from "./action";
+import { changeCurrentStep, getCurrentCourse, removeCurrentCourse } from "./action";
 import Introduction from "./Introduction";
 import { Link } from "react-router-dom";
 import BuildCircuit from "./BuildCircuit";
@@ -12,6 +12,8 @@ import ResultsAnalysis from "./ResultsAnalysis";
 import Troubleshoot from "./Troubleshoot";
 import Excercise from "./Excercise";
 import ProgressBar from "./ProgressBar";
+import { baseUrl } from "../../config";
+import axios from "axios"
 
 
 class Course extends React.Component {
@@ -20,7 +22,8 @@ class Course extends React.Component {
     super(props)
     this.state = {
       currentOrientation: 'landscape-primary',
-      overlayUnread: true
+      overlayUnread: true,
+      isGettingStarted: false
     }
 
   }
@@ -108,8 +111,30 @@ class Course extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getCurrentCourse(this.props.match.params.id)
-    this.props.changeCurrentStep('Introduction')
+    axios.get(`${baseUrl}/api/course/getp/${this.props.match.params.id}`)
+      .then(res => res.data)
+      .then(data => {
+        if (data.name == 'Getting Started') {
+          this.setState({ overlayUnread: false, isGettingStarted: true })
+
+          this.props.changeCurrentStep('Experiment')
+        } else {
+          this.props.changeCurrentStep('Introduction')
+        }
+      })
+      .then(x => {
+        this.props.getCurrentCourse(this.props.match.params.id)
+
+      })
+      .catch(err => {
+        this.props.changeCurrentStep('Introduction')
+      })
+
+  }
+
+  componentWillUnmount() {
+    console.log("UNMOUNTING")
+    this.props.removeCurrentCourse()
   }
 
 
@@ -204,7 +229,7 @@ class Course extends React.Component {
             {/* temporary placeholder [TODO] */}
             {currentCourse && currentStep === 'ResultsAnalysis' ? <ResultsAnalysis id={currentCourse.results} /> : null}
             {/* placeholder end [TODO] */}
-            {currentCourse && currentStep === 'Experiment' ? <Experiment id={currentCourse.experiment} type={this.props.match.params.type} overlayUnread={this.state.overlayUnread} setOverlayUnread={this.setOverlayUnread} /> : null}
+            {currentCourse && currentStep === 'Experiment' ? <Experiment id={currentCourse.experiment} type={this.props.match.params.type} overlayUnread={this.state.overlayUnread} setOverlayUnread={this.setOverlayUnread} isGettingStarted={this.state.isGettingStarted} /> : null}
             {currentCourse && currentStep === 'Troubleshoot' ? <Troubleshoot id={currentCourse.troubleshoot} /> : null}
             {currentCourse && currentStep === 'Excercise' ? <Excercise id={currentCourse.excercise} /> : null}
           </div>
@@ -240,7 +265,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   changeCurrentStep: bindActionCreators(changeCurrentStep, dispatch),
-  getCurrentCourse: bindActionCreators(getCurrentCourse, dispatch)
+  getCurrentCourse: bindActionCreators(getCurrentCourse, dispatch),
+  removeCurrentCourse: bindActionCreators(removeCurrentCourse, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Course)
