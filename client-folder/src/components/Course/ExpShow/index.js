@@ -80,8 +80,9 @@ const SlideShow = (
         {overlayIsOpen &&
           <div className="overlay-content">
             <span>You have successfuly completed the code required to do this experiment. Now upload the code to the Arduino Uno board and lets get started with the experiment.</span>
-            <Link to="/" onClick={(event) => event.preventDefault()}>
-              <span style={{ color: "#0C6A9F", fontSize: "medium" }}> HINT: How to upload IDE code to Arduino board</span></Link>
+            {/* <Link to="/" onClick={(event) => event.preventDefault()}> */}
+            <span onClick={() => changeCurrentStep('Introduction')} style={{ color: "#0C6A9F", fontSize: "medium", cursor: "pointer" }}> HINT: How to upload IDE code to Arduino board</span>
+            {/* </Link> */}
           </div>
         }
       </div>
