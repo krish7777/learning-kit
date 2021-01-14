@@ -1,10 +1,13 @@
 .course{
     display: flex;
     flex-direction: column;
-    min-height: 500px;
+    // min-height: 500px;
     // height: 100vh;
-    // max-height: 100vh;
+    flex-flow:column;
+    max-height: 100vh;
     width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
 
 
     @media only screen and (max-width : 820px) {
@@ -106,10 +109,18 @@
 
     .body {
         display: flex;
-        // flex-grow: 1;
+        flex: 1;
+        overflow:auto;
         background-color: #041D32;
-        height: auto;
-        min-height: 100vh;
+
+        // height: auto;
+        // min-height: 100vh;
+
+        .body-padder{
+            padding:1% 10%;
+            height: 100%;
+            width: 100%;
+        }
     }
 
     .footer {

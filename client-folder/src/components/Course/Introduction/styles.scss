@@ -1,13 +1,15 @@
 .exp-introduction {
     padding: 10px;
-    margin:2% 10%;
+    // margin:2% 10%;
     color: white;
     width: 100%;
     background: #001A2F;
     box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.1), -20px -20px 20px rgba(234, 234, 234, 0.02), 4px 4px 4px rgba(0, 0, 0, 0.25), -4px -4px 4px rgba(235, 235, 235, 0.08);
     border-radius: 10px;
+    display:flex;
+    flex-direction: column;
 
-    height: fit-content;
+    height: 100%;
 
 
     @media only screen and (max-width : 540px) {
@@ -43,6 +45,9 @@
         // box-shadow: 20px  20px 20px rgba(0, 0, 0, 0.1), -20px -20px 20px rgba(234, 234, 234, 0.02), 4px 4px 4px rgba(0, 0, 0, 0.25), -4px -4px 4px rgba(235, 235, 235, 0.08);
         border-radius: 10px;
         padding: 20px 60px;
+        // height:90%;
+        flex:1;
+        overflow-y: scroll;
 
         // @media only screen and (max-width: 700px) {
         //     margin-top: 30px;
@@ -75,7 +80,8 @@
         align-items: center;
         margin-left: auto;
         margin-right: auto;
-        height: 40px;
+        max-height: 40px;
+        // height:10%;
         width: 100%;
         border: none;
 
