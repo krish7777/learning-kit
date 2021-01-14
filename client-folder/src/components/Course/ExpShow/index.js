@@ -53,7 +53,7 @@ const SlideShow = (
     inputEl.current.slideToIndex(
       currentStep + 1 === steps.length ? currentStep : currentStep + 1
     );
-    if (currentStep + 1 === steps.length) {
+    if (currentStep + 1 === steps.length && !isGettingStarted) {
       if (finalOverlayIsOpen)
         changeCurrentStep('ResultsAnalysis')
       else {
