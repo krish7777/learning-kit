@@ -89,18 +89,18 @@ exports.addExperimentForm = async (req, res, next) => {
 
 exports.addSteps = async (steps) => {
     return Promise.all(steps.map(async step => {
-        const { description, imagePath, upload_image } = step;
+        const { description, imagePath, upload_image, simulationLink } = step;
         if (upload_image && upload_image.length) {
 
             let stepThumb = new StepThumb({ ...upload_image[0] })
             let imgResp = await stepThumb.save();
-            let step1 = new Step({ description, imagePath, upload_image: imgResp._id })
+            let step1 = new Step({ description, imagePath, upload_image: imgResp._id, simulationLink })
             let resp = await step1.save();
             console.log("resp id", resp._id)
             return resp._id
         }
         else {
-            let step1 = new Step({ description })
+            let step1 = new Step({ description, simulationLink })
             let resp = await step1.save();
             return resp._id
         }
