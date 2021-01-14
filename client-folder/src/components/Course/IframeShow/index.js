@@ -35,17 +35,24 @@ const IframeShow = (
   };
 
   const goRight = () => {
-    onSlide(
-      currentStep + 1 === steps.length ? currentStep : currentStep + 1
-    );
-    if (currentStep + 1 === steps.length) {
-      if (finalOverlayIsOpen)
-        changeCurrentStep('ResultsAnalysis')
-      else {
-        setFinalOverlayIsOpen(true)
-        // TODO: EXPERIMENT FORM OPEN ON THE RIGHT
+    if (overlayIsOpen) {
+      setOverlayIsOpen(false);
+      setOverlayUnread();
+    }
+    else {
+      onSlide(
+        currentStep + 1 === steps.length ? currentStep : currentStep + 1
+      );
+      if (currentStep + 1 === steps.length) {
+        if (finalOverlayIsOpen)
+          changeCurrentStep('ResultsAnalysis')
+        else {
+          setFinalOverlayIsOpen(true)
+          // TODO: EXPERIMENT FORM OPEN ON THE RIGHT
+        }
       }
     }
+
   };
 
   const onSlide = (slideNo) => {
@@ -86,20 +93,7 @@ const IframeShow = (
         </div>
         <div className="divider"></div>
 
-        {overlayIsOpen &&
-          <>
-            <div onClick={closeOverlay} className="codeUp-btn">
-              <SkipIcon />
-              CODE UPLOAD SUCCESSFUL
-            </div>
-            {/* <div className="divider"></div>
-            <div onClick={()=>{}} className="hide-btn">
-              <HideIcon />
-              SHOW PIN DIAGRAMS
-            </div> */}
-          </>
-        }
-        {!overlayIsOpen && !isGettingStarted &&
+        {!isGettingStarted &&
           <div onClick={() => { changeCurrentStep('Troubleshoot') }} className="troubleshoot-btn">
             <TroubleshootIcon />
           TROUBLESHOOT
