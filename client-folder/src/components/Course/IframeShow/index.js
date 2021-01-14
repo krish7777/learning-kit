@@ -75,7 +75,7 @@ const IframeShow = (
         }
       </div>
 
-      <div className={overlayIsOpen ? "overlayed code-step" : "code-step"}>
+      <div className={overlayIsOpen || finalOverlayIsOpen ? "overlayed code-step" : "code-step"}>
         Step {currentStep + 1} : {steps[currentStep].description}
       </div>
 

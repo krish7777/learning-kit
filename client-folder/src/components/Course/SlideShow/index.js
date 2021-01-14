@@ -10,11 +10,11 @@ import { ReactComponent as RightArrow } from "../../../assets/images/RightArrow.
 import { ReactComponent as SkipIcon } from "../../../assets/images/SkipIcon.svg"
 import { ReactComponent as HideIcon } from "../../../assets/images/HideIcon.svg"
 import { bindActionCreators } from "redux";
-import { changeStep, toggleSide } from "../action";
+import { changeCurrentStep, changeStep, toggleSide } from "../action";
 import Modal from "antd/lib/modal/Modal";
 
 const SlideShow = (
-  { steps, codeStepStart, finalCircuitStep, toggleSide, showSide, changeStep, rightText }
+  { steps, codeStepStart, finalCircuitStep, toggleSide, showSide, changeStep, rightText, changeCurrentStep }
 ) => {
 
 
@@ -61,6 +61,9 @@ const SlideShow = (
     inputEl.current.slideToIndex(
       currentStep + 1 === steps.length ? currentStep : currentStep + 1
     );
+    if (currentStep + 1 === steps.length) {
+      changeCurrentStep('Experiment')
+    }
   };
 
   const onSlide = (slideNo) => {
@@ -83,7 +86,7 @@ const SlideShow = (
 
 
   return (
-    <div className="slideshow"  style={showSide ? { width: "65%" } : { width: "65%", margin: "0 20%" }}>
+    <div className="slideshow" style={showSide ? { width: "65%" } : { width: "65%", margin: "0 20%" }}>
       <div style={{ background: "white" }}>
         <ImageGallery
           ref={inputEl}
@@ -152,6 +155,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   toggleSide: bindActionCreators(toggleSide, dispatch),
   changeStep: bindActionCreators(changeStep, dispatch),
+  changeCurrentStep: bindActionCreators(changeCurrentStep, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SlideShow);

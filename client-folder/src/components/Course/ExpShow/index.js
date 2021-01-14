@@ -21,6 +21,7 @@ const SlideShow = (
   const [currentStep, setCurrentStep] = useState(0);
   const inputEl = useRef(null);
   const [overlayIsOpen, setOverlayIsOpen] = useState(overlayUnread);
+  const [finalOverlayIsOpen, setFinalOverlayIsOpen] = useState(false);
 
   useEffect(() => {
     const img = [];
@@ -52,6 +53,13 @@ const SlideShow = (
     inputEl.current.slideToIndex(
       currentStep + 1 === steps.length ? currentStep : currentStep + 1
     );
+    if (currentStep + 1 === steps.length) {
+      if (finalOverlayIsOpen)
+        changeCurrentStep('ResultsAnalysis')
+      else {
+        setFinalOverlayIsOpen(true)
+      }
+    }
   };
 
   const onSlide = (slideNo) => {
@@ -65,7 +73,7 @@ const SlideShow = (
 
   return (
     <div className="expshow-slideshow" >
-      <div style={{ background: "white" }} className={overlayIsOpen ? "overlayed gallerycontainer" : "gallerycontainer"}>
+      <div style={{ background: "white" }} className={overlayIsOpen || finalOverlayIsOpen ? "overlayed gallerycontainer" : "gallerycontainer"}>
         <ImageGallery
           ref={inputEl}
           items={images}
@@ -85,9 +93,16 @@ const SlideShow = (
             {/* </Link> */}
           </div>
         }
+
+        {finalOverlayIsOpen &&
+          <div className="overlay-content">
+            <span>End of experiment</span>
+          </div>
+        }
+
       </div>
 
-      <div className={overlayIsOpen ? "overlayed code-step" : "code-step"} style={{ borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
+      <div className={overlayIsOpen || finalOverlayIsOpen ? "overlayed code-step" : "code-step"} style={{ borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
         Step {currentStep + 1} : {steps[currentStep].description}
       </div>
 
