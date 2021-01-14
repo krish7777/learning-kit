@@ -10,13 +10,14 @@ import { bindActionCreators } from "redux";
 import { changeCurrentStep, changeStep } from "../action";
 
 const IframeShow = (
-  { steps, changeStep, simulation, changeCurrentStep, overlayUnread, setOverlayUnread, isGettingStarted }
+  { steps, changeStep, simulation, changeCurrentStep, overlayUnread, setOverlayUnread, isGettingStarted, finalMessage }
 ) => {
 
 
   const [iFrame, setIframe] = useState("");
   const [currentStep, setCurrentStep] = useState(0);
   const [overlayIsOpen, setOverlayIsOpen] = useState(overlayUnread);
+  const [finalOverlayIsOpen, setFinalOverlayIsOpen] = useState(false);
 
   useEffect(() => {
     const ifr = simulation || "";
@@ -37,6 +38,14 @@ const IframeShow = (
     onSlide(
       currentStep + 1 === steps.length ? currentStep : currentStep + 1
     );
+    if (currentStep + 1 === steps.length) {
+      if (finalOverlayIsOpen)
+        changeCurrentStep('ResultsAnalysis')
+      else {
+        setFinalOverlayIsOpen(true)
+        // TODO: EXPERIMENT FORM OPEN ON THE RIGHT
+      }
+    }
   };
 
   const onSlide = (slideNo) => {
@@ -46,7 +55,7 @@ const IframeShow = (
 
   return (
     <div className="iframeShow-slideshow">
-      <div className={overlayIsOpen ? "overlayed gallerycontainer" : "gallerycontainer"}>
+      <div className={overlayIsOpen || finalOverlayIsOpen ? "overlayed gallerycontainer" : "gallerycontainer"}>
         <div className="resp-container">
           <iframe className="resp-iframe" src={iFrame} allowfullscreen></iframe>
           {/* media query TODO */}
@@ -57,6 +66,11 @@ const IframeShow = (
         {overlayIsOpen &&
           <div className="overlay-content">
             <span>You have successfuly built the circuit. Now lets start the experiment.</span>
+          </div>
+        }
+        {finalOverlayIsOpen &&
+          <div className="overlay-content">
+            <span>{finalMessage}</span>
           </div>
         }
       </div>
