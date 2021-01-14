@@ -101,15 +101,27 @@
         text-align: center;
         vertical-align: middle;
         z-index: 999;
+        width:100%;
 
         span{
             display: inline-block;
-            font-family: Roboto Slab;
-            font-size: large;
+            font-family: 'Roboto', Roboto Slab;
+            font-size: 30px;
+            line-height: 1.5;
+            font-weight: 400 !important;
             align-items: center;
             text-align: center;
             font-weight: bold;
             color: white;
+
+            @media only screen and (max-width : 950px) {
+                line-height: 1.5;
+                font-size: 20px;
+            }
+            @media only screen and (max-width : 450px) {
+                font-size: 14px;
+                font-weight: 300;
+            }
         }
     }
     .overlayed{
