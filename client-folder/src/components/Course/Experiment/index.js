@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { getExperiment } from '../action'
 import SlideShow from '../ExpShow'
 import IframeShow from '../IframeShow'
+import DigitalGettingStarted from "./DigitalGettingStarted"
 
 class Experiment extends Component {
 
@@ -16,7 +17,7 @@ class Experiment extends Component {
         return (
             <>
                 {experiment && type === 'arduino' ? (<SlideShow steps={this.props.experiment?.steps} codeStepStart={2} overlayUnread={overlayUnread} setOverlayUnread={setOverlayUnread} isGettingStarted={isGettingStarted} />) : null}
-                {experiment && type === 'digital' ? (<IframeShow steps={this.props.experiment?.steps} simulation={this.props.experiment?.simulationLink} codeStepStart={2} overlayUnread={overlayUnread} setOverlayUnread={setOverlayUnread} isGettingStarted={isGettingStarted} />) : null}
+                {experiment && type === 'digital' ? isGettingStarted ? (<DigitalGettingStarted />) : (<IframeShow steps={this.props.experiment?.steps} simulation={this.props.experiment?.simulationLink} codeStepStart={2} overlayUnread={overlayUnread} setOverlayUnread={setOverlayUnread} isGettingStarted={isGettingStarted} />) : null}
             </>
         )
     }
