@@ -6,7 +6,7 @@ const { Experiment } = require('../../models/experiment');
 
 
 exports.addExperiment = async (req, res, next) => {
-    const { course_id, steps, simulationLink, exp_id } = req.body;
+    const { course_id, steps, simulationLink, finalMessage, exp_id } = req.body;
     if (!exp_id) {
         try {
             this.addSteps(steps).then(async (finalSteps) => {
@@ -14,7 +14,8 @@ exports.addExperiment = async (req, res, next) => {
                 let experiment = new Experiment({
                     course_id,
                     steps: finalSteps,
-                    simulationLink: simulationLink
+                    simulationLink: simulationLink,
+                    finalMessage: finalMessage
                 })
                 let resp = await experiment.save()
                 let updatedCourse = await Course.updateOne({ _id: course_id }, { $set: { experiment: resp._id } })
@@ -32,7 +33,7 @@ exports.addExperiment = async (req, res, next) => {
 
             this.addSteps(steps).then(async (finalSteps) => {
 
-                let updatedExperiment = await Experiment.updateOne({ _id: exp_id }, { $set: { steps: [...finalSteps], simulationLink: simulationLink } })
+                let updatedExperiment = await Experiment.updateOne({ _id: exp_id }, { $set: { steps: [...finalSteps], simulationLink: simulationLink, finalMessage: finalMessage } })
                 res.json({ "experiment": "updated" })
             })
 

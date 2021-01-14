@@ -71,7 +71,7 @@ class AddExperiment extends Component {
                     ***Don't Reload before Saving! Changes may get lost ***
                     <Form initialValues={this.props.experiment} onFinish={async (val) => {
                         console.log("valllll", val)
-                        const { steps, simulationLink } = val;
+                        const { steps, simulationLink, finalMessage } = val;
                         let success = 1;
                         if (steps.length) {
 
@@ -107,7 +107,7 @@ class AddExperiment extends Component {
                             if (success) {
 
                                 this.setState({ loading: true })
-                                await this.props.addExperiment(this.props.match.params.id, newSteps, simulationLink, this.props.currentCourse.experiment)
+                                await this.props.addExperiment(this.props.match.params.id, newSteps, simulationLink, finalMessage, this.props.currentCourse.experiment)
                                 this.setState({ loading: false })
                                 console.log("aboutt to cler")
                                 this.props.clearExperiment()
@@ -215,6 +215,10 @@ class AddExperiment extends Component {
                             }}
                         </Form.List>
 
+                        {this.props.match.params.type === "digital" ? <Form.Item initialValue="Hello this is default" label="Final message" name="finalMessage" rules={[{ required: true }]}>
+                            <Input.TextArea autoSize={{ minRows: 2 }} />
+                        </Form.Item> : null}
+
                         <Form.Item>
                             <Button loading={this.state.loading} type="primary" htmlType="submit">Add/Update</Button>
                         </Form.Item>
@@ -230,7 +234,7 @@ class AddExperiment extends Component {
                     ***Don't Reload before Saving! Changes may get lost ***
                     <Form onFinish={async (val) => {
                         console.log("valllll", val)
-                        const { steps, simulationLink } = val;
+                        const { steps, simulationLink, finalMessage } = val;
                         let success = 1;
                         if (steps.length) {
 
@@ -264,7 +268,7 @@ class AddExperiment extends Component {
                             if (success) {
 
                                 this.setState({ loading: true })
-                                await this.props.addExperiment(this.props.match.params.id, newSteps, simulationLink, this.props.currentCourse.experiment)
+                                await this.props.addExperiment(this.props.match.params.id, newSteps, simulationLink, finalMessage, this.props.currentCourse.experiment)
                                 this.setState({ loading: false })
                                 console.log("abt to cler")
                                 this.props.clearExperiment()
@@ -374,6 +378,10 @@ class AddExperiment extends Component {
                                 );
                             }}
                         </Form.List>
+
+                        {this.props.match.params.type === "digital" ? <Form.Item initialValue="Hello this is default" label="Final message" name="finalMessage" rules={[{ required: true }]}>
+                            <Input.TextArea autoSize={{ minRows: 2 }} />
+                        </Form.Item> : null}
 
                         <Form.Item>
                             <Button loading={this.state.loading} type="primary" htmlType="submit">Add/Update</Button>
