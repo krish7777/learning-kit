@@ -228,13 +228,13 @@ class Course extends React.Component {
 
           <div className="body">
             {currentCourse && currentStep === 'BuildCircuit' ? <BuildCircuit id={currentCourse.buildCircuit} type={this.props.match.params.type} /> : null}
-            {currentCourse && currentStep === 'Introduction' ? <Introduction id={currentCourse.introduction} /> : null}
+            {currentCourse && currentStep === 'Introduction' ? <div className="body-padder"> <Introduction id={currentCourse.introduction} /> </div> : null}
             {/* temporary placeholder [TODO] */}
-            {currentCourse && currentStep === 'ResultsAnalysis' ? <ResultsAnalysis id={currentCourse.results} /> : null}
+            {currentCourse && currentStep === 'ResultsAnalysis' ? <div className="body-padder"><ResultsAnalysis id={currentCourse.results} /> </div> : null}
             {/* placeholder end [TODO] */}
             {currentCourse && currentStep === 'Experiment' ? <Experiment id={currentCourse.experiment} type={this.props.match.params.type} overlayUnread={this.state.overlayUnread} setOverlayUnread={this.setOverlayUnread} isGettingStarted={this.state.isGettingStarted} /> : null}
-            {currentCourse && currentStep === 'Troubleshoot' ? <Troubleshoot id={currentCourse.troubleshoot} /> : null}
-            {currentCourse && currentStep === 'Excercise' ? <Excercise id={currentCourse.excercise} /> : null}
+            {currentCourse && currentStep === 'Troubleshoot' ? <div className="body-padder"><Troubleshoot id={currentCourse.troubleshoot} />  </div> : null}
+            {currentCourse && currentStep === 'Excercise' ? <div className="body-padder"><Excercise id={currentCourse.excercise} /> </div> : null}
           </div>
 
           {/* <div className="footer">

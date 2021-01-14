@@ -1,11 +1,11 @@
 .result-analysis-container {
     width: 100%;
-    margin: 2% 10%;
+    // margin: 2% 10%;
     background: #001A2F;
     box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.1), -20px -20px 20px rgba(234, 234, 234, 0.02), 4px 4px 4px rgba(0, 0, 0, 0.25), -4px -4px 4px rgba(235, 235, 235, 0.08);
     border-radius: 10px;
     padding: 10px;
-    height: fit-content;
+    height: 100%;
     
     @media only screen and (max-width: 540px) {
         margin: 2% 2%;
@@ -22,7 +22,8 @@
         background:#2B2A29;
         box-sizing: border-box;
         border-radius: 5px;
-        overflow: hidden;
+        overflow-y: scroll;
+        height: 100%;
 
         @media only screen and (max-width: 540px) {
             padding: 20px 4%;
@@ -41,7 +42,8 @@
             width: 100%;
             // min-width: 400px;
             // max-width: 700px;
-            overflow: auto;
+            // overflow: auto;
+            height:100%;
     
             h2 {
                 text-align: center;
