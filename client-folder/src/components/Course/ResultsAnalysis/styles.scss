@@ -1,6 +1,6 @@
 .result-analysis-container {
     width: 100%;
-    margin: 2% 10.5%;
+    margin: 2% 10%;
     background: #001A2F;
     box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.1), -20px -20px 20px rgba(234, 234, 234, 0.02), 4px 4px 4px rgba(0, 0, 0, 0.25), -4px -4px 4px rgba(235, 235, 235, 0.08);
     border-radius: 10px;
@@ -8,14 +8,14 @@
     height: fit-content;
     
     @media only screen and (max-width: 540px) {
-        margin: 3% 2%;
+        margin: 2% 2%;
     }
 
     .form-builder {
         display: flex;
         width: 100%;
         color: white;
-        padding: 30px 6%;
+        padding: 40px 4%;
         padding-bottom: 1%;
         justify-content: space-evenly;
         //max-height: 100vh;

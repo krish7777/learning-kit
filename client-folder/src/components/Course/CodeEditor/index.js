@@ -12,10 +12,10 @@ import { connect } from "react-redux";
 const CodeEditor = (props) => {
 
   return (
-    <div className="code-editor" style={props.showSide ? { width: "35%" } : { width: "0%" }}>
+    <div className="code-editor" style={props.showSide ? { width: "35%" } : { width: "0%", padding: 0 }}>
       <div className="code-editor-header" style={{
         backgroundImage: `url(${IdeHeader})`
-        }}>
+      }}>
       </div>
       <div className="code-editor-text-area">
         <AceEditor

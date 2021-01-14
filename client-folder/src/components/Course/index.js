@@ -222,7 +222,8 @@ class Course extends React.Component {
                 {currentCourse?.excercise ? <div onClick={() => changeCurrentStep('Excercise')} className={currentStep === "Excercise" ? "active" : ""}>EXCERCISE </div> : null}
               </div>
 
-                <ProgressBar currentNav={currentStep} buildCircuitSteps={currentCourse} /></>)
+                {/* <ProgressBar currentNav={currentStep} buildCircuitSteps={currentCourse} /> */}
+              </>)
           }
 
           <div className="body">
@@ -236,7 +237,7 @@ class Course extends React.Component {
             {currentCourse && currentStep === 'Excercise' ? <Excercise id={currentCourse.excercise} /> : null}
           </div>
 
-          <div className="footer">
+          {/* <div className="footer">
             <p>Copyright</p>
             <svg
               width="25"
@@ -250,7 +251,7 @@ class Course extends React.Component {
                 fill="#002E48"
               />
             </svg>
-          </div>
+          </div> */}
         </div>
     );
 

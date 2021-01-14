@@ -3,16 +3,17 @@
     //Changethislater//width: 65%;
     display: flex;
     flex-direction: column;
-    // min-height: 100%;
+    // min-height: 90vh;
     // max-height: 90vh;
+    min-height:100%;
     padding: 15px;
     transition: all 0.5s ease-in;
     //margin: auto;
     background: #001A2F;
     box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.1), -20px -20px 20px rgba(234, 234, 234, 0.02), 4px 4px 4px rgba(0, 0, 0, 0.25), -4px -4px 4px rgba(235, 235, 235, 0.08);
     border-radius: 10px;
-    margin: 1%;
-    height: fit-content;
+    // margin: 1%;
+    // height: fit-content;
 
     @media only screen and (max-width:820px) {
         width: 99% !important;
