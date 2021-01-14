@@ -80,7 +80,7 @@ const SlideShow = (
 
 
   return (
-    <div className="slideshow" style={showSide ? { width: "65%" } : { width: "75%", margin: "0 10%" }}>
+    <div className="slideshow" style={showSide ? { width: "65%" } : { width: "80%", margin: "auto" }}>
       <div style={{ background: "white" }} className={codeModalIsOpen ? "overlayed " : ""}>
         <ImageGallery
           ref={inputEl}
