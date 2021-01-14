@@ -48,7 +48,7 @@ const IframeShow = (
     <div className="iframeShow-slideshow">
       <div className={overlayIsOpen ? "overlayed gallerycontainer" : "gallerycontainer"}>
         <div className="resp-container">
-          <iframe className="resp-iframe" src={iFrame} scrolling="yes" allowfullscreen></iframe>
+          <iframe className="resp-iframe" src={iFrame} allowfullscreen></iframe>
           {/* media query TODO */}
         </div>
         {/* <div class="wrap">
