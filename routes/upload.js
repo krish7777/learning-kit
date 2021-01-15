@@ -4,7 +4,11 @@ const fs = require('fs')
 const path = require('path')
 const router = express.Router();
 
+const isAdmin = require('../middlewares/is-admin')
+const isStudent = require('../middlewares/is-student')
 
+//isAdmin for things only admin can do like build ckt images, experiment images
+//isStudent for things which only student can upload , like answer photos etc.
 const introStorage = multer.diskStorage({
     destination: function (req, file, cb) {
         const reqPath = path.join(__dirname, '..', 'images', 'introduction')
