@@ -95,7 +95,7 @@ const SlideShow = (
         />
         {codeModalIsOpen &&
           <div className="overlay-content">
-            <span>You have successfully build the circuit, now let's write the code required to perdorm this experiment</span>
+            <span>You have successfully build the circuit, now let's write the code required to perform this experiment</span>
           </div>
         }
       </div>

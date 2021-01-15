@@ -127,9 +127,13 @@ const SlideShow = (
         </div>
         }
         {isGettingStarted &&
-          <div style={{
-            width: "100%"
-          }}></div>}
+          // <div style={{
+          //   width: "100%"
+          // }}></div>
+          <div className="troubleshoot-btn">
+            CONTACT TEACHER
+        </div>
+        }
         <div className="divider"></div> {/* Divider Here */}
         <div onClick={goRight} className="right-arrow">
           <RightArrow />
