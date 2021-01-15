@@ -121,7 +121,7 @@ exports.getExperiment = async (req, res, next) => {
                 path: 'upload_image',
                 model: 'StepThumb'
             }]
-        })
+        }).populate('form')
         console.log(experiment)
         res.json({ experiment })
     } catch (err) {

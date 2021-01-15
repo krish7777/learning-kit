@@ -71,6 +71,20 @@
 //     -webkit-transform-origin: 0 0;
 //     transform-origin: 0 0;
 // }
+
+.iframeShow{
+    display: flex;
+
+    .experiment-form{
+        min-height: 100%;
+        width: 35%;
+        transform: translateX(10%);
+        background: #001A2F;
+        box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.1), -20px -20px 20px rgba(234, 234, 234, 0.02), 4px 4px 4px rgba(0, 0, 0, 0.25), -4px -4px 4px rgba(235, 235, 235, 0.08);
+        border-radius: 10px;    }
+
+}
+
 .iframeShow-slideshow {
     // background-color: red;
     width: 100%;
@@ -286,4 +300,5 @@
 
         background-color: #003659;
     }
+
 }
