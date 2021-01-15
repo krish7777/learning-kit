@@ -6,6 +6,7 @@
     box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.1), -20px -20px 20px rgba(234, 234, 234, 0.02), 4px 4px 4px rgba(0, 0, 0, 0.25), -4px -4px 4px rgba(235, 235, 235, 0.08);
     border-radius: 10px;
     height: 100%;
+    justify-content: space-around;
 
     @media only screen and (max-width : 540px) {
         margin: 2% 2%;
@@ -26,6 +27,7 @@
 
 
         @media only screen and (max-width : 540px) {
+            height: 82%;
             padding: 35px 8px;
         }
 
@@ -56,15 +58,20 @@
     }
 
     .troubleshoot-bottom-buttons {
+        display: flex;
+        flex-direction: row;
         background: rgba(0, 120, 188, 0.3);
         border-radius: 5px;
         margin-top: 10px;
-        max-height: 50px;
+        // max-height: 50px;
         height: 45px;
         min-height: 35px;
+        padding: 5px 0;
 
         @media only screen and (max-width: 540px) {
-            height: 40px;
+            flex-direction: column;
+            height: 13vh;
+            padding: 5px 15px;
         }
 
         .troubleshoot-back-button {
@@ -76,21 +83,55 @@
             display: flex;
             justify-content: center;
             cursor: pointer;
+            border-right: 1px solid #f0f0f0;
 
             font-family: Roboto;
             font-style: normal;
             font-weight: 500;
-            font-size: 22px;
+            font-size: 20px;
             line-height: 28px;
             text-transform: uppercase;
             color: rgba(36, 214, 128, 0.9);
 
             @media only screen and (max-width: 720px) {
-                font-size: 20px;
+                font-size: 18px;
             }
 
             @media only screen and (max-width: 540px) {
+                font-size: 15px;
+                border-right: none;
+                border-bottom: 1.5px solid #f0f0f0;
+                font-weight: 450;
+            }
+        }
+
+        .troubleshoot-contactTeacher-button {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            align-items: center;
+            // flex: 1;
+            display: flex;
+            justify-content: center;
+            cursor: pointer;
+            border-left: 1px solid #f0f0f0;
+
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 28px;
+            text-transform: uppercase;
+            color: #FF7456;
+
+            @media only screen and (max-width: 720px) {
                 font-size: 18px;
+            }
+
+            @media only screen and (max-width: 540px) {
+                font-size: 15px;
+                border-left: none;
+                border-top: 1.5px solid #f0f0f0;
                 font-weight: 450;
             }
         }

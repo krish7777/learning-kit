@@ -55,6 +55,9 @@ class Troubleshoot extends React.Component {
                     <div onClick={() => { changeCurrentStep('Experiment') }} className="troubleshoot-back-button">
                         BACK TO EXPERIMENT
                     </div>
+                    <div className="troubleshoot-contactTeacher-button">
+                        Troubleshoot
+                    </div>
                 </div>
             </div>
         )
