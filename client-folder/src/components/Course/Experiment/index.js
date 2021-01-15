@@ -17,7 +17,7 @@ class Experiment extends Component {
         return (
             <>
                 {experiment && type === 'arduino' ? (<SlideShow steps={this.props.experiment?.steps} codeStepStart={2} overlayUnread={overlayUnread} setOverlayUnread={setOverlayUnread} isGettingStarted={isGettingStarted} />) : null}
-                {experiment && type === 'digital' ? isGettingStarted ? (<DigitalGettingStarted />) : (<IframeShow steps={this.props.experiment?.steps} simulation={this.props.experiment?.simulationLink} finalMessage={this.props.experiment?.finalMessage} overlayUnread={overlayUnread} setOverlayUnread={setOverlayUnread} isGettingStarted={isGettingStarted} />) : null}
+                {experiment && type === 'digital' ? isGettingStarted ? (<DigitalGettingStarted />) : (<IframeShow steps={this.props.experiment?.steps} simulation={this.props.experiment?.simulationLink} finalMessage={this.props.experiment?.finalMessage} overlayUnread={overlayUnread} setOverlayUnread={setOverlayUnread} isGettingStarted={isGettingStarted} experimentForm={this.props.experiment?.form} />) : null}
             </>
         )
     }
