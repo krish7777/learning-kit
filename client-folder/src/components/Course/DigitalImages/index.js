@@ -29,18 +29,18 @@ const DigitalImages = ({ stepNo, showSide, steps }) => {
     return (
         <div
             className="digital-images-code-editor"
-            style={showSide ? { width: '35%' } : { width: '0%' }} >
+            style={showSide ? { width: '35%' } : { width: '0%', padding: 0 }} >
 
-            <div style={{ flex: 1, backgroundColor: 'white' }}>
-                <img
-                    src={currOriginal}
-                    style={{
-                        height: '98%',
-                        width: '100%',
-                        margin: '0%',
-                    }}
-                ></img>
-            </div>
+            {/* <div style={{ flex: 1, backgroundColor: 'white' }}> */}
+            <img
+                src={currOriginal}
+                style={{
+                    height: '98%',
+                    width: '100%',
+                    margin: '0%',
+                }}
+            ></img>
+            {/* </div> */}
 
         </div>
     );

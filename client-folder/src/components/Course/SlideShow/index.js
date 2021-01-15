@@ -10,11 +10,11 @@ import { ReactComponent as RightArrow } from "../../../assets/images/RightArrow.
 import { ReactComponent as SkipIcon } from "../../../assets/images/SkipIcon.svg"
 import { ReactComponent as HideIcon } from "../../../assets/images/HideIcon.svg"
 import { bindActionCreators } from "redux";
-import { changeStep, toggleSide } from "../action";
+import { changeCurrentStep, changeStep, toggleSide } from "../action";
 import Modal from "antd/lib/modal/Modal";
 
 const SlideShow = (
-  { steps, codeStepStart, finalCircuitStep, toggleSide, showSide, changeStep, rightText }
+  { steps, codeStepStart, toggleSide, showSide, changeStep, rightText, changeCurrentStep }
 ) => {
 
 
@@ -25,12 +25,6 @@ const SlideShow = (
   const [codeModalIsOpen, setCodeModalIsOpen] = useState(false);
   const [startModalIsOpen, setStartModalIsOpen] = useState(false);
 
-  const closePrevExpModal = () => {
-    setStartModalIsOpen(false);
-  };
-  const closeCodeModal = () => {
-    setCodeModalIsOpen(false);
-  };
 
   useEffect(() => {
     const img = [];
@@ -48,8 +42,6 @@ const SlideShow = (
   const skipToCode = () => {
     if (codeStepStart)
       inputEl.current.slideToIndex(codeStepStart - 1);
-    else if (finalCircuitStep)
-      inputEl.current.slideToIndex(finalCircuitStep - 1);
 
   };
 
@@ -58,9 +50,18 @@ const SlideShow = (
   };
 
   const goRight = () => {
-    inputEl.current.slideToIndex(
-      currentStep + 1 === steps.length ? currentStep : currentStep + 1
-    );
+    if (codeModalIsOpen) {
+      setCodeModalIsOpen(false)
+    }
+    else {
+      inputEl.current.slideToIndex(
+        currentStep + 1 === steps.length ? currentStep : currentStep + 1
+      );
+      if (currentStep + 1 === steps.length) {
+        changeCurrentStep('Experiment')
+      }
+    }
+
   };
 
   const onSlide = (slideNo) => {
@@ -73,18 +74,14 @@ const SlideShow = (
     onSlide(x)
     if (codeStepStart && x === codeStepStart - 1 && currentStep === codeStepStart - 2) {
       setCodeModalIsOpen(true);
-
-      setTimeout(() => {
-        setCodeModalIsOpen(false);
-      }, 1500);
     }
 
   };
 
 
   return (
-    <div className="slideshow"  style={showSide ? { width: "65%" } : { width: "65%", margin: "0 20%" }}>
-      <div style={{ background: "white" }}>
+    <div className="slideshow" style={showSide ? { width: "65%" } : { width: "80%", margin: "auto" }}>
+      <div style={{ background: "white" }} className={codeModalIsOpen ? "overlayed " : ""}>
         <ImageGallery
           ref={inputEl}
           items={images}
@@ -96,9 +93,14 @@ const SlideShow = (
           showNav={false}
           onBeforeSlide={modalChecker}
         />
+        {codeModalIsOpen &&
+          <div className="overlay-content">
+            <span>You have successfully build the circuit, now let's write the code required to perform this experiment</span>
+          </div>
+        }
       </div>
 
-      <div className="code-step">
+      <div className={codeModalIsOpen ? "overlayed code-step" : "code-step"}>
         Step {currentStep + 1} : {steps[currentStep].description}
       </div>
       <div className="nav">
@@ -121,7 +123,7 @@ const SlideShow = (
         </div>
       </div>
 
-      <Modal
+      {/* <Modal
         title=""
         visible={startModalIsOpen}
         footer={[]}
@@ -129,8 +131,8 @@ const SlideShow = (
         style={{ textAlign: "center" }}
       >
         <h1>LET'S BEGIN</h1>
-      </Modal>
-      <Modal
+      </Modal> */}
+      {/* <Modal
         title=""
         visible={codeModalIsOpen}
         footer={[]}
@@ -139,7 +141,7 @@ const SlideShow = (
 
       >
         <h1>LET'S START CODING</h1>
-      </Modal>
+      </Modal> */}
     </div>
   );
 };
@@ -152,6 +154,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   toggleSide: bindActionCreators(toggleSide, dispatch),
   changeStep: bindActionCreators(changeStep, dispatch),
+  changeCurrentStep: bindActionCreators(changeCurrentStep, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SlideShow);

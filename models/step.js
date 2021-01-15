@@ -7,7 +7,10 @@ const stepSchema = new Schema({
         required: true
     },
     imagePath: {
-        type: String,
+        type: String
+    },
+    simulationLink: {
+        type: String
     },
     code: {//for arduino
         type: String

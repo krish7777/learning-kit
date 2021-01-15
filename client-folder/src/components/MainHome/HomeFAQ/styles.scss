@@ -1,0 +1,125 @@
+@import '~antd/dist/antd.css';
+
+.client-mainHome-faq {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: #e0e0e0;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: normal;
+    padding-top: 8vh;
+    margin-bottom: 18vh;
+
+    .client-mainHome-faq-title {
+        h1 {
+            font-family: 'Roboto';
+            font-weight: 500;
+            color: #e0e0e0;
+            font-size: 48px;
+            line-height: 175%;
+            text-indent: 1px;
+            text-transform: capitalize;
+
+            @media only screen and (max-width: 540px) {
+                font-size: 38px;
+            }
+        }
+    }
+
+    .client-maiHome-faq-body {
+
+        padding-top: 10px;
+        padding-bottom: 20px;
+
+        [data-theme='compact'] .mainHome-faq-collapse .mainHome-faq-panel,
+        .mainHome-faq-collapse .mainHome-faq-panel {
+            background: #003D66;
+            color: black;
+            border-radius: 2px;
+            border: 1.5px solid #141414;
+            box-sizing: border-box;
+            overflow: hidden; 
+        }
+
+        .ant-collapse {
+            border: 3px solid #141414;
+            background: #141414;
+        }
+
+        .ant-collapse-header {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: normal;
+            color: #e0e0e0 !important;
+            font-size: 24px;
+
+            @media only screen and (max-width: 540px) {
+                font-size: 20px;
+            }
+        }
+
+        .ant-collapse-content .ant-collapse-content-active {
+            // border: 2px solid black;
+        }
+
+        .ant-collapse-content-box {
+            box-sizing: border-box;
+            background: #00568F;
+
+            p {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: normal;
+                color: #d0d0d0 !important;
+                font-size: 18px;
+                margin: 0;
+
+                @media only screen and (max-width: 540px) {
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+
+    .mainHome-mainProfile-button-container {
+        display: flex;
+        width: 100%;
+
+        a {
+            width: fit-content;
+            @media only screen and (max-width: 540px) {
+                width: 100%;
+            }
+        }
+
+        .mainHome-mainProfile-button {
+            display: flex;
+            width: 300px;
+            height: 50px;
+            background: #F0F0F0;
+            border: 2px solid #F0F0F0;
+            box-sizing: border-box;
+            border-radius: 5px;
+            padding: 5px;
+            margin-top: 20px;
+
+            @media only screen and (max-width: 540px) {
+                width: 100%;
+            }
+
+            span {
+                margin: 0 auto;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 26px;
+                line-height: 33px;
+                display: flex;
+                align-items: center;
+                text-align: center;
+                text-indent: 1px;
+                color: #003659;
+            }
+        }
+    }   
+}

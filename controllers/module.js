@@ -97,7 +97,7 @@ exports.updateModule = async (req, res, next) => {
     try {
         let resp = await Module.update(
             { _id: module_id },
-            { $set: { name: name, introduction:introduction } }
+            { $set: { name: name, introduction: introduction } }
         );
         res.json({ module_id: resp._id, name: resp.name });
     } catch (err) {
@@ -107,3 +107,19 @@ exports.updateModule = async (req, res, next) => {
         next(err);
     }
 };
+
+exports.addTrack = async (req, res, next) => {
+    const { track } = req.body;
+    const newTrack = new Track({
+        name: track
+    })
+    try {
+        let resp = await newTrack.save();
+        res.json({ track_id: resp._id });
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+}

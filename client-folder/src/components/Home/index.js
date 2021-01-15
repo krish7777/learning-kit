@@ -41,7 +41,7 @@ class Home extends React.Component {
     console.log(filteredModules)
     return (
       <div className="home-main-container">
-        <Navbar />
+        <Navbar type={this.props.match.params.type} />
         <div className="home">
           <div className="main-page-intro">
             <h1>Hands On {this.props.match.params.type === 'arduino' ? ('Arduino') : ('Digital')} Basics Course</h1>
@@ -85,11 +85,17 @@ class Home extends React.Component {
               </a>
             </p>
 
+            <div className="home-getStarted-button-container">
+              <Link to={`${this.props.match.params.type}/modules`}>
+                <Button size={"large"} className="home-getStarted-button" >Let's Get Started</Button>
+              </Link>
+            </div>
+
           </div>
 
           <div className="course-curriculum">
             <h3>Course Curriculum{" "}
-            <span>({filteredModules.length} modules)</span></h3>
+              <span>({filteredModules.length} modules)</span></h3>
             <div className="course-summary">
               <Input placeholder="Search any module/course" value={this.state.searchValue} onChange={this.onSearchChange} style={{ background: "transparent", color: "white", border: "1px solid #324454", fontSize: "18px", marginBottom: "10px" }} />
 
@@ -112,12 +118,8 @@ class Home extends React.Component {
 
           </div>
         </div>
-        
-        <div className="home-getStarted-button-container">
-          <Link to={`${this.props.match.params.type}/modules`}>
-            <Button size={"large"} className="home-getStarted-button" >Let's Get Started</Button>
-          </Link>
-        </div>
+
+
       </div>
 
     );

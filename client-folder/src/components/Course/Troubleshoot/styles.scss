@@ -1,11 +1,11 @@
 .troubleshoot-container {
     width: 100%;
-    margin: 2% 10%;
+    // margin: 2% 10%;
     padding: 10px;
     background: #001A2F;
     box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.1), -20px -20px 20px rgba(234, 234, 234, 0.02), 4px 4px 4px rgba(0, 0, 0, 0.25), -4px -4px 4px rgba(235, 235, 235, 0.08);
     border-radius: 10px;
-    height: fit-content;
+    height: 100%;
 
     @media only screen and (max-width : 540px) {
         margin: 2% 2%;
@@ -20,9 +20,10 @@
         //max-height: 100vh;
         background:#2B2A29;
         box-sizing: border-box;
-        overflow: hidden;
+        overflow-y: auto;
         border-radius: 5px;
-        height: 100%;
+        height: 90%;
+
 
         @media only screen and (max-width : 540px) {
             padding: 35px 8px;
@@ -32,7 +33,7 @@
             width: 100%;
             // min-width: 400px;
             max-width: 1400px;
-            overflow: auto;
+            // overflow: auto;
 
             .ant-collapse, .ant-collapse-icon-position-right, .ant-collapse-ghost {
                 margin-bottom: 8px;
@@ -44,6 +45,12 @@
                 .ant-collapse-item-active {
                     background: rgba(255, 255, 255, 0.25);
                 }
+            }
+
+            .troubleshoot-panel{
+                margin:0;
+                box-shadow: none;
+                background-color:transparent;
             }
         }
     }

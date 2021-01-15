@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { getExperiment } from '../action'
 import SlideShow from '../ExpShow'
 import IframeShow from '../IframeShow'
+import DigitalGettingStarted from "./DigitalGettingStarted"
 
 class Experiment extends Component {
 
@@ -12,11 +13,11 @@ class Experiment extends Component {
     }
 
     render() {
-        const { experiment, type, overlayUnread, setOverlayUnread } = this.props;
+        const { experiment, type, overlayUnread, setOverlayUnread, isGettingStarted } = this.props;
         return (
             <>
-                {experiment && type === 'arduino' ? (<SlideShow steps={this.props.experiment?.steps} codeStepStart={2} overlayUnread={overlayUnread} setOverlayUnread={setOverlayUnread} />) : null}
-                {experiment && type === 'digital' ? (<IframeShow steps={this.props.experiment?.steps} simulation={this.props.experiment?.simulationLink} codeStepStart={2} overlayUnread={overlayUnread} setOverlayUnread={setOverlayUnread} />) : null}
+                {experiment && type === 'arduino' ? (<SlideShow steps={this.props.experiment?.steps} codeStepStart={2} overlayUnread={overlayUnread} setOverlayUnread={setOverlayUnread} isGettingStarted={isGettingStarted} />) : null}
+                {experiment && type === 'digital' ? isGettingStarted ? (<DigitalGettingStarted />) : (<IframeShow steps={this.props.experiment?.steps} simulation={this.props.experiment?.simulationLink} finalMessage={this.props.experiment?.finalMessage} overlayUnread={overlayUnread} setOverlayUnread={setOverlayUnread} isGettingStarted={isGettingStarted} experimentForm={this.props.experiment?.form} />) : null}
             </>
         )
     }

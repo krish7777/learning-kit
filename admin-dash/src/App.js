@@ -6,7 +6,7 @@ import FormBuilder from './components/FormBuilder';
 import 'antd/dist/antd.css';
 import BuildCircuitBuilder from './components/BuildCircuitBuilder';
 import Modules from './components/Modules';
-import { Link, Route, Switch } from 'react-router-dom';
+import { NavLink, withRouter, Route, Switch } from 'react-router-dom';
 import AddModule from './components/Modules/AddModule';
 import AddModuleConf from './components/Starter/AddModule';
 import TextEditor from './components/TextEditor';
@@ -21,13 +21,18 @@ import AddExperimentForm from './components/Course/AddExperimentForm';
 import AddExcercise from './components/Course/AddExcercise';
 import CreatorHome from './components/CreatorHome';
 import AddResults from './components/Course/AddResults';
+import { Menu } from "antd";
+import { HomeFilled } from '@ant-design/icons';
+import PropTypes from 'prop-types';
 
 class App extends React.Component {
-
+  static propTypes = {
+    location: PropTypes.object.isRequired
+  }
   constructor() {
     super()
     this.state = {
-      content: ''
+      content: '',
     }
   }
   handleEditorChange = (content, editor) => {
@@ -36,6 +41,7 @@ class App extends React.Component {
   }
 
   render() {
+    const { location } = this.props;
     return (
       <div className="app">
         {/* <TextEditor2 />
@@ -46,8 +52,20 @@ class App extends React.Component {
         {/* <iframe width="600px" height="400px" src="https://editor.p5js.org/SoumitroV/embed/Hwq52Cn0t"></iframe>
         <iframe width="600px" height="400px" src="https://circuitverse.org/simulator/embed/248" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe> */}
         {/* <Modules /> */}
-        <div><Link to="/i">HOME</Link></div>
-        <Switch>
+        {/* <div><Link to="/i">HOME</Link></div> */}
+          <Menu theme={location.pathname=="/i"?"dark":"light"}
+           style={{background:location.pathname!="/i"?"linear-gradient(to right, #FFFFFF, #ECE9E6)":""}}
+           mode="horizontal"
+           defaultSelectedKeys={['/i']}
+           selectedKeys={[location.pathname]}>
+            <Menu.Item key="/i">
+              <NavLink to="/i">
+                <HomeFilled />
+                <span>Home</span>
+              </NavLink>
+            </Menu.Item>
+          </Menu>
+          <Switch>
           <Route path="/i/:type/module/:id" component={Module} />
           <Route path="/i/:type/course/introduction/:id" component={AddIntroduction} />
           <Route path="/i/:type/course/experiment/:id" component={AddExperiment} />
@@ -73,6 +91,6 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter(App);
 
 

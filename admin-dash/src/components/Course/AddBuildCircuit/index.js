@@ -79,7 +79,7 @@ class AddBuildCircuit extends Component {
                     ***Don't Reload before Saving! Changes may get lost ***
                     <Form initialValues={this.props.buildCircuit} onFinish={async (val) => {
                         console.log("valllll", val)
-                        const { steps, code, codeStepStart, finalCircuitStep } = val;
+                        const { steps, code, codeStepStart } = val;
                         let success = 1;
                         if (steps?.length) {
                             let newSteps = steps.map(step => {
@@ -133,7 +133,7 @@ class AddBuildCircuit extends Component {
                                 //     .then(res => console.log("hmm seems fine"))
                                 //     .catch(err => console.log("error in adding"))
                                 this.setState({ loading: true })
-                                await this.props.addBuildCircuit(this.props.match.params.id, newSteps, code, codeStepStart, finalCircuitStep, this.props.currentCourse.buildCircuit)
+                                await this.props.addBuildCircuit(this.props.match.params.id, newSteps, code, codeStepStart, this.props.currentCourse.buildCircuit)
                                 this.setState({ loading: false })
                                 console.log("abt to cler")
                                 this.props.clearBuildCircuit()
@@ -162,9 +162,7 @@ class AddBuildCircuit extends Component {
                         {this.props.match.params.type === "arduino" ? <Form.Item label="Code starting step" name="codeStepStart" rules={[{ required: true }]}>
                             <InputNumber />
                         </Form.Item> : null}
-                        {this.props.match.params.type === "digital" ? <Form.Item label="Final Circuit step" name="finalCircuitStep" rules={[{ required: true }]}>
-                            <InputNumber />
-                        </Form.Item> : null}
+
 
                         <Form.List name="steps" label="steps" rules={[{ required: true }]}>
                             {(fields, { add, remove }) => {
@@ -298,7 +296,7 @@ class AddBuildCircuit extends Component {
                     ***Don't Reload before Saving! Changes may get lost ***
                     <Form onFinish={async (val) => {
                         console.log("valllll", val)
-                        const { steps, code, codeStepStart, finalCircuitStep } = val;
+                        const { steps, code, codeStepStart } = val;
                         let success = 1;
                         if (steps?.length) {
                             let newSteps = steps.map(step => {
@@ -352,7 +350,7 @@ class AddBuildCircuit extends Component {
                                 //     .then(res => console.log("hmm seems fine"))
                                 //     .catch(err => console.log("error in adding"))
                                 this.setState({ loading: true })
-                                await this.props.addBuildCircuit(this.props.match.params.id, newSteps, code, codeStepStart, finalCircuitStep, this.props.currentCourse.buildCircuit)
+                                await this.props.addBuildCircuit(this.props.match.params.id, newSteps, code, codeStepStart, this.props.currentCourse.buildCircuit)
                                 this.setState({ loading: false })
                                 console.log("abt to cler")
                                 this.props.clearBuildCircuit()
@@ -380,13 +378,11 @@ class AddBuildCircuit extends Component {
                             <Input.TextArea autoSize={{ minRows: 5 }} />
                         </Form.Item> : null}
 
-                        {this.props.match.params.type === "arduino" ? <Form.Item label="Code starting step" name="codeStepStart, finalCircuitStep" rules={[{ required: true }]}>
+                        {this.props.match.params.type === "arduino" ? <Form.Item label="Code starting step" name="codeStepStart" rules={[{ required: true }]}>
                             <InputNumber />
                         </Form.Item> : null}
 
-                        {this.props.match.params.type === "digital" ? <Form.Item label="Final Circuit step" name="finalCircuitStep" rules={[{ required: true }]}>
-                            <InputNumber />
-                        </Form.Item> : null}
+
 
 
 

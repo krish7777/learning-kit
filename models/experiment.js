@@ -11,7 +11,8 @@ const experimentSchema = new Schema({
     form: {
         type: Schema.Types.ObjectId,
         ref: 'ExperimentForm'
-    }
+    },
+    finalMessage: String
 
 });
 exports.experimentSchema = experimentSchema;
