@@ -168,15 +168,20 @@ class ResultsAnalysis extends React.Component {
                                     }
                                 })
                             }
-                            <Form.Item className="result-analysis-submit-btn">
+                            {/* <Form.Item className="result-analysis-submit-btn">
                                 <Button type="primary" htmlType="submit" className="result-analysis-submit-button">
                                     Submit
                                 </Button>
-                            </Form.Item>
+                            </Form.Item> */}
 
                         </Form>
+
                     </div>
                 </div>
+
+                <Button type="primary" className="result-analysis-submit-button">
+                    Submit
+                </Button>
 
             </div>
         )
