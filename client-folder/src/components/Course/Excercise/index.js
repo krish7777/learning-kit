@@ -72,6 +72,15 @@ class Excercise extends React.Component {
                         </div>
                     </div>
                 </div>
+
+                <div className="exercise-bottom-buttons">
+                    <div onClick={() => { changeCurrentStep('Experiment') }} className="exercise-back-button">
+                        BACK TO EXPERIMENT
+                    </div>
+                    <div className="exercise-contactTeacher-button">
+                        Troubleshoot
+                    </div>
+                </div>
             </div>
         )
     }
