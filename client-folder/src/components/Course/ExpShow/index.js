@@ -11,9 +11,10 @@ import { ReactComponent as SkipIcon } from "../../../assets/images/SkipIcon.svg"
 import { ReactComponent as TroubleshootIcon } from "../../../assets/images/TroubleshootIcon.svg"
 import { bindActionCreators } from "redux";
 import { changeCurrentStep, changeStep } from "../action";
+import { set } from "mongoose";
 
 const SlideShow = (
-  { steps, changeStep, changeCurrentStep, overlayUnread, setOverlayUnread, isGettingStarted }
+  { steps, changeStep, changeCurrentStep, overlayUnread, setOverlayUnread, isGettingStarted, experimentCurrStep, setExperimentStep }
 ) => {
 
 
@@ -33,7 +34,7 @@ const SlideShow = (
     //   setStartModalIsOpen(false);
     // }, 1500);
     setImages(img);
-
+    inputEl.current.slideToIndex(experimentCurrStep)
   }, [steps]);
 
   const skipToCode = (index) => {
@@ -63,6 +64,10 @@ const SlideShow = (
   };
 
   const onSlide = (slideNo) => {
+    // console.log("Slide Number", slideNo)
+    setExperimentStep(slideNo)
+    // console.log("Expr current Slide", experimentCurrStep)
+    // console.log("current Step", currentStep)
     setCurrentStep(slideNo)
     changeStep(slideNo)
   }
@@ -72,7 +77,7 @@ const SlideShow = (
   };
 
   return (
-    <div className="expshow-slideshow" >
+    <div className="expshow-slideshow">
       <div style={{ background: "white" }} className={overlayIsOpen || finalOverlayIsOpen ? "overlayed gallerycontainer" : "gallerycontainer"}>
         <ImageGallery
           ref={inputEl}
