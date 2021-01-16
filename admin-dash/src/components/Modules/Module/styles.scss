@@ -8,7 +8,7 @@
         font-family: 'Yusei Magic', sans-serif;
         display: flex;
         flex-direction: column;
-        background-color: rgb(193, 144, 243);
+        background-color: rgb(216, 215, 216);
         justify-content: center;
         align-items: center;
 
@@ -34,7 +34,7 @@
                 padding: auto;
                 display: block;
                 width: 46.4vw;
-                background-color: #2e516e;
+                background-color: #275072;
                 color: aliceblue;
                 border: 1% rgb(71, 70, 70);
             }
@@ -46,14 +46,15 @@
                 }
             }
             :focus {
-                background-color: #2e516e;
+                background-color: #1988f0;
                 box-shadow: black 3px 4px 10px;
-
-                color: #5df2f2;
+                color: #363b3b;
             }
             .module-details {
                 border-right: 0;
+                
             }
+            
         }
     }
 

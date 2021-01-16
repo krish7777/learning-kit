@@ -28,9 +28,6 @@ class Module extends Component {
     }
 
     changeCurrentWindow = (selectedOptionWord) => {
-        // console.log(
-        //     'NOW SHOWING:' + this.state.selectedWindow
-        // );
         this.setState({
             ...this.state,
             selectedWindow: selectedOptionWord,
@@ -294,7 +291,7 @@ class Module extends Component {
                                 <Button
                                     type="primary"
                                     htmlType="submit"
-                                    style={{ marginLeft: '60%' }}
+                                    style={{ marginLeft: '50%' }}
                                 >
                                     Update
                                 </Button>
