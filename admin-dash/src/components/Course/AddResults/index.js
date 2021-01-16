@@ -229,8 +229,10 @@ class AddResults extends Component {
 
 
         return (
-            <div className="form-builder">
+            <div className="form-builder"  style={{margin: "3%", padding: "2% ",border:"2px solid black"}}>
                 <div className="preview-form" >
+                    <h2>{this.props.currentCourse.name.toUpperCase()} : Results And Analysis </h2>
+                    <br/>
                     <h2>Live Preview</h2>
                     <Form layout="vertical" onFinish={(values) => { console.log(values, this.state.questions) }}>
 
