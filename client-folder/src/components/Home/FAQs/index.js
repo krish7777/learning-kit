@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Navbar from '../../Navbar';
 import './styles.scss';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -75,10 +76,11 @@ class FAQs extends React.Component {
                 Please click to rotate the screen
             </button>
         ) : (
-                // HEADER
+            // HEADER
 
-                <div className="course">
-                    {/* <div className="header">
+            <div className="course">
+                <Navbar type={this.props.match.params.type} />
+                {/* <div className="header">
                         <Link
                             to={`/${this.props.match.params.type}/modules`}
                             style={{ display: 'flex', alignItems: 'center' }}
@@ -148,81 +150,85 @@ class FAQs extends React.Component {
                         </div>
                     </div> */}
 
-                    {/* FAQSLOGGED */}
+                {/* FAQSLOGGED */}
 
-                    <div className="body">
-                        <div className="body-padder">
-                            {allFAQs.length === 0 ? (
-                                <div style={{ margin: '1em auto' }}>Loading FAQs</div>
-                            ) : (
-                                    <div className="troubleshoot-container">
-                                        <h2 className="heading-troubleshoot">
-                                            Listed FAQs:
-                            </h2>
-                                        <div className="troubleshoot">
-                                            <div className="troubleshoot-inner">
-                                                {allFAQs?.faqs?.map((singlefaq, i) =>
-                                                    singlefaq.question ? (
-                                                        <Collapse
-                                                            ghost
-                                                            expandIconPosition={'right'}
-                                                            key={singlefaq.question + i}
-                                                        >
-                                                            <Panel
-                                                                header={
-                                                                    i +
-                                                                    1 +
-                                                                    '. ' +
-                                                                    singlefaq.question
-                                                                }
-                                                                style={{
-                                                                    border:
-                                                                        '1px solid #403F3E',
-                                                                }}
-                                                            >
-                                                                <div
-                                                                    className="exp-introduction troubleshoot-panel"
-                                                                    dangerouslySetInnerHTML={{
-                                                                        __html:
-                                                                            singlefaq.answer,
-                                                                    }}
-                                                                ></div>
-                                                            </Panel>
-                                                        </Collapse>
-                                                    ) : (
-                                                            <Collapse
-                                                                activeKey={'0'}
-                                                                ghost
-                                                                expandIconPosition={'right'}
-                                                            >
-                                                                <Panel
-                                                                    header={singlefaq.question}
-                                                                    style={{
-                                                                        border:
-                                                                            '1px solid #403F3E',
-                                                                    }}
-                                                                >
-                                                                    <div
-                                                                        className="exp-introduction troubleshoot-panel"
-                                                                        dangerouslySetInnerHTML={{
-                                                                            __html:
-                                                                                singlefaq.answer,
-                                                                        }}
-                                                                    ></div>
-                                                                </Panel>
-                                                            </Collapse>
-                                                        )
-                                                )}
-                                            </div>
-                                        </div>
+                <div className="body">
+                    <div className="body-padder">
+                        {allFAQs.length === 0 ? (
+                            <h3 style={{ margin: '2em auto', color: 'white' }}>
+                                Loading FAQs...
+                            </h3>
+                        ) : (
+                            <div className="troubleshoot-container">
+                                <h2 className="heading-troubleshoot">
+                                    Listed FAQs:
+                                </h2>
+                                <div className="troubleshoot">
+                                    <div className="troubleshoot-inner">
+                                        {allFAQs?.faqs?.map((singlefaq, i) =>
+                                            singlefaq.question ? (
+                                                <Collapse
+                                                    ghost
+                                                    expandIconPosition={'right'}
+                                                    key={singlefaq.question + i}
+                                                >
+                                                    <Panel
+                                                        header={
+                                                            i +
+                                                            1 +
+                                                            '. ' +
+                                                            singlefaq.question
+                                                        }
+                                                        style={{
+                                                            border:
+                                                                '1px solid #403F3E',
+                                                        }}
+                                                    >
+                                                        <div
+                                                            className="exp-introduction troubleshoot-panel"
+                                                            dangerouslySetInnerHTML={{
+                                                                __html:
+                                                                    singlefaq.answer,
+                                                            }}
+                                                        ></div>
+                                                    </Panel>
+                                                </Collapse>
+                                            ) : (
+                                                <Collapse
+                                                    activeKey={'0'}
+                                                    ghost
+                                                    expandIconPosition={'right'}
+                                                >
+                                                    <Panel
+                                                        header={
+                                                            singlefaq.question
+                                                        }
+                                                        style={{
+                                                            border:
+                                                                '1px solid #403F3E',
+                                                        }}
+                                                    >
+                                                        <div
+                                                            className="exp-introduction troubleshoot-panel"
+                                                            dangerouslySetInnerHTML={{
+                                                                __html:
+                                                                    singlefaq.answer,
+                                                            }}
+                                                        ></div>
+                                                    </Panel>
+                                                </Collapse>
+                                            )
+                                        )}
                                     </div>
-                                )}
-                        </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
+                </div>
 
-                    {/* FOOTER */}
+                {/* FOOTER */}
 
-                    {/* <div className="footer">
+                {/* <div className="footer">
                     <p>Copyright</p>
                     <svg
                         width="25"
@@ -237,8 +243,8 @@ class FAQs extends React.Component {
                         />
                     </svg>
                 </div> */}
-                </div>
-            );
+            </div>
+        );
     }
 }
 const mapStateToProps = (state) => ({

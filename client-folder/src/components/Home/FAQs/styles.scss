@@ -14,7 +14,17 @@
 //     @media only screen and (max-width: 540px) {
 //         margin: 2% 2%;
 //     }
-
+.course{
+    box-sizing: border-box;
+    // filter: blur(5px);
+    background-color: #001A2F;
+    background-image: url(../../../assets/images/background.png);
+    background-repeat: repeat;
+    background-size: cover;
+    height: 100vh;
+    width: fit-content;
+    overflow: auto;
+}
     .heading-troubleshoot {
         color: burlywood;
         display: flex;
