@@ -366,8 +366,12 @@ class Module extends Component {
                             <Link
                                 to={`/i/${this.props.match.params.type}/add-course/${module._id}`}
                             >
-                                <Button className="add-button">
-                                    + Add {SUBMODULE}
+                                <Button
+                                    type="primary"
+                                    htmlType="submit"
+                                    style={{ margin: '2%' }}
+                                >
+                                    + Add SubModule
                                 </Button>
                             </Link>
                         </div>
