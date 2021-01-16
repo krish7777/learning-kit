@@ -23,9 +23,15 @@ class Course extends React.Component {
     this.state = {
       currentOrientation: 'landscape-primary',
       overlayUnread: true,
-      isGettingStarted: false
+      isGettingStarted: false,
+      experimentCurrStep: 0
     }
 
+  }
+
+  setExperimentStep = (step) => {
+    this.setState({ experimentCurrStep: step })
+    console.log("Course current slide", this.state.experimentCurrStep)
   }
 
   setCurrentOrientation = (orientation) => {
@@ -142,7 +148,7 @@ class Course extends React.Component {
     // console.log("fdfsf");
     // console.log(this.props);
     const { currentStep, changeCurrentStep, currentCourse } = this.props;
-    const { currentOrientation } = this.state;
+    const { currentOrientation, experimentCurrStep } = this.state;
 
 
     return (
@@ -232,7 +238,7 @@ class Course extends React.Component {
             {/* temporary placeholder [TODO] */}
             {currentCourse && currentStep === 'ResultsAnalysis' ? <div className="body-padder"><ResultsAnalysis id={currentCourse.results} /> </div> : null}
             {/* placeholder end [TODO] */}
-            {currentCourse && currentStep === 'Experiment' ? <div className="body-padder"><Experiment id={currentCourse.experiment} type={this.props.match.params.type} overlayUnread={this.state.overlayUnread} setOverlayUnread={this.setOverlayUnread} isGettingStarted={this.state.isGettingStarted} /></div> : null}
+            {currentCourse && currentStep === 'Experiment' ? <div className="body-padder"><Experiment id={currentCourse.experiment} type={this.props.match.params.type} overlayUnread={this.state.overlayUnread} setOverlayUnread={this.setOverlayUnread} isGettingStarted={this.state.isGettingStarted} experimentCurrStep={experimentCurrStep} setExperimentStep={this.setExperimentStep} /></div> : null}
             {currentCourse && currentStep === 'Troubleshoot' ? <div className="body-padder"><Troubleshoot id={currentCourse.troubleshoot} />  </div> : null}
             {currentCourse && currentStep === 'Excercise' ? <div className="body-padder"><Excercise id={currentCourse.excercise} /> </div> : null}
           </div>

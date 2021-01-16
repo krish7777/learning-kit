@@ -21,7 +21,7 @@ import {
 } from 'antd'
 import { UploadOutlined } from '@ant-design/icons';
 const IframeShow = (
-  { steps, changeStep, simulation, changeCurrentStep, overlayUnread, setOverlayUnread, isGettingStarted, finalMessage, experimentForm }
+  { steps, changeStep, simulation, changeCurrentStep, overlayUnread, setOverlayUnread, isGettingStarted, finalMessage, experimentForm, experimentCurrStep, setExperimentStep }
 ) => {
 
 
@@ -34,7 +34,7 @@ const IframeShow = (
   useEffect(() => {
     const ifr = simulation || "";
     setIframe(ifr);
-
+    onSlide(experimentCurrStep)
   }, [steps]);
 
   const closeOverlay = () => {
@@ -70,6 +70,7 @@ const IframeShow = (
   };
 
   const onSlide = (slideNo) => {
+    setExperimentStep(slideNo)
     setCurrentStep(slideNo)
     changeStep(slideNo)
   }
