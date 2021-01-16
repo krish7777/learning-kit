@@ -49,11 +49,11 @@ class AddIntroduction extends Component {
     render() {
         const { introductionHtml, setIntroductionHtml } = this.props;
         return (
-            <div>
+            <div style={{border:"2px solid black", margin:"2%", padding:"2%"}}>
 
-                INTROD
+                <h2>{this.props.currentCourse.name.toUpperCase()} : Introduction</h2>
                 <div classname="add-module" style={{ "display": "flex", "flexDirection": "column", justifyContent: "center" }}>
-                    <Form.Item label="Introduction">
+                    <Form.Item label="Editor">
                         <TextEditor content={introductionHtml} handleEditorChange={setIntroductionHtml}></TextEditor>
                     </Form.Item>
                     <Form.Item>

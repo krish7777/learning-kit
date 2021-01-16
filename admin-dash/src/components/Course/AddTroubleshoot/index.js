@@ -48,7 +48,8 @@ class AddTroubleshoot extends Component {
             console.log("vasss", this.props.troubleshoot)
 
             return (
-                <div style={{ width: "800px", margin: "auto", padding: "20px 0" }}>
+                <div style={{margin: "3%", padding: "2% ",border:"2px solid black"}}>
+                    <h2>{this.props.currentCourse.name.toUpperCase()} : Troubleshoot</h2>
                     ***Don't Reload before Saving! Changes may get lost ***
                     <Form initialValues={this.props.troubleshoot} onFinish={async (val) => {
                         console.log("valllll", val)
