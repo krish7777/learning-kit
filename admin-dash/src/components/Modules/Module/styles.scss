@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
+
 .module-container {
     margin: 3%;
     border: 2px solid black;
 
     .module-navbar {
+        font-family: 'Yusei Magic', sans-serif;
         display: flex;
         flex-direction: column;
         background-color: rgb(193, 144, 243);
@@ -10,7 +13,12 @@
         align-items: center;
 
         .module-name {
-            font-size: 2rem;
+            font-size: 1.7rem;
+        }
+        @media only screen and (max-width: 578px) {
+            .module-name {
+                font-size: 1.2rem;
+            }
         }
         .navbar-horizontal {
             display: flex;
@@ -20,23 +28,47 @@
 
             .module-details,
             .submodule-name {
-                font-size: 1.6rem;
+                border-radius: 5px;
+                font-size: 1.3rem;
                 margin: auto;
                 padding: auto;
                 display: block;
                 width: 46.4vw;
-                background-color: #20415c;
+                background-color: #2e516e;
                 color: aliceblue;
+                border: 1% rgb(71, 70, 70);
+            }
+            @media only screen and (max-width: 578px) {
+                .module-details,
+                .submodule-name {
+                    font-size: 0.9rem;
+                    width: 46.4vw;
+                }
+            }
+            :focus {
+                background-color: #2e516e;
+                box-shadow: black 3px 4px 10px;
+
+                color: #5df2f2;
+            }
+            .module-details {
+                border-right: 0;
             }
         }
     }
 
     .module-form {
         position: relative;
-        right: 18%;
+        right: 18vw;
         width: 110%;
         margin: 0px;
         padding: 0px;
+    }
+    @media only screen and (max-width: 578px) {
+        .module-form {
+            left: 1vw;
+            width: 97%;
+        }
     }
 
     .submodule-list {
@@ -48,15 +80,5 @@
             box-shadow: 5px 5px 20px 1px #cecbcb;
             border-right: 4px groove rgb(186, 187, 189);
         }
-    }
-    .add-button {
-        margin: 1%;
-        font-size: 1.3rem;
-        font-weight: 500;
-        padding: 1%;
-        width: 15%;
-        height: 12%;
-        background-color: rgb(1, 139, 139);
-        color: aliceblue;
     }
 }
