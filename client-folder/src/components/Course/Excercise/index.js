@@ -78,7 +78,7 @@ class Excercise extends React.Component {
                         BACK TO EXPERIMENT
                     </div>
                     <div className="exercise-contactTeacher-button">
-                        Troubleshoot
+                        CONTACT TEACHER
                     </div>
                 </div>
             </div>
