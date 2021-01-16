@@ -3,6 +3,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { COURSE } from "../../config"
 import './index.scss';
+import SignUpForm from "./SignUpForm"
 
 class CreatorHome extends React.Component {
     constructor() {
@@ -12,7 +13,7 @@ class CreatorHome extends React.Component {
         return (
                 // <div className="client-mainHome-container" style={{ backgroundColor: "#001A2F", height: "100vh", alignItems: "center" }}>
                 <Layout style={{ backgroundColor: "#001A2F"}}>
-
+                <SignUpForm/>
                 <div className="client-mainHome-container" style={{ backgroundColor: "#001A2F", height: "calc( 100vh - 47.6px )", alignItems: "center" }}>
                 <h1 style={{color:"white",fontWeight:"bolder",fontSize:"48px"}} className="lineContainer">CREATOR HOME</h1>
                 <Link to="i/arduino" className="client-mainHome-link" style={{borderRadius: 15}}>

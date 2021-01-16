@@ -14,7 +14,7 @@ const Navbar = ({type}) => {
       <div className="navbar-nav-links-container">
         <div className="navbar-nav-link">About Us</div>
         <div className="navbar-nav-link">
-          <Link to={`${type}/course-troubleshoot`}>FAQs</Link>
+          <Link to={`/${type}/course-troubleshoot`}>FAQs</Link>
           </div>
         <div className="navbar-nav-link">Language</div>
         <div className="navbar-nav-link">Your Dashboard</div>

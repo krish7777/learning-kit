@@ -1,0 +1,23 @@
+.submod-divs-container {
+    border: 2px black solid;
+    margin: 4%;
+    padding: 3%;
+    background-color: rgb(231, 235, 235);
+    position: relative;
+
+    .divslist {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-self: center;
+        margin: auto;
+        max-width: 500px;
+
+        .button-divs{
+            margin: 1%;
+            font-size: 1rem;
+            padding-bottom: 1.8em;
+            
+        }
+    }
+}
