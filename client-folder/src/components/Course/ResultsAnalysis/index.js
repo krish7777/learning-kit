@@ -43,7 +43,7 @@ class ResultsAnalysis extends React.Component {
                 
                 <div className="form-builder">
                     <div className="preview-form">
-                        <Form layout="vertical" onFinish={(values) => { console.log(values) }}>
+                        <Form id="result-analysis-form" layout="vertical" onFinish={(values) => { console.log(values) }}>
 
                             {
                                 results?.formContent?.map(field => {
@@ -168,15 +168,20 @@ class ResultsAnalysis extends React.Component {
                                     }
                                 })
                             }
-                            <Form.Item className="result-analysis-submit-btn">
+                            {/* <Form.Item className="result-analysis-submit-btn">
                                 <Button type="primary" htmlType="submit" className="result-analysis-submit-button">
                                     Submit
                                 </Button>
-                            </Form.Item>
+                            </Form.Item> */}
 
                         </Form>
+
                     </div>
                 </div>
+
+                <Button type="primary" form="result-analysis-form" htmlType="submit" className="result-analysis-submit-button">
+                    Submit
+                </Button>
 
             </div>
         )
