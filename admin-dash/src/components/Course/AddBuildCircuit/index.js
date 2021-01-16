@@ -75,7 +75,8 @@ class AddBuildCircuit extends Component {
             console.log("FIRST FORM")
 
             return (
-                <div style={{ width: "800px", margin: "auto", padding: "20px 0" }}>
+                <div style={{margin: "3%", padding: "2% ",border:"2px solid black"}}>
+                    <h2>{this.props.currentCourse.name.toUpperCase()} : Build Circuit</h2>
                     ***Don't Reload before Saving! Changes may get lost ***
                     <Form initialValues={this.props.buildCircuit} onFinish={async (val) => {
                         console.log("valllll", val)
