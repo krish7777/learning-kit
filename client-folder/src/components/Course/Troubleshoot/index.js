@@ -56,7 +56,7 @@ class Troubleshoot extends React.Component {
                         BACK TO EXPERIMENT
                     </div>
                     <div className="troubleshoot-contactTeacher-button">
-                        Troubleshoot
+                        CONTACT TEACHER
                     </div>
                 </div>
             </div>
