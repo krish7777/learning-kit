@@ -358,7 +358,7 @@ class Module extends Component {
                                                     </Button>
                                                 </Link>
                                             </Form>
-                                            <Divider />
+                                            {/* <Divider /> */}
                                         </>
                                     ))}
                             </ol>
