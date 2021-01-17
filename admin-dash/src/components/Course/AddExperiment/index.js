@@ -44,7 +44,7 @@ class AddExperiment extends Component {
                 sm: { span: 20, offset: 2 },
             },
         };
-        console.log(this.props.location.state.gettingStarted)
+        console.log(this.props.location.state?.gettingStarted)
         const options = {
             maxSizeMB: 1,
             // maxWidthOrHeight: 720,
@@ -67,7 +67,8 @@ class AddExperiment extends Component {
             console.log("FIRST FORM")
 
             return (
-                <div style={{ width: "800px", margin: "auto", padding: "20px 0" }}>
+                <div style={{margin: "3%", padding: "2% ",border:"2px solid black"}}>
+                     <h2>{this.props.currentCourse.name.toUpperCase()} : Experiment</h2>
                     ***Don't Reload before Saving! Changes may get lost ***
                     <Form initialValues={this.props.experiment} onFinish={async (val) => {
                         console.log("valllll", val)
@@ -98,7 +99,7 @@ class AddExperiment extends Component {
                                         success = 0;
                                     }
                                 })
-                            } else if (this.props.location.state.gettingStarted) {
+                            } else if (this.props.location.state?.gettingStarted) {
                                 newSteps = steps.map(step => {
                                     const { upload_image, description, simulationLink } = step;
                                     if (simulationLink) {
@@ -152,7 +153,7 @@ class AddExperiment extends Component {
 
                         {/*FOR DIGITAL*/}
 
-                        {this.props.match.params.type === "digital" && !this.props.location.state.gettingStarted ?
+                        {this.props.match.params.type === "digital" && !this.props.location.state?.gettingStarted ?
                             <Form.Item name="simulationLink" label="Simulation Link" rules={[{ required: true }]}>
                                 <Input />
                             </Form.Item>
@@ -178,7 +179,7 @@ class AddExperiment extends Component {
                                                         <Input.TextArea style={{ width: "90%" }} autoSize={{ minRows: 2 }} />
                                                     </Form.Item>
 
-                                                    {this.props.location.state.gettingStarted ?
+                                                    {this.props.location.state?.gettingStarted ?
                                                         <>
                                                             <Form.Item
                                                                 label={`Simulation Link${index + 1}`}
@@ -291,7 +292,7 @@ class AddExperiment extends Component {
                             }}
                         </Form.List>
 
-                        {this.props.match.params.type === "digital" && !this.props.location.state.gettingStarted ? <Form.Item initialValue="Hello this is default" label="Final message" name="finalMessage" rules={[{ required: true }]}>
+                        {this.props.match.params.type === "digital" && !this.props.location.state?.gettingStarted ? <Form.Item initialValue="Hello this is default" label="Final message" name="finalMessage" rules={[{ required: true }]}>
                             <Input.TextArea autoSize={{ minRows: 2 }} />
                         </Form.Item> : null}
 
@@ -338,7 +339,7 @@ class AddExperiment extends Component {
                                     }
                                 })
                             }
-                            else if (this.props.location.state.gettingStarted) {
+                            else if (this.props.location.state?.gettingStarted) {
                                 newSteps = steps.map(step => {
                                     const { upload_image, description, simulationLink } = step;
                                     if (simulationLink) {
@@ -395,7 +396,7 @@ class AddExperiment extends Component {
                     }}>
                         {/*FOR DIGITAL*/}
 
-                        {this.props.match.params.type === "digital" && !this.props.location.state.gettingStarted ?
+                        {this.props.match.params.type === "digital" && !this.props.location.state?.gettingStarted ?
                             <Form.Item name="simulationLink" label="Simulation Link" rules={[{ required: true }]}>
                                 <Input />
                             </Form.Item>
@@ -418,7 +419,7 @@ class AddExperiment extends Component {
                                                         <Input.TextArea style={{ width: "90%" }} autoSize={{ minRows: 2 }} />
                                                     </Form.Item>
 
-                                                    {this.props.location.state.gettingStarted ?
+                                                    {this.props.location.state?.gettingStarted ?
                                                         <>
                                                             <Form.Item
                                                                 label={`Simulation Link${index + 1}`}
@@ -532,7 +533,7 @@ class AddExperiment extends Component {
                             }}
                         </Form.List>
 
-                        {this.props.match.params.type === "digital" && !this.props.location.state.gettingStarted ? <Form.Item initialValue="Hello this is default" label="Final message" name="finalMessage" rules={[{ required: true }]}>
+                        {this.props.match.params.type === "digital" && !this.props.location.state?.gettingStarted ? <Form.Item initialValue="Hello this is default" label="Final message" name="finalMessage" rules={[{ required: true }]}>
                             <Input.TextArea autoSize={{ minRows: 2 }} />
                         </Form.Item> : null}
 

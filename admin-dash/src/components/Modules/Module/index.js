@@ -28,9 +28,6 @@ class Module extends Component {
     }
 
     changeCurrentWindow = (selectedOptionWord) => {
-        // console.log(
-        //     'NOW SHOWING:' + this.state.selectedWindow
-        // );
         this.setState({
             ...this.state,
             selectedWindow: selectedOptionWord,
@@ -294,7 +291,7 @@ class Module extends Component {
                                 <Button
                                     type="primary"
                                     htmlType="submit"
-                                    style={{ marginLeft: '60%' }}
+                                    style={{ marginLeft: '50%' }}
                                 >
                                     Update
                                 </Button>
@@ -358,7 +355,7 @@ class Module extends Component {
                                                     </Button>
                                                 </Link>
                                             </Form>
-                                            <Divider />
+                                            {/* <Divider /> */}
                                         </>
                                     ))}
                             </ol>
@@ -366,8 +363,12 @@ class Module extends Component {
                             <Link
                                 to={`/i/${this.props.match.params.type}/add-course/${module._id}`}
                             >
-                                <Button className="add-button">
-                                    + Add {SUBMODULE}
+                                <Button
+                                    type="primary"
+                                    htmlType="submit"
+                                    style={{ margin: '2%' }}
+                                >
+                                    + Add SubModule
                                 </Button>
                             </Link>
                         </div>
