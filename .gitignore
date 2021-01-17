@@ -1,3 +1,9 @@
 node_modules
 
 .env
+
+deploy-aws-check.pem
+
+package-lock.json
+.eslintcache
+debug.log
