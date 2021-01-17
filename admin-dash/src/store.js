@@ -8,13 +8,15 @@ import modulesReducer from "./components/Modules/reducer";
 import addModuleReducer from "./components/Modules/AddModule/reducer";
 import addCourseReducer from "./components/Course/AddCourse/reducer";
 import courseReducer from "./components/Course/reducer";
+import authReducer from "./components/Auth/reducer";
 
 const rootReducer = combineReducers({
     textEditor2Reducer,
     modulesReducer,
     addModuleReducer,
     addCourseReducer,
-    courseReducer
+    courseReducer,
+    authReducer
 });
 
 const persistConfig = {

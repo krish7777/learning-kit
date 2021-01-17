@@ -48,7 +48,7 @@ class AddTroubleshoot extends Component {
             console.log("vasss", this.props.troubleshoot)
 
             return (
-                <div style={{margin: "3%", padding: "2% ",border:"2px solid black"}}>
+                <div style={{ margin: "3%", padding: "2% ", border: "2px solid black" }}>
                     <h2>{this.props.currentCourse.name.toUpperCase()} : Troubleshoot</h2>
                     ***Don't Reload before Saving! Changes may get lost ***
                     <Form initialValues={this.props.troubleshoot} onFinish={async (val) => {
@@ -128,7 +128,6 @@ class AddTroubleshoot extends Component {
                         <Form.Item>
                             <Button loading={this.state.loading} type="primary" htmlType="submit">Add/Update</Button>
                         </Form.Item>
-                        <p>***Update only if any changes are made, otherwise it may take time***</p>
 
                     </Form>
                 </div>
@@ -136,7 +135,8 @@ class AddTroubleshoot extends Component {
         } else if (!this.props.currentCourse.troubleshoot) {
             console.log("SECOND FORM")
             return (
-                <div style={{ width: "800px", margin: "auto", padding: "20px 0" }}>
+                <div style={{ margin: "3%", padding: "2% ", border: "2px solid black" }}>
+                    <h2>{this.props.currentCourse.name.toUpperCase()} : Troubleshoot</h2>
                     ***Don't Reload before Saving! Changes may get lost ***
                     <Form onFinish={async (val) => {
                         console.log("valllll", val)
@@ -216,7 +216,6 @@ class AddTroubleshoot extends Component {
                         <Form.Item>
                             <Button loading={this.state.loading} type="primary" htmlType="submit">Add/Update</Button>
                         </Form.Item>
-                        <p>***Update only if any changes are made, otherwise it may take time***</p>
                     </Form>
                 </div>)
         }

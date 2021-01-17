@@ -65,14 +65,14 @@ class Modules extends Component {
                             <Link to={`/i/${this.props.match.params.type}/add-module`}><Button style={{ margin: "10px" }}>Add {MODULE}</Button></Link>
                             <br />
                             {!modules.some(el => el.name === GETTINGSTARTED) &&
-                                <Link to={`/i/${this.props.match.params.type}/add-starter`}><Button style={{ margin: "10px" }}>Add Starter {MODULE}</Button></Link>
+                                <Link to={`/i/${this.props.match.params.type}/add-starter`}><Button style={{ margin: "10px" }}>Add Geting Started {MODULE}</Button></Link>
                             }
                             {modules.some(el => el.name === GETTINGSTARTED) &&
-                                <Link to={`/i/${this.props.match.params.type}/add-course/${modules.find(el => el.name === GETTINGSTARTED)._id}`}><Button style={{ margin: "10px" }}>Add Starter {SUBMODULE}</Button></Link>
+                                <Link to={`/i/${this.props.match.params.type}/add-course/${modules.find(el => el.name === GETTINGSTARTED)._id}`}><Button style={{ margin: "10px" }}>Add Getting Started {SUBMODULE}</Button></Link>
                             }
                         </Col>
                     </TabPane>
-                    <TabPane tab="FAQ" key="2">
+                    <TabPane tab="Course Troubleshoot" key="2">
                         <Col justify="space-around" align="middle">
                             <Divider>COURSE-LEVEL-TROUBLESHOOT</Divider>
 
@@ -149,7 +149,6 @@ class Modules extends Component {
                                     <Form.Item>
                                         <Button loading={this.state.loading} type="primary" htmlType="submit">Add/Update</Button>
                                     </Form.Item>
-                                    <p>***Update only if any changes are made, otherwise it may take time***</p>
 
                                 </Form>
                             </div>

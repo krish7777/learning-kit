@@ -24,8 +24,16 @@ const SlideShow = (
 
   const [codeModalIsOpen, setCodeModalIsOpen] = useState(false);
   const [startModalIsOpen, setStartModalIsOpen] = useState(false);
+  const urlify = (text) => {
+    console.log("called")
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
 
-
+    return text.replace(urlRegex, function (url) {
+      return '<a href="' + url + '">' + url + '</a>';
+    })
+    // or alternatively
+    // return text.replace(urlRegex, '<a href="$1">$1</a>')
+  }
   useEffect(() => {
     const img = [];
     for (let i = 0; i < steps.length; i++) {
@@ -100,8 +108,8 @@ const SlideShow = (
         }
       </div>
 
-      <div className={codeModalIsOpen ? "overlayed code-step" : "code-step"}>
-        Step {currentStep + 1} : {steps[currentStep].description}
+      <div dangerouslySetInnerHTML={{ __html: ` Step ${currentStep + 1} : ${urlify(steps[currentStep].description)}` }} className={codeModalIsOpen ? "overlayed code-step" : "code-step"}>
+
       </div>
       <div className="nav">
         <div onClick={goLeft} className="left-arrow">

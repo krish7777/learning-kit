@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getCurrentModule, updateModule, updateSubModule } from '../action';
 import { Link } from 'react-router-dom';
-import { Form, Input, Button, Divider } from 'antd';
+import { Form, Input, Button, Divider, Row } from 'antd';
 import { baseUrl, SUBMODULE } from '../../../config';
 import './styles.scss';
 import imageCompression from 'browser-image-compression';
@@ -110,16 +110,16 @@ class Module extends Component {
                                     />
                                 </Form.Item>
                             </Form.Item>
-                            <Form.Item label="Introduction">
+                            <Form.Item label="Description">
                                 <Form.Item
                                     name="introduction"
                                     noStyle
-                                    // rules={[
-                                    //     {
-                                    //         required: true,
-                                    //         message: 'This field is required',
-                                    //     },
-                                    // ]}
+                                // rules={[
+                                //     {
+                                //         required: true,
+                                //         message: 'This field is required',
+                                //     },
+                                // ]}
                                 >
                                     {/* <Input
                                         name="introduction"
@@ -191,10 +191,9 @@ class Module extends Component {
                                                         file instanceof Blob
                                                     ); // true
                                                     console.log(
-                                                        `originalFile size ${
-                                                            file.size /
-                                                            1024 /
-                                                            1024
+                                                        `originalFile size ${file.size /
+                                                        1024 /
+                                                        1024
                                                         } MB`
                                                     );
                                                     const options = {
@@ -211,13 +210,12 @@ class Module extends Component {
                                                         console.log(
                                                             'compressedFile instanceof Blob',
                                                             compressedFile instanceof
-                                                                Blob
+                                                            Blob
                                                         ); // true
                                                         console.log(
-                                                            `compressedFile size ${
-                                                                compressedFile.size /
-                                                                1024 /
-                                                                1024
+                                                            `compressedFile size ${compressedFile.size /
+                                                            1024 /
+                                                            1024
                                                             } MB`
                                                         );
                                                         let formData = new FormData();
@@ -298,81 +296,81 @@ class Module extends Component {
                             </Form.Item>
                         </Form>
                     ) : (
-                        <div>
-                            <ol className="submodule-list">
-                                {module.courses &&
-                                    module.courses.map((course) => (
-                                        <>
-                                            <Divider />
-                                            <Form
-                                                name="update-form"
-                                                layout={'inline'}
-                                                onFinish={this.onSubFinish}
-                                                initialValues={{
-                                                    name: course.name,
-                                                    id: course._id,
-                                                }}
-                                            >
-                                                <Form.Item
-                                                    name="name"
-                                                    noStyle
-                                                    rules={[
-                                                        {
-                                                            required: true,
-                                                            message:
-                                                                'This field is required',
-                                                        },
-                                                    ]}
+                            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", paddingBottom: "20px" }}>
+                                <ol className="submodule-list">
+                                    {module.courses &&
+                                        module.courses.map((course) => (
+                                            <>
+                                                <Divider />
+                                                <Form
+                                                    name="update-form"
+                                                    layout={'inline'}
+                                                    onFinish={this.onSubFinish}
+                                                    initialValues={{
+                                                        name: course.name,
+                                                        id: course._id,
+                                                    }}
                                                 >
-                                                    <Input
+                                                    <Form.Item
                                                         name="name"
-                                                        style={{ width: 160 }}
-                                                        placeholder={
-                                                            course.name
-                                                        }
-                                                    />
-                                                </Form.Item>
-                                                <Form.Item name="id" noStyle>
-                                                    <Input
-                                                        name="id"
-                                                        style={{
-                                                            display: 'none',
-                                                        }}
-                                                    />
-                                                </Form.Item>
-                                                <Button
-                                                    type="primary"
-                                                    htmlType="submit"
-                                                >
-                                                    Update
+                                                        noStyle
+                                                        rules={[
+                                                            {
+                                                                required: true,
+                                                                message:
+                                                                    'This field is required',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input
+                                                            name="name"
+                                                            style={{ width: 160 }}
+                                                            placeholder={
+                                                                course.name
+                                                            }
+                                                        />
+                                                    </Form.Item>
+                                                    <Form.Item name="id" noStyle>
+                                                        <Input
+                                                            name="id"
+                                                            style={{
+                                                                display: 'none',
+                                                            }}
+                                                        />
+                                                    </Form.Item>
+                                                    <Button
+                                                        type="primary"
+                                                        htmlType="submit"
+                                                    >
+                                                        Update Name
                                                 </Button>
-                                                <Link
-                                                    key={Math.random()}
-                                                    to={`/i/${this.props.match.params.type}/course/${course._id}`}
-                                                >
-                                                    <Button type="dashed">
-                                                        Edit SubModule
+                                                    <Link
+                                                        key={Math.random()}
+                                                        to={`/i/${this.props.match.params.type}/course/${course._id}`}
+                                                    >
+                                                        <Button type="dashed">
+                                                            Edit SubModule
                                                     </Button>
-                                                </Link>
-                                            </Form>
-                                            {/* <Divider /> */}
-                                        </>
-                                    ))}
-                            </ol>
+                                                    </Link>
+                                                </Form>
+                                                {/* <Divider /> */}
+                                            </>
+                                        ))}
+                                </ol>
 
-                            <Link
-                                to={`/i/${this.props.match.params.type}/add-course/${module._id}`}
-                            >
-                                <Button
-                                    type="primary"
-                                    htmlType="submit"
-                                    style={{ margin: '2%' }}
+                                <Link
+                                    to={`/i/${this.props.match.params.type}/add-course/${module._id}`}
                                 >
-                                    + Add SubModule
+                                    <Button
+                                        type="primary"
+                                        htmlType="submit"
+                                        style={{ margin: '2%' }}
+                                    >
+                                        + Add SubModule
                                 </Button>
-                            </Link>
-                        </div>
-                    )}
+                                </Link>
+                            </div>
+                        )}
                 </div>
             );
         else return null;
