@@ -1,0 +1,14 @@
+.signup-form-container {
+    background-color: rgb(245, 245, 245);
+    margin: 2%;
+    padding: 2%;
+    border: 2px rgb(182, 180, 179) solid;
+    border-radius: 5px;
+    font-size: 15rem;
+    .login-form{
+        display:flex;justify-content: center;
+        form{
+            width: 100%;
+        }
+    }
+}
