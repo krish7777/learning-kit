@@ -71,7 +71,7 @@ class App extends React.Component {
   render() {
     const { location } = this.props;
     return (
-      <div className="app">
+      <div className="app" style={location.pathname == "/i" ? {} : { paddingBottom: "1px" }}>
         {/* <TextEditor2 />
         <LivePreview />
         <FormBuilder />

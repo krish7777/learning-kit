@@ -14,7 +14,7 @@ class CreatorHome extends React.Component {
             // <div className="client-mainHome-container" style={{ backgroundColor: "#001A2F", height: "100vh", alignItems: "center" }}>
             <Layout style={{ backgroundColor: "#001A2F" }}>
                 {/* <SignUpForm/> */}
-                <div className="client-mainHome-container" style={{ backgroundColor: "#001A2F", height: "calc( 100vh - 47.6px )", alignItems: "center" }}>
+                <div className="client-mainHome-container" style={{ backgroundColor: "#001A2F", minHeight: "calc( 100vh - 46px )", alignItems: "center" }}>
                     <h1 style={{ color: "white", fontWeight: "bolder", fontSize: "48px" }} className="lineContainer">CREATOR HOME</h1>
                     <Link to="i/arduino" className="client-mainHome-link" style={{ borderRadius: 15 }}>
                         <Card
@@ -38,7 +38,7 @@ class CreatorHome extends React.Component {
                         </Card>
                     </Link>
                 </div>
-            </Layout>
+            </Layout >
         )
     }
 }

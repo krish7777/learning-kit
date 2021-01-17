@@ -67,8 +67,8 @@ class AddExperiment extends Component {
             console.log("FIRST FORM")
 
             return (
-                <div style={{margin: "3%", padding: "2% ",border:"2px solid black"}}>
-                     <h2>{this.props.currentCourse.name.toUpperCase()} : Experiment</h2>
+                <div style={{ margin: "3%", padding: "2% ", border: "2px solid black" }}>
+                    <h2>{this.props.currentCourse.name.toUpperCase()} : Experiment</h2>
                     ***Don't Reload before Saving! Changes may get lost ***
                     <Form initialValues={this.props.experiment} onFinish={async (val) => {
                         console.log("valllll", val)
@@ -307,7 +307,9 @@ class AddExperiment extends Component {
         } else if (!this.props.currentCourse.experiment) {
             console.log("SECOND FORM")
             return (
-                <div style={{ width: "800px", margin: "auto", padding: "20px 0" }}>
+                <div style={{ margin: "3%", padding: "2% ", border: "2px solid black" }}>
+                    <h2>{this.props.currentCourse.name.toUpperCase()} : Experiment</h2>
+
                     ***Don't Reload before Saving! Changes may get lost ***
                     <Form onFinish={async (val) => {
                         console.log("valllll", val)
