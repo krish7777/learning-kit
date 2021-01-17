@@ -69,6 +69,7 @@ class AddCourse extends Component {
                         <Input value={name} onChange={(e) => setCourseName(e.target.value)} />
                     </Form.Item>
                     <Form.Item
+                        label="Thumbnail"
                         valuePropName="fileList"
                         name="thumbnailArray"
                         getValueFromEvent={normFile}
