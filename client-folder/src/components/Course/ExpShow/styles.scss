@@ -100,7 +100,7 @@
     >div {
         max-height: 75%;
         height: 70%;
-        min-height: 70%;
+        min-height: 200px;
 
         .image-gallery {
             height: 100%;
@@ -148,10 +148,10 @@
 
     .code-step {
         flex: 3;
-        min-height: 82px;
-        max-height:110px;
+        min-height: 80px;
+        // max-height:110px;
         background-color: #414140;
-        height: auto;
+        // height: auto;
         color: white;
         text-align: center;
         display: flex;
@@ -172,8 +172,8 @@
     .nav {
         flex: 1;
         min-height: 40px;
-        height: 40px;
-        max-height:40px;
+        // height: 40px;
+        // max-height:40px;
         display: flex;
         align-items: center;
         margin-top: 10px;

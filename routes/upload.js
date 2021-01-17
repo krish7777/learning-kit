@@ -12,6 +12,8 @@ const isStudent = require('../middlewares/is-student')
 //isStudent for things which only student can upload , like answer photos etc.
 const AWS = require('aws-sdk')
 
+const isAdmin = require('../middlewares/is-admin')
+const isStudent = require('../middlewares/is-student')
 
 const s3 = new AWS.S3({
     accessKeyId: process.env.AWS_ID,
@@ -88,6 +90,13 @@ const uploadExcercise = multer({
     }
 })
 
+const uploadExcercise = multer({
+    storage: excerciseStorage,
+    limits: {
+        fileSize: 4000000
+    },
+    fileFilter: fileFilterExcercise
+})
 
 router.post('/aws-check', [isAdmin, uploadAws.single('file')], (req, res) => {
     const params = {

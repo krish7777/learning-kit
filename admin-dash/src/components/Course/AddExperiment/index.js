@@ -179,7 +179,7 @@ class AddExperiment extends Component {
                                                         <Input.TextArea style={{ width: "90%" }} autoSize={{ minRows: 2 }} />
                                                     </Form.Item>
 
-                                                    {this.props.location.state?.gettingStarted ?
+                                                    {this.props.match.params.type === "digital" && this.props.location.state?.gettingStarted ?
                                                         <>
                                                             <Form.Item
                                                                 label={`Simulation Link${index + 1}`}
@@ -421,7 +421,7 @@ class AddExperiment extends Component {
                                                         <Input.TextArea style={{ width: "90%" }} autoSize={{ minRows: 2 }} />
                                                     </Form.Item>
 
-                                                    {this.props.location.state?.gettingStarted ?
+                                                    {this.props.match.params.type === "digital" && this.props.location.state?.gettingStarted ?
                                                         <>
                                                             <Form.Item
                                                                 label={`Simulation Link${index + 1}`}
