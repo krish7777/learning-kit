@@ -1,3 +1,4 @@
+// require('dotenv/config')
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser');
@@ -16,23 +17,32 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors())
 
-//STATICALLY SERVE THE ADMIN DASHBOARD AND CLIENT FOLDER
-app.use(express.static(path.join(__dirname, 'client-folder', 'build')));
-app.use(express.static(path.join(__dirname, 'admin-dash', 'build')));
+
+
+//MAKE IT "" for production
+const baseURL = '/api'
+
+// //STATICALLY SERVE THE ADMIN DASHBOARD AND CLIENT FOLDER
+// app.use(express.static(path.join(__dirname, 'client-folder', 'build')));
+// app.use(express.static(path.join(__dirname, 'admin-dash', 'build')));
 
 //STATICALLY SERVE IMAGES
-app.use('/images', express.static(path.join(__dirname, 'images')));
+// [TODO] [REMOVE at the end after completely to s3]
+// app.use('/images', express.static(path.join(__dirname, 'images')));
 
 
 //TEST ROUTE
-app.get('/api', (req, res) => {
+app.get(baseURL, (req, res) => {
     res.send("test from krish")
 })
 
-app.use('/api/upload', uploadRoutes)
-app.use('/api/auth', authRoutes)
-app.use('/api/course', courseRoutes)
-app.use('/api/module', moduleRoutes)
+app.use(`${baseURL}/upload`, uploadRoutes)
+app.use(`${baseURL}/auth`, authRoutes)
+app.use(`${baseURL}/course`, courseRoutes)
+app.use(`${baseURL}/module`, moduleRoutes)
+
+
+/*
 
 //ALL CREATOR ROUTES
 app.get('/i*', (req, res) => {
@@ -44,6 +54,8 @@ app.get('/*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client-folder', 'build', 'index.html'))
 })
 
+*/
+
 //For Handling any errors
 app.use((error, req, res, next) => {
     console.log(error);
@@ -54,7 +66,7 @@ app.use((error, req, res, next) => {
 });
 
 //Connecting to MongoDB
-mongoose.connect('mongodb+srv://krish:krish@cluster0.fdsor.gcp.mongodb.net/learning?retryWrites=true&w=majority', {
+mongoose.connect(process.env.DB_LINK, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
