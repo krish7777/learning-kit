@@ -85,12 +85,11 @@ const uploadExcercise = multer({
     storage: storage,
     limits: {
         fileSize: 4000000
-    },
-    fileFilter: pdfFilter
+    }
 })
 
 
-router.post('/aws-check', uploadAws.single('file'), (req, res) => {
+router.post('/aws-check', [isAdmin, uploadAws.single('file')], (req, res) => {
     const params = {
         Bucket: process.env.AWS_BUCKET_NAME,
         Key: `images/${Date.now() + '-' + req.file.originalname}`,
@@ -110,7 +109,7 @@ router.post('/aws-check', uploadAws.single('file'), (req, res) => {
 }
 )
 
-router.post('/introduction', uploadIntro.single('file'),
+router.post('/introduction', [isAdmin, uploadIntro.single('file')],
     (req, res) => {
         const params = {
             Bucket: process.env.AWS_BUCKET_NAME,
@@ -130,7 +129,7 @@ router.post('/introduction', uploadIntro.single('file'),
     })
 
 router.post('/experiment',
-    uploadExperiment.single('file'),
+    [isAdmin, uploadExperiment.single('file')],
     (req, res) => {
         const params = {
             Bucket: process.env.AWS_BUCKET_NAME,
@@ -150,7 +149,7 @@ router.post('/experiment',
     })
 
 router.post('/excercise',
-    uploadExcercise.single('file'),
+    [isAdmin, uploadExcercise.single('file')],
     (req, res) => {
         const params = {
             Bucket: process.env.AWS_BUCKET_NAME,

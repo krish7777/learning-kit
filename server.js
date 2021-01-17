@@ -11,7 +11,7 @@ const courseRoutes = require('./routes/course')
 const moduleRoutes = require('./routes/module')
 
 const app = express();
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT || 3300
 
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
@@ -28,7 +28,7 @@ const baseURL = '/api'
 
 //STATICALLY SERVE IMAGES
 // [TODO] [REMOVE at the end after completely to s3]
-app.use('/images', express.static(path.join(__dirname, 'images')));
+// app.use('/images', express.static(path.join(__dirname, 'images')));
 
 
 //TEST ROUTE
