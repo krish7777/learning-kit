@@ -11,7 +11,6 @@ import { ReactComponent as SkipIcon } from "../../../assets/images/SkipIcon.svg"
 import { ReactComponent as TroubleshootIcon } from "../../../assets/images/TroubleshootIcon.svg"
 import { bindActionCreators } from "redux";
 import { changeCurrentStep, changeStep } from "../action";
-import { set } from "mongoose";
 
 const SlideShow = (
   { steps, changeStep, changeCurrentStep, overlayUnread, setOverlayUnread, isGettingStarted, experimentCurrStep, setExperimentStep }
