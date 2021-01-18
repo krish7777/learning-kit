@@ -44,7 +44,7 @@ if (localStorage.jwtToken) {
   const currentTime = Date.now() / 1000; // to get in milliseconds
   if (decoded.exp < currentTime) {
     store.dispatch(logoutUser());
-    window.location.href = "/i/login";
+    window.location.href = "/admin/login";
     // Redirect to login
   }
 
@@ -71,7 +71,7 @@ class App extends React.Component {
   render() {
     const { location } = this.props;
     return (
-      <div className="app" style={location.pathname == "/i" ? {} : { paddingBottom: "1px" }}>
+      <div className="app" style={location.pathname == "/admin" ? {} : { paddingBottom: "1px" }}>
         {/* <TextEditor2 />
         <LivePreview />
         <FormBuilder />
@@ -80,11 +80,11 @@ class App extends React.Component {
         {/* <iframe width="600px" height="400px" src="https://editor.p5js.org/SoumitroV/embed/Hwq52Cn0t"></iframe>
         <iframe width="600px" height="400px" src="https://circuitverse.org/simulator/embed/248" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe> */}
         {/* <Modules /> */}
-        {/* <div><Link to="/i">HOME</Link></div> */}
-        <Menu theme={location.pathname == "/i" ? "dark" : "light"}
-          style={{ background: location.pathname != "/i" ? "linear-gradient(to right, #FFFFFF, #ECE9E6)" : "" }}
+        {/* <div><Link to="/admin">HOME</Link></div> */}
+        <Menu theme={location.pathname == "/admin" ? "dark" : "light"}
+          style={{ background: location.pathname != "/admin" ? "linear-gradient(to right, #FFFFFF, #ECE9E6)" : "" }}
           mode="horizontal"
-          defaultSelectedKeys={['/i']}
+          defaultSelectedKeys={['/admin']}
           selectedKeys={[location.pathname]}
           onClick={e => {
             if (e.key == "logout") {
@@ -92,8 +92,8 @@ class App extends React.Component {
             }
           }}
         >
-          <Menu.Item key="/i">
-            <NavLink to="/i">
+          <Menu.Item key="/admin">
+            <NavLink to="/admin">
               <HomeFilled />
               <span>Home</span>
             </NavLink>
@@ -104,21 +104,21 @@ class App extends React.Component {
 
         </Menu>
         <Switch>
-          <Route path="/i/login" component={Login} />
-          <PrivateRoute path="/i/:type/module/:id" component={Module} />
-          <PrivateRoute path="/i/:type/course/introduction/:id" component={AddIntroduction} />
-          <PrivateRoute path="/i/:type/course/experiment/:id" component={AddExperiment} />
-          <PrivateRoute path="/i/:type/course/troubleshoot/:id" component={AddTroubleshoot} />
-          <PrivateRoute path="/i/:type/course/build-circuit/:id" component={AddBuildCircuit} />
-          <PrivateRoute path="/i/:type/course/experiment-form/:id/:expId" component={AddExperimentForm} />
-          <PrivateRoute path="/i/:type/course/results/:id" component={AddResults} />
-          <PrivateRoute path="/i/:type/course/excercise/:id" component={AddExcercise} />
-          <PrivateRoute exact path="/i/:type" component={Modules} />
-          <PrivateRoute exact path="/i/:type/course/:id" component={Course} />
-          <PrivateRoute path="/i/:type/add-module" component={AddModule} />
-          <PrivateRoute exact path="/i/:type/add-starter" component={AddModuleConf} />
-          <PrivateRoute path="/i/:type/add-course/:module_id" component={AddCourse} />
-          <PrivateRoute path="/i" component={CreatorHome} />
+          <Route path="/admin/login" component={Login} />
+          <PrivateRoute path="/admin/:type/module/:id" component={Module} />
+          <PrivateRoute path="/admin/:type/course/introduction/:id" component={AddIntroduction} />
+          <PrivateRoute path="/admin/:type/course/experiment/:id" component={AddExperiment} />
+          <PrivateRoute path="/admin/:type/course/troubleshoot/:id" component={AddTroubleshoot} />
+          <PrivateRoute path="/admin/:type/course/build-circuit/:id" component={AddBuildCircuit} />
+          <PrivateRoute path="/admin/:type/course/experiment-form/:id/:expId" component={AddExperimentForm} />
+          <PrivateRoute path="/admin/:type/course/results/:id" component={AddResults} />
+          <PrivateRoute path="/admin/:type/course/excercise/:id" component={AddExcercise} />
+          <PrivateRoute exact path="/admin/:type" component={Modules} />
+          <PrivateRoute exact path="/admin/:type/course/:id" component={Course} />
+          <PrivateRoute path="/admin/:type/add-module" component={AddModule} />
+          <PrivateRoute exact path="/admin/:type/add-starter" component={AddModuleConf} />
+          <PrivateRoute path="/admin/:type/add-course/:module_id" component={AddCourse} />
+          <PrivateRoute path="/admin" component={CreatorHome} />
         </Switch>
 
 

@@ -16,7 +16,7 @@ class CreatorHome extends React.Component {
                 {/* <SignUpForm/> */}
                 <div className="client-mainHome-container" style={{ backgroundColor: "#001A2F", minHeight: "calc( 100vh - 46px )", alignItems: "center" }}>
                     <h1 style={{ color: "white", fontWeight: "bolder", fontSize: "48px" }} className="lineContainer">CREATOR HOME</h1>
-                    <Link to="i/arduino" className="client-mainHome-link" style={{ borderRadius: 15 }}>
+                    <Link to="/admin/arduino" className="client-mainHome-link" style={{ borderRadius: 15 }}>
                         <Card
                             bordered={false}
                             hoverable
@@ -27,7 +27,7 @@ class CreatorHome extends React.Component {
                         </Card>
                     </Link>
 
-                    <Link to="i/digital" className="client-mainHome-link" style={{ borderRadius: 15 }}>
+                    <Link to="/admin/digital" className="client-mainHome-link" style={{ borderRadius: 15 }}>
                         <Card
                             bordered={false}
                             hoverable

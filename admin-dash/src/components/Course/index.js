@@ -27,52 +27,52 @@ class Course extends Component {
                     <div className="divslist">
                         <Button className="button-divs">
                             <Link
-                                to={`/i/${this.props.match.params.type}/course/introduction/${this.props.match.params.id}`}
+                                to={`/admin/${this.props.match.params.type}/course/introduction/${this.props.match.params.id}`}
                             >
                                 INTRODUCTION
                             </Link>
                         </Button>
                         <Button className="button-divs">
                             <Link
-                                to={`/i/${this.props.match.params.type}/course/build-circuit/${this.props.match.params.id}`}
+                                to={`/admin/${this.props.match.params.type}/course/build-circuit/${this.props.match.params.id}`}
                             >
                                 BUILD CIRCUIT
                             </Link>
                         </Button>
                         <Button className="button-divs">
                             <Link
-                                to={`/i/${this.props.match.params.type}/course/experiment/${this.props.match.params.id}`}
+                                to={`/admin/${this.props.match.params.type}/course/experiment/${this.props.match.params.id}`}
                             >
                                 EXPERIMENT
                             </Link>
                         </Button>
                         {course.experiment &&
-                        this.props.match.params.type === 'digital' ? (
-                            <Button className="button-divs">
-                                <Link
-                                    to={`/i/${this.props.match.params.type}/course/experiment-form/${this.props.match.params.id}/${course.experiment}`}
-                                >
-                                    EXPERIMENT FORM
+                            this.props.match.params.type === 'digital' ? (
+                                <Button className="button-divs">
+                                    <Link
+                                        to={`/admin/${this.props.match.params.type}/course/experiment-form/${this.props.match.params.id}/${course.experiment}`}
+                                    >
+                                        EXPERIMENT FORM
                                 </Link>
-                            </Button>
-                        ) : null}
+                                </Button>
+                            ) : null}
                         <Button className="button-divs">
                             <Link
-                                to={`/i/${this.props.match.params.type}/course/troubleshoot/${this.props.match.params.id}`}
+                                to={`/admin/${this.props.match.params.type}/course/troubleshoot/${this.props.match.params.id}`}
                             >
                                 TROUBLESHOOT
                             </Link>
                         </Button>
                         <Button className="button-divs">
                             <Link
-                                to={`/i/${this.props.match.params.type}/course/results/${this.props.match.params.id}`}
+                                to={`/admin/${this.props.match.params.type}/course/results/${this.props.match.params.id}`}
                             >
                                 RESULTS AND ANALYSIS
                             </Link>
                         </Button>
                         <Button className="button-divs">
                             <Link
-                                to={`/i/${this.props.match.params.type}/course/excercise/${this.props.match.params.id}`}
+                                to={`/admin/${this.props.match.params.type}/course/excercise/${this.props.match.params.id}`}
                             >
                                 EXCERCISE
                             </Link>
@@ -84,7 +84,7 @@ class Course extends Component {
                         <Button>
                             <Link
                                 to={{
-                                    pathname: `/i/${this.props.match.params.type}/course/experiment/${this.props.match.params.id}`,
+                                    pathname: `/admin/${this.props.match.params.type}/course/experiment/${this.props.match.params.id}`,
                                     state: { gettingStarted: true },
                                 }}
                             >

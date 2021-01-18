@@ -346,7 +346,7 @@ class Module extends Component {
                                                 </Button>
                                                     <Link
                                                         key={Math.random()}
-                                                        to={`/i/${this.props.match.params.type}/course/${course._id}`}
+                                                        to={`/admin/${this.props.match.params.type}/course/${course._id}`}
                                                     >
                                                         <Button type="dashed">
                                                             Edit SubModule
@@ -359,7 +359,7 @@ class Module extends Component {
                                 </ol>
 
                                 <Link
-                                    to={`/i/${this.props.match.params.type}/add-course/${module._id}`}
+                                    to={`/admin/${this.props.match.params.type}/add-course/${module._id}`}
                                 >
                                     <Button
                                         type="primary"

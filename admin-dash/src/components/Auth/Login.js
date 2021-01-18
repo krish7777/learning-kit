@@ -9,7 +9,7 @@ const Login = (props) => {
 
     useEffect(() => {
         if (props.auth.isAuthenticated) {
-            props.history.push("/i")
+            props.history.push("/admin")
         }
     }, [props])
 

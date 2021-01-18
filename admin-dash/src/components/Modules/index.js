@@ -55,20 +55,20 @@ class Modules extends Component {
                             {modules.map(module => (
                                 <>
                                     {module.name !== GETTINGSTARTED + "ignore" &&
-                                        <Link to={`/i/${this.props.match.params.type}/module/${module._id}`}>
+                                        <Link to={`/admin/${this.props.match.params.type}/module/${module._id}`}>
                                             <div>{module.name}</div>
                                         </Link>
                                     }
                                 </>
                             ))}
                             <br />
-                            <Link to={`/i/${this.props.match.params.type}/add-module`}><Button style={{ margin: "10px" }}>Add {MODULE}</Button></Link>
+                            <Link to={`/admin/${this.props.match.params.type}/add-module`}><Button style={{ margin: "10px" }}>Add {MODULE}</Button></Link>
                             <br />
                             {!modules.some(el => el.name === GETTINGSTARTED) &&
-                                <Link to={`/i/${this.props.match.params.type}/add-starter`}><Button style={{ margin: "10px" }}>Add Geting Started {MODULE}</Button></Link>
+                                <Link to={`/admin/${this.props.match.params.type}/add-starter`}><Button style={{ margin: "10px" }}>Add Geting Started {MODULE}</Button></Link>
                             }
                             {modules.some(el => el.name === GETTINGSTARTED) &&
-                                <Link to={`/i/${this.props.match.params.type}/add-course/${modules.find(el => el.name === GETTINGSTARTED)._id}`}><Button style={{ margin: "10px" }}>Add Getting Started {SUBMODULE}</Button></Link>
+                                <Link to={`/admin/${this.props.match.params.type}/add-course/${modules.find(el => el.name === GETTINGSTARTED)._id}`}><Button style={{ margin: "10px" }}>Add Getting Started {SUBMODULE}</Button></Link>
                             }
                         </Col>
                     </TabPane>
@@ -374,7 +374,7 @@ class Modules extends Component {
         //                                 {module.name !==
         //                                     GETTINGSTARTED + 'ignore' && (
         //                                         <Link
-        //                                             to={`/i/${this.props.match.params.type}/module/${module._id}`}
+        //                                             to={`/admin/${this.props.match.params.type}/module/${module._id}`}
         //                                         >
         //                                             <div>⁜ {module.name}</div>
         //                                         </Link>
@@ -383,7 +383,7 @@ class Modules extends Component {
         //                         ))}
         //                         <br />
         //                         <Link
-        //                             to={`/i/${this.props.match.params.type}/add-module`}
+        //                             to={`/admin/${this.props.match.params.type}/add-module`}
         //                         >
         //                             <Button>Add {MODULE}</Button>
         //                         </Link>
@@ -394,13 +394,13 @@ class Modules extends Component {
 
         //         <br />
         //         {!modules.some((el) => el.name === GETTINGSTARTED) && (
-        //             <Link to={`/i/${this.props.match.params.type}/add-starter`}>
+        //             <Link to={`/admin/${this.props.match.params.type}/add-starter`}>
         //                 <Button>Add Starter {MODULE}</Button>
         //             </Link>
         //         )}
         //         {modules.some((el) => el.name === GETTINGSTARTED) && (
         //             <Link
-        //                 to={`/i/${this.props.match.params.type}/add-course/${modules.find((el) => el.name === GETTINGSTARTED)._id
+        //                 to={`/admin/${this.props.match.params.type}/add-course/${modules.find((el) => el.name === GETTINGSTARTED)._id
         //                     }`}
         //             >
         //                 <Button>Add Starter {SUBMODULE}</Button>
