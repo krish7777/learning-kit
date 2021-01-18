@@ -20,7 +20,7 @@ app.use(cors())
 
 
 //MAKE IT "" for production
-const baseURL = '/api'
+const baseURL = process.env.baseURL;
 
 // //STATICALLY SERVE THE ADMIN DASHBOARD AND CLIENT FOLDER
 // app.use(express.static(path.join(__dirname, 'client-folder', 'build')));
