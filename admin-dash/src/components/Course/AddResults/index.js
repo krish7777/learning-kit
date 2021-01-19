@@ -229,8 +229,10 @@ class AddResults extends Component {
 
 
         return (
-            <div className="form-builder">
+            <div className="form-builder" style={{ margin: "3%", padding: "2% ", border: "2px solid black" }}>
                 <div className="preview-form" >
+                    <h2>{this.props.currentCourse.name.toUpperCase()} : Results And Analysis </h2>
+                    <br />
                     <h2>Live Preview</h2>
                     <Form layout="vertical" onFinish={(values) => { console.log(values, this.state.questions) }}>
 
@@ -367,7 +369,7 @@ class AddResults extends Component {
                     </Form>
                 </div>
                 <div className="form-tools">
-                    <Button type="primary" onClick={this.submitForm}>Save Form</Button>
+                    <Button type="primary" onClick={this.submitForm}>Save/Update Form</Button>
                     <Button danger onClick={() => this.setState({ questions: [] })}>Delete Form</Button>
                     <Button onClick={() => this.setState({ inputModal: true })}>Input</Button>
                     <Button onClick={() => this.setState({ textareaModal: true })}>Text Area</Button>

@@ -13,7 +13,7 @@ import { bindActionCreators } from "redux";
 import { changeCurrentStep, changeStep } from "../action";
 
 const SlideShow = (
-  { steps, changeStep, changeCurrentStep, overlayUnread, setOverlayUnread }
+  { steps, changeStep, changeCurrentStep, overlayUnread, setOverlayUnread, isGettingStarted, experimentCurrStep, setExperimentStep }
 ) => {
 
 
@@ -21,6 +21,7 @@ const SlideShow = (
   const [currentStep, setCurrentStep] = useState(0);
   const inputEl = useRef(null);
   const [overlayIsOpen, setOverlayIsOpen] = useState(overlayUnread);
+  const [finalOverlayIsOpen, setFinalOverlayIsOpen] = useState(false);
 
   useEffect(() => {
     const img = [];
@@ -32,7 +33,7 @@ const SlideShow = (
     //   setStartModalIsOpen(false);
     // }, 1500);
     setImages(img);
-
+    inputEl.current.slideToIndex(experimentCurrStep)
   }, [steps]);
 
   const skipToCode = (index) => {
@@ -52,9 +53,20 @@ const SlideShow = (
     inputEl.current.slideToIndex(
       currentStep + 1 === steps.length ? currentStep : currentStep + 1
     );
+    if (currentStep + 1 === steps.length && !isGettingStarted) {
+      if (finalOverlayIsOpen)
+        changeCurrentStep('ResultsAnalysis')
+      else {
+        setFinalOverlayIsOpen(true)
+      }
+    }
   };
 
   const onSlide = (slideNo) => {
+    // console.log("Slide Number", slideNo)
+    setExperimentStep(slideNo)
+    // console.log("Expr current Slide", experimentCurrStep)
+    // console.log("current Step", currentStep)
     setCurrentStep(slideNo)
     changeStep(slideNo)
   }
@@ -64,8 +76,8 @@ const SlideShow = (
   };
 
   return (
-    <div className="expshow-slideshow" >
-      <div style={{ background: "white" }} className={overlayIsOpen ? "overlayed gallerycontainer" : "gallerycontainer"}>
+    <div className="expshow-slideshow">
+      <div style={{ background: "white" }} className={overlayIsOpen || finalOverlayIsOpen ? "overlayed gallerycontainer" : "gallerycontainer"}>
         <ImageGallery
           ref={inputEl}
           items={images}
@@ -80,13 +92,21 @@ const SlideShow = (
         {overlayIsOpen &&
           <div className="overlay-content">
             <span>You have successfuly completed the code required to do this experiment. Now upload the code to the Arduino Uno board and lets get started with the experiment.</span>
-            <Link to="/" onClick={(event) => event.preventDefault()}>
-              <span style={{ color: "#0C6A9F", fontSize: "medium" }}> HINT: How to upload IDE code to Arduino board</span></Link>
+            {/* <Link to="/" onClick={(event) => event.preventDefault()}> */}
+            <span onClick={() => changeCurrentStep('Introduction')} style={{ color: "#0C6A9F", fontSize: "medium", cursor: "pointer" }}> HINT: How to upload IDE code to Arduino board</span>
+            {/* </Link> */}
           </div>
         }
+
+        {finalOverlayIsOpen &&
+          <div className="overlay-content">
+            <span>End of experiment</span>
+          </div>
+        }
+
       </div>
 
-      <div className={overlayIsOpen ? "overlayed code-step" : "code-step"} style={{ borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
+      <div className={overlayIsOpen || finalOverlayIsOpen ? "overlayed code-step" : "code-step"} style={{ borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
         Step {currentStep + 1} : {steps[currentStep].description}
       </div>
 
@@ -104,10 +124,20 @@ const SlideShow = (
             <div className="divider"></div> {/* Divider Here */}
           </>
         }
-        <div onClick={() => { changeCurrentStep('Troubleshoot') }} className="troubleshoot-btn">
-          <TroubleshootIcon />
+        {!overlayIsOpen && !isGettingStarted &&
+          <div onClick={() => { changeCurrentStep('Troubleshoot') }} className="troubleshoot-btn">
+            <TroubleshootIcon />
           TROUBLESHOOT
         </div>
+        }
+        {isGettingStarted &&
+          // <div style={{
+          //   width: "100%"
+          // }}></div>
+          <div className="troubleshoot-btn">
+            CONTACT TEACHER
+        </div>
+        }
         <div className="divider"></div> {/* Divider Here */}
         <div onClick={goRight} className="right-arrow">
           <RightArrow />

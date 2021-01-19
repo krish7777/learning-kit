@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Navbar from '../../Navbar';
 import './styles.scss';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -78,61 +79,45 @@ class FAQs extends React.Component {
             // HEADER
 
             <div className="course">
-                <div className="header">
-                    <Link
-                        to={`/${this.props.match.params.type}/modules`}
-                        style={{ display: 'flex', alignItems: 'center' }}
-                    >
-                        <svg
-                            width="25"
-                            height="25"
-                            viewBox="0 0 25 25"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
+                <Navbar type={this.props.match.params.type} />
+                {/* <div className="header">
+                        <Link
+                            to={`/${this.props.match.params.type}/modules`}
+                            style={{ display: 'flex', alignItems: 'center' }}
                         >
-                            <path
-                                d="M18.75 25H25V18.75H18.75V25ZM18.75 15.625H25V9.375H18.75V15.625ZM9.375 6.25H15.625V0H9.375V6.25ZM18.75 6.25H25V0H18.75V6.25ZM9.375 15.625H15.625V9.375H9.375V15.625ZM0 15.625H6.25V9.375H0V15.625ZM0 25H6.25V18.75H0V25ZM9.375 25H15.625V18.75H9.375V25ZM0 6.25H6.25V0H0V6.25Z"
-                                fill="#9FB8CC"
-                            />
-                        </svg>
-                    </Link>
-                    <Link
-                        to={`/${this.props.match.params.type}`}
-                        style={{ display: 'flex', alignItems: 'center' }}
-                    >
-                        <svg
-                            width="30"
-                            height="25"
-                            viewBox="0 0 30 25"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
+                            <svg
+                                width="25"
+                                height="25"
+                                viewBox="0 0 25 25"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M18.75 25H25V18.75H18.75V25ZM18.75 15.625H25V9.375H18.75V15.625ZM9.375 6.25H15.625V0H9.375V6.25ZM18.75 6.25H25V0H18.75V6.25ZM9.375 15.625H15.625V9.375H9.375V15.625ZM0 15.625H6.25V9.375H0V15.625ZM0 25H6.25V18.75H0V25ZM9.375 25H15.625V18.75H9.375V25ZM0 6.25H6.25V0H0V6.25Z"
+                                    fill="#9FB8CC"
+                                />
+                            </svg>
+                        </Link>
+                        <Link
+                            to={`/${this.props.match.params.type}`}
+                            style={{ display: 'flex', alignItems: 'center' }}
                         >
-                            <path
-                                d="M14.7059 3.95588L22.0588 10.5735V22.0588H19.1176V13.2353H10.2941V22.0588H7.35294V10.5735L14.7059 3.95588ZM14.7059 0L0 13.2353H4.41176V25H13.2353V16.1765H16.1765V25H25V13.2353H29.4118L14.7059 0Z"
-                                fill="#9FB8CC"
-                            />
-                        </svg>
-                    </Link>
-                    <p className="course-name">
-                        {this.props.match.params.type}
-                    </p>
-                    <svg
-                        width="26"
-                        height="25"
-                        viewBox="0 0 26 25"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="M15.6784 0V2.93615C19.7976 4.16192 22.805 7.98176 22.805 12.5C22.805 17.0182 19.7976 20.8238 15.6784 22.0496V25C21.3797 23.703 25.6556 18.6003 25.6556 12.5C25.6556 6.39966 21.3797 1.29704 15.6784 0ZM19.2417 12.5C19.2417 9.97719 17.8164 7.81072 15.6784 6.75599V18.2013C17.8164 17.1893 19.2417 15.0086 19.2417 12.5ZM0 8.22406V16.7759H5.70125L12.8278 23.9025V1.09749L5.70125 8.22406H0Z"
-                            fill="#9FB8CC"
-                        />
-                    </svg>
-
-                    <div
-                        onClick={this.fullScreenCheck}
-                        style={{ cursor: 'pointer' }}
-                    >
+                            <svg
+                                width="30"
+                                height="25"
+                                viewBox="0 0 30 25"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M14.7059 3.95588L22.0588 10.5735V22.0588H19.1176V13.2353H10.2941V22.0588H7.35294V10.5735L14.7059 3.95588ZM14.7059 0L0 13.2353H4.41176V25H13.2353V16.1765H16.1765V25H25V13.2353H29.4118L14.7059 0Z"
+                                    fill="#9FB8CC"
+                                />
+                            </svg>
+                        </Link>
+                        <p className="course-name">
+                            {this.props.match.params.type}
+                        </p>
                         <svg
                             width="26"
                             height="25"
@@ -141,86 +126,109 @@ class FAQs extends React.Component {
                             xmlns="http://www.w3.org/2000/svg"
                         >
                             <path
-                                d="M0.655762 0H9.58433V3.57143H4.22719V8.92857H0.655762V0ZM16.7272 0H25.6558V8.92857H22.0843V3.57143H16.7272V0ZM22.0843 16.0714H25.6558V25H16.7272V21.4286H22.0843V16.0714ZM9.58433 21.4286V25H0.655762V16.0714H4.22719V21.4286H9.58433Z"
+                                d="M15.6784 0V2.93615C19.7976 4.16192 22.805 7.98176 22.805 12.5C22.805 17.0182 19.7976 20.8238 15.6784 22.0496V25C21.3797 23.703 25.6556 18.6003 25.6556 12.5C25.6556 6.39966 21.3797 1.29704 15.6784 0ZM19.2417 12.5C19.2417 9.97719 17.8164 7.81072 15.6784 6.75599V18.2013C17.8164 17.1893 19.2417 15.0086 19.2417 12.5ZM0 8.22406V16.7759H5.70125L12.8278 23.9025V1.09749L5.70125 8.22406H0Z"
                                 fill="#9FB8CC"
                             />
                         </svg>
-                    </div>
-                </div>
+
+                        <div
+                            onClick={this.fullScreenCheck}
+                            style={{ cursor: 'pointer' }}
+                        >
+                            <svg
+                                width="26"
+                                height="25"
+                                viewBox="0 0 26 25"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M0.655762 0H9.58433V3.57143H4.22719V8.92857H0.655762V0ZM16.7272 0H25.6558V8.92857H22.0843V3.57143H16.7272V0ZM22.0843 16.0714H25.6558V25H16.7272V21.4286H22.0843V16.0714ZM9.58433 21.4286V25H0.655762V16.0714H4.22719V21.4286H9.58433Z"
+                                    fill="#9FB8CC"
+                                />
+                            </svg>
+                        </div>
+                    </div> */}
 
                 {/* FAQSLOGGED */}
 
                 <div className="body">
-                    {allFAQs.length === 0 ? (
-                        <div style={{ margin: '1em auto' }}>Loading FAQs</div>
-                    ) : (
-                        <div className="troubleshoot-container">
-                            <h2 className="heading-troubleshoot">
-                                Listed FAQs:
-                            </h2>
-                            <div className="troubleshoot">
-                                <div className="troubleshoot-inner">
-                                    {allFAQs?.faqs?.map((singlefaq, i) =>
-                                        singlefaq.question ? (
-                                            <Collapse
-                                                ghost
-                                                expandIconPosition={'right'}
-                                                key={singlefaq.question + i}
-                                            >
-                                                <Panel
-                                                    header={
-                                                        i +
-                                                        1 +
-                                                        '. ' +
-                                                        singlefaq.question
-                                                    }
-                                                    style={{
-                                                        border:
-                                                            '1px solid #403F3E',
-                                                    }}
+                    <div className="body-padder">
+                        {allFAQs.length === 0 ? (
+                            <h3 style={{ margin: '2em auto', color: 'white' }}>
+                                Loading FAQs...
+                            </h3>
+                        ) : (
+                            <div className="troubleshoot-container">
+                                <h2 className="heading-troubleshoot">
+                                    Listed FAQs:
+                                </h2>
+                                <div className="troubleshoot">
+                                    <div className="troubleshoot-inner">
+                                        {allFAQs?.faqs?.map((singlefaq, i) =>
+                                            singlefaq.question ? (
+                                                <Collapse
+                                                    ghost
+                                                    expandIconPosition={'right'}
+                                                    key={singlefaq.question + i}
                                                 >
-                                                    <div
-                                                        className="exp-introduction"
-                                                        dangerouslySetInnerHTML={{
-                                                            __html:
-                                                                singlefaq.answer,
+                                                    <Panel
+                                                        header={
+                                                            i +
+                                                            1 +
+                                                            '. ' +
+                                                            singlefaq.question
+                                                        }
+                                                        style={{
+                                                            border:
+                                                                '1px solid #403F3E',
                                                         }}
-                                                    ></div>
-                                                </Panel>
-                                            </Collapse>
-                                        ) : (
-                                            <Collapse
-                                                activeKey={'0'}
-                                                ghost
-                                                expandIconPosition={'right'}
-                                            >
-                                                <Panel
-                                                    header={singlefaq.question}
-                                                    style={{
-                                                        border:
-                                                            '1px solid #403F3E',
-                                                    }}
+                                                    >
+                                                        <div
+                                                            className="exp-introduction troubleshoot-panel"
+                                                            dangerouslySetInnerHTML={{
+                                                                __html:
+                                                                    singlefaq.answer,
+                                                            }}
+                                                        ></div>
+                                                    </Panel>
+                                                </Collapse>
+                                            ) : (
+                                                <Collapse
+                                                    activeKey={'0'}
+                                                    ghost
+                                                    expandIconPosition={'right'}
                                                 >
-                                                    <div
-                                                        className="exp-introduction"
-                                                        dangerouslySetInnerHTML={{
-                                                            __html:
-                                                                singlefaq.answer,
+                                                    <Panel
+                                                        header={
+                                                            singlefaq.question
+                                                        }
+                                                        style={{
+                                                            border:
+                                                                '1px solid #403F3E',
                                                         }}
-                                                    ></div>
-                                                </Panel>
-                                            </Collapse>
-                                        )
-                                    )}
+                                                    >
+                                                        <div
+                                                            className="exp-introduction troubleshoot-panel"
+                                                            dangerouslySetInnerHTML={{
+                                                                __html:
+                                                                    singlefaq.answer,
+                                                            }}
+                                                        ></div>
+                                                    </Panel>
+                                                </Collapse>
+                                            )
+                                        )}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
 
                 {/* FOOTER */}
 
-                <div className="footer">
+                {/* <div className="footer">
                     <p>Copyright</p>
                     <svg
                         width="25"
@@ -234,7 +242,7 @@ class FAQs extends React.Component {
                             fill="#002E48"
                         />
                     </svg>
-                </div>
+                </div> */}
             </div>
         );
     }

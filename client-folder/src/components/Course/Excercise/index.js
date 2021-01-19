@@ -28,46 +28,57 @@ class Excercise extends React.Component {
                             <h2 style={{ color: "white" }}>Try these Excercise Questions</h2>
                             <p>Please upload the photo of the circuit you have built for each excercise question</p>
                         </div>
+
+
+
+                        <div className="excercise-list">
+                            {excercise?.excercise_list?.map((ex, i) =>
+                            (<div className="excercise-item">
+                                <div className="excercise-question">{i + 1}.) {ex.question}</div>
+                                <div className="excercise-options">
+                                    {ex.isUpload ? (
+                                        <div className="exercise-buttons-div" >
+                                            <Upload >
+                                                <Button type="primary" icon={<UploadOutlined />} className="exercise-buttons" >Upload Photo</Button>
+                                            </Upload>
+                                        </div>
+                                    ) : null}
+                                    {ex.isCode ? (
+                                        <div className="exercise-buttons-div" >
+                                            <Upload >
+                                                <Button type="primary" icon={<UploadOutlined />} className="exercise-buttons" >Submit Code</Button>
+                                            </Upload>
+                                        </div>
+                                    ) : null}
+
+                                    {ex.hint ? (
+                                        <div className="exercise-buttons-div" >
+                                            <Popover content={ex.hint} trigger="click">
+                                                <Button className="exercise-buttons" >View Hint</Button>
+                                            </Popover>
+                                        </div>
+                                    ) : null}
+                                </div>
+                            </div>)
+                            )}
+
+                        </div>
+
                         <div className="excercise-files">
                             {excercise?.excerciseFilePaths?.map(ex =>
                                 <Button href={ex} target="_blank" className="exercise-download-button">Downloads</Button>
                             )
                             }
                         </div>
+                    </div>
+                </div>
 
-
-                        <div className="excercise-list">
-                            {excercise?.excercise_list?.map((ex, i) =>
-                                (<div className="excercise-item">
-                                    <div className="excercise-question">{i + 1}.) {ex.question}</div>
-                                    <div className="excercise-options">
-                                        {ex.isUpload ? (
-                                            <div className="exercise-buttons-div" >
-                                                <Upload >
-                                                    <Button type="primary" icon={<UploadOutlined />} className="exercise-buttons" >Upload Photo</Button>
-                                                </Upload>
-                                            </div>
-                                        ) : null}
-                                        {ex.isCode ? (
-                                            <div className="exercise-buttons-div" >
-                                                <Upload >
-                                                    <Button type="primary" icon={<UploadOutlined />} className="exercise-buttons" >Submit Code</Button>
-                                                </Upload>
-                                            </div>
-                                        ) : null}
-
-                                        {ex.hint ? (
-                                            <div className="exercise-buttons-div" >
-                                                <Popover content={ex.hint} trigger="click">
-                                                    <Button className="exercise-buttons" >View Hint</Button>
-                                                </Popover>
-                                            </div>
-                                        ) : null}
-                                    </div>
-                                </div>)
-                            )}
-
-                        </div>
+                <div className="exercise-bottom-buttons">
+                    <div onClick={() => { changeCurrentStep('Experiment') }} className="exercise-back-button">
+                        BACK TO EXPERIMENT
+                    </div>
+                    <div className="exercise-contactTeacher-button">
+                        CONTACT TEACHER
                     </div>
                 </div>
             </div>

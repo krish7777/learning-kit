@@ -51,6 +51,7 @@ class AddCourse extends Component {
         const { name, thumbnailPath, setCourseName, setCourseThumbnail } = this.props;
         return (
             <div className="add-module" style={{ "display": "flex", "flexDirection": "column", justifyContent: "center" }}>
+                <h2>Add Sub Module</h2>
                 <Form onFinish={(val) => {
                     const { name, thumbnailArray } = val;
                     let thumbnail = thumbnailArray[0];
@@ -68,6 +69,7 @@ class AddCourse extends Component {
                         <Input value={name} onChange={(e) => setCourseName(e.target.value)} />
                     </Form.Item>
                     <Form.Item
+                        label="Thumbnail"
                         valuePropName="fileList"
                         name="thumbnailArray"
                         getValueFromEvent={normFile}

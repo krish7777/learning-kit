@@ -21,9 +21,37 @@ import AddExperimentForm from './components/Course/AddExperimentForm';
 import AddExcercise from './components/Course/AddExcercise';
 import CreatorHome from './components/CreatorHome';
 import AddResults from './components/Course/AddResults';
+import Login from "./components/Auth/Login"
+import PrivateRoute from "./components/Auth/PrivateRoute"
 import { Menu } from "antd";
 import { HomeFilled } from '@ant-design/icons';
 import PropTypes from 'prop-types';
+import jwt_decode from "jwt-decode";
+import setAuthToken from "./utils/setAuthToken"
+import { store } from "./store"
+import { setCurrentUser, logoutUser, clearErrors } from './components/Auth/action';
+
+
+if (localStorage.jwtToken) {
+  // Set auth token header auth
+  const token = localStorage.jwtToken;
+  setAuthToken(token);
+  // Decode token and get user info and exp
+  const decoded = jwt_decode(token);
+  // Set user and isAuthenticated
+  store.dispatch(setCurrentUser(decoded));
+  // Check for expired token
+  const currentTime = Date.now() / 1000; // to get in milliseconds
+  if (decoded.exp < currentTime) {
+    store.dispatch(logoutUser());
+    window.location.href = "/admin/login";
+    // Redirect to login
+  }
+
+
+}
+
+
 
 class App extends React.Component {
   static propTypes = {
@@ -43,7 +71,7 @@ class App extends React.Component {
   render() {
     const { location } = this.props;
     return (
-      <div className="app">
+      <div className="app" style={location.pathname == "/admin" ? {} : { paddingBottom: "1px" }}>
         {/* <TextEditor2 />
         <LivePreview />
         <FormBuilder />
@@ -52,34 +80,45 @@ class App extends React.Component {
         {/* <iframe width="600px" height="400px" src="https://editor.p5js.org/SoumitroV/embed/Hwq52Cn0t"></iframe>
         <iframe width="600px" height="400px" src="https://circuitverse.org/simulator/embed/248" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe> */}
         {/* <Modules /> */}
-        {/* <div><Link to="/i">HOME</Link></div> */}
-          <Menu theme={location.pathname=="/i"?"dark":"light"}
-           style={{background:location.pathname!="/i"?"linear-gradient(to right, #FFFFFF, #ECE9E6)":""}}
-           mode="horizontal"
-           defaultSelectedKeys={['/i']}
-           selectedKeys={[location.pathname]}>
-            <Menu.Item key="/i">
-              <NavLink to="/i">
-                <HomeFilled />
-                <span>Home</span>
-              </NavLink>
-            </Menu.Item>
-          </Menu>
-          <Switch>
-          <Route path="/i/:type/module/:id" component={Module} />
-          <Route path="/i/:type/course/introduction/:id" component={AddIntroduction} />
-          <Route path="/i/:type/course/experiment/:id" component={AddExperiment} />
-          <Route path="/i/:type/course/troubleshoot/:id" component={AddTroubleshoot} />
-          <Route path="/i/:type/course/build-circuit/:id" component={AddBuildCircuit} />
-          <Route path="/i/:type/course/experiment-form/:id/:expId" component={AddExperimentForm} />
-          <Route path="/i/:type/course/results/:id" component={AddResults} />
-          <Route path="/i/:type/course/excercise/:id" component={AddExcercise} />
-          <Route exact path="/i/:type" component={Modules} />
-          <Route exact path="/i/:type/course/:id" component={Course} />
-          <Route path="/i/:type/add-module" component={AddModule} />
-          <Route exact path="/i/:type/add-starter" component={AddModuleConf} />
-          <Route path="/i/:type/add-course/:module_id" component={AddCourse} />
-          <Route path="/i" component={CreatorHome} />
+        {/* <div><Link to="/admin">HOME</Link></div> */}
+        <Menu theme={location.pathname == "/admin" ? "dark" : "light"}
+          style={{ background: location.pathname != "/admin" ? "linear-gradient(to right, #FFFFFF, #ECE9E6)" : "" }}
+          mode="horizontal"
+          defaultSelectedKeys={['/admin']}
+          selectedKeys={[location.pathname]}
+          onClick={e => {
+            if (e.key == "logout") {
+              store.dispatch(logoutUser());
+            }
+          }}
+        >
+          <Menu.Item key="/admin">
+            <NavLink to="/admin">
+              <HomeFilled />
+              <span>Home</span>
+            </NavLink>
+          </Menu.Item>
+          {localStorage.jwtToken ? <Menu.Item key="logout">
+            Logout
+          </Menu.Item> : null}
+
+        </Menu>
+        <Switch>
+          <Route path="/admin/login" component={Login} />
+          <PrivateRoute path="/admin/:type/module/:id" component={Module} />
+          <PrivateRoute path="/admin/:type/course/introduction/:id" component={AddIntroduction} />
+          <PrivateRoute path="/admin/:type/course/experiment/:id" component={AddExperiment} />
+          <PrivateRoute path="/admin/:type/course/troubleshoot/:id" component={AddTroubleshoot} />
+          <PrivateRoute path="/admin/:type/course/build-circuit/:id" component={AddBuildCircuit} />
+          <PrivateRoute path="/admin/:type/course/experiment-form/:id/:expId" component={AddExperimentForm} />
+          <PrivateRoute path="/admin/:type/course/results/:id" component={AddResults} />
+          <PrivateRoute path="/admin/:type/course/excercise/:id" component={AddExcercise} />
+          <PrivateRoute exact path="/admin/:type" component={Modules} />
+          <PrivateRoute exact path="/admin/:type/course/:id" component={Course} />
+          <PrivateRoute path="/admin/:type/add-module" component={AddModule} />
+          <PrivateRoute exact path="/admin/:type/add-starter" component={AddModuleConf} />
+          <PrivateRoute path="/admin/:type/add-course/:module_id" component={AddCourse} />
+          <PrivateRoute path="/admin" component={CreatorHome} />
         </Switch>
 
 

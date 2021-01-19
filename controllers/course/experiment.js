@@ -6,7 +6,7 @@ const { Experiment } = require('../../models/experiment');
 
 
 exports.addExperiment = async (req, res, next) => {
-    const { course_id, steps, simulationLink, exp_id } = req.body;
+    const { course_id, steps, simulationLink, finalMessage, exp_id } = req.body;
     if (!exp_id) {
         try {
             this.addSteps(steps).then(async (finalSteps) => {
@@ -14,7 +14,8 @@ exports.addExperiment = async (req, res, next) => {
                 let experiment = new Experiment({
                     course_id,
                     steps: finalSteps,
-                    simulationLink: simulationLink
+                    simulationLink: simulationLink,
+                    finalMessage: finalMessage
                 })
                 let resp = await experiment.save()
                 let updatedCourse = await Course.updateOne({ _id: course_id }, { $set: { experiment: resp._id } })
@@ -32,7 +33,7 @@ exports.addExperiment = async (req, res, next) => {
 
             this.addSteps(steps).then(async (finalSteps) => {
 
-                let updatedExperiment = await Experiment.updateOne({ _id: exp_id }, { $set: { steps: [...finalSteps], simulationLink: simulationLink } })
+                let updatedExperiment = await Experiment.updateOne({ _id: exp_id }, { $set: { steps: [...finalSteps], simulationLink: simulationLink, finalMessage: finalMessage } })
                 res.json({ "experiment": "updated" })
             })
 
@@ -88,18 +89,18 @@ exports.addExperimentForm = async (req, res, next) => {
 
 exports.addSteps = async (steps) => {
     return Promise.all(steps.map(async step => {
-        const { description, imagePath, upload_image } = step;
+        const { description, imagePath, upload_image, simulationLink } = step;
         if (upload_image && upload_image.length) {
 
             let stepThumb = new StepThumb({ ...upload_image[0] })
             let imgResp = await stepThumb.save();
-            let step1 = new Step({ description, imagePath, upload_image: imgResp._id })
+            let step1 = new Step({ description, imagePath, upload_image: imgResp._id, simulationLink })
             let resp = await step1.save();
             console.log("resp id", resp._id)
             return resp._id
         }
         else {
-            let step1 = new Step({ description })
+            let step1 = new Step({ description, simulationLink })
             let resp = await step1.save();
             return resp._id
         }
@@ -120,7 +121,7 @@ exports.getExperiment = async (req, res, next) => {
                 path: 'upload_image',
                 model: 'StepThumb'
             }]
-        })
+        }).populate('form')
         console.log(experiment)
         res.json({ experiment })
     } catch (err) {

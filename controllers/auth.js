@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const { User } = require('../models/user');
-exports.signup = async (req, res, next) => {
+exports.signupAdmin = async (req, res, next) => {
     // const errors = validationResult(req);
     // if (!errors.isEmpty()) {
     //   const error = new Error('Validation failed.');
@@ -21,7 +21,7 @@ exports.signup = async (req, res, next) => {
                 email: email,
                 password: hashedPw,
                 name: name,
-                role: "STUDENT"
+                role: "ADMIN"
             });
             const result = await student.save();
             console.log("result", result)
@@ -39,13 +39,13 @@ exports.signup = async (req, res, next) => {
     }
 };
 
-exports.login = async (req, res, next) => {
+exports.loginAdmin = async (req, res, next) => {
     const { email, password } = req.body;
     let loadedUser;
     try {
         const user = await User.findOne({ email: email })
         if (!user) {
-            const error = new Error('A user with this email could ot be found')
+            const error = new Error('A user with this email could not be found')
             error.statusCode = 401;
             throw error;
         }
@@ -58,10 +58,10 @@ exports.login = async (req, res, next) => {
         }
         const token = jwt.sign({
             email: loadedUser.email,
-            userId: loadedUser._id.toString()
+            userId: loadedUser._id.toString(),
+            role: loadedUser.role
         },
-            'find_me_ifyacan',
-            { expiresIn: '24h' }
+            'find_me_ifyacan'
         );
         res.status(200).json({ token: token, userId: loadedUser._id.toString() })
     } catch (err) {

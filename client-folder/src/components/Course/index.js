@@ -3,7 +3,7 @@ import "./styles.scss";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { changeCurrentStep, getCurrentCourse } from "./action";
+import { changeCurrentStep, getCurrentCourse, removeCurrentCourse } from "./action";
 import Introduction from "./Introduction";
 import { Link } from "react-router-dom";
 import BuildCircuit from "./BuildCircuit";
@@ -12,6 +12,8 @@ import ResultsAnalysis from "./ResultsAnalysis";
 import Troubleshoot from "./Troubleshoot";
 import Excercise from "./Excercise";
 import ProgressBar from "./ProgressBar";
+import { baseUrl } from "../../config";
+import axios from "axios"
 
 
 class Course extends React.Component {
@@ -20,9 +22,16 @@ class Course extends React.Component {
     super(props)
     this.state = {
       currentOrientation: 'landscape-primary',
-      overlayUnread: true
+      overlayUnread: true,
+      isGettingStarted: false,
+      experimentCurrStep: 0
     }
 
+  }
+
+  setExperimentStep = (step) => {
+    this.setState({ experimentCurrStep: step })
+    console.log("Course current slide", this.state.experimentCurrStep)
   }
 
   setCurrentOrientation = (orientation) => {
@@ -108,7 +117,30 @@ class Course extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getCurrentCourse(this.props.match.params.id)
+    axios.get(`${baseUrl}/api/course/getp/${this.props.match.params.id}`)
+      .then(res => res.data)
+      .then(data => {
+        if (data.name == 'Getting Started') {
+          this.setState({ overlayUnread: false, isGettingStarted: true })
+
+          this.props.changeCurrentStep('Experiment')
+        } else {
+          this.props.changeCurrentStep('Introduction')
+        }
+      })
+      .then(x => {
+        this.props.getCurrentCourse(this.props.match.params.id)
+
+      })
+      .catch(err => {
+        this.props.changeCurrentStep('Introduction')
+      })
+
+  }
+
+  componentWillUnmount() {
+    console.log("UNMOUNTING")
+    this.props.removeCurrentCourse()
   }
 
 
@@ -116,7 +148,7 @@ class Course extends React.Component {
     // console.log("fdfsf");
     // console.log(this.props);
     const { currentStep, changeCurrentStep, currentCourse } = this.props;
-    const { currentOrientation } = this.state;
+    const { currentOrientation, experimentCurrStep } = this.state;
 
 
     return (
@@ -182,33 +214,36 @@ class Course extends React.Component {
               </svg>
             </div>
           </div>
+          {!this.state.isGettingStarted &&
+            (
+              <><div className="steps-bar">
+                {currentCourse?.introduction ? <div onClick={() => changeCurrentStep('Introduction')} className={currentStep === "Introduction" ? "active" : ""}>INTRODUCTION </div> : null}
+                {currentCourse?.buildCircuit ? <div onClick={() => changeCurrentStep('BuildCircuit')} className={currentStep === "BuildCircuit" ? "active" : ""}>BUILD CIRCUIT </div>
+                  : null}
+                {currentCourse?.experiment ? <div onClick={() => changeCurrentStep('Experiment')} className={currentStep === "Experiment" ? "active" : ""}>EXPERIMENT </div>
+                  : null}
 
-          <div className="steps-bar">
-            {currentCourse?.introduction ? <div onClick={() => changeCurrentStep('Introduction')} className={currentStep === "Introduction" ? "active" : ""}>INTRODUCTION </div> : null}
-            {currentCourse?.buildCircuit ? <div onClick={() => changeCurrentStep('BuildCircuit')} className={currentStep === "BuildCircuit" ? "active" : ""}>BUILD CIRCUIT </div>
-              : null}
-            {currentCourse?.experiment ? <div onClick={() => changeCurrentStep('Experiment')} className={currentStep === "Experiment" ? "active" : ""}>EXPERIMENT </div>
-              : null}
+                {currentCourse?.results ? <div onClick={() => changeCurrentStep('ResultsAnalysis')} className={currentStep === "ResultsAnalysis" ? "active" : ""}>RESULTS & ANALYSIS </div> : null}
+                {currentCourse?.troubleshoot ? <div onClick={() => changeCurrentStep('Troubleshoot')} className={currentStep === "Troubleshoot" ? "active" : ""}>TROUBLESHOOT </div> : null}
+                {currentCourse?.excercise ? <div onClick={() => changeCurrentStep('Excercise')} className={currentStep === "Excercise" ? "active" : ""}>EXCERCISE </div> : null}
+              </div>
 
-            {currentCourse?.results ? <div onClick={() => changeCurrentStep('ResultsAnalysis')} className={currentStep === "ResultsAnalysis" ? "active" : ""}>RESULTS & ANALYSIS </div> : null}
-            {currentCourse?.troubleshoot ? <div onClick={() => changeCurrentStep('Troubleshoot')} className={currentStep === "Troubleshoot" ? "active" : ""}>TROUBLESHOOT </div> : null}
-            {currentCourse?.excercise ? <div onClick={() => changeCurrentStep('Excercise')} className={currentStep === "Excercise" ? "active" : ""}>EXCERCISE </div> : null}
-          </div>
-
-          <ProgressBar currentNav={currentStep} buildCircuitSteps={currentCourse} />
+                {/* <ProgressBar currentNav={currentStep} buildCircuitSteps={currentCourse} /> */}
+              </>)
+          }
 
           <div className="body">
-            {currentCourse && currentStep === 'BuildCircuit' ? <BuildCircuit id={currentCourse.buildCircuit} type={this.props.match.params.type} /> : null}
-            {currentCourse && currentStep === 'Introduction' ? <Introduction id={currentCourse.introduction} /> : null}
+            {currentCourse && currentStep === 'BuildCircuit' ? <div className="short-padder">  <BuildCircuit id={currentCourse.buildCircuit} type={this.props.match.params.type} /> </div> : null}
+            {currentCourse && currentStep === 'Introduction' ? <div className="body-padder"> <Introduction id={currentCourse.introduction} /> </div> : null}
             {/* temporary placeholder [TODO] */}
-            {currentCourse && currentStep === 'ResultsAnalysis' ? <ResultsAnalysis id={currentCourse.results} /> : null}
+            {currentCourse && currentStep === 'ResultsAnalysis' ? <div className="body-padder"><ResultsAnalysis id={currentCourse.results} /> </div> : null}
             {/* placeholder end [TODO] */}
-            {currentCourse && currentStep === 'Experiment' ? <Experiment id={currentCourse.experiment} type={this.props.match.params.type} overlayUnread={this.state.overlayUnread} setOverlayUnread={this.setOverlayUnread} /> : null}
-            {currentCourse && currentStep === 'Troubleshoot' ? <Troubleshoot id={currentCourse.troubleshoot} /> : null}
-            {currentCourse && currentStep === 'Excercise' ? <Excercise id={currentCourse.excercise} /> : null}
+            {currentCourse && currentStep === 'Experiment' ? <div className="body-padder"><Experiment id={currentCourse.experiment} type={this.props.match.params.type} overlayUnread={this.state.overlayUnread} setOverlayUnread={this.setOverlayUnread} isGettingStarted={this.state.isGettingStarted} experimentCurrStep={experimentCurrStep} setExperimentStep={this.setExperimentStep} /></div> : null}
+            {currentCourse && currentStep === 'Troubleshoot' ? <div className="body-padder"><Troubleshoot id={currentCourse.troubleshoot} />  </div> : null}
+            {currentCourse && currentStep === 'Excercise' ? <div className="body-padder"><Excercise id={currentCourse.excercise} /> </div> : null}
           </div>
 
-          <div className="footer">
+          {/* <div className="footer">
             <p>Copyright</p>
             <svg
               width="25"
@@ -222,7 +257,7 @@ class Course extends React.Component {
                 fill="#002E48"
               />
             </svg>
-          </div>
+          </div> */}
         </div>
     );
 
@@ -239,7 +274,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   changeCurrentStep: bindActionCreators(changeCurrentStep, dispatch),
-  getCurrentCourse: bindActionCreators(getCurrentCourse, dispatch)
+  getCurrentCourse: bindActionCreators(getCurrentCourse, dispatch),
+  removeCurrentCourse: bindActionCreators(removeCurrentCourse, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Course)

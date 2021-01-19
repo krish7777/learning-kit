@@ -60,7 +60,7 @@ class NewCourseCard extends Component {
                                     <div className="pointer-data">Certificate (e-varifiiable)</div>
                                 </div>
                             </div>
-                            <Link to="/digital">
+                            <Link to="/">
                                 <div className="card-course-button">
                                     <span>View Course Page</span>
                                 </div>
@@ -89,7 +89,7 @@ class NewCourseCard extends Component {
                                     <div className="pointer-data">Certificate (e-varifiiable)</div>
                                 </div>
                             </div>
-                            <Link to="/">
+                            <Link to="/digital">
                                 <div className="card-course-button">
                                     <span>View Course Page</span>
                                 </div>
