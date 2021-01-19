@@ -49,12 +49,18 @@ const SlideShow = (
 
   const skipToCode = () => {
     if (codeStepStart)
-      inputEl.current.slideToIndex(codeStepStart - 1);
+      inputEl.current.slideToIndex(codeStepStart - 2);
+    else
+      inputEl.current.slideToIndex(steps.length - 1);
 
   };
 
   const goLeft = () => {
-    inputEl.current.slideToIndex(currentStep - 1 === -1 ? 0 : currentStep - 1);
+    if (codeModalIsOpen) {
+      setCodeModalIsOpen(false)
+    } else {
+      inputEl.current.slideToIndex(currentStep - 1 === -1 ? 0 : currentStep - 1);
+    }
   };
 
   const goRight = () => {
@@ -118,7 +124,7 @@ const SlideShow = (
         <div className="divider"></div> {/* Divider Here */}
         <div onClick={skipToCode} className="skip-btn">
           <SkipIcon />
-          SKIP TO {codeStepStart ? "CODE" : "FINAL CIRCUIT"}
+          SKIP TO {codeStepStart ? "FINAL CIRCUIT" : "FINAL CIRCUIT"}
         </div>
         <div className="divider"></div> {/* Divider Here */}
         <div onClick={toggleSide} className="hide-btn">

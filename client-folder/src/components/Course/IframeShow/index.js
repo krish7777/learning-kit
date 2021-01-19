@@ -43,13 +43,15 @@ const IframeShow = (
   };
 
   const goLeft = () => {
-    onSlide(currentStep - 1 === -1 ? 0 : currentStep - 1);
+    if (overlayIsOpen) {
+      closeOverlay();
+    } else
+      onSlide(currentStep - 1 === -1 ? 0 : currentStep - 1);
   };
 
   const goRight = () => {
     if (overlayIsOpen) {
-      setOverlayIsOpen(false);
-      setOverlayUnread();
+      closeOverlay();
     }
     else {
       onSlide(

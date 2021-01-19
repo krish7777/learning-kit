@@ -46,20 +46,29 @@ const SlideShow = (
   };
 
   const goLeft = () => {
-    inputEl.current.slideToIndex(currentStep - 1 === -1 ? 0 : currentStep - 1);
+    if (overlayIsOpen) {
+      closeOverlay();
+    } else {
+      inputEl.current.slideToIndex(currentStep - 1 === -1 ? 0 : currentStep - 1);
+    }
   };
 
   const goRight = () => {
-    inputEl.current.slideToIndex(
-      currentStep + 1 === steps.length ? currentStep : currentStep + 1
-    );
-    if (currentStep + 1 === steps.length && !isGettingStarted) {
-      if (finalOverlayIsOpen)
-        changeCurrentStep('ResultsAnalysis')
-      else {
-        setFinalOverlayIsOpen(true)
+    if (overlayIsOpen) {
+      closeOverlay();
+    } else {
+      inputEl.current.slideToIndex(
+        currentStep + 1 === steps.length ? currentStep : currentStep + 1
+      );
+      if (currentStep + 1 === steps.length && !isGettingStarted) {
+        if (finalOverlayIsOpen)
+          changeCurrentStep('ResultsAnalysis')
+        else {
+          setFinalOverlayIsOpen(true)
+        }
       }
     }
+
   };
 
   const onSlide = (slideNo) => {
