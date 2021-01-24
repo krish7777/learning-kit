@@ -39,6 +39,19 @@ class Course extends Component {
                                 BUILD CIRCUIT
                             </Link>
                         </Button>
+
+                        {
+                            this.props.match.params.type === 'digital' ? (
+                                <Button className="button-divs">
+                                    <Link
+                                        to={`/admin/${this.props.match.params.type}/course/simulation/${this.props.match.params.id}`}
+                                    >
+                                        SIMULATION
+                                </Link>
+                                </Button>
+                            ) : null
+                        }
+
                         <Button className="button-divs">
                             <Link
                                 to={`/admin/${this.props.match.params.type}/course/experiment/${this.props.match.params.id}`}
