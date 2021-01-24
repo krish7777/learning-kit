@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getCurrentCourse, getParentModule } from './action';
+import { getCurrentCourse, getParentModule, clearAdminSubmodule } from './action';
 import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 import { SUBMODULE, GETTINGSTARTED } from '../../config';
@@ -12,6 +12,10 @@ class Course extends Component {
         // console.log(this.props.match.params.id);
         this.props.getCurrentCourse(this.props.match.params.id);
         this.props.getParentModule(this.props.match.params.id);
+    }
+
+    componentWillUnmount() {
+        this.props.clearAdminSubmodule();
     }
     render() {
         const { course, parent } = this.props;
@@ -119,6 +123,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     getCurrentCourse: bindActionCreators(getCurrentCourse, dispatch),
     getParentModule: bindActionCreators(getParentModule, dispatch),
+    clearAdminSubmodule: bindActionCreators(clearAdminSubmodule, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Course);

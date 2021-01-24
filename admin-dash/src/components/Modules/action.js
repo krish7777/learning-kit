@@ -70,25 +70,25 @@ export const addCourseTroubleshoot = (name, faqs) => async (dispatch) => {
     }
 };
 
-export const updateModule = (name,introduction, id) => async (dispatch) => {
+export const updateModule = (name, introduction, id) => async (dispatch) => {
     try {
         const res = await axios.post(
             `${baseUrl}/api/module/update-info/${id}`,
-            { name,introduction }
+            { name, introduction }
         );
-        console.log("data post:",res.data);
+        console.log("data post:", res.data);
         dispatch({
             type: ACTION.UPDATE_COURSE,
-            payload: [name,introduction],
+            payload: [name, introduction],
         });
     } catch (err) {
         console.log('Error in updateModule:' + err);
     }
 };
 
-export const updateSubModule = (name,id) => async dispatch => {
+export const updateSubModule = (name, id) => async dispatch => {
     try {
-        const res = await axios.post(`${baseUrl}/api/course/update/${id}`, {name})
+        const res = await axios.post(`${baseUrl}/api/course/update/${id}`, { name })
         console.log(res.data)
         dispatch({
             type: ACTION.UPDATE_SUBMOD,
@@ -99,4 +99,12 @@ export const updateSubModule = (name,id) => async dispatch => {
         console.log(err);
     }
 
+}
+
+export const clearCurrentModule = () => dispatch => {
+    dispatch({ type: ACTION.CLEAR_CURRENT_MODULE })
+}
+
+export const clearAdminDash = () => dispatch => {
+    dispatch({ type: ACTION.CLEAR_ADMIN_DASH })
 }

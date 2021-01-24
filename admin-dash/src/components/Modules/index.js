@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addCourseTroubleshoot, getCourseTroubleshoot, getModules } from './action'
+import { addCourseTroubleshoot, getCourseTroubleshoot, getModules, clearAdminDash } from './action'
 import { bindActionCreators } from 'redux'
 import { Link } from "react-router-dom"
 import { MODULE, SUBMODULE, GETTINGSTARTED } from '../../config'
@@ -26,6 +26,10 @@ class Modules extends Component {
         await this.props.getCourseTroubleshoot(this.props.match.params.type);
         console.log('after fetch');
     };
+
+    componentWillUnmount() {
+        this.props.clearAdminDash();
+    }
 
     openNotificationWithIcon = (type, message) => {
         notification[type]({
@@ -420,6 +424,7 @@ const mapDispatchToProps = (dispatch) => ({
     getModules: bindActionCreators(getModules, dispatch),
     getCourseTroubleshoot: bindActionCreators(getCourseTroubleshoot, dispatch),
     addCourseTroubleshoot: bindActionCreators(addCourseTroubleshoot, dispatch),
+    clearAdminDash: bindActionCreators(clearAdminDash, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Modules);

@@ -2,6 +2,7 @@ const { ACTION } = require("./constants");
 
 const initialState = {
     currentCourse: {},
+    currentParent: null,
     introductionHtml: '',
     addIntroductionSuccess: false,
 
@@ -144,6 +145,13 @@ const courseReducer = (state = initialState, action) => {
 
         case ACTION.CLEAR_EXCERCISE:
             state = { ...state, excercise: null, addExcerciseSuccess: false }
+            break;
+
+        case ACTION.CLEAR_ADMIN_SUBMODULE:
+            state = {
+                currentCourse: {},
+                currentParent: null,
+            }
             break;
 
         default:

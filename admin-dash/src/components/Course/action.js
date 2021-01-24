@@ -328,3 +328,12 @@ export const clearExcercise = () => dispatch => {
         type: ACTION.CLEAR_EXCERCISE
     })
 }
+
+
+
+
+export const clearAdminSubmodule = () => dispatch => {
+    dispatch({
+        type: ACTION.CLEAR_ADMIN_SUBMODULE
+    })
+}

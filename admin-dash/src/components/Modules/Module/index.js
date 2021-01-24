@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getCurrentModule, updateModule, updateSubModule } from '../action';
+import { getCurrentModule, updateModule, updateSubModule, clearCurrentModule } from '../action';
 import { Link } from 'react-router-dom';
 import { Form, Input, Button, Divider, Row } from 'antd';
 import { baseUrl, SUBMODULE } from '../../../config';
@@ -15,7 +15,7 @@ class Module extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedWindow: 'module-details',
+            selectedWindow: 'submodule-name',
             name: '',
             introduction: '',
         };
@@ -25,6 +25,10 @@ class Module extends Component {
     componentDidMount() {
         console.log(this.props.match.params.id);
         this.props.getCurrentModule(this.props.match.params.id);
+    }
+
+    componentWillUnmount() {
+        this.props.clearCurrentModule()
     }
 
     changeCurrentWindow = (selectedOptionWord) => {
@@ -61,22 +65,23 @@ class Module extends Component {
                             {module.name ? module.name.toUpperCase() : ''}
                         </div>
                         <div className="navbar-horizontal">
-                            <button
-                                className="module-details"
-                                onClick={() =>
-                                    this.changeCurrentWindow('module-details')
-                                }
-                            >
-                                MODULE DETAILS
-                            </button>
+
 
                             <button
-                                className="submodule-name"
+                                className={this.state.selectedWindow === 'submodule-name' ? "submodule-name focus" : "submodule-name"}
                                 onClick={() =>
                                     this.changeCurrentWindow('submodule-name')
                                 }
                             >
                                 {SUBMODULE.toUpperCase()}S
+                            </button>
+                            <button
+                                className={this.state.selectedWindow === 'module-details' ? "module-details focus" : "module-details"}
+                                onClick={() =>
+                                    this.changeCurrentWindow('module-details')
+                                }
+                            >
+                                MODULE DETAILS
                             </button>
                         </div>
                     </div>
@@ -385,6 +390,7 @@ const mapDispatchToProps = (dispatch) => ({
     getCurrentModule: bindActionCreators(getCurrentModule, dispatch),
     updateModule: bindActionCreators(updateModule, dispatch),
     updateSubModule: bindActionCreators(updateSubModule, dispatch),
+    clearCurrentModule: bindActionCreators(clearCurrentModule, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Module);
