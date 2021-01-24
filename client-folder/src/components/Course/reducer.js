@@ -75,6 +75,10 @@ const courseReducer = (state = initialState, action) => {
             state = { ...state, stepNo: action.payload }
             break;
         }
+        case ACTION.REMOVE_SUBMODULE: {
+            state = { ...initialState }
+            break;
+        }
     }
 
     return state;

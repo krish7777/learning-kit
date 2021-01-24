@@ -134,7 +134,6 @@ export const changeStep = (slideNo) => async dispatch => {
 
 export const removeCurrentCourse = () => dispatch => {
     dispatch({
-        type: ACTION.GET_CURRENT_COURSE,
-        payload: null
+        type: ACTION.REMOVE_SUBMODULE
     })
 }
