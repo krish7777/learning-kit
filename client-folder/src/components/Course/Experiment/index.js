@@ -27,7 +27,15 @@ class Experiment extends Component {
                         setExperimentStep={setExperimentStep} 
                     />) : null}
 
-                {experiment && type === 'digital' ? isGettingStarted ? (<DigitalGettingStarted />) : (
+                {experiment && type === 'digital' ? isGettingStarted ? (<DigitalGettingStarted
+                steps={this.props.experiment?.steps} 
+                codeStepStart={2} 
+                overlayUnread={overlayUnread} 
+                setOverlayUnread={setOverlayUnread} 
+                isGettingStarted={isGettingStarted} 
+                experimentCurrStep={experimentCurrStep} 
+                setExperimentStep={setExperimentStep} 
+                />) : (
                     <IframeShow 
                         steps={this.props.experiment?.steps} 
                         simulation={this.props.experiment?.simulationLink} 
