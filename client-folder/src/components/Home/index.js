@@ -84,12 +84,15 @@ class Home extends React.Component {
                 https://www.geeksforgeeks.org/digital-electronics-logic-design-tutorials/
               </a>
             </p>
+            {
+              allModules.length && allModules[0].courses && allModules[0].courses.length && allModules[0].courses[0]._id &&
+              <div className="home-getStarted-button-container">
+                <Link to={`/${this.props.match.params.type}/course/${allModules[0].courses[0]._id}`}>
+                  <Button size={"large"} className="home-getStarted-button" >Let's Get Started</Button>
+                </Link>
+              </div>
+            }
 
-            <div className="home-getStarted-button-container">
-              <Link to={`${this.props.match.params.type}/modules`}>
-                <Button size={"large"} className="home-getStarted-button" >Let's Get Started</Button>
-              </Link>
-            </div>
 
           </div>
 
