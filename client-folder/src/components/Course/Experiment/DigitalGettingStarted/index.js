@@ -1,19 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./styles.scss";
-import { Link } from 'react-router-dom'
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/scss/image-gallery.scss";
 import "react-image-gallery/styles/css/image-gallery.css";
 import { connect } from "react-redux";
 import { ReactComponent as LeftArrow } from "../../../../assets/images/LeftArrow.svg"
 import { ReactComponent as RightArrow } from "../../../../assets/images/RightArrow.svg"
-import { ReactComponent as SkipIcon } from "../../../../assets/images/SkipIcon.svg"
-import { ReactComponent as TroubleshootIcon } from "../../../../assets/images/TroubleshootIcon.svg"
 import { bindActionCreators } from "redux";
 import { changeCurrentStep, changeStep } from "../../action";
 
 const SlideShow = (
-  { steps, changeStep, changeCurrentStep, overlayUnread, setOverlayUnread, isGettingStarted, experimentCurrStep, setExperimentStep }
+  { steps, changeStep, experimentCurrStep, setExperimentStep }
 ) => {
 
 
@@ -21,8 +18,6 @@ const SlideShow = (
   const [simulations, setSimulations] = useState([]);
   const [currentStep, setCurrentStep] = useState(0);
   const inputEl = useRef(null);
-  const [overlayIsOpen, setOverlayIsOpen] = useState(overlayUnread);
-  const [finalOverlayIsOpen, setFinalOverlayIsOpen] = useState(false);
 
   useEffect(() => {
     const img = [];
@@ -33,31 +28,19 @@ const SlideShow = (
             sim.push("");
         }
         else if(steps[i].simulationLink){
-            img.push("");
+            img.push({original:""});
             sim.push(steps[i].simulationLink);
         }
         else{
-            img.push("");
+            img.push({original:""});
             sim.push("");
         }
     }
-    // setStartModalIsOpen(true);
-    // setTimeout(() => {
-    //   setStartModalIsOpen(false);
-    // }, 1500);
     setImages(img);
     setSimulations(sim);
     inputEl.current.slideToIndex(experimentCurrStep)
   }, [steps]);
 
-  const skipToCode = (index) => {
-    inputEl.current.slideToIndex(index);
-  };
-
-  const closeOverlay = () => {
-    setOverlayIsOpen(false);
-    setOverlayUnread()
-  };
 
   const goLeft = () => {
     inputEl.current.slideToIndex(currentStep - 1 === -1 ? 0 : currentStep - 1);
@@ -67,20 +50,10 @@ const SlideShow = (
     inputEl.current.slideToIndex(
       currentStep + 1 === steps.length ? currentStep : currentStep + 1
     );
-    if (currentStep + 1 === steps.length && !isGettingStarted) {
-      if (finalOverlayIsOpen)
-        changeCurrentStep('ResultsAnalysis')
-      else {
-        setFinalOverlayIsOpen(true)
-      }
-    }
   };
 
   const onSlide = (slideNo) => {
-    // console.log("Slide Number", slideNo)
     setExperimentStep(slideNo)
-    // console.log("Expr current Slide", experimentCurrStep)
-    // console.log("current Step", currentStep)
     setCurrentStep(slideNo)
     changeStep(slideNo)
   }
@@ -89,12 +62,14 @@ const SlideShow = (
     onSlide(x)
   };
   const dispCheck = () => {
-    return !images[currentStep]?"none":"block";
+    if (images[currentStep])
+    return !images[currentStep].original?"none":"block";
+    return "";
   };
   return (
     <div className="expshow-slideshow">
-      <div style={{ background: "white" }} className={overlayIsOpen || finalOverlayIsOpen ? "overlayed gallerycontainer" : "gallerycontainer"}>
-            <div className="img_container" style={{display:dispCheck()}}>
+      <div style={{ background: "white" }} className={"gallerycontainer"}>
+            <div className="img_container" style={{display:dispCheck(),height:"100%"}}>
             <ImageGallery
             ref={inputEl}
             items={images}
@@ -108,29 +83,15 @@ const SlideShow = (
             onBeforeSlide={modalChecker}
             />
             </div>
-        {!images[currentStep]&&
+        {!images[currentStep]?.original&&
         <div className="iframe_container" style={{width:"100%",height:"100%"}}>
-            <iframe className="resp-iframe2" src={simulations[currentStep]} allowfullscreen></iframe>
+            <iframe className="resp-iframe2" src={simulations[currentStep]} allowFullScreen></iframe>
         </div>
-        }
-        {overlayIsOpen &&
-          <div className="overlay-content">
-            <span>You have successfuly completed the code required to do this experiment. Now upload the code to the Arduino Uno board and lets get started with the experiment.</span>
-            {/* <Link to="/" onClick={(event) => event.preventDefault()}> */}
-            <span onClick={() => changeCurrentStep('Introduction')} style={{ color: "#0C6A9F", fontSize: "medium", cursor: "pointer" }}> HINT: How to upload IDE code to Arduino board</span>
-            {/* </Link> */}
-          </div>
-        }
-
-        {finalOverlayIsOpen &&
-          <div className="overlay-content">
-            <span>End of experiment</span>
-          </div>
         }
 
       </div>
 
-      <div className={overlayIsOpen || finalOverlayIsOpen ? "overlayed code-step" : "code-step"} style={{ borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
+      <div className={"code-step"} style={{ borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
         Step {currentStep + 1} : {steps[currentStep].description}
       </div>
 
@@ -138,31 +99,11 @@ const SlideShow = (
         <div onClick={goLeft} className="left-arrow">
           <LeftArrow />
         </div>
-        <div className="divider"></div> {/* Divider Here */}
-        {overlayIsOpen &&
-          <>
-            <div onClick={closeOverlay} className="codeUp-btn">
-              <SkipIcon />
-            CODE UPLOAD SUCCESSFUL
-            </div>
-            <div className="divider"></div> {/* Divider Here */}
-          </>
-        }
-        {!overlayIsOpen && !isGettingStarted &&
-          <div onClick={() => { changeCurrentStep('Troubleshoot') }} className="troubleshoot-btn">
-            <TroubleshootIcon />
-          TROUBLESHOOT
-        </div>
-        }
-        {isGettingStarted &&
-          // <div style={{
-          //   width: "100%"
-          // }}></div>
+        <div className="divider"></div>
           <div className="troubleshoot-btn">
             CONTACT TEACHER
         </div>
-        }
-        <div className="divider"></div> {/* Divider Here */}
+        <div className="divider"></div>
         <div onClick={goRight} className="right-arrow">
           <RightArrow />
         </div>
