@@ -90,13 +90,17 @@ class Course extends React.Component {
     }
     const newOrientation = this.getOppositeOrientation();
     await window.screen.orientation.lock(newOrientation);
+    await this.setState({ currentOrientation: 'landscape-primary' });
   }
 
   fullScreenCheck = () => {
+
     if (document.fullscreenElement) {
       return this.closeFullscreen();
     }
     return document.documentElement.requestFullscreen();
+
+
   }
 
   // openFullscreen = () => {
@@ -117,6 +121,10 @@ class Course extends React.Component {
   }
 
   componentDidMount() {
+    // this.setState({ currentOrientation: window.screen.orientation.type })
+    if (window.screen.orientation.type.startsWith("portrait")) {
+      this.rotate();
+    }
     axios.get(`${baseUrl}/api/course/getp/${this.props.match.params.id}`)
       .then(res => res.data)
       .then(data => {
@@ -155,7 +163,7 @@ class Course extends React.Component {
       currentOrientation === "portrait-primary" ? <button id="button" onClick={this.rotate}>Please click to rotate the screen</button> :
         <div className="course">
           <div className="header">
-            <Link to={`/${this.props.match.params.type}/modules`} style={{ display: "flex", alignItems: "center" }}>
+            {/* <Link to={`/${this.props.match.params.type}/modules`} style={{ display: "flex", alignItems: "center" }}>
               <svg
                 width="25"
                 height="25"
@@ -168,7 +176,7 @@ class Course extends React.Component {
                   fill="#9FB8CC"
                 />
               </svg>
-            </Link>
+            </Link> */}
             <Link to={`/${this.props.match.params.type}`} style={{ display: "flex", alignItems: "center" }}>
               <svg
                 width="30"
@@ -199,7 +207,11 @@ class Course extends React.Component {
               />
             </svg>
 
-            <div onClick={this.fullScreenCheck} style={{ cursor: "pointer" }}>
+            <div onClick={() => {
+              window.screen.orientation.type.startsWith("portrait") ?
+                this.rotate() :
+                this.fullScreenCheck()
+            }} style={{ cursor: "pointer" }}>
               <svg
                 width="26"
                 height="25"
