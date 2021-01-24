@@ -20,6 +20,10 @@ const courseSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Experiment'
     },
+    simulation: {
+        type: Schema.Types.ObjectId,
+        ref: 'Experiment'
+    },
     buildCircuit: {
         type: Schema.Types.ObjectId,
         ref: 'BuildCircuit'

@@ -144,3 +144,71 @@ exports.getExperimentForm = async (req, res, next) => {
         next(err)
     }
 }
+
+
+
+
+
+//-------------------------------------
+exports.addSimulation = async (req, res, next) => {
+    const { course_id, steps, simulationLink, finalMessage, sim_id } = req.body;
+    if (!sim_id) {
+        try {
+            this.addSteps(steps).then(async (finalSteps) => {
+
+                let simulation = new Experiment({
+                    course_id,
+                    steps: finalSteps,
+                    simulationLink: simulationLink,
+                    finalMessage: finalMessage
+                })
+                let resp = await simulation.save()
+                let updatedCourse = await Course.updateOne({ _id: course_id }, { $set: { simulation: resp._id } })
+                res.json({ "experiment": resp })
+            })
+
+        } catch (err) {
+            if (!err.statusCode) {
+                err.statusCode = 500
+            }
+            next(err)
+        }
+    } else {
+        try {
+
+            this.addSteps(steps).then(async (finalSteps) => {
+
+                let updatedSimulation = await Experiment.updateOne({ _id: sim_id }, { $set: { steps: [...finalSteps], simulationLink: simulationLink, finalMessage: finalMessage } })
+                res.json({ "simulation": "updated" })
+            })
+
+        } catch (err) {
+            if (!err.statusCode) {
+                err.statusCode = 500
+            }
+            next(err)
+        }
+    }
+
+}
+
+exports.getSimulation = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+        let simulation = await Experiment.findById(id).populate({
+            path: 'steps',
+            model: 'Step',
+            populate: [{
+                path: 'upload_image',
+                model: 'StepThumb'
+            }]
+        })
+        console.log(simulation)
+        res.json({ simulation })
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500
+        }
+        next(err)
+    }
+}
