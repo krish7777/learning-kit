@@ -12,7 +12,7 @@ class Troubleshoot extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getTroubleshoot(this.props.id)
+        this.props.getTroubleshoot(this.props.id, this.props.type)
     }
 
 

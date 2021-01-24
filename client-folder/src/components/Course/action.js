@@ -96,10 +96,10 @@ export const getResultsAnalysis = (id) => async dispatch => {
     }
 }
 
-export const getTroubleshoot = (id) => async dispatch => {
+export const getTroubleshoot = (id, type) => async dispatch => {
     try {
 
-        const res = await axios.get(`${baseUrl}/api/course/troubleshoot/get/${id}`)
+        const res = await axios.get(`${baseUrl}/api/course/troubleshoot/get/${id}?type=${type}`)
         dispatch({
             type: ACTION.GET_TROUBLESHOOT,
             payload: res.data.troubleshoot
