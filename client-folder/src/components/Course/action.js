@@ -82,6 +82,20 @@ export const getExperiment = (id) => async dispatch => {
     }
 }
 
+export const getSimulation = (id) => async dispatch => {
+    try {
+
+        const res = await axios.get(`${baseUrl}/api/course/simulation/get/${id}`)
+        dispatch({
+            type: ACTION.GET_SIMULATION,
+            payload: res.data.simulation
+        })
+
+    } catch (err) {
+        console.log("error in getSimulation")
+    }
+}
+
 export const getResultsAnalysis = (id) => async dispatch => {
     try {
 

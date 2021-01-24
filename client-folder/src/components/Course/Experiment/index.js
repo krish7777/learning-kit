@@ -13,40 +13,29 @@ class Experiment extends Component {
     }
 
     render() {
-        const { experiment, type, overlayUnread, setOverlayUnread, isGettingStarted, experimentCurrStep, setExperimentStep } = this.props;
+        const { experiment, type, isGettingStarted, experimentCurrStep, setExperimentStep } = this.props;
         return (
             <>
                 {experiment && type === 'arduino' ? (
-                    <SlideShow 
-                        steps={this.props.experiment?.steps} 
-                        codeStepStart={2} 
-                        overlayUnread={overlayUnread} 
-                        setOverlayUnread={setOverlayUnread} 
-                        isGettingStarted={isGettingStarted} 
-                        experimentCurrStep={experimentCurrStep} 
-                        setExperimentStep={setExperimentStep} 
+                    <SlideShow
+                        steps={this.props.experiment?.steps}
+                        isGettingStarted={isGettingStarted}
+                        experimentCurrStep={experimentCurrStep}
+                        setExperimentStep={setExperimentStep}
                     />) : null}
 
                 {experiment && type === 'digital' ? isGettingStarted ? (<DigitalGettingStarted
-                steps={this.props.experiment?.steps} 
-                codeStepStart={2} 
-                overlayUnread={overlayUnread} 
-                setOverlayUnread={setOverlayUnread} 
-                isGettingStarted={isGettingStarted} 
-                experimentCurrStep={experimentCurrStep} 
-                setExperimentStep={setExperimentStep} 
+                    steps={this.props.experiment?.steps}
+                    isGettingStarted={isGettingStarted}
+                    experimentCurrStep={experimentCurrStep}
+                    setExperimentStep={setExperimentStep}
                 />) : (
-                    <IframeShow 
-                        steps={this.props.experiment?.steps} 
-                        simulation={this.props.experiment?.simulationLink} 
-                        finalMessage={this.props.experiment?.finalMessage} 
-                        overlayUnread={overlayUnread} 
-                        setOverlayUnread={setOverlayUnread} 
-                        isGettingStarted={isGettingStarted} 
-                        experimentForm={this.props.experiment?.form}
-                        experimentCurrStep={experimentCurrStep} 
-                        setExperimentStep={setExperimentStep}
-                     />) : null}
+                        <SlideShow
+                            steps={this.props.experiment?.steps}
+                            isGettingStarted={isGettingStarted}
+                            experimentCurrStep={experimentCurrStep}
+                            setExperimentStep={setExperimentStep}
+                        />) : null}
             </>
         )
     }

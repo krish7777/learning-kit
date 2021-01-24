@@ -14,7 +14,7 @@ import { changeCurrentStep, changeStep, toggleSide } from "../action";
 import Modal from "antd/lib/modal/Modal";
 
 const SlideShow = (
-  { steps, codeStepStart, toggleSide, showSide, changeStep, rightText, changeCurrentStep, type }
+  { steps, codeStepStart, toggleSide, showSide, changeStep, rightText, changeCurrentStep, type, currentCourse }
 ) => {
 
 
@@ -82,8 +82,10 @@ const SlideShow = (
         currentStep + 1 === steps.length ? currentStep : currentStep + 1
       );
       if (currentStep + 1 === steps.length) {
-        if (finalOverlayIsOpen)
-          changeCurrentStep('Experiment')
+        if (finalOverlayIsOpen) {
+          currentCourse.simulation ?
+            changeCurrentStep('Simulation') : changeCurrentStep('Experiment')
+        }
         else {
           setFinalOverlayIsOpen(true)
         }
@@ -190,7 +192,8 @@ const SlideShow = (
 
 const mapStateToProps = state => ({
   expSteps: state.courseReducer.currentExpSteps,
-  showSide: state.courseReducer.showSide
+  showSide: state.courseReducer.showSide,
+  currentCourse: state.courseReducer.currentCourse
 })
 
 const mapDispatchToProps = dispatch => ({

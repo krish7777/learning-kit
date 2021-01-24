@@ -12,6 +12,7 @@ const initialState = {
     introduction: null,
     buildCircuit: null,
     experiment: null,
+    simulation: null,
     results: null,
     troubleshoot: null,
     excercise: null,
@@ -53,6 +54,10 @@ const courseReducer = (state = initialState, action) => {
 
         case ACTION.GET_EXPERIMENT: {
             state = { ...state, experiment: action.payload }
+            break;
+        }
+        case ACTION.GET_SIMULATION: {
+            state = { ...state, simulation: action.payload }
             break;
         }
         case ACTION.GET_RESULTS: {

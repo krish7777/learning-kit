@@ -10,10 +10,10 @@ import { ReactComponent as RightArrow } from "../../../assets/images/RightArrow.
 import { ReactComponent as SkipIcon } from "../../../assets/images/SkipIcon.svg"
 import { ReactComponent as TroubleshootIcon } from "../../../assets/images/TroubleshootIcon.svg"
 import { bindActionCreators } from "redux";
-import { changeCurrentStep, changeStep } from "../action";
+import { changeCurrentStep } from "../action";
 
 const SlideShow = (
-  { steps, changeStep, changeCurrentStep, isGettingStarted, experimentCurrStep, setExperimentStep }
+  { steps, changeCurrentStep, isGettingStarted, experimentCurrStep, setExperimentStep }
 ) => {
 
 
@@ -70,7 +70,6 @@ const SlideShow = (
     // console.log("Expr current Slide", experimentCurrStep)
     // console.log("current Step", currentStep)
     setCurrentStep(slideNo)
-    changeStep(slideNo)
   }
 
   const modalChecker = (x) => {
@@ -157,7 +156,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  changeStep: bindActionCreators(changeStep, dispatch),
   changeCurrentStep: bindActionCreators(changeCurrentStep, dispatch)
 })
 

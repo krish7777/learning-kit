@@ -7,7 +7,7 @@ import { ReactComponent as SkipIcon } from "../../../assets/images/SkipIcon.svg"
 import { ReactComponent as TroubleshootIcon } from "../../../assets/images/TroubleshootIcon.svg"
 import { ReactComponent as HideIcon } from "../../../assets/images/HideIcon.svg"
 import { bindActionCreators } from "redux";
-import { changeCurrentStep, changeStep } from "../action";
+import { changeCurrentStep } from "../action";
 import {
   Form,
   Input,
@@ -21,7 +21,7 @@ import {
 } from 'antd'
 import { UploadOutlined } from '@ant-design/icons';
 const IframeShow = (
-  { steps, changeStep, simulation, changeCurrentStep, isGettingStarted, finalMessage, experimentForm, experimentCurrStep, setExperimentStep }
+  { steps, simulation, changeCurrentStep, isGettingStarted, finalMessage, experimentForm }
 ) => {
 
 
@@ -33,7 +33,6 @@ const IframeShow = (
   useEffect(() => {
     const ifr = simulation || "";
     setIframe(ifr);
-    onSlide(experimentCurrStep)
   }, [steps]);
 
 
@@ -51,7 +50,7 @@ const IframeShow = (
     );
     if (currentStep + 1 === steps.length) {
       if (finalOverlayIsOpen)
-        changeCurrentStep('ResultsAnalysis')
+        changeCurrentStep('Experiment')
       else {
         setFinalOverlayIsOpen(true);
         if (experimentForm)
@@ -64,9 +63,7 @@ const IframeShow = (
   };
 
   const onSlide = (slideNo) => {
-    setExperimentStep(slideNo)
     setCurrentStep(slideNo)
-    changeStep(slideNo)
   }
 
   const normFile = e => {
@@ -112,16 +109,12 @@ const IframeShow = (
           </div>
           <div className="divider"></div>
 
-          {!isGettingStarted &&
-            <div onClick={() => { changeCurrentStep('Troubleshoot') }} className="troubleshoot-btn">
-              <TroubleshootIcon />
+
+          <div onClick={() => { changeCurrentStep('Troubleshoot') }} className="troubleshoot-btn">
+            <TroubleshootIcon />
           TROUBLESHOOT
         </div>
-          }
-          {isGettingStarted &&
-            <div style={{
-              width: "100%"
-            }}></div>}
+
           <div className="divider"></div>
 
           <div onClick={goRight} className="right-arrow">
@@ -282,7 +275,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  changeStep: bindActionCreators(changeStep, dispatch),
   changeCurrentStep: bindActionCreators(changeCurrentStep, dispatch)
 })
 

@@ -8,6 +8,7 @@ import Introduction from "./Introduction";
 import { Link } from "react-router-dom";
 import BuildCircuit from "./BuildCircuit";
 import Experiment from "./Experiment";
+import Simulation from "./Simulation";
 import ResultsAnalysis from "./ResultsAnalysis";
 import Troubleshoot from "./Troubleshoot";
 import Excercise from "./Excercise";
@@ -22,7 +23,6 @@ class Course extends React.Component {
     super(props)
     this.state = {
       currentOrientation: 'landscape-primary',
-      overlayUnread: true,
       isGettingStarted: false,
       experimentCurrStep: 0
     }
@@ -37,12 +37,6 @@ class Course extends React.Component {
   setCurrentOrientation = (orientation) => {
     this.setState({ currentOrientation: orientation })
   }
-
-  setOverlayUnread = () => {
-    console.log("the setoverlay main function called")
-    this.setState({ overlayUnread: false })
-  }
-
 
 
   // const [currentOrientation, setCurrentOrientation] = useState("landscape-primary");
@@ -232,9 +226,10 @@ class Course extends React.Component {
                 {currentCourse?.introduction ? <div onClick={() => changeCurrentStep('Introduction')} className={currentStep === "Introduction" ? "active" : ""}>INTRODUCTION </div> : null}
                 {currentCourse?.buildCircuit ? <div onClick={() => changeCurrentStep('BuildCircuit')} className={currentStep === "BuildCircuit" ? "active" : ""}>BUILD CIRCUIT </div>
                   : null}
+                {currentCourse?.simulation ? <div onClick={() => changeCurrentStep('Simulation')} className={currentStep === "Simulation" ? "active" : ""}>SIMULATION </div>
+                  : null}
                 {currentCourse?.experiment ? <div onClick={() => changeCurrentStep('Experiment')} className={currentStep === "Experiment" ? "active" : ""}>EXPERIMENT </div>
                   : null}
-
                 {currentCourse?.results ? <div onClick={() => changeCurrentStep('ResultsAnalysis')} className={currentStep === "ResultsAnalysis" ? "active" : ""}>RESULTS & ANALYSIS </div> : null}
                 {currentCourse?.troubleshoot ? <div onClick={() => changeCurrentStep('Troubleshoot')} className={currentStep === "Troubleshoot" ? "active" : ""}>TROUBLESHOOT </div> : null}
                 {currentCourse?.excercise ? <div onClick={() => changeCurrentStep('Excercise')} className={currentStep === "Excercise" ? "active" : ""}>EXCERCISE </div> : null}
@@ -250,7 +245,9 @@ class Course extends React.Component {
             {/* temporary placeholder [TODO] */}
             {currentCourse && currentStep === 'ResultsAnalysis' ? <div className="body-padder"><ResultsAnalysis id={currentCourse.results} /> </div> : null}
             {/* placeholder end [TODO] */}
-            {currentCourse && currentStep === 'Experiment' ? <div className="body-padder"><Experiment id={currentCourse.experiment} type={this.props.match.params.type} overlayUnread={this.state.overlayUnread} setOverlayUnread={this.setOverlayUnread} isGettingStarted={this.state.isGettingStarted} experimentCurrStep={experimentCurrStep} setExperimentStep={this.setExperimentStep} /></div> : null}
+            {currentCourse && currentStep === 'Experiment' ? <div className="body-padder"><Experiment id={currentCourse.experiment} type={this.props.match.params.type} isGettingStarted={this.state.isGettingStarted} experimentCurrStep={experimentCurrStep} setExperimentStep={this.setExperimentStep} /></div> : null}
+            {currentCourse && currentStep === 'Simulation' ? <div className="body-padder"><Simulation id={currentCourse.simulation} /></div> : null}
+
             {currentCourse && currentStep === 'Troubleshoot' ? <div className="body-padder"><Troubleshoot id={currentCourse.troubleshoot} type={this.props.match.params.type} />  </div> : null}
             {currentCourse && currentStep === 'Excercise' ? <div className="body-padder"><Excercise id={currentCourse.excercise} /> </div> : null}
           </div>

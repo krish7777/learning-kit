@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
-import { getBuildCircuit } from '../action'
+import { getBuildCircuit, changeStep } from '../action'
 import SlideShow from '../SlideShow'
 import CodeEditor from '../CodeEditor'
 import DigitalImages from '../DigitalImages'
@@ -15,6 +15,10 @@ class BuildCircuit extends Component {
 
     componentDidMount() {
         this.props.getBuildCircuit(this.props.id)
+    }
+
+    componentWillUnmount() {
+        this.props.changeStep(0)
     }
 
     render() {
@@ -47,7 +51,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    getBuildCircuit: bindActionCreators(getBuildCircuit, dispatch)
+    getBuildCircuit: bindActionCreators(getBuildCircuit, dispatch),
+    changeStep: bindActionCreators(changeStep, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BuildCircuit)
