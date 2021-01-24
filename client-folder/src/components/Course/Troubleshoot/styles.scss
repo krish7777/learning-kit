@@ -44,9 +44,13 @@
                 box-sizing: border-box;
                 border-radius: 2px;
 
-                .ant-collapse-item-active {
-                    background: rgba(255, 255, 255, 0.25);
-                }
+                // .ant-collapse-item-active {
+                //     background: rgba(255, 255, 255, 0.25);
+                // }
+            }
+
+            .ant-collapse-header{
+                font-size: 16px;
             }
 
             .troubleshoot-panel{

@@ -21,7 +21,7 @@ class Introduction extends React.Component {
         console.log("html", introduction)
         return (
             <div className="exp-introduction">
-                <div className="introduction-container-card" dangerouslySetInnerHTML={{ __html: introduction ? introduction.html : '' }}>
+                <div className="introduction-container-card text-editor-style" dangerouslySetInnerHTML={{ __html: introduction ? introduction.html : '' }}>
 
                 </div>
                 <Button onClick={() => changeCurrentStep('BuildCircuit')} className="introduction-start-button" size={"large"}>Let's Start Building the circuit</Button>
