@@ -21,13 +21,12 @@ import {
 } from 'antd'
 import { UploadOutlined } from '@ant-design/icons';
 const IframeShow = (
-  { steps, changeStep, simulation, changeCurrentStep, overlayUnread, setOverlayUnread, isGettingStarted, finalMessage, experimentForm, experimentCurrStep, setExperimentStep }
+  { steps, changeStep, simulation, changeCurrentStep, isGettingStarted, finalMessage, experimentForm, experimentCurrStep, setExperimentStep }
 ) => {
 
 
   const [iFrame, setIframe] = useState("");
   const [currentStep, setCurrentStep] = useState(0);
-  const [overlayIsOpen, setOverlayIsOpen] = useState(overlayUnread);
   const [finalOverlayIsOpen, setFinalOverlayIsOpen] = useState(false);
   const [experimentFormOpen, setExperimentFormOpen] = useState(false)
 
@@ -37,37 +36,30 @@ const IframeShow = (
     onSlide(experimentCurrStep)
   }, [steps]);
 
-  const closeOverlay = () => {
-    setOverlayIsOpen(false);
-    setOverlayUnread();
-  };
 
   const goLeft = () => {
-    if (overlayIsOpen) {
-      closeOverlay();
+    if (finalOverlayIsOpen) {
+      setFinalOverlayIsOpen(false)
     } else
       onSlide(currentStep - 1 === -1 ? 0 : currentStep - 1);
   };
 
   const goRight = () => {
-    if (overlayIsOpen) {
-      closeOverlay();
-    }
-    else {
-      onSlide(
-        currentStep + 1 === steps.length ? currentStep : currentStep + 1
-      );
-      if (currentStep + 1 === steps.length) {
-        if (finalOverlayIsOpen)
-          changeCurrentStep('ResultsAnalysis')
-        else {
-          setFinalOverlayIsOpen(true);
-          if (experimentForm)
-            setExperimentFormOpen(true);
-          // TODO: EXPERIMENT FORM OPEN ON THE RIGHT
-        }
+
+    onSlide(
+      currentStep + 1 === steps.length ? currentStep : currentStep + 1
+    );
+    if (currentStep + 1 === steps.length) {
+      if (finalOverlayIsOpen)
+        changeCurrentStep('ResultsAnalysis')
+      else {
+        setFinalOverlayIsOpen(true);
+        if (experimentForm)
+          setExperimentFormOpen(true);
+        // TODO: EXPERIMENT FORM OPEN ON THE RIGHT
       }
     }
+
 
   };
 
@@ -88,7 +80,7 @@ const IframeShow = (
   return (
     <div className="iframeShow">
       <div className="iframeShow-slideshow" style={experimentFormOpen ? { width: "70%", transform: "translateX(-10%)" } : { width: "100%" }}>
-        <div className={overlayIsOpen || finalOverlayIsOpen ? "overlayed gallerycontainer" : "gallerycontainer"}>
+        <div className={finalOverlayIsOpen ? "overlayed gallerycontainer" : "gallerycontainer"}>
           <div className="resp-container">
             <iframe className="resp-iframe" src={iFrame} allowfullscreen></iframe>
             {/* media query TODO */}
@@ -96,10 +88,11 @@ const IframeShow = (
           {/* <div class="wrap">
             <iframe className="frame" src={iFrame}></iframe>
         </div> */}
-          {overlayIsOpen &&
-            <div className="overlay-content">
-              <span>You have successfuly built the circuit. Now lets start the experiment.</span>
-            </div>
+          {
+            // overlayIsOpen &&
+            //   <div className="overlay-content">
+            //     <span>You have successfuly built the circuit. Now lets start the experiment.</span>
+            //   </div>
           }
           {finalOverlayIsOpen &&
             <div className="overlay-content">
@@ -108,7 +101,7 @@ const IframeShow = (
           }
         </div>
 
-        <div className={overlayIsOpen || finalOverlayIsOpen ? "overlayed code-step" : "code-step"}>
+        <div className={finalOverlayIsOpen ? "overlayed code-step" : "code-step"}>
           Step {currentStep + 1} : {steps[currentStep].description}
         </div>
 

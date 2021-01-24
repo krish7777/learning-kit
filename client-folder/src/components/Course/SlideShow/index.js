@@ -14,7 +14,7 @@ import { changeCurrentStep, changeStep, toggleSide } from "../action";
 import Modal from "antd/lib/modal/Modal";
 
 const SlideShow = (
-  { steps, codeStepStart, toggleSide, showSide, changeStep, rightText, changeCurrentStep }
+  { steps, codeStepStart, toggleSide, showSide, changeStep, rightText, changeCurrentStep, type }
 ) => {
 
 
@@ -24,6 +24,8 @@ const SlideShow = (
 
   const [codeModalIsOpen, setCodeModalIsOpen] = useState(false);
   const [startModalIsOpen, setStartModalIsOpen] = useState(false);
+  const [finalOverlayIsOpen, setFinalOverlayIsOpen] = useState(false);
+
   const urlify = (text) => {
     console.log("called")
     const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -58,7 +60,10 @@ const SlideShow = (
   const goLeft = () => {
     if (codeModalIsOpen) {
       setCodeModalIsOpen(false)
-    } else {
+    } else if (finalOverlayIsOpen) {
+      setFinalOverlayIsOpen(false)
+    }
+    else {
       inputEl.current.slideToIndex(currentStep - 1 === -1 ? 0 : currentStep - 1);
     }
   };
@@ -66,13 +71,22 @@ const SlideShow = (
   const goRight = () => {
     if (codeModalIsOpen) {
       setCodeModalIsOpen(false)
+      inputEl.current.slideToIndex(
+        currentStep + 1 === steps.length ? currentStep : currentStep + 1
+      );
+    } else if (codeStepStart && currentStep === codeStepStart - 2) {
+      setCodeModalIsOpen(true);
     }
     else {
       inputEl.current.slideToIndex(
         currentStep + 1 === steps.length ? currentStep : currentStep + 1
       );
       if (currentStep + 1 === steps.length) {
-        changeCurrentStep('Experiment')
+        if (finalOverlayIsOpen)
+          changeCurrentStep('Experiment')
+        else {
+          setFinalOverlayIsOpen(true)
+        }
       }
     }
 
@@ -86,16 +100,16 @@ const SlideShow = (
 
   const modalChecker = (x) => {
     onSlide(x)
-    if (codeStepStart && x === codeStepStart - 1 && currentStep === codeStepStart - 2) {
-      setCodeModalIsOpen(true);
-    }
+    // if (codeStepStart && x === codeStepStart - 1 && currentStep === codeStepStart - 2) {
+    //   setCodeModalIsOpen(true);
+    // }
 
   };
 
 
   return (
     <div className="slideshow" style={showSide ? { width: "65%" } : { width: "80%", margin: "auto" }}>
-      <div style={{ background: "white" }} className={codeModalIsOpen ? "overlayed " : ""}>
+      <div style={{ background: "white" }} className={codeModalIsOpen || finalOverlayIsOpen ? "overlayed " : ""}>
         <ImageGallery
           ref={inputEl}
           items={images}
@@ -112,9 +126,23 @@ const SlideShow = (
             <span>You have successfully build the circuit, now let's write the code required to perform this experiment</span>
           </div>
         }
+
+        {finalOverlayIsOpen && type == 'arduino' &&
+          <div className="overlay-content">
+            <span>You have successfuly completed the code required to do this experiment. Now upload the code to the Arduino Uno board and lets get started with the experiment.</span>
+            {/* <Link to="/" onClick={(event) => event.preventDefault()}> */}
+            <span onClick={() => changeCurrentStep('Introduction')} style={{ color: "#0C6A9F", fontSize: "medium", cursor: "pointer" }}> HINT: How to upload IDE code to Arduino board</span>
+            {/* </Link> */}
+          </div>
+        }
+
+        {finalOverlayIsOpen && type == 'digital' &&
+          <div className="overlay-content">
+            <span>You have successfuly built the circuit. Now lets start the experiment.</span>
+          </div>}
       </div>
 
-      <div dangerouslySetInnerHTML={{ __html: ` Step ${currentStep + 1} : ${urlify(steps[currentStep].description)}` }} className={codeModalIsOpen ? "overlayed code-step" : "code-step"}>
+      <div dangerouslySetInnerHTML={{ __html: ` Step ${currentStep + 1} : ${urlify(steps[currentStep].description)}` }} className={codeModalIsOpen || finalOverlayIsOpen ? "overlayed code-step" : "code-step"}>
 
       </div>
       <div className="nav">

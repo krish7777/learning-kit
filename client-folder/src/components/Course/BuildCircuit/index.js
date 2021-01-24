@@ -26,14 +26,14 @@ class BuildCircuit extends Component {
             <div className="build-circuit-main-container">
                 {buildCircuit && type === 'arduino' ? (
                     <>
-                        <SlideShow steps={this.props.buildCircuit?.steps} codeStepStart={this.props.buildCircuit?.codeStepStart} rightText="SHOW/HIDE CODE" />
+                        <SlideShow steps={this.props.buildCircuit?.steps} codeStepStart={this.props.buildCircuit?.codeStepStart} rightText="SHOW/HIDE CODE" type={type} />
                         <CodeEditor code={this.props.buildCircuit?.code} />
                     </>
                 ) : null}
 
                 {buildCircuit && type === 'digital' ? (
                     <>
-                        <SlideShow steps={this.props.buildCircuit?.steps} rightText="SHOW/HIDE PIN DIAGRAMS" />
+                        <SlideShow steps={this.props.buildCircuit?.steps} rightText="SHOW/HIDE PIN DIAGRAMS" type={type} />
                         <DigitalImages steps={this.props.buildCircuit?.steps} />
                     </>
                 ) : null}
