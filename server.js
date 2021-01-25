@@ -33,7 +33,7 @@ const baseURL = process.env.baseURL;
 
 //TEST ROUTE
 app.get(baseURL, (req, res) => {
-    res.send("test from krish")
+    res.send("test from krish v2")
 })
 
 app.use(`${baseURL}/upload`, uploadRoutes)
