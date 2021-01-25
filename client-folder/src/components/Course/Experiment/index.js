@@ -35,6 +35,7 @@ class Experiment extends Component {
                             isGettingStarted={isGettingStarted}
                             experimentCurrStep={experimentCurrStep}
                             setExperimentStep={setExperimentStep}
+                            experimentForm={this.props.experiment?.form}
                         />) : null}
             </>
         )
