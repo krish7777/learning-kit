@@ -14,9 +14,9 @@ class Course extends Component {
         this.props.getParentModule(this.props.match.params.id);
     }
 
-    componentWillUnmount() {
-        this.props.clearAdminSubmodule();
-    }
+    // componentWillUnmount() {
+    //     this.props.clearAdminSubmodule();
+    // }
     render() {
         const { course, parent } = this.props;
         return (
