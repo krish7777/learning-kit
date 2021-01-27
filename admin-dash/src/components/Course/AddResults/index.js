@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import TextEditor from '../../TextEditor'
+import TextEditor from '../../TextEditor/text'
 import { bindActionCreators } from 'redux'
 import axios from 'axios'
 import { uuid } from 'uuidv4'
@@ -37,6 +37,7 @@ class AddResults extends Component {
             textModal: false,
             tableModal: false,
             uploadModal: false,
+            texteditormodal: false,
             tempTable: [],
             tempValue: '',
 
@@ -89,6 +90,17 @@ class AddResults extends Component {
             }
         })
     }
+
+    handleAddTextEditor = ({ label, required }) => {
+        this.setState(prevState => {
+            return {
+                ...prevState,
+                questions: [...prevState.questions, { type: "texteditor", required: required ? true : false, name: label, label: label }],
+                texteditorModal: false
+            }
+        })
+    }
+
     handleAddNumber = ({ label, required }) => {
         this.setState(prevState => {
             return {
@@ -257,6 +269,15 @@ class AddResults extends Component {
                                         </Form.Item>
                                     )
                                         break;
+
+                                    case 'texteditor': return (
+                                        <Form.Item label={label} name={name} rules={[
+                                            { required: required }
+                                        ]}>
+                                            <TextEditor />
+                                        </Form.Item>
+                                    )
+                                        break;
                                     case 'number': return (
                                         <Form.Item label={label} name={name} rules={[
                                             { required: required }
@@ -373,6 +394,7 @@ class AddResults extends Component {
                     <Button danger onClick={() => this.setState({ questions: [] })}>Delete Form</Button>
                     <Button onClick={() => this.setState({ inputModal: true })}>Input</Button>
                     <Button onClick={() => this.setState({ textareaModal: true })}>Text Area</Button>
+                    <Button onClick={() => this.setState({ texteditorModal: true })}>Text Editor(for images)</Button>
                     <Button onClick={() => this.setState({ numberModal: true })}>Input Number</Button>
                     <Button onClick={() => this.setState({ checkboxModal: true })}>Checkbox</Button>
                     <Button onClick={() => this.setState({ checkboxgroupModal: true })}>Checkbox Group</Button>
@@ -417,6 +439,29 @@ class AddResults extends Component {
                     destroyOnClose
                 >
                     <Form onFinish={this.handleAddTextarea}>
+                        <Form.Item
+                            label="Label"
+                            name="label"
+                            rules={[{ required: true }]}
+                        >
+                            <Input.TextArea />
+                        </Form.Item>
+                        <Form.Item name="required" valuePropName="checked">
+                            <Checkbox>Required</Checkbox>
+                        </Form.Item>
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit">Add</Button>
+                        </Form.Item>
+                    </Form>
+                </Modal>
+                <Modal
+                    visible={this.state.texteditorModal}
+                    title="Text Area"
+                    onCancel={() => this.setState({ texteditorModal: false })}
+                    footer={[]}
+                    destroyOnClose
+                >
+                    <Form onFinish={this.handleAddTextEditor}>
                         <Form.Item
                             label="Label"
                             name="label"

@@ -45,3 +45,7 @@ body {
   border-radius: 20px;
   /* border: 3px solid orange; */
 }
+
+.tox-notifications-container{
+  display: none;
+}

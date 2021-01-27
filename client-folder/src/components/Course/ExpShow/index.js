@@ -11,6 +11,8 @@ import { ReactComponent as SkipIcon } from "../../../assets/images/SkipIcon.svg"
 import { ReactComponent as TroubleshootIcon } from "../../../assets/images/TroubleshootIcon.svg"
 import { bindActionCreators } from "redux";
 import { changeCurrentStep } from "../action";
+import TextEditor from '../../TextEditor'
+
 import {
   Form,
   Input,
@@ -199,6 +201,14 @@ const SlideShow = (
                           { required: required }
                         ]}>
                           <Input.TextArea autoSize={{ minRows: 3, maxRows: 100 }} />
+                        </Form.Item>
+                      )
+                        break;
+                      case 'texteditor': return (
+                        <Form.Item label={label} name={name} rules={[
+                          { required: required }
+                        ]}>
+                          <TextEditor />
                         </Form.Item>
                       )
                         break;
