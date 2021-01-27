@@ -192,7 +192,7 @@ class AddBuildCircuit extends Component {
                                                         fieldKey={[field.fieldKey, 'upload_image']}
                                                         rules={[{ required: true, message: 'Missing Image!' }]}
                                                     >
-                                                        <Upload multiple={false} accept=".png"
+                                                        <Upload multiple={false} accept="image/*"
                                                             name="file" customRequest={async ({ file, onSuccess, onError }) => {
                                                                 const compressedFile = await imageCompression(file, options);
                                                                 console.log("before compeee")
@@ -226,7 +226,7 @@ class AddBuildCircuit extends Component {
                                                             getValueFromEvent={normFile}
                                                             fieldKey={[field.fieldKey, 'upload_side']}
                                                         >
-                                                            <Upload multiple={false} accept=".png"
+                                                            <Upload multiple={false} accept="image/*"
                                                                 name="file" customRequest={async ({ file, onSuccess, onError }) => {
                                                                     const compressedFile = await imageCompression(file, options);
                                                                     console.log("before compeee")
@@ -415,7 +415,7 @@ class AddBuildCircuit extends Component {
                                                         fieldKey={[field.fieldKey, 'upload_image']}
                                                         rules={[{ required: true, message: 'Missing Image!' }]}
                                                     >
-                                                        <Upload multiple={false} accept=".png"
+                                                        <Upload multiple={false} accept="image/*"
                                                             name="file" customRequest={async ({ file, onSuccess, onError }) => {
                                                                 const compressedFile = await imageCompression(file, options);
                                                                 console.log("before compeee")
@@ -448,7 +448,7 @@ class AddBuildCircuit extends Component {
                                                             getValueFromEvent={normFile}
                                                             fieldKey={[field.fieldKey, 'upload_side']}
                                                         >
-                                                            <Upload multiple={false} accept=".png"
+                                                            <Upload multiple={false} accept="image/**"
                                                                 name="file" customRequest={async ({ file, onSuccess, onError }) => {
                                                                     const compressedFile = await imageCompression(file, options);
                                                                     console.log("before compeee")

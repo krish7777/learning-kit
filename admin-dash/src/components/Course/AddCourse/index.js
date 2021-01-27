@@ -83,7 +83,7 @@ class AddCourse extends Component {
                         getValueFromEvent={normFile}
                     // rules={[{ required: true, message: 'Missing Image!' }]}
                     >
-                        <Upload multiple={false} accept=".png"
+                        <Upload multiple={false} accept="image/*"
                             name="file" customRequest={async ({ file, onSuccess, onError }) => {
                                 const compressedFile = await imageCompression(file, options);
                                 console.log("before compeee")
