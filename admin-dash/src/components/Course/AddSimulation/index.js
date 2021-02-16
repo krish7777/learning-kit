@@ -140,7 +140,7 @@ class AddSimulation extends Component {
                             }}
                         </Form.List>
 
-                        <Form.Item initialValue="Simulation is Over . Now Let's proceed to Experiment" label="Final message" name="finalMessage" rules={[{ required: true }]}>
+                        <Form.Item initialValue="Simulation is Over . Now Let's proceed to Results and Analysis" label="Final message" name="finalMessage" rules={[{ required: true }]}>
                             <Input.TextArea autoSize={{ minRows: 2 }} />
                         </Form.Item>
 
@@ -225,7 +225,7 @@ class AddSimulation extends Component {
                             }}
                         </Form.List>
 
-                        <Form.Item initialValue="Simulation is Over . Now Let's proceed to Experiment" label="Final message" name="finalMessage" rules={[{ required: true }]}>
+                        <Form.Item initialValue="Simulation is Over . Now Let's proceed to Results and Analysis" label="Final message" name="finalMessage" rules={[{ required: true }]}>
                             <Input.TextArea autoSize={{ minRows: 2 }} />
                         </Form.Item>
 

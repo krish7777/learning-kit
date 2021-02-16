@@ -50,7 +50,7 @@ const IframeShow = (
     );
     if (currentStep + 1 === steps.length) {
       if (finalOverlayIsOpen)
-        changeCurrentStep('Experiment')
+        changeCurrentStep('ResultsAnalysis')
       else {
         setFinalOverlayIsOpen(true);
         if (experimentForm)
