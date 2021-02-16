@@ -9,9 +9,11 @@ import { ReactComponent as LeftArrow } from "../../../assets/images/LeftArrow.sv
 import { ReactComponent as RightArrow } from "../../../assets/images/RightArrow.svg"
 import { ReactComponent as SkipIcon } from "../../../assets/images/SkipIcon.svg"
 import { ReactComponent as TroubleshootIcon } from "../../../assets/images/TroubleshootIcon.svg"
+import { ReactComponent as HideIcon } from "../../../assets/images/HideIcon.svg"
 import { bindActionCreators } from "redux";
-import { changeCurrentStep } from "../action";
+import { changeCurrentStep, changeStep } from "../action";
 import TextEditor from '../../TextEditor'
+import DigitalImages from '../DigitalImages'
 
 import {
   Form,
@@ -28,7 +30,7 @@ import { UploadOutlined } from '@ant-design/icons';
 
 
 const SlideShow = (
-  { steps, changeCurrentStep, isGettingStarted, experimentCurrStep, setExperimentStep, experimentForm }
+  { steps, changeCurrentStep, isGettingStarted, experimentCurrStep, setExperimentStep, experimentForm, currentCourse, changeStep, sideImages }
 ) => {
 
 
@@ -36,7 +38,8 @@ const SlideShow = (
   const [currentStep, setCurrentStep] = useState(0);
   const inputEl = useRef(null);
   const [finalOverlayIsOpen, setFinalOverlayIsOpen] = useState(false);
-  const [experimentFormOpen, setExperimentFormOpen] = useState(false)
+  const [experimentFormOpen, setExperimentFormOpen] = useState(false);
+  const [showSideImages, setShowSideImages] = useState(sideImages);
 
 
   useEffect(() => {
@@ -71,8 +74,10 @@ const SlideShow = (
       currentStep + 1 === steps.length ? currentStep : currentStep + 1
     );
     if (currentStep + 1 === steps.length && !isGettingStarted) {
-      if (finalOverlayIsOpen)
-        changeCurrentStep('ResultsAnalysis')
+      if (finalOverlayIsOpen) {
+        currentCourse.simulation ?
+          changeCurrentStep('Simulation') : changeCurrentStep('ResultsAnalysis')
+      }
       else {
         setFinalOverlayIsOpen(true);
         if (experimentForm)
@@ -89,6 +94,8 @@ const SlideShow = (
     // console.log("Expr current Slide", experimentCurrStep)
     // console.log("current Step", currentStep)
     setCurrentStep(slideNo)
+    changeStep(slideNo)
+
   }
 
   const modalChecker = (x) => {
@@ -106,7 +113,12 @@ const SlideShow = (
   return (
     <div className="expshow">
 
-      <div className="expshow-slideshow" style={experimentFormOpen ? { width: "70%", transform: "translateX(-10%)" } : { width: "100%" }}>
+      <div className="expshow-slideshow" style={experimentFormOpen || showSideImages ? {
+        width: "65%",
+
+        // transform: "translateX(-10%)"
+
+      } : { width: "80%", margin: "auto" }}>
         <div style={{ background: "white" }} className={finalOverlayIsOpen ? "overlayed gallerycontainer" : "gallerycontainer"}>
           <ImageGallery
             ref={inputEl}
@@ -145,7 +157,7 @@ const SlideShow = (
           <div onClick={goLeft} className="left-arrow">
             <LeftArrow />
           </div>
-          <div className="divider"></div> {/* Divider Here */}
+          <div className="divider"></div>
           {
             // overlayIsOpen &&
             //   <>
@@ -162,6 +174,17 @@ const SlideShow = (
           TROUBLESHOOT
         </div>
           }
+          {!isGettingStarted && sideImages && <> <div className="divider"></div><div onClick={() => {
+            if (experimentFormOpen) {
+              setExperimentFormOpen(false)
+              setShowSideImages(true);
+            }
+            else
+              setShowSideImages(!showSideImages);
+          }} className="troubleshoot-btn">
+            <HideIcon />
+            SHOW/HIDE PIN DIAGRAMS
+          </div></>}
           {isGettingStarted &&
             // <div style={{
             //   width: "100%"
@@ -176,6 +199,11 @@ const SlideShow = (
           </div>
         </div>
       </div>
+
+      {showSideImages && !experimentFormOpen &&
+
+        <DigitalImages steps={steps} />
+      }
 
       {experimentFormOpen &&
         <div className="result-analysis-container experiment-form">
@@ -332,10 +360,12 @@ const SlideShow = (
 
 const mapStateToProps = state => ({
   expSteps: state.courseReducer.currentExpSteps,
+  currentCourse: state.courseReducer.currentCourse
 })
 
 const mapDispatchToProps = dispatch => ({
-  changeCurrentStep: bindActionCreators(changeCurrentStep, dispatch)
+  changeCurrentStep: bindActionCreators(changeCurrentStep, dispatch),
+  changeStep: bindActionCreators(changeStep, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SlideShow);

@@ -245,7 +245,11 @@ class Course extends React.Component {
             {/* temporary placeholder [TODO] */}
             {currentCourse && currentStep === 'ResultsAnalysis' ? <div className="body-padder"><ResultsAnalysis id={currentCourse.results} /> </div> : null}
             {/* placeholder end [TODO] */}
-            {currentCourse && currentStep === 'Experiment' ? <div className="body-padder"><Experiment id={currentCourse.experiment} type={this.props.match.params.type} isGettingStarted={this.state.isGettingStarted} experimentCurrStep={experimentCurrStep} setExperimentStep={this.setExperimentStep} /></div> : null}
+            {currentCourse && currentStep === 'Experiment' ?
+              // <div className="body-padder">
+              <Experiment id={currentCourse.experiment} type={this.props.match.params.type} isGettingStarted={this.state.isGettingStarted} experimentCurrStep={experimentCurrStep} setExperimentStep={this.setExperimentStep} />
+              // </div> 
+              : null}
             {currentCourse && currentStep === 'Simulation' ? <div className="body-padder"><Simulation id={currentCourse.simulation} /></div> : null}
 
             {currentCourse && currentStep === 'Troubleshoot' ? <div className="body-padder"><Troubleshoot id={currentCourse.troubleshoot} type={this.props.match.params.type} />  </div> : null}

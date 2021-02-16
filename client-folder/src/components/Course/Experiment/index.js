@@ -5,6 +5,7 @@ import { getExperiment } from '../action'
 import SlideShow from '../ExpShow'
 import IframeShow from '../IframeShow'
 import DigitalGettingStarted from "./DigitalGettingStarted"
+import DigitalImages from '../DigitalImages'
 
 class Experiment extends Component {
 
@@ -17,26 +18,38 @@ class Experiment extends Component {
         return (
             <>
                 {experiment && type === 'arduino' ? (
-                    <SlideShow
-                        steps={this.props.experiment?.steps}
-                        isGettingStarted={isGettingStarted}
-                        experimentCurrStep={experimentCurrStep}
-                        setExperimentStep={setExperimentStep}
-                    />) : null}
-
-                {experiment && type === 'digital' ? isGettingStarted ? (<DigitalGettingStarted
-                    steps={this.props.experiment?.steps}
-                    isGettingStarted={isGettingStarted}
-                    experimentCurrStep={experimentCurrStep}
-                    setExperimentStep={setExperimentStep}
-                />) : (
+                    <div className="body-padder">
                         <SlideShow
                             steps={this.props.experiment?.steps}
                             isGettingStarted={isGettingStarted}
                             experimentCurrStep={experimentCurrStep}
                             setExperimentStep={setExperimentStep}
-                            experimentForm={this.props.experiment?.form}
-                        />) : null}
+                            sideImages={false}
+                        />
+                    </div>
+                ) : null}
+
+                {experiment && type === 'digital' ? isGettingStarted ? (<div className="body-padder">
+                    <DigitalGettingStarted
+                        steps={this.props.experiment?.steps}
+                        isGettingStarted={isGettingStarted}
+                        experimentCurrStep={experimentCurrStep}
+                        setExperimentStep={setExperimentStep}
+                    />
+                </div>) : (
+                        <div className="short-padder">
+                            <SlideShow
+                                steps={this.props.experiment?.steps}
+                                isGettingStarted={isGettingStarted}
+                                experimentCurrStep={experimentCurrStep}
+                                setExperimentStep={setExperimentStep}
+                                experimentForm={this.props.experiment?.form}
+                                sideImages={true}
+                            />
+
+                            {/* <DigitalImages steps={this.props.experiment?.steps} /> */}
+
+                        </div>) : null}
             </>
         )
     }
