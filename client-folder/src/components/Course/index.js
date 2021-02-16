@@ -226,9 +226,9 @@ class Course extends React.Component {
                 {currentCourse?.introduction ? <div onClick={() => changeCurrentStep('Introduction')} className={currentStep === "Introduction" ? "active" : ""}>INTRODUCTION </div> : null}
                 {currentCourse?.buildCircuit ? <div onClick={() => changeCurrentStep('BuildCircuit')} className={currentStep === "BuildCircuit" ? "active" : ""}>BUILD CIRCUIT </div>
                   : null}
-                {currentCourse?.simulation ? <div onClick={() => changeCurrentStep('Simulation')} className={currentStep === "Simulation" ? "active" : ""}>SIMULATION </div>
-                  : null}
                 {currentCourse?.experiment ? <div onClick={() => changeCurrentStep('Experiment')} className={currentStep === "Experiment" ? "active" : ""}>EXPERIMENT </div>
+                  : null}
+                {currentCourse?.simulation ? <div onClick={() => changeCurrentStep('Simulation')} className={currentStep === "Simulation" ? "active" : ""}>SIMULATION </div>
                   : null}
                 {currentCourse?.results ? <div onClick={() => changeCurrentStep('ResultsAnalysis')} className={currentStep === "ResultsAnalysis" ? "active" : ""}>RESULTS & ANALYSIS </div> : null}
                 {currentCourse?.troubleshoot ? <div onClick={() => changeCurrentStep('Troubleshoot')} className={currentStep === "Troubleshoot" ? "active" : ""}>TROUBLESHOOT </div> : null}

@@ -83,8 +83,9 @@ const SlideShow = (
       );
       if (currentStep + 1 === steps.length) {
         if (finalOverlayIsOpen) {
-          currentCourse.simulation ?
-            changeCurrentStep('Simulation') : changeCurrentStep('Experiment')
+          // currentCourse.simulation ?
+          //   changeCurrentStep('Simulation') : changeCurrentStep('Experiment')
+          changeCurrentStep('Experiment')
         }
         else {
           setFinalOverlayIsOpen(true)
