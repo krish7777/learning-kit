@@ -89,11 +89,20 @@ exports.addExperimentForm = async (req, res, next) => {
 
 exports.addSteps = async (steps) => {
     return Promise.all(steps.map(async step => {
-        const { description, imagePath, upload_image, simulationLink } = step;
+        const { description, imagePath, sideImagePath, upload_image, upload_side, simulationLink } = step;
         if (upload_image && upload_image.length) {
 
             let stepThumb = new StepThumb({ ...upload_image[0] })
             let imgResp = await stepThumb.save();
+
+            if (upload_side && upload_side.length) {
+                let sideStepThumb = new StepThumb({ ...upload_side[0] })
+                let sideImgResp = await sideStepThumb.save();
+                let step1 = new Step({ description, imagePath, sideImagePath, upload_image: imgResp._id, upload_side: sideImgResp._id, simulationLink })
+                let resp = await step1.save();
+                return resp._id;
+            }
+
             let step1 = new Step({ description, imagePath, upload_image: imgResp._id, simulationLink })
             let resp = await step1.save();
             console.log("resp id", resp._id)
@@ -119,6 +128,9 @@ exports.getExperiment = async (req, res, next) => {
             model: 'Step',
             populate: [{
                 path: 'upload_image',
+                model: 'StepThumb'
+            }, {
+                path: 'upload_side',
                 model: 'StepThumb'
             }]
         }).populate('form')
