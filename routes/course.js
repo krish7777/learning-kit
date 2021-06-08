@@ -6,7 +6,7 @@ const { addCourse, getCourse, getParentModule, updateSubModule } = require('../c
 const { addIntroduction, getIntroduction } = require('../controllers/course/introduction');
 const { addBuildCircuit, getBuildCircuit } = require('../controllers/course/buildCircuit');
 const { addTroubleshoot, getTroubleshoot } = require('../controllers/course/troubleshoot');
-const { addExperiment, getExperiment, getExperimentForm, addExperimentForm } = require('../controllers/course/experiment');
+const { addExperiment, getExperiment, getExperimentForm, addExperimentForm, getSimulation, addSimulation } = require('../controllers/course/experiment');
 const { addExcercise, getExcercise } = require('../controllers/course/excercise');
 const { getResults, addResults } = require('../controllers/course/results');
 const router = express.Router();
@@ -17,12 +17,14 @@ router.get('/getp/:course_id', getParentModule)
 router.post('/buildCircuit', addBuildCircuit)//isAdmin
 router.get('/buildCircuit/get/:id', getBuildCircuit)
 router.get('/experiment/get/:id', getExperiment)
+router.get('/simulation/get/:id', getSimulation)
 router.post('/troubleshoot', addTroubleshoot)//isAdmin
 router.get('/troubleshoot/get/:id', getTroubleshoot)
 router.post('/update/:course_id', updateSubModule)//isAdmin
 router.post('/excercise', addExcercise)//isAdmin
 router.get('/excercise/get/:id', getExcercise)
 router.post('/experiment', addExperiment)//isAdmin
+router.post('/simulation', addSimulation)//isAdmin
 router.get('/experimentForm/get/:id', getExperimentForm)
 router.post('/experimentForm', addExperimentForm)//isAdmin
 router.get('/results/get/:id', getResults)

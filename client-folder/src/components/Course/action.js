@@ -82,6 +82,20 @@ export const getExperiment = (id) => async dispatch => {
     }
 }
 
+export const getSimulation = (id) => async dispatch => {
+    try {
+
+        const res = await axios.get(`${baseUrl}/api/course/simulation/get/${id}`)
+        dispatch({
+            type: ACTION.GET_SIMULATION,
+            payload: res.data.simulation
+        })
+
+    } catch (err) {
+        console.log("error in getSimulation")
+    }
+}
+
 export const getResultsAnalysis = (id) => async dispatch => {
     try {
 
@@ -96,10 +110,10 @@ export const getResultsAnalysis = (id) => async dispatch => {
     }
 }
 
-export const getTroubleshoot = (id) => async dispatch => {
+export const getTroubleshoot = (id, type) => async dispatch => {
     try {
 
-        const res = await axios.get(`${baseUrl}/api/course/troubleshoot/get/${id}`)
+        const res = await axios.get(`${baseUrl}/api/course/troubleshoot/get/${id}?type=${type}`)
         dispatch({
             type: ACTION.GET_TROUBLESHOOT,
             payload: res.data.troubleshoot
@@ -134,7 +148,6 @@ export const changeStep = (slideNo) => async dispatch => {
 
 export const removeCurrentCourse = () => dispatch => {
     dispatch({
-        type: ACTION.GET_CURRENT_COURSE,
-        payload: null
+        type: ACTION.REMOVE_SUBMODULE
     })
 }

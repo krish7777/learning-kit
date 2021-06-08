@@ -1,5 +1,6 @@
 const { Course } = require('../../models/course');
 const { Troubleshoot } = require('../../models/troubleshoot');
+const { Track } = require('../../models/track');
 
 exports.addTroubleshoot = async (req, res, next) => {
     const { course_id, faqs, troubleshoot_id } = req.body;
@@ -35,9 +36,22 @@ exports.addTroubleshoot = async (req, res, next) => {
 
 exports.getTroubleshoot = async (req, res, next) => {
     const { id } = req.params;
+    console.log(req.query.type)
     try {
-        let troubleshoot = await Troubleshoot.findById(id)
-        res.json({ troubleshoot })
+        if (req.query.type) {
+            let topTroubleshoot = await Track.findOne({ name: req.query.type })
+            if (topTroubleshoot) {
+                let troubleshoot = await Troubleshoot.findById(id);
+                troubleshoot = {
+                    faqs: [...topTroubleshoot.faqs, ...troubleshoot.faqs]
+                }
+                res.json({ troubleshoot })
+            }
+        } else {
+            let troubleshoot = await Troubleshoot.findById(id)
+            res.json({ troubleshoot })
+        }
+
 
     } catch (err) {
         if (!err.statusCode) {

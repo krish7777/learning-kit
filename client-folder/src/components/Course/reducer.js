@@ -12,6 +12,7 @@ const initialState = {
     introduction: null,
     buildCircuit: null,
     experiment: null,
+    simulation: null,
     results: null,
     troubleshoot: null,
     excercise: null,
@@ -55,6 +56,10 @@ const courseReducer = (state = initialState, action) => {
             state = { ...state, experiment: action.payload }
             break;
         }
+        case ACTION.GET_SIMULATION: {
+            state = { ...state, simulation: action.payload }
+            break;
+        }
         case ACTION.GET_RESULTS: {
             state = { ...state, results: action.payload }
             break;
@@ -73,6 +78,10 @@ const courseReducer = (state = initialState, action) => {
         }
         case ACTION.CHANGE_STEP: {
             state = { ...state, stepNo: action.payload }
+            break;
+        }
+        case ACTION.REMOVE_SUBMODULE: {
+            state = { ...initialState }
             break;
         }
     }

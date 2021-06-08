@@ -16,6 +16,7 @@ import {
     Upload
 } from 'antd'
 import { UploadOutlined } from '@ant-design/icons';
+import TextEditor from '../../TextEditor'
 import "./styles.scss"
 
 
@@ -40,7 +41,7 @@ class ResultsAnalysis extends React.Component {
         return (
 
             <div className="result-analysis-container">
-                
+
                 <div className="form-builder">
                     <div className="preview-form">
                         <Form id="result-analysis-form" layout="vertical" onFinish={(values) => { console.log(values) }}>
@@ -63,6 +64,14 @@ class ResultsAnalysis extends React.Component {
                                                 { required: required }
                                             ]}>
                                                 <Input.TextArea autoSize={{ minRows: 3, maxRows: 100 }} />
+                                            </Form.Item>
+                                        )
+                                            break;
+                                        case 'texteditor': return (
+                                            <Form.Item label={label} name={name} rules={[
+                                                { required: required }
+                                            ]}>
+                                                <TextEditor />
                                             </Form.Item>
                                         )
                                             break;

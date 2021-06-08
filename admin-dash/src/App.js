@@ -15,6 +15,7 @@ import AddCourse from './components/Course/AddCourse';
 import Course from './components/Course';
 import AddIntroduction from './components/Course/AddIntroduction';
 import AddExperiment from './components/Course/AddExperiment';
+import AddSimulation from './components/Course/AddSimulation';
 import AddTroubleshoot from './components/Course/AddTroubleshoot';
 import AddBuildCircuit from './components/Course/AddBuildCircuit';
 import AddExperimentForm from './components/Course/AddExperimentForm';
@@ -108,6 +109,7 @@ class App extends React.Component {
           <PrivateRoute path="/admin/:type/module/:id" component={Module} />
           <PrivateRoute path="/admin/:type/course/introduction/:id" component={AddIntroduction} />
           <PrivateRoute path="/admin/:type/course/experiment/:id" component={AddExperiment} />
+          <PrivateRoute path="/admin/:type/course/simulation/:id" component={AddSimulation} />
           <PrivateRoute path="/admin/:type/course/troubleshoot/:id" component={AddTroubleshoot} />
           <PrivateRoute path="/admin/:type/course/build-circuit/:id" component={AddBuildCircuit} />
           <PrivateRoute path="/admin/:type/course/experiment-form/:id/:expId" component={AddExperimentForm} />

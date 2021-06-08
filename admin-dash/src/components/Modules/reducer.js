@@ -23,7 +23,13 @@ const modulesReducer = (state = initialState, action) => {
             state = { ...state, updateModule: true };
             break;
         case ACTION.UPDATE_SUBMOD:
-            state = {...state, updateSubModule:true}
+            state = { ...state, updateSubModule: true }
+            break;
+        case ACTION.CLEAR_CURRENT_MODULE:
+            state = { ...state, currentModule: {} };
+            break;
+        case ACTION.CLEAR_ADMIN_DASH:
+            state = { ...initialState };
             break;
     }
 

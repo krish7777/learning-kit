@@ -54,16 +54,24 @@ class AddCourse extends Component {
                 <h2>Add Sub Module</h2>
                 <Form onFinish={(val) => {
                     const { name, thumbnailArray } = val;
-                    let thumbnail = thumbnailArray[0];
-                    if (thumbnail.response && thumbnail.response.location) {
-                        thumbnail = { name: thumbnail.name, response: thumbnail.response, status: thumbnail.status, thumbUrl: thumbnail.thumbUrl, uid: thumbnail.uid }
+                    if (thumbnailArray) {
+                        let thumbnail = thumbnailArray[0];
+                        if (thumbnail.response && thumbnail.response.location) {
+                            thumbnail = { name: thumbnail.name, response: thumbnail.response, status: thumbnail.status, thumbUrl: thumbnail.thumbUrl, uid: thumbnail.uid }
+                        }
+                        this.handleSubmit({
+                            name,
+                            thumbnailPath: thumbnail.response.location,
+                            thumbnailImage: thumbnail,
+                            module_id: this.props.match.params.module_id
+                        })
+                    } else {
+                        this.handleSubmit({
+                            name,
+                            module_id: this.props.match.params.module_id
+                        })
                     }
-                    this.handleSubmit({
-                        name,
-                        thumbnailPath: thumbnail.response.location,
-                        thumbnailImage: thumbnail,
-                        module_id: this.props.match.params.module_id
-                    })
+
                 }}>
                     <Form.Item label="Name" name="name" rules={[{ required: true }]} >
                         <Input value={name} onChange={(e) => setCourseName(e.target.value)} />
@@ -73,9 +81,9 @@ class AddCourse extends Component {
                         valuePropName="fileList"
                         name="thumbnailArray"
                         getValueFromEvent={normFile}
-                        rules={[{ required: true, message: 'Missing Image!' }]}
+                    // rules={[{ required: true, message: 'Missing Image!' }]}
                     >
-                        <Upload multiple={false} accept=".png"
+                        <Upload multiple={false} accept="image/*"
                             name="file" customRequest={async ({ file, onSuccess, onError }) => {
                                 const compressedFile = await imageCompression(file, options);
                                 console.log("before compeee")

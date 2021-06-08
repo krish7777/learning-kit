@@ -7,10 +7,10 @@ import { connect } from "react-redux";
 import { ReactComponent as LeftArrow } from "../../../../assets/images/LeftArrow.svg"
 import { ReactComponent as RightArrow } from "../../../../assets/images/RightArrow.svg"
 import { bindActionCreators } from "redux";
-import { changeCurrentStep, changeStep } from "../../action";
+import { changeCurrentStep } from "../../action";
 
 const SlideShow = (
-  { steps, changeStep, experimentCurrStep, setExperimentStep }
+  { steps, experimentCurrStep, setExperimentStep }
 ) => {
 
 
@@ -23,18 +23,18 @@ const SlideShow = (
     const img = [];
     const sim = [];
     for (let i = 0; i < steps.length; i++) {
-        if(steps[i].imagePath){
-            img.push({ original: steps[i].imagePath });
-            sim.push("");
-        }
-        else if(steps[i].simulationLink){
-            img.push({original:""});
-            sim.push(steps[i].simulationLink);
-        }
-        else{
-            img.push({original:""});
-            sim.push("");
-        }
+      if (steps[i].imagePath) {
+        img.push({ original: steps[i].imagePath });
+        sim.push("");
+      }
+      else if (steps[i].simulationLink) {
+        img.push({ original: "" });
+        sim.push(steps[i].simulationLink);
+      }
+      else {
+        img.push({ original: "" });
+        sim.push("");
+      }
     }
     setImages(img);
     setSimulations(sim);
@@ -55,7 +55,6 @@ const SlideShow = (
   const onSlide = (slideNo) => {
     setExperimentStep(slideNo)
     setCurrentStep(slideNo)
-    changeStep(slideNo)
   }
 
   const modalChecker = (x) => {
@@ -63,14 +62,14 @@ const SlideShow = (
   };
   const dispCheck = () => {
     if (images[currentStep])
-    return !images[currentStep].original?"none":"block";
+      return !images[currentStep].original ? "none" : "block";
     return "";
   };
   return (
     <div className="expshow-slideshow">
       <div style={{ background: "white" }} className={"gallerycontainer"}>
-            <div className="img_container" style={{display:dispCheck(),height:"100%"}}>
-            <ImageGallery
+        <div className="img_container" style={{ display: dispCheck(), height: "100%" }}>
+          <ImageGallery
             ref={inputEl}
             items={images}
             infinite={false}
@@ -79,14 +78,14 @@ const SlideShow = (
             showIndex={true}
             showFullscreenButton={false}
             showNav={false}
-            
+
             onBeforeSlide={modalChecker}
-            />
-            </div>
-        {!images[currentStep]?.original&&
-        <div className="iframe_container" style={{width:"100%",height:"100%"}}>
-            <iframe className="resp-iframe2" src={simulations[currentStep]} allowFullScreen></iframe>
+          />
         </div>
+        {!images[currentStep]?.original &&
+          <div className="iframe_container" style={{ width: "100%", height: "100%" }}>
+            <iframe className="resp-iframe2" src={simulations[currentStep]} allowFullScreen></iframe>
+          </div>
         }
 
       </div>
@@ -100,8 +99,8 @@ const SlideShow = (
           <LeftArrow />
         </div>
         <div className="divider"></div>
-          <div className="troubleshoot-btn">
-            CONTACT TEACHER
+        <div className="troubleshoot-btn">
+          CONTACT TEACHER
         </div>
         <div className="divider"></div>
         <div onClick={goRight} className="right-arrow">
@@ -118,7 +117,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  changeStep: bindActionCreators(changeStep, dispatch),
   changeCurrentStep: bindActionCreators(changeCurrentStep, dispatch)
 })
 

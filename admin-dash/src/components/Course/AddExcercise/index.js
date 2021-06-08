@@ -104,7 +104,7 @@ class AddExcercise extends Component {
                             name="excerciseFiles"
                             getValueFromEvent={normFile}
                         >
-                            <Upload multiple={false} accept=".pdf"
+                            <Upload multiple={false}
                                 name="file" customRequest={async ({ file, onSuccess, onError }) => {
                                     let formData = new FormData()
                                     formData.set('expId', '123')
@@ -257,7 +257,7 @@ class AddExcercise extends Component {
                             name="excerciseFiles"
                             getValueFromEvent={normFile}
                         >
-                            <Upload multiple={false} accept=".pdf"
+                            <Upload multiple={false}
                                 name="file" customRequest={async ({ file, onSuccess, onError }) => {
                                     let formData = new FormData()
                                     formData.set('expId', '123')

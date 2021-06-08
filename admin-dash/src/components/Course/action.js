@@ -155,6 +155,49 @@ export const clearExperiment = () => dispatch => {
 }
 
 
+
+
+//<<<<<<<<<<<<SIMULATION>>>>>>>>>>>
+
+export const getSimulation = (id) => async dispatch => {
+    try {
+        const res = await axios.get(`${baseUrl}/api/course/simulation/get/${id}`)
+        console.log("asking fro get simulation", res.data)
+
+        dispatch({
+            type: ACTION.GET_SIMULATION,
+            payload: res.data.simulation
+        })
+    } catch (err) {
+        console.log("error in getSimulation")
+    }
+}
+
+export const addSimulation = (id, steps, simulationLink, finalMessage, sim_id) => async dispatch => {
+    try {
+        const res = await axios.post(`${baseUrl}/api/course/simulation`, {
+            course_id: id,
+            steps,
+            simulationLink,
+            finalMessage,
+            sim_id: sim_id
+        })
+        console.log("after adding resp", res.data)
+        dispatch({
+            type: ACTION.ADD_SIMULATION_SUCCESS
+        })
+    } catch (err) {
+        console.log("error in addSimulation")
+    }
+}
+
+export const clearSimulation = () => dispatch => {
+    dispatch({
+        type: ACTION.CLEAR_SIMULATION
+    })
+}
+
+
 //<<<<<<<<<<<EXPERIMENT_FORM>>>>>>>>>>>>>
 
 
@@ -283,5 +326,14 @@ export const addExcercise = (id, excercise_list, excerciseFiles, excerciseFilePa
 export const clearExcercise = () => dispatch => {
     dispatch({
         type: ACTION.CLEAR_EXCERCISE
+    })
+}
+
+
+
+
+export const clearAdminSubmodule = () => dispatch => {
+    dispatch({
+        type: ACTION.CLEAR_ADMIN_SUBMODULE
     })
 }

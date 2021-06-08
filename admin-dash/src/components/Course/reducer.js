@@ -2,6 +2,7 @@ const { ACTION } = require("./constants");
 
 const initialState = {
     currentCourse: {},
+    currentParent: null,
     introductionHtml: '',
     addIntroductionSuccess: false,
 
@@ -19,7 +20,10 @@ const initialState = {
     addTroubleshootSuccess: false,
 
     excercise: null,
-    addExcerciseSuccess: false
+    addExcerciseSuccess: false,
+
+    simulation: null,
+    addSimulationSuccess: false
 
 }
 
@@ -64,12 +68,12 @@ const courseReducer = (state = initialState, action) => {
             state = { ...state, buildCircuit: null, addBuildCircuitSuccess: false }
             break;
 
-                     
+
         case ACTION.GET_EXPERIMENT:
             {
                 console.log("ehy  am i here")
                 console.log(action.payload)
-                state = { ...state, experiment: action.payload}
+                state = { ...state, experiment: action.payload }
                 break;
             }
 
@@ -84,12 +88,31 @@ const courseReducer = (state = initialState, action) => {
             state = { ...state, experiment: null, addExperimentSuccess: false }
             break;
 
+        case ACTION.GET_SIMULATION:
+            {
+                console.log("ehy  am i here")
+                console.log(action.payload)
+                state = { ...state, simulation: action.payload }
+                break;
+            }
+
+        case ACTION.ADD_SIMULATION_SUCCESS:
+            {
+                console.log("add building")
+                state = { ...state, addSimulationSuccess: true }
+                break;
+            }
+
+        case ACTION.CLEAR_SIMULATION:
+            state = { ...state, simulation: null, addSimulationSuccess: false }
+            break;
+
 
         case ACTION.GET_TROUBLESHOOT:
             {
                 console.log("ehy  am i here")
                 console.log(action.payload)
-                state = { ...state, troubleshoot: action.payload}
+                state = { ...state, troubleshoot: action.payload }
                 break;
             }
 
@@ -109,7 +132,7 @@ const courseReducer = (state = initialState, action) => {
             {
                 console.log("ehy  am i here")
                 console.log(action.payload)
-                state = { ...state, excercise: action.payload}
+                state = { ...state, excercise: action.payload }
                 break;
             }
 
@@ -122,6 +145,13 @@ const courseReducer = (state = initialState, action) => {
 
         case ACTION.CLEAR_EXCERCISE:
             state = { ...state, excercise: null, addExcerciseSuccess: false }
+            break;
+
+        case ACTION.CLEAR_ADMIN_SUBMODULE:
+            state = {
+                currentCourse: {},
+                currentParent: null,
+            }
             break;
 
         default:

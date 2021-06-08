@@ -78,7 +78,7 @@ const uploadExperiment = multer({
     limits: {
         fileSize: 4000000
     },
-    fileFilter: pngFilter
+    fileFilter: imageFilter,
 })
 
 const uploadExcercise = multer({

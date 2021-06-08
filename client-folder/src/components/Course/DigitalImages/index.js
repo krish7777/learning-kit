@@ -34,11 +34,11 @@ const DigitalImages = ({ stepNo, showSide, steps }) => {
             {/* <div style={{ flex: 1, backgroundColor: 'white' }}> */}
             <img
                 src={currOriginal}
-                style={{
-                    height: '98%',
-                    width: '100%',
-                    margin: '0%',
-                }}
+            // style={{
+            //     height: '98%',
+            //     width: '100%',
+            //     margin: '0%',
+            // }}
             ></img>
             {/* </div> */}
 

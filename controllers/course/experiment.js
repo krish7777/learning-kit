@@ -89,11 +89,20 @@ exports.addExperimentForm = async (req, res, next) => {
 
 exports.addSteps = async (steps) => {
     return Promise.all(steps.map(async step => {
-        const { description, imagePath, upload_image, simulationLink } = step;
+        const { description, imagePath, sideImagePath, upload_image, upload_side, simulationLink } = step;
         if (upload_image && upload_image.length) {
 
             let stepThumb = new StepThumb({ ...upload_image[0] })
             let imgResp = await stepThumb.save();
+
+            if (upload_side && upload_side.length) {
+                let sideStepThumb = new StepThumb({ ...upload_side[0] })
+                let sideImgResp = await sideStepThumb.save();
+                let step1 = new Step({ description, imagePath, sideImagePath, upload_image: imgResp._id, upload_side: sideImgResp._id, simulationLink })
+                let resp = await step1.save();
+                return resp._id;
+            }
+
             let step1 = new Step({ description, imagePath, upload_image: imgResp._id, simulationLink })
             let resp = await step1.save();
             console.log("resp id", resp._id)
@@ -120,6 +129,9 @@ exports.getExperiment = async (req, res, next) => {
             populate: [{
                 path: 'upload_image',
                 model: 'StepThumb'
+            }, {
+                path: 'upload_side',
+                model: 'StepThumb'
             }]
         }).populate('form')
         console.log(experiment)
@@ -137,6 +149,74 @@ exports.getExperimentForm = async (req, res, next) => {
     try {
         let { form } = await Experiment.findById(id).populate('form')
         res.json({ form })
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500
+        }
+        next(err)
+    }
+}
+
+
+
+
+
+//-------------------------------------
+exports.addSimulation = async (req, res, next) => {
+    const { course_id, steps, simulationLink, finalMessage, sim_id } = req.body;
+    if (!sim_id) {
+        try {
+            this.addSteps(steps).then(async (finalSteps) => {
+
+                let simulation = new Experiment({
+                    course_id,
+                    steps: finalSteps,
+                    simulationLink: simulationLink,
+                    finalMessage: finalMessage
+                })
+                let resp = await simulation.save()
+                let updatedCourse = await Course.updateOne({ _id: course_id }, { $set: { simulation: resp._id } })
+                res.json({ "experiment": resp })
+            })
+
+        } catch (err) {
+            if (!err.statusCode) {
+                err.statusCode = 500
+            }
+            next(err)
+        }
+    } else {
+        try {
+
+            this.addSteps(steps).then(async (finalSteps) => {
+
+                let updatedSimulation = await Experiment.updateOne({ _id: sim_id }, { $set: { steps: [...finalSteps], simulationLink: simulationLink, finalMessage: finalMessage } })
+                res.json({ "simulation": "updated" })
+            })
+
+        } catch (err) {
+            if (!err.statusCode) {
+                err.statusCode = 500
+            }
+            next(err)
+        }
+    }
+
+}
+
+exports.getSimulation = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+        let simulation = await Experiment.findById(id).populate({
+            path: 'steps',
+            model: 'Step',
+            populate: [{
+                path: 'upload_image',
+                model: 'StepThumb'
+            }]
+        })
+        console.log(simulation)
+        res.json({ simulation })
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500
