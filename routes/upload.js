@@ -62,7 +62,7 @@ const uploadAws = multer({
     limits: {
         fileSize: 4000000
     },
-    fileFilter: pngFilter
+    fileFilter: imageFilter
 })
 
 const uploadIntro = multer({
