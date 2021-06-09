@@ -10,19 +10,39 @@
 // .react-player > div {
 //   position: absolute; // Scaling will occur since parent is relative now
 // }
-.video-responsive {
-  overflow: hidden;
-  padding-bottom: 56.25%;
-  margin: 4% 10%;
-  position: relative;
-  height: 0;
+
+.video-responsive-container {
+    overflow: hidden;
+    padding-bottom: 47.25%;
+    margin-top: 1%;
+    position: relative;
+    height: 0;
+    background: #001a2f;
+    box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.1),
+        -20px -20px 20px rgba(234, 234, 234, 0.02),
+        4px 4px 4px rgba(0, 0, 0, 0.25), -4px -4px 4px rgba(235, 235, 235, 0.08);
+    border-radius: 10px;
+
+    width: 100%;
 }
 
-.video-responsive iframe {
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  position: absolute;
+.youtube-player {
+    left: 0;
+    top: 0;
+    padding: 10px;
+    height: 94%;
+    width: 100%;
+    position: absolute;
 }
+.title-player {
+    color: antiquewhite;
+    // left: 0;
+    bottom: 0;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1% auto;
+    left: 40vw;
+    position: absolute;
+}

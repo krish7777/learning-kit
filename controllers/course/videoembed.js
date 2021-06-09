@@ -1,13 +1,16 @@
 const { VideoEmbed } = require('../../models/videoembed');
+const { Course } = require('../../models/course');
 
 exports.getVideoEmbed = async (req, res, next) => {
     const { id } = req.params;
     try {
-        let videoembed = await VideoEmbed.findById(id).populate({
-            url: 'videourl',
-        });
+        let videoembed = await VideoEmbed.findById(id)
+        // .populate({
+        //     title: 'title',
+        //     url: 'videourl',
+        // });
 
-        console.log('videoembed: ', videoembed);
+        // console.log('videoembed: ', videoembed);
         res.status(200).json({ videoembed });
     } catch (err) {
         if (!err.statusCode) {

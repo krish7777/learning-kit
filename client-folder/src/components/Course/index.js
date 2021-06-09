@@ -148,8 +148,6 @@ class Course extends React.Component {
 
 
   render() {
-    // console.log("fdfsf");
-    // console.log(this.props);
     const { currentStep, changeCurrentStep, currentCourse } = this.props;
     const { currentOrientation, experimentCurrStep } = this.state;
     // console.log("Give me CurreCourse:", currentCourse);
@@ -254,13 +252,13 @@ class Course extends React.Component {
               // </div> 
               : null}
             {currentCourse && currentStep === 'Simulation' ? <div className="body-padder"><Simulation id={currentCourse.simulation} /></div> : null}
-            {/* {currentCourse && currentStep === 'VideoEmbed' ? <div className="body-padder"><VideoEmbed id={currentCourse.videoembed} /></div> : null} */}
+            {currentCourse && currentStep === 'VideoEmbed' ? <div className="body-padder"><VideoEmbed id={currentCourse.videoembed} /></div> : null}
             
             {currentCourse && currentStep === 'Troubleshoot' ? <div className="body-padder"><Troubleshoot id={currentCourse.troubleshoot} type={this.props.match.params.type} />  </div> : null}
             {currentCourse && currentStep === 'Excercise' ? <div className="body-padder"><Excercise id={currentCourse.excercise} /> </div> : null}
           </div>
             
-            {currentCourse? <VideoEmbed id={currentCourse.videoembed}/>:null}
+            {/* {currentCourse? <VideoEmbed id={currentCourse.videoembed}/>:null} */}
           
           {/* <div className="footer">
             <p>Copyright</p>
