@@ -49,5 +49,5 @@
     "node-sass": "^4.14.1",
     "redux-devtools-extension": "^2.13.8"
   },
-  "proxy": "http://localhost:3300"
+  "proxy": "http://localhost:3300/"
 }

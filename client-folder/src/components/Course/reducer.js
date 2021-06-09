@@ -60,6 +60,12 @@ const courseReducer = (state = initialState, action) => {
             state = { ...state, simulation: action.payload }
             break;
         }
+
+        case ACTION.GET_VIDEOEMBED: {
+            state = { ...state, videoembed: action.payload }
+            break;
+        }
+
         case ACTION.GET_RESULTS: {
             state = { ...state, results: action.payload }
             break;

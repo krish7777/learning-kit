@@ -56,6 +56,18 @@ class Course extends Component {
                             ) : null
                         }
 
+                        {
+                            this.props.match.params.type === 'arduino' ? (
+                                <Button className = "button-divs">
+                                    <Link
+                                        to={`/admin/${this.props.match.params.type}/course/videoembed/${this.props.match.params.id}`}
+                                    >
+                                        VIDEO EMBED
+                                    </Link>
+                                </Button>
+                            ) : null
+                        }
+
                         <Button className="button-divs">
                             <Link
                                 to={`/admin/${this.props.match.params.type}/course/experiment/${this.props.match.params.id}`}

@@ -24,6 +24,10 @@ const courseSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Experiment'
     },
+    videoembed: {
+        type: Schema.Types.ObjectId,
+        ref: 'VideoEmbed'
+    },
     buildCircuit: {
         type: Schema.Types.ObjectId,
         ref: 'BuildCircuit'
