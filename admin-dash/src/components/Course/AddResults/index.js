@@ -4,6 +4,7 @@ import TextEditor from '../../TextEditor/text'
 import { bindActionCreators } from 'redux'
 import axios from 'axios'
 import { uuid } from 'uuidv4'
+import './index.scss'
 
 import {
     Form,
@@ -40,6 +41,7 @@ class AddResults extends Component {
             texteditormodal: false,
             tempTable: [],
             tempValue: '',
+            tempTableID: '',
 
             questions: []
         }
@@ -76,7 +78,7 @@ class AddResults extends Component {
         this.setState(prevState => {
             return {
                 ...prevState,
-                questions: [...prevState.questions, { type: "input", required: required ? true : false, name: label, label: label }],
+                questions: [...prevState.questions, { id: uuid(), type: "input", required: required ? true : false, name: label, label: label }],
                 inputModal: false
             }
         })
@@ -85,7 +87,7 @@ class AddResults extends Component {
         this.setState(prevState => {
             return {
                 ...prevState,
-                questions: [...prevState.questions, { type: "textarea", required: required ? true : false, name: label, label: label }],
+                questions: [...prevState.questions, { id: uuid(), type: "textarea", required: required ? true : false, name: label, label: label }],
                 textareaModal: false
             }
         })
@@ -95,7 +97,7 @@ class AddResults extends Component {
         this.setState(prevState => {
             return {
                 ...prevState,
-                questions: [...prevState.questions, { type: "texteditor", required: required ? true : false, name: label, label: label }],
+                questions: [...prevState.questions, { id: uuid(), type: "texteditor", required: required ? true : false, name: label, label: label }],
                 texteditorModal: false
             }
         })
@@ -105,7 +107,7 @@ class AddResults extends Component {
         this.setState(prevState => {
             return {
                 ...prevState,
-                questions: [...prevState.questions, { type: "number", required: required ? true : false, name: label, label: label }],
+                questions: [...prevState.questions, { id: uuid(), type: "number", required: required ? true : false, name: label, label: label }],
                 numberModal: false
             }
         })
@@ -114,7 +116,7 @@ class AddResults extends Component {
         this.setState(prevState => {
             return {
                 ...prevState,
-                questions: [...prevState.questions, { type: "checkbox", name: label, label: label }],
+                questions: [...prevState.questions, { id: uuid(), type: "checkbox", name: label, label: label }],
                 checkboxModal: false
             }
         })
@@ -124,7 +126,7 @@ class AddResults extends Component {
         this.setState(prevState => {
             return {
                 ...prevState,
-                questions: [...prevState.questions, { type: "text", name: label, label: label }],
+                questions: [...prevState.questions, { id: uuid(), type: "text", name: label, label: label }],
                 textModal: false
             }
         })
@@ -134,7 +136,7 @@ class AddResults extends Component {
         this.setState(prevState => {
             return {
                 ...prevState,
-                questions: [...prevState.questions, { type: "heading", name: label, label: type }],
+                questions: [...prevState.questions, { id: uuid(), type: "heading", name: label, label: type }],
                 headingModal: false
             }
         })
@@ -143,7 +145,7 @@ class AddResults extends Component {
         this.setState(prevState => {
             return {
                 ...prevState,
-                questions: [...prevState.questions, { type: "switch", name: label, label: label }],
+                questions: [...prevState.questions, { id: uuid(), type: "switch", name: label, label: label }],
                 switchModal: false
             }
         })
@@ -156,7 +158,7 @@ class AddResults extends Component {
             this.setState(prevState => {
                 return {
                     ...prevState,
-                    questions: [...prevState.questions, { type: "checkboxgroup", name: label, required: required ? true : false, label: label, values: values }],
+                    questions: [...prevState.questions, { id: uuid(), type: "checkboxgroup", name: label, required: required ? true : false, label: label, values: values }],
                     checkboxgroupModal: false
                 }
             })
@@ -169,7 +171,7 @@ class AddResults extends Component {
             this.setState(prevState => {
                 return {
                     ...prevState,
-                    questions: [...prevState.questions, { type: "radio", name: label, required: required ? true : false, label: label, values: values }],
+                    questions: [...prevState.questions, { id: uuid(), type: "radio", name: label, required: required ? true : false, label: label, values: values }],
                     radioModal: false
                 }
             })
@@ -190,7 +192,7 @@ class AddResults extends Component {
         this.setState(prevState => {
             return {
                 ...prevState,
-                questions: [...prevState.questions, { type: "upload", required: required, name: label, label: label }],
+                questions: [...prevState.questions, { id: uuid(), type: "upload", required: required, name: label, label: label }],
                 uploadModal: false
             }
         })
@@ -208,7 +210,33 @@ class AddResults extends Component {
     }
 
 
+    handleDeleteItem = (delId) => {
+        const new_questions = this.state.questions.filter(question => {
+            return question._id !== delId
+        })
+        this.setState({
+            questions: new_questions
+        })
+        // console.log("state => ")
+        // console.log(this.state)
+    }
 
+    handleDeleteTable = (delId) => {
+        const new_questions = this.state.questions.filter(question => {
+            return question.tableID !== delId
+        })
+        this.setState({
+            questions: new_questions
+        })
+    }
+
+    handleStartTruthTable = () => {
+        let tempTabID = uuid()
+        this.setState({
+            tableModal: true,
+            tempTableID: tempTabID
+        })
+    }
 
 
 
@@ -249,23 +277,29 @@ class AddResults extends Component {
                     <Form layout="vertical" onFinish={(values) => { console.log(values, this.state.questions) }}>
 
                         {
-                            this.state.questions.map(field => {
+                            this.state.questions.map((field, index) => {
                                 const { type, name, label, required } = field;
 
                                 switch (type) {
                                     case 'input': return (
                                         <Form.Item label={label} name={name} rules={[
                                             { required: required }
-                                        ]}>
+                                        ]} className="adm-ard-result-form-item">
                                             <Input />
+                                            <br />
+                                            <Button danger onClick={() => {this.handleDeleteItem(field._id)}}
+                                            className="adm-ard-result-del-button">Delete</Button>
                                         </Form.Item>
                                     )
                                         break;
                                     case 'textarea': return (
                                         <Form.Item label={label} name={name} rules={[
                                             { required: required }
-                                        ]}>
+                                        ]} className="adm-ard-result-form-item">
                                             <Input.TextArea autoSize={{ minRows: 3, maxRows: 100 }} />
+                                            <br />
+                                            <Button danger onClick={() => {this.handleDeleteItem(field._id)}}
+                                            className="adm-ard-result-del-button">Delete</Button>
                                         </Form.Item>
                                     )
                                         break;
@@ -273,56 +307,74 @@ class AddResults extends Component {
                                     case 'texteditor': return (
                                         <Form.Item label={label} name={name} rules={[
                                             { required: required }
-                                        ]}>
+                                        ]} className="adm-ard-result-form-item">
                                             <TextEditor />
+                                            <br />
+                                            <Button danger onClick={() => {this.handleDeleteItem(field._id)}}
+                                            className="adm-ard-result-del-button">Delete</Button>
                                         </Form.Item>
                                     )
                                         break;
                                     case 'number': return (
                                         <Form.Item label={label} name={name} rules={[
                                             { required: required }
-                                        ]}>
+                                        ]} className="adm-ard-result-form-item">
                                             <InputNumber />
+                                            <br />
+                                            <Button danger onClick={() => {this.handleDeleteItem(field._id)}}
+                                            className="adm-ard-result-del-button">Delete</Button>
                                         </Form.Item>
                                     )
                                     case 'checkbox': return (
-                                        <Form.Item name={name} valuePropName="checked" label={label} initialValue={false}>
+                                        <Form.Item name={name} valuePropName="checked" label={label} initialValue={false} className="adm-ard-result-form-item">
                                             <Checkbox></Checkbox>
+                                            <br />
+                                            <Button danger onClick={() => {this.handleDeleteItem(field._id)}}
+                                            className="adm-ard-result-del-button">Delete</Button>
                                         </Form.Item>
                                     )
                                         break;
                                     case 'radio': return (
                                         <Form.Item label={label} name={name} rules={[
                                             { required: required }
-                                        ]}>
+                                        ]} className="adm-ard-result-form-item">
                                             <Radio.Group>
                                                 {field.values.map(rad =>
                                                     <Radio value={rad}>{rad}</Radio>)}
                                             </Radio.Group>
-
+                                            <br />
+                                            <Button danger onClick={() => {this.handleDeleteItem(field._id)}}
+                                            className="adm-ard-result-del-button">Delete</Button>
                                         </Form.Item>
                                     )
                                         break;
                                     case 'switch': return (
-                                        <Form.Item name="switch" label="Switch" valuePropName="checked">
+                                        <Form.Item name="switch" label="Switch" valuePropName="checked" className="adm-ard-result-form-item">
                                             <Switch checkedChildren="1" unCheckedChildren="0" />
+                                            <br />
+                                            <Button danger onClick={() => {this.handleDeleteItem(field._id)}}
+                                            className="adm-ard-result-del-button">Delete</Button>
                                         </Form.Item>
                                     )
                                         break;
                                     case 'text': {
                                         console.log(label)
                                         return (
-                                            <Form.Item >
+                                            <Form.Item className="adm-ard-result-form-item">
                                                 <div style={{ whiteSpace: "pre-wrap" }}>{name}</div>
+                                                <Button danger onClick={() => {this.handleDeleteItem(field._id)}}
+                                                className="adm-ard-result-del-button">Delete</Button>
                                             </Form.Item>
                                         )
                                     }
                                         break;
                                     case 'heading': {
                                         return (
-                                            <Form.Item >
+                                            <Form.Item className="adm-ard-result-form-item">
                                                 {label === 'h1' ? <h1>{name}</h1> : label === 'h2' ? <h2>{name}</h2> : label === 'h3' ? <h3>{name}</h3> : label === 'h4' ? <h4>{name}</h4> : label === 'h5' ? <h5>{name}</h5> : <h6>{name}</h6>}
                                                 {/* <div style={{ whiteSpace: "pre-wrap" }}>{name}</div> */}
+                                                <Button danger onClick={() => {this.handleDeleteItem(field._id)}}
+                                                className="adm-ard-result-del-button">Delete</Button>
                                             </Form.Item>
                                         )
                                     }
@@ -331,38 +383,67 @@ class AddResults extends Component {
                                         return (
                                             <Form.Item label={label} name={name} rules={[
                                                 { required: required }
-                                            ]}>
+                                            ]} className="adm-ard-result-form-item">
                                                 <Checkbox.Group>
                                                     {field.values.map(check =>
                                                         <Checkbox value={check}>{check}</Checkbox>)}
                                                 </Checkbox.Group>
+                                                <br />
+                                                <Button danger onClick={() => {this.handleDeleteItem(field._id)}}
+                                                className="adm-ard-result-del-button">Delete</Button>
                                             </Form.Item>
                                         )
                                     }
                                         break;
                                     case 'row': {
                                         return (
-                                            <div className="truth-table-row">
-                                                {field.values.map(value => {
-                                                    if (value.startsWith('_switch_')) {
-                                                        return (
-                                                            <Form.Item className="switch" name={value} valuePropName="checked" initialValue={false}>
-                                                                <Switch checkedChildren="1" unCheckedChildren="0" />
-                                                            </Form.Item>
+                                            <div className = "adm-ard-result-form-item">
+                                                <div className="truth-table-row">
+                                                    {field.values.map(value => {
+                                                        if (value.startsWith('_switch_')) {
+                                                            return (
+                                                                <Form.Item className="switch" name={value} valuePropName="checked" initialValue={false}>
+                                                                    <Switch checkedChildren="1" unCheckedChildren="0" />
+                                                                </Form.Item>
 
-                                                        )
-                                                        {/* <Form.Item>
-                                                                <InputNumber defaultValue={value} disabled style={{ color: "black", textAlign: "center" }} />
-                                                            </Form.Item> */}
-                                                    }
-                                                    else {
-                                                        return (
-                                                            <Form.Item >
-                                                                <InputNumber defaultValue={value} disabled style={{ color: "black", textAlign: "center" }} />
-                                                            </Form.Item>
-                                                        )
-                                                    }
-                                                })}
+                                                            )
+                                                            {/* <Form.Item>
+                                                                    <InputNumber defaultValue={value} disabled style={{ color: "black", textAlign: "center" }} />
+                                                                </Form.Item> */}
+                                                        }
+                                                        else {
+                                                            return (
+                                                                <Form.Item >
+                                                                    <InputNumber defaultValue={value} disabled style={{ color: "black", textAlign: "center" }} />
+                                                                </Form.Item>
+                                                            )
+                                                        }
+                                                    })}
+                                                </div>
+                                                {
+                                                    index == this.state.questions.length - 1 &&
+                                                    <>
+                                                        <Button danger onClick={() => {this.handleDeleteTable(field.tableID)}}
+                                                        className="adm-ard-result-del-button">Delete</Button>
+                                                    </>
+                                                }
+                                                {
+                                                    index != this.state.questions.length - 1 &&
+                                                    this.state.questions[index + 1].type != "row" &&
+                                                    <>
+                                                        <Button danger onClick={() => {this.handleDeleteTable(field.tableID)}}
+                                                        className="adm-ard-result-del-button">Delete</Button>
+                                                    </>
+                                                }
+                                                {
+                                                    index != this.state.questions.length - 1 &&
+                                                    this.state.questions[index + 1].type == "row" &&
+                                                    this.state.questions[index + 1].tableID != field.tableID &&
+                                                    <>
+                                                        <Button danger onClick={() => {this.handleDeleteTable(field.tableID)}}
+                                                        className="adm-ard-result-del-button">Delete</Button>
+                                                    </>
+                                                }
                                             </div>
                                         )
                                     }
@@ -371,10 +452,12 @@ class AddResults extends Component {
                                     case 'upload': {
                                         return (
                                             <Form.Item name={name} label={label} valuePropName="fileList" getValueFromEvent={normFile} rules={[
-                                                { required: required }]}>
+                                                { required: required }]} className="adm-ard-result-form-item">
                                                 <Upload>
                                                     <Button icon={<UploadOutlined />}>Click to upload</Button>
                                                 </Upload>
+                                                <Button danger onClick={() => {this.handleDeleteItem(field._id)}}
+                                                className="adm-ard-result-del-button">Delete</Button>
                                             </Form.Item>
                                         )
                                     }
@@ -402,7 +485,7 @@ class AddResults extends Component {
                     <Button onClick={() => this.setState({ switchModal: true })}>Switch</Button>
                     <Button onClick={() => this.setState({ textModal: true })}>Text</Button>
                     <Button onClick={() => this.setState({ headingModal: true })}>Heading</Button>
-                    <Button onClick={() => this.setState({ tableModal: true })}>Table</Button>
+                    <Button onClick={() => this.handleStartTruthTable()}>Table</Button>
                     <Button onClick={() => this.setState({ uploadModal: true })}>Upload</Button>
 
 
@@ -749,7 +832,7 @@ class AddResults extends Component {
                 <Modal
                     visible={this.state.tableModal}
                     title="Table"
-                    onCancel={() => this.setState({ tableModal: false, tempValue: '', tempTable: [] })}
+                    onCancel={() => this.setState({ tableModal: false, tempValue: '', tempTable: [], tempTableID: '' })}
                     footer={[]}
                     destroyOnClose
                 >
@@ -763,7 +846,7 @@ class AddResults extends Component {
                         </Form.Item>
                         <div style={{ display: "flex", justifyContent: "space-around" }}>
                             <Button onClick={() => {
-                                let { tempTable, tempValue } = this.state
+                                let { tempTable, tempValue, tempTableID } = this.state
                                 if (tempValue) {
                                     if (tempTable.length) {
                                         tempTable[tempTable.length - 1].values.push(tempValue)
@@ -771,7 +854,8 @@ class AddResults extends Component {
                                     else {
                                         tempTable.push({
                                             type: "row",
-                                            values: [tempValue]
+                                            values: [tempValue],
+                                            tableID: tempTableID
                                         })
                                     }
                                     this.setState(
@@ -785,11 +869,12 @@ class AddResults extends Component {
                                     this.openNotificationWithIcon('warning', 'Please enter the default value')
                             }}>Add Box</Button>
                             <Button onClick={() => {
-                                let { tempTable, tempValue } = this.state
+                                let { tempTable, tempValue, tempTableID} = this.state
                                 if (tempValue) {
                                     tempTable.push({
                                         type: "row",
-                                        values: [tempValue]
+                                        values: [tempValue],
+                                        tableID: tempTableID
                                     })
                                     this.setState(
                                         {
@@ -802,14 +887,15 @@ class AddResults extends Component {
                                     this.openNotificationWithIcon('warning', 'Please enter the defult value')
                             }}>Add Box in next row</Button>
                             <Button onClick={() => {
-                                let { tempTable } = this.state
+                                let { tempTable, tempTableID } = this.state
                                 if (tempTable.length) {
                                     tempTable[tempTable.length - 1].values.push("_switch_" + uuid())
                                 }
                                 else {
                                     tempTable.push({
                                         type: "row",
-                                        values: ["_switch_" + uuid()]
+                                        values: ["_switch_" + uuid()],
+                                        tableID: tempTableID
                                     })
                                 }
                                 this.setState(
@@ -820,7 +906,7 @@ class AddResults extends Component {
                             }}>Add user switch</Button>
                         </div>
                         <Form.Item>
-                            <Button type="primary" htmlType="submit">Confirm</Button>
+                            <Button type="primary" htmlType="submit" onClick={() => this.setState({ tempTableID: '' })}>Confirm</Button>
                         </Form.Item>
                         <h3>Table Preview</h3>
                         <Form>{this.state.tempTable.map(row => (

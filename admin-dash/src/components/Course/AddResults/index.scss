@@ -1,0 +1,17 @@
+.adm-ard-result-form-item {
+    padding: 2px;
+    // border: 1px solid rgb(130, 130, 130);
+
+    .adm-ard-result-del-button {
+        margin-top: 3px;
+        padding: 0;
+        justify-content: center;
+        display: flex;
+        height: 28px;
+        width: 35%;
+
+        span {
+            margin: auto;
+        }
+    }
+}
