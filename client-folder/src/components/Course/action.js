@@ -98,8 +98,8 @@ export const getSimulation = (id) => async dispatch => {
 
 export const getVideoEmbed = (id) => async(dispatch) =>{
     try {
-        console.log("VVVVVVVVVVVVVVVVIIIIIIIIDEEO", id);
         const res = await axios.get(`${baseUrl}/api/course/videoembed/get/${id}`)
+        // console.log("VIDEOEMBEDGOT: ", res.data);
         dispatch({
             type: ACTION.GET_VIDEOEMBED,
             payload: res.data.videoembed

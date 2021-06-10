@@ -95,6 +95,8 @@ class AddVideoEmbed extends Component {
                             rules={[{ required: true }]}
                         >
                             <Input />
+                            Note: Add only Youtube Links (Eg:
+                            https://www.youtube.com/watch?v=jNQXAC9IVRw)
                         </Form.Item>
 
                         {/* <Form.List name="steps" label="steps" rules={[{ required: true }]}>
@@ -150,6 +152,10 @@ class AddVideoEmbed extends Component {
                                 Add/Update
                             </Button>
                         </Form.Item>
+                        <p>
+                            ***Update only if any changes are made, otherwise it
+                            may take time***
+                        </p>
                     </Form>
                 </div>
             );
@@ -210,6 +216,8 @@ class AddVideoEmbed extends Component {
                             rules={[{ required: true }]}
                         >
                             <Input placeholder="Youtube video link" />
+                            Note: Add only Youtube Links (Eg:
+                            https://www.youtube.com/watch?v=jNQXAC9IVRw)
                         </Form.Item>
 
                         <Form.Item>
