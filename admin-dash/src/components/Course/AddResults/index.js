@@ -467,7 +467,8 @@ class AddResults extends Component {
                             name="label"
                             rules={[{ required: true }]}
                         >
-                            <Input.TextArea />
+                            {/* <Input.TextArea /> */}
+                            <TextEditor />
                         </Form.Item>
                         <Form.Item name="required" valuePropName="checked">
                             <Checkbox>Required</Checkbox>
