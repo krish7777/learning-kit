@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getCurrentCourse, getParentModule, clearAdminSubmodule } from './action';
+import { getCurrentCourse, getParentModule, clearAdminSubmodule, deleteType } from './action';
 import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 import { SUBMODULE, GETTINGSTARTED } from '../../config';
@@ -13,7 +13,10 @@ class Course extends Component {
         this.props.getCurrentCourse(this.props.match.params.id);
         this.props.getParentModule(this.props.match.params.id);
     }
-
+    onDel = async (id, field) => {
+        await this.props.deleteType(id, field);
+        this.props.history.go(0);
+    };
     // componentWillUnmount() {
     //     this.props.clearAdminSubmodule();
     // }
@@ -36,6 +39,11 @@ class Course extends Component {
                                 INTRODUCTION
                             </Link>
                         </Button>
+                        <Link
+                            onClick={() => { this.onDel( this.props.match.params.id, "introduction") }}
+                        >
+                            DELETE INTRODUCTION
+                        </Link>
                         <Button className="button-divs">
                             <Link
                                 to={`/admin/${this.props.match.params.type}/course/build-circuit/${this.props.match.params.id}`}
@@ -43,16 +51,27 @@ class Course extends Component {
                                 BUILD CIRCUIT
                             </Link>
                         </Button>
-
+                        <Link
+                            onClick={() => { this.onDel( this.props.match.params.id, "buildCircuit") }}
+                        >
+                            DELETE BUILD CIRCUIT
+                        </Link>
                         {
                             this.props.match.params.type === 'digital' ? (
-                                <Button className="button-divs">
+                                <>
+                                    <Button className="button-divs">
+                                        <Link
+                                            to={`/admin/${this.props.match.params.type}/course/simulation/${this.props.match.params.id}`}
+                                        >
+                                            SIMULATION
+                                        </Link>
+                                    </Button>
                                     <Link
-                                        to={`/admin/${this.props.match.params.type}/course/simulation/${this.props.match.params.id}`}
+                                        onClick={() => { this.onDel( this.props.match.params.id, "simulation") }}
                                     >
-                                        SIMULATION
-                                </Link>
-                                </Button>
+                                        DELETE SIMULATION
+                                    </Link>
+                                </>
                             ) : null
                         }
 
@@ -63,16 +82,23 @@ class Course extends Component {
                                 EXPERIMENT
                             </Link>
                         </Button>
+                        <Link
+                            onClick={() => { this.onDel( this.props.match.params.id, "experiment") }}
+                        >
+                            DELETE EXPERIMENT
+                        </Link>
                         {course.experiment &&
                             this.props.match.params.type === 'digital' ? (
+                            <>
                                 <Button className="button-divs">
                                     <Link
                                         to={`/admin/${this.props.match.params.type}/course/experiment-form/${this.props.match.params.id}/${course.experiment}`}
                                     >
                                         EXPERIMENT FORM
-                                </Link>
+                                    </Link>
                                 </Button>
-                            ) : null}
+                            </>
+                        ) : null}
                         <Button className="button-divs">
                             <Link
                                 to={`/admin/${this.props.match.params.type}/course/troubleshoot/${this.props.match.params.id}`}
@@ -80,6 +106,11 @@ class Course extends Component {
                                 TROUBLESHOOT
                             </Link>
                         </Button>
+                        <Link
+                            onClick={() => { this.onDel( this.props.match.params.id, "troubleshoot") }}
+                        >
+                            DELETE TROUBLESHOOT
+                        </Link>
                         <Button className="button-divs">
                             <Link
                                 to={`/admin/${this.props.match.params.type}/course/results/${this.props.match.params.id}`}
@@ -87,6 +118,11 @@ class Course extends Component {
                                 RESULTS AND ANALYSIS
                             </Link>
                         </Button>
+                        <Link
+                            onClick={() => { this.onDel( this.props.match.params.id, "results") }}
+                        >
+                            DELETE RESULTS AND ANALYSIS
+                        </Link>
                         <Button className="button-divs">
                             <Link
                                 to={`/admin/${this.props.match.params.type}/course/excercise/${this.props.match.params.id}`}
@@ -94,6 +130,11 @@ class Course extends Component {
                                 EXCERCISE
                             </Link>
                         </Button>
+                        <Link
+                            onClick={() => { this.onDel( this.props.match.params.id, "excercise") }}
+                        >
+                            DELETE EXCERCISE
+                        </Link>
                     </div>
                 )}
                 {parent === GETTINGSTARTED && (
@@ -123,7 +164,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     getCurrentCourse: bindActionCreators(getCurrentCourse, dispatch),
     getParentModule: bindActionCreators(getParentModule, dispatch),
-    clearAdminSubmodule: bindActionCreators(clearAdminSubmodule, dispatch)
+    clearAdminSubmodule: bindActionCreators(clearAdminSubmodule, dispatch),
+    deleteType: bindActionCreators(deleteType, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Course);
