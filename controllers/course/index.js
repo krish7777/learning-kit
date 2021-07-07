@@ -101,3 +101,22 @@ exports.deleteSubModule = async (req, res, next) => {
         next(err);
     }
 };
+
+exports.deleteField = async (req, res, next) => {
+    const { course_id,field } = req.params;
+    try {
+        let resp = await Course.findOne(
+            { _id: course_id },
+            function(err, user){
+                user[field] = undefined;
+                user.save();
+            });
+            // this one unlike delete only flushes, will need to propagate to delete children
+        res.json(resp);
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+};
