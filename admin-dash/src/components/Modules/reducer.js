@@ -6,6 +6,8 @@ const initialState = {
     courseTroubleshoot: [],
     updateModule: false,
     updateSubModule: false,
+    deleteSubModule: false,
+    deleteModule: false
 };
 
 const modulesReducer = (state = initialState, action) => {
@@ -24,6 +26,12 @@ const modulesReducer = (state = initialState, action) => {
             break;
         case ACTION.UPDATE_SUBMOD:
             state = { ...state, updateSubModule: true }
+            break;
+        case ACTION.DELETE_SUBMOD:
+            state = { ...state, deleteSubModule: true }
+            break;
+        case ACTION.DELETE_MOD:
+            state = { ...state, deleteModule: true }
             break;
         case ACTION.CLEAR_CURRENT_MODULE:
             state = { ...state, currentModule: {} };

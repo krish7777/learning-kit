@@ -101,6 +101,32 @@ export const updateSubModule = (name, id) => async dispatch => {
 
 }
 
+export const deleteSubModule = (id) => async dispatch => {
+    try {
+        const res = await axios.get(`${baseUrl}/api/course/delete/${id}`)
+        dispatch({
+            type: ACTION.DELETE_SUBMOD,
+        })
+    } catch (err) {
+        // console.log("Failed method : updateModuleName")
+        console.log(err);
+    }
+
+}
+
+export const deleteModule = (id) => async dispatch => {
+    try {
+        const res = await axios.get(`${baseUrl}/api/module/delete/${id}`)
+        dispatch({
+            type: ACTION.DELETE_MOD,
+        })
+    } catch (err) {
+        // console.log("Failed method : updateModuleName")
+        console.log(err);
+    }
+
+}
+
 export const clearCurrentModule = () => dispatch => {
     dispatch({ type: ACTION.CLEAR_CURRENT_MODULE })
 }
