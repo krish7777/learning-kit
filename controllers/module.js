@@ -123,3 +123,23 @@ exports.addTrack = async (req, res, next) => {
         next(err);
     }
 }
+
+
+exports.deleteModule = async (req, res, next) => {
+    // const { name, thumbnailPath, introduction } = req.body;
+    const { module_id } = req.params;
+    console.log("oof")
+    console.log(module_id);
+
+    try {
+        let resp = await Module.deleteOne(
+            { _id: module_id }
+        );
+        res.json(resp);
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+};

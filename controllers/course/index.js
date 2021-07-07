@@ -85,3 +85,19 @@ exports.updateSubModule = async (req, res, next) => {
         next(err);
     }
 };
+
+exports.deleteSubModule = async (req, res, next) => {
+    // const { name, thumbnailPath, introduction } = req.body;
+    const { course_id } = req.params;
+    try {
+        let resp = await Course.deleteOne(
+            { _id: course_id }
+        );
+        res.json(resp);
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+};
