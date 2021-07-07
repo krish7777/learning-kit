@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const async = require('async');
 
 const excerciseSchema = new Schema({
     excercise_list: [{
@@ -16,6 +17,24 @@ const excerciseSchema = new Schema({
         ref: 'StepThumb'
     }]
 });
+
+excerciseSchema.pre('deleteOne', function (next) {
+    mongoose.model('Excercise').findOne(this._conditions, function (err, course) {
+        if (err) { next(); }
+        if (course) {
+            async.parallel({
+                one: function(parallelCb) {
+                    mongoose.model('StepThumb').deleteMany({_id:{$in:course.excerciseFiles}}, function (err, res) {
+                        parallelCb(null, {err: err, res: res});
+                    })
+                },
+            }, function(err, results) {
+                next();
+            });
+        }
+})
+});
+
 exports.excerciseSchema = excerciseSchema
 
 exports.Excercise = mongoose.model('Excercise', excerciseSchema);
