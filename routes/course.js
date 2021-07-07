@@ -2,7 +2,7 @@ const express = require('express')
 
 const isAuth = require('../middlewares/is-auth');
 const isAdmin = require('../middlewares/is-admin');
-const { addCourse, getCourse, getParentModule, updateSubModule } = require('../controllers/course');
+const { addCourse, getCourse, getParentModule, updateSubModule, deleteSubModule } = require('../controllers/course');
 const { addIntroduction, getIntroduction } = require('../controllers/course/introduction');
 const { addBuildCircuit, getBuildCircuit } = require('../controllers/course/buildCircuit');
 const { addTroubleshoot, getTroubleshoot } = require('../controllers/course/troubleshoot');
@@ -21,6 +21,7 @@ router.get('/simulation/get/:id', getSimulation)
 router.post('/troubleshoot', addTroubleshoot)//isAdmin
 router.get('/troubleshoot/get/:id', getTroubleshoot)
 router.post('/update/:course_id', updateSubModule)//isAdmin
+router.get('/delete/:course_id', deleteSubModule)//isAdmin
 router.post('/excercise', addExcercise)//isAdmin
 router.get('/excercise/get/:id', getExcercise)
 router.post('/experiment', addExperiment)//isAdmin

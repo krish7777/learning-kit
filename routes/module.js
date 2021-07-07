@@ -5,6 +5,7 @@ const isAdmin = require('../middlewares/is-admin');
 const {
     addModule,
     getModule,
+    deleteModule,
     getAllModules,
     getCourseTroubleshoot,
     addCourseTroubleshoot,
@@ -15,6 +16,7 @@ const router = express.Router();
 
 router.post('/add', addModule);//isAdmin
 router.get('/get/:module_id', getModule);
+router.get('/delete/:module_id', deleteModule)//isAdmin
 router.post('/update-info/:module_id', updateModule);//isAdmin
 router.get('/all/:type', getAllModules);
 router.get('/course-troubleshoot/:type', getCourseTroubleshoot);
