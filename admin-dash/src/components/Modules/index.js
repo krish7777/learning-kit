@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addCourseTroubleshoot, getCourseTroubleshoot, getModules, clearAdminDash } from './action'
+import { addCourseTroubleshoot, getCourseTroubleshoot, getModules, clearAdminDash, deleteModule } from './action'
 import { bindActionCreators } from 'redux'
 import { Link } from "react-router-dom"
 import { MODULE, SUBMODULE, GETTINGSTARTED } from '../../config'
@@ -30,6 +30,10 @@ class Modules extends Component {
     componentWillUnmount() {
         this.props.clearAdminDash();
     }
+    onModDel = async (event) => {
+        await this.props.deleteModule(event);
+        this.props.history.go(0);
+    };
 
     openNotificationWithIcon = (type, message) => {
         notification[type]({
@@ -59,9 +63,14 @@ class Modules extends Component {
                             {modules.map(module => (
                                 <>
                                     {module.name !== GETTINGSTARTED + "ignore" &&
-                                        <Link to={`/admin/${this.props.match.params.type}/module/${module._id}`}>
-                                            <div>{module.name}</div>
+                                        <div style={{display:"flex", maxWidth:"800px", justifyContent:"space-between"}}>
+                                        <Link style={{display:'inline'}} to={`/admin/${this.props.match.params.type}/module/${module._id}`}>
+                                        {module.name}
                                         </Link>
+                                        <Link style={{display:'inline', color:"red"}} onClick={()=>{this.onModDel(module._id)}}>
+                                        {"Delete"}
+                                        </Link>
+                                        </div>
                                     }
                                 </>
                             ))}
@@ -69,7 +78,7 @@ class Modules extends Component {
                             <Link to={`/admin/${this.props.match.params.type}/add-module`}><Button style={{ margin: "10px" }}>Add {MODULE}</Button></Link>
                             <br />
                             {!modules.some(el => el.name === GETTINGSTARTED) &&
-                                <Link to={`/admin/${this.props.match.params.type}/add-starter`}><Button style={{ margin: "10px" }}>Add Geting Started {MODULE}</Button></Link>
+                                <Link to={`/admin/${this.props.match.params.type}/add-starter`}><Button style={{ margin: "10px" }}>Add Getting Started {MODULE}</Button></Link>
                             }
                             {modules.some(el => el.name === GETTINGSTARTED) &&
                                 <Link to={`/admin/${this.props.match.params.type}/add-course/${modules.find(el => el.name === GETTINGSTARTED)._id}`}><Button style={{ margin: "10px" }}>Add Getting Started {SUBMODULE}</Button></Link>
@@ -424,6 +433,7 @@ const mapDispatchToProps = (dispatch) => ({
     getModules: bindActionCreators(getModules, dispatch),
     getCourseTroubleshoot: bindActionCreators(getCourseTroubleshoot, dispatch),
     addCourseTroubleshoot: bindActionCreators(addCourseTroubleshoot, dispatch),
+    deleteModule: bindActionCreators(deleteModule, dispatch),
     clearAdminDash: bindActionCreators(clearAdminDash, dispatch),
 });
 

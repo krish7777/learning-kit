@@ -333,7 +333,15 @@ export const clearExcercise = () => dispatch => {
 
 
 export const clearAdminSubmodule = () => dispatch => {
+
     dispatch({
         type: ACTION.CLEAR_ADMIN_SUBMODULE
+    })
+}
+
+export const deleteType = (id, field) => async dispatch => {
+    const res = await axios.get(`${baseUrl}/api/course/reset/${field}/${id}`)
+    dispatch({
+        type: ACTION.DELETE_TYPE
     })
 }

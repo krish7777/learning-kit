@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getCurrentModule, updateModule, updateSubModule, clearCurrentModule } from '../action';
+import { getCurrentModule, updateModule, updateSubModule, deleteSubModule, clearCurrentModule } from '../action';
 import { Link } from 'react-router-dom';
 import { Form, Input, Button, Divider, Row } from 'antd';
 import { baseUrl, SUBMODULE } from '../../../config';
@@ -54,6 +54,10 @@ class Module extends Component {
     onSubFinish = async (values) => {
         await this.props.updateSubModule(values.name, values.id);
         // this.props.history.goBack()
+    };
+    onSubDel = async (event) => {
+        await this.props.deleteSubModule(event);
+        this.props.history.go(0);
     };
     render() {
         const { module } = this.props;
@@ -357,6 +361,9 @@ class Module extends Component {
                                                             Edit SubModule
                                                     </Button>
                                                     </Link>
+                                                    <Button type="dashed" onClick={()=>{this.onSubDel(course._id)}}>
+                                                            Delete
+                                                    </Button>
                                                 </Form>
                                                 {/* <Divider /> */}
                                             </>
@@ -390,6 +397,7 @@ const mapDispatchToProps = (dispatch) => ({
     getCurrentModule: bindActionCreators(getCurrentModule, dispatch),
     updateModule: bindActionCreators(updateModule, dispatch),
     updateSubModule: bindActionCreators(updateSubModule, dispatch),
+    deleteSubModule: bindActionCreators(deleteSubModule, dispatch),
     clearCurrentModule: bindActionCreators(clearCurrentModule, dispatch),
 });
 
