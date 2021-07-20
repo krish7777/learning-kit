@@ -23,7 +23,10 @@ const initialState = {
     addExcerciseSuccess: false,
 
     simulation: null,
-    addSimulationSuccess: false
+    addSimulationSuccess: false,
+
+    videoembed: null,
+    addVideoEmbedSuccess: false
 
 }
 
@@ -105,6 +108,22 @@ const courseReducer = (state = initialState, action) => {
 
         case ACTION.CLEAR_SIMULATION:
             state = { ...state, simulation: null, addSimulationSuccess: false }
+            break;
+
+        case ACTION.GET_VIDEOEMBED:
+            {
+                state = { ...state, videoembed: action.payload }
+                break;
+            }
+
+        case ACTION.ADD_VIDEOEMBED_SUCCESS:
+            {
+                state = { ...state, addVideoEmbedSuccess: true }
+                break;
+            }
+
+        case ACTION.CLEAR_VIDEOEMBED:
+            state = { ...state, videoembed: null, addVideoEmbedSuccess: false }
             break;
 
 

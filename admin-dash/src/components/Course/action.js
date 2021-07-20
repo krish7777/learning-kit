@@ -197,6 +197,40 @@ export const clearSimulation = () => dispatch => {
     })
 }
 
+//<<<<<<<<<<<<VIDEOEMBED>>>>>>>>>>>
+
+export const getVideoEmbed = (id) => async(dispatch) => {
+    try {
+        const res = await axios.get(`${baseUrl}/api/course/videoembed/get/${id}`)
+        dispatch({
+            type: ACTION.GET_VIDEOEMBED,
+            payload: res.data.videoembed
+        })
+    } catch (error) {
+        console.log(error in getVideoEmbed, error);
+    }
+}
+
+export const addVideoEmbed = (id, title, url) => async dispatch => {
+    try {
+        const res = await axios.post(`${baseUrl}/api/course/videoembed`,{
+            course_id: id,
+            title,
+            url
+        })
+        dispatch({
+            type: ACTION.ADD_VIDEOEMBED_SUCCESS
+        })
+    } catch (err) {
+        console.log("error in addVideoEmbed")
+    }
+}
+
+export const clearVideoEmbed = () => dispatch => {
+    dispatch({
+        type: ACTION.CLEAR_VIDEOEMBED
+    })
+}
 
 //<<<<<<<<<<<EXPERIMENT_FORM>>>>>>>>>>>>>
 

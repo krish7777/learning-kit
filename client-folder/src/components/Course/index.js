@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./styles.scss";
 
 import { connect } from "react-redux";
@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import BuildCircuit from "./BuildCircuit";
 import Experiment from "./Experiment";
 import Simulation from "./Simulation";
+import VideoEmbed from "./VideoEmbed"
 import ResultsAnalysis from "./ResultsAnalysis";
 import Troubleshoot from "./Troubleshoot";
 import Excercise from "./Excercise";
@@ -147,11 +148,9 @@ class Course extends React.Component {
 
 
   render() {
-    // console.log("fdfsf");
-    // console.log(this.props);
     const { currentStep, changeCurrentStep, currentCourse } = this.props;
     const { currentOrientation, experimentCurrStep } = this.state;
-
+    // console.log("Give me CurreCourse:", currentCourse);
 
     return (
       currentOrientation === "portrait-primary" ? <button id="button" onClick={this.rotate}>Please click to rotate the screen</button> :
@@ -230,6 +229,8 @@ class Course extends React.Component {
                   : null}
                 {currentCourse?.simulation ? <div onClick={() => changeCurrentStep('Simulation')} className={currentStep === "Simulation" ? "active" : ""}>SIMULATION </div>
                   : null}
+                {currentCourse?.videoembed ? <div onClick = {()=>changeCurrentStep('VideoEmbed')} className={currentStep==="VideoEmbed" ? "active" : ""} > VIDEOEMBED </div>:null}
+                
                 {currentCourse?.results ? <div onClick={() => changeCurrentStep('ResultsAnalysis')} className={currentStep === "ResultsAnalysis" ? "active" : ""}>RESULTS & ANALYSIS </div> : null}
                 {currentCourse?.troubleshoot ? <div onClick={() => changeCurrentStep('Troubleshoot')} className={currentStep === "Troubleshoot" ? "active" : ""}>TROUBLESHOOT </div> : null}
                 {currentCourse?.excercise ? <div onClick={() => changeCurrentStep('Excercise')} className={currentStep === "Excercise" ? "active" : ""}>EXCERCISE </div> : null}
@@ -251,11 +252,14 @@ class Course extends React.Component {
               // </div> 
               : null}
             {currentCourse && currentStep === 'Simulation' ? <div className="body-padder"><Simulation id={currentCourse.simulation} /></div> : null}
-
+            {currentCourse && currentStep === 'VideoEmbed' ? <div className="body-padder"><VideoEmbed id={currentCourse.videoembed} /></div> : null}
+            
             {currentCourse && currentStep === 'Troubleshoot' ? <div className="body-padder"><Troubleshoot id={currentCourse.troubleshoot} type={this.props.match.params.type} />  </div> : null}
             {currentCourse && currentStep === 'Excercise' ? <div className="body-padder"><Excercise id={currentCourse.excercise} /> </div> : null}
           </div>
-
+            
+            {/* {currentCourse? <VideoEmbed id={currentCourse.videoembed}/>:null} */}
+          
           {/* <div className="footer">
             <p>Copyright</p>
             <svg
