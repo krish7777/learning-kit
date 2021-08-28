@@ -21,23 +21,24 @@ experimentSchema.pre('deleteOne', function (next) {
     mongoose.model('Experiment').findOne(this._conditions, function (err, course) {
         if (err) { next(); }
         if (course) {
-    async.parallel({
-        one: function(parallelCb) {
-            mongoose.model('Step').deleteMany({_id:{$in:course.steps}}, function (err, res) {
-                parallelCb(null, {err: err, res: res});
-            })
-        },
-        two: function(parallelCb) {
-            mongoose.model('ExperimentForm').deleteOne({_id:course.form}, function (err, res) {
-                parallelCb(null, {err: err, res: res});
+            async.parallel({
+                one: function (parallelCb) {
+                    mongoose.model('Step').deleteMany({ _id: { $in: course.steps } }, function (err, res) {
+                        parallelCb(null, { err: err, res: res });
+                    })
+                },
+                two: function (parallelCb) {
+                    mongoose.model('ExperimentForm').deleteOne({ _id: course.form }, function (err, res) {
+                        parallelCb(null, { err: err, res: res });
 
-            })
-        },
-    }, function(err, results) {
+                    })
+                },
+            }, function (err, results) {
+                next();
+            });
+        }
         next();
-    });
-}
-})
+    })
 });
 
 exports.experimentSchema = experimentSchema;

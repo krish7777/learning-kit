@@ -47,60 +47,65 @@ const courseSchema = new Schema({
     }
 });
 
-courseSchema.pre('deleteOne', function (next) {
+courseSchema.pre(['deleteOne', 'deleteMany'], function (next) {
     mongoose.model('Course').findOne(this._conditions, function (err, course) {
         if (err) { next(); }
         if (course) {
             async.parallel({
-                one: function(parallelCb) {
-                    mongoose.model('StepThumb').deleteOne({_id:course.thumbnailImage}, function (err, res) {
-                        parallelCb(null, {err: err, res: res});
-        
+                one: function (parallelCb) {
+                    mongoose.model('StepThumb').deleteOne({ _id: course.thumbnailImage }, function (err, res) {
+                        parallelCb(null, { err: err, res: res });
+
                     })
                 },
-                two: function(parallelCb) {
-                    mongoose.model('Introduction').deleteOne({_id:course.introduction}, function (err, res) {
-                        parallelCb(null, {err: err, res: res});
-        
+                two: function (parallelCb) {
+                    mongoose.model('Introduction').deleteOne({ _id: course.introduction }, function (err, res) {
+                        parallelCb(null, { err: err, res: res });
+
                     })
                 },
-                three: function(parallelCb) {
-                    mongoose.model('Experiment').deleteOne({_id:course.experiment}, function (err, res) {
-                        parallelCb(null, {err: err, res: res});
-        
+                three: function (parallelCb) {
+                    mongoose.model('Experiment').deleteOne({ _id: course.experiment }, function (err, res) {
+                        parallelCb(null, { err: err, res: res });
+
                     })
                 },
-                four: function(parallelCb) {
-                    mongoose.model('Experiment').deleteOne({_id:course.simulation}, function (err, res) {
-                        parallelCb(null, {err: err, res: res});
-        
+                four: function (parallelCb) {
+                    mongoose.model('Experiment').deleteOne({ _id: course.simulation }, function (err, res) {
+                        parallelCb(null, { err: err, res: res });
+
                     })
                 },
-                five: function(parallelCb) {
-                    mongoose.model('BuildCircuit').deleteOne({_id:course.buildCircuit}, function (err, res) {
-                        parallelCb(null, {err: err, res: res});
-        
+                five: function (parallelCb) {
+                    mongoose.model('VideoEmbed').deleteOne({ _id: course.videoembed }, function (err, res) {
+                        parallelCb(null, { err: err, res: res });
                     })
                 },
-                six: function(parallelCb) {
-                    mongoose.model('Troubleshoot').deleteOne({_id:course.troubleshoot}, function (err, res) {
-                        parallelCb(null, {err: err, res: res});
-        
+                six: function (parallelCb) {
+                    mongoose.model('BuildCircuit').deleteOne({ _id: course.buildCircuit }, function (err, res) {
+                        parallelCb(null, { err: err, res: res });
+
                     })
                 },
-                seven: function(parallelCb) {
-                    mongoose.model('ExperimentForm').deleteOne({_id:course.results}, function (err, res) {
-                        parallelCb(null, {err: err, res: res});
-        
+                seven: function (parallelCb) {
+                    mongoose.model('Troubleshoot').deleteOne({ _id: course.troubleshoot }, function (err, res) {
+                        parallelCb(null, { err: err, res: res });
+
                     })
                 },
-                eight: function(parallelCb) {
-                    mongoose.model('Excercise').deleteOne({_id:course.excercise}, function (err, res) {
-                        parallelCb(null, {err: err, res: res});
-        
+                eight: function (parallelCb) {
+                    mongoose.model('ExperimentForm').deleteOne({ _id: course.results }, function (err, res) {
+                        parallelCb(null, { err: err, res: res });
+
                     })
                 },
-            }, function(err, results) {
+                nine: function (parallelCb) {
+                    mongoose.model('Excercise').deleteOne({ _id: course.excercise }, function (err, res) {
+                        parallelCb(null, { err: err, res: res });
+
+                    })
+                },
+            }, function (err, results) {
                 next();
             });
         }

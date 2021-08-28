@@ -26,24 +26,25 @@ gettingStartedSchema.pre('deleteOne', function (next) {
     mongoose.model('Starting').findOne(this._conditions, function (err, course) {
         if (err) { next(); }
         if (course) {
-    async.parallel({
-        one: function(parallelCb) {
-            mongoose.model('StepThumb').deleteOne({_id:course.thumbnailImage}, function (err, res) {
-                parallelCb(null, {err: err, res: res});
+            async.parallel({
+                one: function (parallelCb) {
+                    mongoose.model('StepThumb').deleteOne({ _id: course.thumbnailImage }, function (err, res) {
+                        parallelCb(null, { err: err, res: res });
 
-            })
-        },
-        two: function(parallelCb) {
-            mongoose.model('Experiment').deleteOne({_id:course.experiment}, function (err, res) {
-                parallelCb(null, {err: err, res: res});
+                    })
+                },
+                two: function (parallelCb) {
+                    mongoose.model('Experiment').deleteOne({ _id: course.experiment }, function (err, res) {
+                        parallelCb(null, { err: err, res: res });
 
-            })
-        },
-    }, function(err, results) {
+                    })
+                },
+            }, function (err, results) {
+                next();
+            });
+        }
         next();
-    });
-}
-})
+    })
 });
 
 exports.gettingStartedSchema = gettingStartedSchema

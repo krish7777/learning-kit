@@ -20,16 +20,17 @@ buildCircuitSchema.pre('deleteOne', function (next) {
         if (err) { next(); }
         if (course) {
             async.parallel({
-                one: function(parallelCb) {
-                    mongoose.model('Step').deleteMany({_id:{$in:course.steps}}, function (err, res) {
-                        parallelCb(null, {err: err, res: res});
+                one: function (parallelCb) {
+                    mongoose.model('Step').deleteMany({ _id: { $in: course.steps } }, function (err, res) {
+                        parallelCb(null, { err: err, res: res });
                     })
                 },
-            }, function(err, results) {
+            }, function (err, results) {
                 next();
             });
         }
-})
+        next();
+    })
 });
 
 exports.buildCircuitSchema = buildCircuitSchema

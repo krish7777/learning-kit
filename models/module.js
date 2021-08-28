@@ -18,17 +18,18 @@ moduleSchema.pre('deleteOne', function (next) {
     mongoose.model('Module').findOne(this._conditions, function (err, course) {
         if (err) { next(); }
         if (course) {
-    async.parallel({
-        one: function(parallelCb) {
-            mongoose.model('Course').deleteMany({_id:{$in:course.courses}}, function (err, res) {
-                parallelCb(null, {err: err, res: res});
-            })
-        },
-    }, function(err, results) {
+            async.parallel({
+                one: function (parallelCb) {
+                    mongoose.model('Course').deleteMany({ _id: { $in: course.courses } }, function (err, res) {
+                        parallelCb(null, { err: err, res: res });
+                    })
+                },
+            }, function (err, results) {
+                next();
+            });
+        }
         next();
-    });
-}
-})
+    })
 });
 
 exports.moduleSchema = moduleSchema

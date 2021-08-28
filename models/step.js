@@ -29,26 +29,27 @@ const stepSchema = new Schema({
     }]
 });
 
-stepSchema.pre('deleteOne', function (next) {
+stepSchema.pre(['deleteOne', 'deleteMany'], function (next) {
     mongoose.model('Step').findOne(this._conditions, function (err, course) {
         if (err) { next(); }
         if (course) {
-    async.parallel({
-        one: function(parallelCb) {
-            mongoose.model('StepThumb').deleteMany({_id:{$in:course.upload_side}}, function (err, res) {
-                parallelCb(null, {err: err, res: res});
-            })
-        },
-        two: function(parallelCb) {
-            mongoose.model('StepThumb').deleteMany({_id:{$in:course.upload_image}}, function (err, res) {
-                parallelCb(null, {err: err, res: res});
-            })
-        },
-    }, function(err, results) {
+            async.parallel({
+                one: function (parallelCb) {
+                    mongoose.model('StepThumb').deleteMany({ _id: { $in: course.upload_side } }, function (err, res) {
+                        parallelCb(null, { err: err, res: res });
+                    })
+                },
+                two: function (parallelCb) {
+                    mongoose.model('StepThumb').deleteMany({ _id: { $in: course.upload_image } }, function (err, res) {
+                        parallelCb(null, { err: err, res: res });
+                    })
+                },
+            }, function (err, results) {
+                next();
+            });
+        }
         next();
-    });
-}
-})
+    })
 });
 
 exports.stepSchema = stepSchema
