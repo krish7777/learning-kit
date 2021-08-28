@@ -32,33 +32,46 @@ class Course extends Component {
                 <br />
                 {parent !== GETTINGSTARTED && (
                     <div className="divslist">
-                        <Button className="button-divs">
-                            <Link
-                                to={`/admin/${this.props.match.params.type}/course/introduction/${this.props.match.params.id}`}
-                            >
-                                INTRODUCTION
-                            </Link>
-                        </Button>
-                        <Link
-                            onClick={() => { this.onDel( this.props.match.params.id, "introduction") }}
-                        >
-                            DELETE INTRODUCTION
-                        </Link>
-                        <Button className="button-divs">
-                            <Link
-                                to={`/admin/${this.props.match.params.type}/course/build-circuit/${this.props.match.params.id}`}
-                            >
-                                BUILD CIRCUIT
-                            </Link>
-                        </Button>
-                        <Link
-                            onClick={() => { this.onDel( this.props.match.params.id, "buildCircuit") }}
-                        >
-                            DELETE BUILD CIRCUIT
-                        </Link>
+                        <div style={{ "display": "flex" }}>
+
+                            <Button className="button-divs">
+                                <Link
+                                    to={`/admin/${this.props.match.params.type}/course/introduction/${this.props.match.params.id}`}
+                                >
+                                    INTRODUCTION
+                                </Link>
+                            </Button>
+                            <Button danger className="button-divs delete-divs">
+                                <Link
+                                    onClick={() => { this.onDel(this.props.match.params.id, "introduction") }}
+                                >
+                                    DELETE
+                                </Link>
+                            </Button>
+
+                        </div>
+                        <div style={{ "display": "flex" }}>
+
+                            <Button className="button-divs">
+                                <Link
+                                    to={`/admin/${this.props.match.params.type}/course/build-circuit/${this.props.match.params.id}`}
+                                >
+                                    BUILD CIRCUIT
+                                </Link>
+                            </Button>
+                            <Button danger className="button-divs delete-divs">
+
+                                <Link
+                                    onClick={() => { this.onDel(this.props.match.params.id, "buildCircuit") }}
+                                >
+                                    DELETE
+                                </Link>
+                            </Button>
+                        </div>
                         {
                             this.props.match.params.type === 'digital' ? (
-                                <>
+                                <div style={{ "display": "flex" }}>
+
                                     <Button className="button-divs">
                                         <Link
                                             to={`/admin/${this.props.match.params.type}/course/simulation/${this.props.match.params.id}`}
@@ -66,39 +79,57 @@ class Course extends Component {
                                             SIMULATION
                                         </Link>
                                     </Button>
-                                    <Link
-                                        onClick={() => { this.onDel( this.props.match.params.id, "simulation") }}
-                                    >
-                                        DELETE SIMULATION
-                                    </Link>
-                                </>
+                                    <Button danger className="button-divs delete-divs">
+                                        <Link
+                                            onClick={() => { this.onDel(this.props.match.params.id, "simulation") }}
+                                        >
+                                            DELETE
+                                        </Link>
+                                    </Button>
+
+                                </div>
                             ) : null
                         }
 
                         {
                             this.props.match.params.type === 'arduino' ? (
-                                <Button className = "button-divs">
-                                    <Link
-                                        to={`/admin/${this.props.match.params.type}/course/videoembed/${this.props.match.params.id}`}
-                                    >
-                                        VIDEO EMBED
-                                    </Link>
-                                </Button>
+                                <div style={{ "display": "flex" }}>
+                                    <Button className="button-divs">
+                                        <Link
+                                            to={`/admin/${this.props.match.params.type}/course/videoembed/${this.props.match.params.id}`}
+                                        >
+                                            VIDEO
+                                        </Link>
+                                    </Button>
+                                    <Button danger className="button-divs delete-divs">
+                                        <Link
+                                            onClick={() => { this.onDel(this.props.match.params.id, "videoembed") }}
+                                        >
+                                            DELETE
+                                        </Link>
+                                    </Button>
+
+                                </div>
                             ) : null
                         }
+                        <div style={{ "display": "flex" }}>
+                            <Button className="button-divs">
+                                <Link
+                                    to={`/admin/${this.props.match.params.type}/course/experiment/${this.props.match.params.id}`}
+                                >
+                                    EXPERIMENT
+                                </Link>
+                            </Button>
+                            <Button danger className="button-divs delete-divs">
 
-                        <Button className="button-divs">
-                            <Link
-                                to={`/admin/${this.props.match.params.type}/course/experiment/${this.props.match.params.id}`}
-                            >
-                                EXPERIMENT
-                            </Link>
-                        </Button>
-                        <Link
-                            onClick={() => { this.onDel( this.props.match.params.id, "experiment") }}
-                        >
-                            DELETE EXPERIMENT
-                        </Link>
+                                <Link
+                                    onClick={() => { this.onDel(this.props.match.params.id, "experiment") }}
+                                >
+                                    DELETE
+                                </Link>
+                            </Button>
+
+                        </div>
                         {course.experiment &&
                             this.props.match.params.type === 'digital' ? (
                             <>
@@ -111,42 +142,59 @@ class Course extends Component {
                                 </Button>
                             </>
                         ) : null}
-                        <Button className="button-divs">
-                            <Link
-                                to={`/admin/${this.props.match.params.type}/course/troubleshoot/${this.props.match.params.id}`}
-                            >
-                                TROUBLESHOOT
-                            </Link>
-                        </Button>
-                        <Link
-                            onClick={() => { this.onDel( this.props.match.params.id, "troubleshoot") }}
-                        >
-                            DELETE TROUBLESHOOT
-                        </Link>
-                        <Button className="button-divs">
-                            <Link
-                                to={`/admin/${this.props.match.params.type}/course/results/${this.props.match.params.id}`}
-                            >
-                                RESULTS AND ANALYSIS
-                            </Link>
-                        </Button>
-                        <Link
-                            onClick={() => { this.onDel( this.props.match.params.id, "results") }}
-                        >
-                            DELETE RESULTS AND ANALYSIS
-                        </Link>
-                        <Button className="button-divs">
-                            <Link
-                                to={`/admin/${this.props.match.params.type}/course/excercise/${this.props.match.params.id}`}
-                            >
-                                EXCERCISE
-                            </Link>
-                        </Button>
-                        <Link
-                            onClick={() => { this.onDel( this.props.match.params.id, "excercise") }}
-                        >
-                            DELETE EXCERCISE
-                        </Link>
+                        <div style={{ "display": "flex" }}>
+                            <Button className="button-divs">
+                                <Link
+                                    to={`/admin/${this.props.match.params.type}/course/troubleshoot/${this.props.match.params.id}`}
+                                >
+                                    TROUBLESHOOT
+                                </Link>
+                            </Button>
+                            <Button danger className="button-divs delete-divs">
+
+                                <Link
+                                    onClick={() => { this.onDel(this.props.match.params.id, "troubleshoot") }}
+                                >
+                                    DELETE
+                                </Link>
+                            </Button>
+
+                        </div>
+                        <div style={{ "display": "flex" }}>
+
+                            <Button className="button-divs">
+                                <Link
+                                    to={`/admin/${this.props.match.params.type}/course/results/${this.props.match.params.id}`}
+                                >
+                                    RESULTS AND ANALYSIS
+                                </Link>
+                            </Button>
+                            <Button danger className="button-divs delete-divs">
+
+                                <Link
+                                    onClick={() => { this.onDel(this.props.match.params.id, "results") }}
+                                >
+                                    DELETE
+                                </Link>
+                            </Button>
+                        </div>
+                        <div style={{ "display": "flex" }}>
+
+                            <Button className="button-divs">
+                                <Link
+                                    to={`/admin/${this.props.match.params.type}/course/excercise/${this.props.match.params.id}`}
+                                >
+                                    EXCERCISE
+                                </Link>
+                            </Button>
+                            <Button danger className="button-divs delete-divs">
+                                <Link
+                                    onClick={() => { this.onDel(this.props.match.params.id, "excercise") }}
+                                >
+                                    DELETE
+                                </Link>
+                            </Button>
+                        </div>
                     </div>
                 )}
                 {parent === GETTINGSTARTED && (

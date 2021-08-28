@@ -14,10 +14,16 @@
         max-width: 500px;
 
         .button-divs{
+            width: 70%;
             margin: 1%;
             font-size: 1rem;
             padding-bottom: 1.8em;
             
+        }
+
+        .delete-divs {
+            width: 30%;
+            margin: auto;
         }
     }
 }
