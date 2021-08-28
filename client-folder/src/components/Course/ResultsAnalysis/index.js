@@ -52,66 +52,115 @@ class ResultsAnalysis extends React.Component {
 
                                     switch (type) {
                                         case 'input': return (
-                                            <Form.Item label={label} name={name} rules={[
-                                                { required: required }
-                                            ]}>
-                                                <Input />
-                                            </Form.Item>
+                                            <div className="no-label">
+                                                <Form.Item label={label} name={name} rules={[
+                                                    { required: required }
+                                                ]}>
+                                                    <div className="text-editor-style " dangerouslySetInnerHTML={{
+                                                        __html:
+                                                            label,
+                                                    }}></div>
+                                                    <Input />
+                                                </Form.Item>
+                                            </div>
                                         )
                                             break;
                                         case 'textarea': return (
-                                            <Form.Item label={label} name={name} rules={[
-                                                { required: required }
-                                            ]}>
-                                                <Input.TextArea autoSize={{ minRows: 3, maxRows: 100 }} />
-                                            </Form.Item>
+                                            <div className="no-label">
+                                                <Form.Item label={label} name={name} rules={[
+                                                    { required: required }
+                                                ]}>
+                                                    <div className="text-editor-style " dangerouslySetInnerHTML={{
+                                                        __html:
+                                                            label,
+                                                    }}></div>
+                                                    <Input.TextArea autoSize={{ minRows: 3, maxRows: 100 }} />
+                                                </Form.Item>
+                                            </div>
                                         )
                                             break;
                                         case 'texteditor': return (
-                                            <Form.Item label={label} name={name} rules={[
-                                                { required: required }
-                                            ]}>
-                                                <TextEditor />
-                                            </Form.Item>
+                                            <div className="no-label">
+                                                <Form.Item label={label} name={name} rules={[
+                                                    { required: required }
+                                                ]}>
+                                                    <div className="text-editor-style " dangerouslySetInnerHTML={{
+                                                        __html:
+                                                            label,
+                                                    }}></div>
+                                                    <TextEditor />
+                                                </Form.Item>
+                                            </div>
                                         )
                                             break;
                                         case 'number': return (
-                                            <Form.Item label={label} name={name} rules={[
-                                                { required: required }
-                                            ]}>
-                                                <InputNumber />
-                                            </Form.Item>
+                                            <div className="no-label">
+                                                <Form.Item label={label} name={name} rules={[
+                                                    { required: required }
+                                                ]}>
+                                                    <div className="text-editor-style " dangerouslySetInnerHTML={{
+                                                        __html:
+                                                            label,
+                                                    }}></div>
+                                                    <InputNumber />
+                                                </Form.Item>
+                                            </div>
                                         )
                                         case 'checkbox': return (
-                                            <Form.Item name={name} valuePropName="checked" label={label} initialValue={false}>
-                                                <Checkbox></Checkbox>
-                                            </Form.Item>
+                                            <div className="no-label">
+
+                                                <Form.Item name={name} valuePropName="checked" label={label} initialValue={false}>
+                                                    <div className="text-editor-style " dangerouslySetInnerHTML={{
+                                                        __html:
+                                                            label,
+                                                    }}></div>
+                                                    <Checkbox></Checkbox>
+                                                </Form.Item>
+                                            </div>
                                         )
                                             break;
                                         case 'radio': return (
-                                            <Form.Item label={label} name={name} rules={[
-                                                { required: required }
-                                            ]}>
-                                                <Radio.Group>
-                                                    {field.values.map(rad =>
-                                                        <Radio value={rad}>{rad}</Radio>)}
-                                                </Radio.Group>
+                                            <div className="no-label">
 
-                                            </Form.Item>
+                                                <Form.Item label={label} name={name} rules={[
+                                                    { required: required }
+                                                ]}>
+                                                    <div className="text-editor-style " dangerouslySetInnerHTML={{
+                                                        __html:
+                                                            label,
+                                                    }}></div>
+                                                    <Radio.Group>
+                                                        {field.values.map(rad =>
+                                                            <Radio value={rad}>{rad}</Radio>)}
+                                                    </Radio.Group>
+                                                </Form.Item>
+                                            </div>
                                         )
                                             break;
                                         case 'switch': return (
-                                            <Form.Item name="switch" label="Switch" valuePropName="checked">
-                                                <Switch checkedChildren="1" unCheckedChildren="0" />
-                                            </Form.Item>
+                                            <div className="no-label">
+                                                <Form.Item name="switch" label="Switch" valuePropName="checked">
+                                                    <div className="text-editor-style " dangerouslySetInnerHTML={{
+                                                        __html:
+                                                            label,
+                                                    }}></div>
+                                                    <Switch checkedChildren="1" unCheckedChildren="0" />
+                                                </Form.Item>
+                                            </div>
                                         )
                                             break;
                                         case 'text': {
                                             console.log(label)
                                             return (
-                                                <Form.Item >
-                                                    <div style={{ whiteSpace: "pre-wrap", color: "white" }}>{name}</div>
-                                                </Form.Item>
+                                                <div className="no-label">
+                                                    <Form.Item >
+                                                        <div className="text-editor-style " dangerouslySetInnerHTML={{
+                                                            __html:
+                                                                label,
+                                                        }}></div>
+                                                        <div style={{ whiteSpace: "pre-wrap", color: "white" }}>{name}</div>
+                                                    </Form.Item>
+                                                </div>
                                             )
                                         }
                                             break;
@@ -126,14 +175,20 @@ class ResultsAnalysis extends React.Component {
                                             break;
                                         case 'checkboxgroup': {
                                             return (
-                                                <Form.Item label={label} name={name} rules={[
-                                                    { required: required }
-                                                ]}>
-                                                    <Checkbox.Group>
-                                                        {field.values.map(check =>
-                                                            <Checkbox value={check}>{check}</Checkbox>)}
-                                                    </Checkbox.Group>
-                                                </Form.Item>
+                                                <div className="no-label">
+                                                    <Form.Item label={label} name={name} rules={[
+                                                        { required: required }
+                                                    ]}>
+                                                        <div className="text-editor-style " dangerouslySetInnerHTML={{
+                                                            __html:
+                                                                label,
+                                                        }}></div>
+                                                        <Checkbox.Group>
+                                                            {field.values.map(check =>
+                                                                <Checkbox value={check}>{check}</Checkbox>)}
+                                                        </Checkbox.Group>
+                                                    </Form.Item>
+                                                </div>
                                             )
                                         }
                                             break;
@@ -165,12 +220,18 @@ class ResultsAnalysis extends React.Component {
                                             break;
                                         case 'upload': {
                                             return (
-                                                <Form.Item name={name} label={label} valuePropName="fileList" getValueFromEvent={normFile} rules={[
-                                                    { required: required }]} className="result-analysis-upload-photo-btn">
-                                                    <Upload>
-                                                        <Button icon={<UploadOutlined />} className="upload-photo-button">Click to upload</Button>
-                                                    </Upload>
-                                                </Form.Item>
+                                                <div className="no-label">
+                                                    <Form.Item name={name} label={label} valuePropName="fileList" getValueFromEvent={normFile} rules={[
+                                                        { required: required }]} className="result-analysis-upload-photo-btn">
+                                                        <div className="text-editor-style " dangerouslySetInnerHTML={{
+                                                            __html:
+                                                                label,
+                                                        }}></div>
+                                                        <Upload>
+                                                            <Button icon={<UploadOutlined />} className="upload-photo-button">Click to upload</Button>
+                                                        </Upload>
+                                                    </Form.Item>
+                                                </div>
                                             )
                                         }
                                         default: return null

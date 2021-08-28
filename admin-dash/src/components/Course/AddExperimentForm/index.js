@@ -4,6 +4,7 @@ import TextEditor from '../../TextEditor'
 import { bindActionCreators } from 'redux'
 import axios from 'axios'
 import { uuid } from 'uuidv4'
+import './index.scss'
 
 import {
     Form,
@@ -37,8 +38,10 @@ class AddExperimentForm extends Component {
             textModal: false,
             tableModal: false,
             uploadModal: false,
+            texteditormodal: false,
             tempTable: [],
             tempValue: '',
+            tempTableID: '',
 
             questions: []
         }
@@ -75,7 +78,7 @@ class AddExperimentForm extends Component {
         this.setState(prevState => {
             return {
                 ...prevState,
-                questions: [...prevState.questions, { type: "input", required: required ? true : false, name: label, label: label }],
+                questions: [...prevState.questions, { id: uuid(), type: "input", required: required ? true : false, name: label, label: label }],
                 inputModal: false
             }
         })
@@ -84,16 +87,27 @@ class AddExperimentForm extends Component {
         this.setState(prevState => {
             return {
                 ...prevState,
-                questions: [...prevState.questions, { type: "textarea", required: required ? true : false, name: label, label: label }],
+                questions: [...prevState.questions, { id: uuid(), type: "textarea", required: required ? true : false, name: label, label: label }],
                 textareaModal: false
             }
         })
     }
+
+    handleAddTextEditor = ({ label, required }) => {
+        this.setState(prevState => {
+            return {
+                ...prevState,
+                questions: [...prevState.questions, { id: uuid(), type: "texteditor", required: required ? true : false, name: label, label: label }],
+                texteditorModal: false
+            }
+        })
+    }
+
     handleAddNumber = ({ label, required }) => {
         this.setState(prevState => {
             return {
                 ...prevState,
-                questions: [...prevState.questions, { type: "number", required: required ? true : false, name: label, label: label }],
+                questions: [...prevState.questions, { id: uuid(), type: "number", required: required ? true : false, name: label, label: label }],
                 numberModal: false
             }
         })
@@ -102,7 +116,7 @@ class AddExperimentForm extends Component {
         this.setState(prevState => {
             return {
                 ...prevState,
-                questions: [...prevState.questions, { type: "checkbox", name: label, label: label }],
+                questions: [...prevState.questions, { id: uuid(), type: "checkbox", name: label, label: label }],
                 checkboxModal: false
             }
         })
@@ -112,7 +126,7 @@ class AddExperimentForm extends Component {
         this.setState(prevState => {
             return {
                 ...prevState,
-                questions: [...prevState.questions, { type: "text", name: label, label: label }],
+                questions: [...prevState.questions, { id: uuid(), type: "text", name: label, label: label }],
                 textModal: false
             }
         })
@@ -122,7 +136,7 @@ class AddExperimentForm extends Component {
         this.setState(prevState => {
             return {
                 ...prevState,
-                questions: [...prevState.questions, { type: "heading", name: label, label: type }],
+                questions: [...prevState.questions, { id: uuid(), type: "heading", name: label, label: type }],
                 headingModal: false
             }
         })
@@ -131,7 +145,7 @@ class AddExperimentForm extends Component {
         this.setState(prevState => {
             return {
                 ...prevState,
-                questions: [...prevState.questions, { type: "switch", name: label, label: label }],
+                questions: [...prevState.questions, { id: uuid(), type: "switch", name: label, label: label }],
                 switchModal: false
             }
         })
@@ -144,7 +158,7 @@ class AddExperimentForm extends Component {
             this.setState(prevState => {
                 return {
                     ...prevState,
-                    questions: [...prevState.questions, { type: "checkboxgroup", name: label, required: required ? true : false, label: label, values: values }],
+                    questions: [...prevState.questions, { id: uuid(), type: "checkboxgroup", name: label, required: required ? true : false, label: label, values: values }],
                     checkboxgroupModal: false
                 }
             })
@@ -157,7 +171,7 @@ class AddExperimentForm extends Component {
             this.setState(prevState => {
                 return {
                     ...prevState,
-                    questions: [...prevState.questions, { type: "radio", name: label, required: required ? true : false, label: label, values: values }],
+                    questions: [...prevState.questions, { id: uuid(), type: "radio", name: label, required: required ? true : false, label: label, values: values }],
                     radioModal: false
                 }
             })
@@ -178,7 +192,7 @@ class AddExperimentForm extends Component {
         this.setState(prevState => {
             return {
                 ...prevState,
-                questions: [...prevState.questions, { type: "upload", required: required, name: label, label: label }],
+                questions: [...prevState.questions, { id: uuid(), type: "upload", required: required, name: label, label: label }],
                 uploadModal: false
             }
         })
@@ -195,7 +209,35 @@ class AddExperimentForm extends Component {
         }
     }
 
+    handleDeleteItem = (delId) => {
+        console.log("CURRENT", this.state.questions)
+        const new_questions = this.state.questions.filter(question => {
+            return !(question._id == delId || question.id == delId)
+        })
+        console.log("UPDATED", new_questions)
+        this.setState({
+            questions: [...new_questions]
+        })
+    }
 
+    handleDeleteTable = (delId) => {
+        console.log("CURRENT", this.state.questions)
+        const new_questions = this.state.questions.filter(question => {
+            return question.tableID !== delId
+        })
+        console.log("UPDATED", new_questions)
+        this.setState({
+            questions: new_questions
+        })
+    }
+
+    handleStartTruthTable = () => {
+        let tempTabID = uuid()
+        this.setState({
+            tableModal: true,
+            tempTableID: tempTabID
+        })
+    }
 
 
 
@@ -227,121 +269,237 @@ class AddExperimentForm extends Component {
         };
 
 
-
         return (
-            <div className="form-builder"  style={{margin: "3%", padding: "2% ",border:"2px solid black"}}>
+            <div className="form-builder" style={{ margin: "3%", padding: "2% ", border: "2px solid black" }}>
                 <div className="preview-form" >
                     <h2>{this.props.currentCourse.name.toUpperCase()} : Experiment Form</h2>
-                    <br/>
+                    <br />
                     <h2>Live Preview</h2>
                     <Form onFinish={(values) => { console.log(values, this.state.questions) }}>
 
                         {
-                            this.state.questions.map(field => {
+                            this.state.questions.map((field, index) => {
                                 const { type, name, label, required } = field;
 
                                 switch (type) {
                                     case 'input': return (
-                                        <Form.Item label={label} name={name} rules={[
-                                            { required: required }
-                                        ]}>
-                                            <Input />
-                                        </Form.Item>
+                                        <div className="no-label">
+                                            <Form.Item label={label} name={name} rules={[
+                                                { required: required }
+                                            ]} className="adm-ard-result-form-item">
+                                                <div dangerouslySetInnerHTML={{
+                                                    __html:
+                                                        label,
+                                                }}></div>
+                                                <Input />
+                                                <br />
+                                                <Button danger onClick={() => { this.handleDeleteItem(field._id ? field._id : field.id) }}
+                                                    className="adm-ard-result-del-button">Delete</Button>
+                                            </Form.Item>
+                                        </div>
                                     )
                                         break;
                                     case 'textarea': return (
-                                        <Form.Item label={label} name={name} rules={[
-                                            { required: required }
-                                        ]}>
-                                            <Input.TextArea autoSize={{ minRows: 3, maxRows: 100 }} />
-                                        </Form.Item>
+                                        <div className="no-label">
+                                            <Form.Item label={label} name={name} rules={[
+                                                { required: required }
+                                            ]} className="adm-ard-result-form-item">
+                                                <div dangerouslySetInnerHTML={{
+                                                    __html:
+                                                        label,
+                                                }}></div>
+                                                <Input.TextArea autoSize={{ minRows: 3, maxRows: 100 }} />
+                                                <br />
+                                                <Button danger onClick={() => { this.handleDeleteItem(field._id ? field._id : field.id) }}
+                                                    className="adm-ard-result-del-button">Delete</Button>
+                                            </Form.Item>
+                                        </div>
+                                    )
+                                        break;
+                                    case 'texteditor': return (
+                                        <div className="no-label">
+                                            <Form.Item label={label} name={name} rules={[
+                                                { required: required }
+                                            ]} className="adm-ard-result-form-item">
+                                                <div dangerouslySetInnerHTML={{
+                                                    __html:
+                                                        label,
+                                                }}></div>
+                                                <TextEditor />
+                                                <br />
+                                                <Button danger onClick={() => { this.handleDeleteItem(field._id ? field._id : field.id) }}
+                                                    className="adm-ard-result-del-button">Delete</Button>
+                                            </Form.Item>
+                                        </div>
                                     )
                                         break;
                                     case 'number': return (
-                                        <Form.Item label={label} name={name} rules={[
-                                            { required: required }
-                                        ]}>
-                                            <InputNumber />
-                                        </Form.Item>
+                                        <div className="no-label">
+                                            <Form.Item label={label} name={name} rules={[
+                                                { required: required }
+                                            ]} className="adm-ard-result-form-item">
+                                                <div dangerouslySetInnerHTML={{
+                                                    __html:
+                                                        label,
+                                                }}></div>
+                                                <InputNumber />
+                                                <br />
+                                                <Button danger onClick={() => { this.handleDeleteItem(field._id ? field._id : field.id) }}
+                                                    className="adm-ard-result-del-button">Delete</Button>
+                                            </Form.Item>
+                                        </div>
                                     )
+                                        break;
                                     case 'checkbox': return (
-                                        <Form.Item name={name} valuePropName="checked" label={label} initialValue={false}>
-                                            <Checkbox></Checkbox>
-                                        </Form.Item>
+                                        <div className="no-label">
+                                            <Form.Item name={name} valuePropName="checked" label={label} initialValue={false} className="adm-ard-result-form-item">
+                                                <div dangerouslySetInnerHTML={{
+                                                    __html:
+                                                        label,
+                                                }}></div>
+                                                <Checkbox></Checkbox>
+                                                <br />
+                                                <Button danger onClick={() => { this.handleDeleteItem(field._id ? field._id : field.id) }}
+                                                    className="adm-ard-result-del-button">Delete</Button>
+                                            </Form.Item>
+                                        </div>
                                     )
                                         break;
                                     case 'radio': return (
-                                        <Form.Item label={label} name={name} rules={[
-                                            { required: required }
-                                        ]}>
-                                            <Radio.Group>
-                                                {field.values.map(rad =>
-                                                    <Radio value={rad}>{rad}</Radio>)}
-                                            </Radio.Group>
-
-                                        </Form.Item>
+                                        <div className="no-label">
+                                            <Form.Item label={label} name={name} rules={[
+                                                { required: required }
+                                            ]} className="adm-ard-result-form-item">
+                                                <div dangerouslySetInnerHTML={{
+                                                    __html:
+                                                        label,
+                                                }}></div>
+                                                <Radio.Group>
+                                                    {field.values.map(rad =>
+                                                        <Radio value={rad}>{rad}</Radio>)}
+                                                </Radio.Group>
+                                                <br />
+                                                <Button danger onClick={() => { this.handleDeleteItem(field._id ? field._id : field.id) }}
+                                                    className="adm-ard-result-del-button">Delete</Button>
+                                            </Form.Item>
+                                        </div>
                                     )
                                         break;
                                     case 'switch': return (
-                                        <Form.Item name="switch" label="Switch" valuePropName="checked">
-                                            <Switch checkedChildren="1" unCheckedChildren="0" />
-                                        </Form.Item>
+                                        <div className="no-label">
+                                            <Form.Item name="switch" label="Switch" valuePropName="checked" className="adm-ard-result-form-item">
+                                                <div dangerouslySetInnerHTML={{
+                                                    __html:
+                                                        label,
+                                                }}></div>
+                                                <Switch checkedChildren="1" unCheckedChildren="0" />
+                                                <br />
+                                                <Button danger onClick={() => { this.handleDeleteItem(field._id ? field._id : field.id) }}
+                                                    className="adm-ard-result-del-button">Delete</Button>
+                                            </Form.Item>
+                                        </div>
                                     )
                                         break;
                                     case 'text': {
                                         console.log(label)
                                         return (
-                                            <Form.Item >
-                                                <div style={{ whiteSpace: "pre-wrap" }}>{name}</div>
-                                            </Form.Item>
+                                            <div className="no-label">
+
+                                                <Form.Item className="adm-ard-result-form-item">
+                                                    <div dangerouslySetInnerHTML={{
+                                                        __html:
+                                                            label,
+                                                    }}></div>
+                                                    <div style={{ whiteSpace: "pre-wrap" }}>{name}</div>
+                                                    <Button danger onClick={() => { this.handleDeleteItem(field._id ? field._id : field.id) }}
+                                                        className="adm-ard-result-del-button">Delete</Button>
+                                                </Form.Item>
+                                            </div>
                                         )
                                     }
                                         break;
                                     case 'heading': {
                                         return (
-                                            <Form.Item >
+                                            <Form.Item className="adm-ard-result-form-item">
                                                 {label === 'h1' ? <h1>{name}</h1> : label === 'h2' ? <h2>{name}</h2> : label === 'h3' ? <h3>{name}</h3> : label === 'h4' ? <h4>{name}</h4> : label === 'h5' ? <h5>{name}</h5> : <h6>{name}</h6>}
                                                 {/* <div style={{ whiteSpace: "pre-wrap" }}>{name}</div> */}
+                                                <Button danger onClick={() => { this.handleDeleteItem(field._id ? field._id : field.id) }}
+                                                    className="adm-ard-result-del-button">Delete</Button>
                                             </Form.Item>
                                         )
                                     }
                                         break;
                                     case 'checkboxgroup': {
                                         return (
-                                            <Form.Item label={label} name={name} rules={[
-                                                { required: required }
-                                            ]}>
-                                                <Checkbox.Group>
-                                                    {field.values.map(check =>
-                                                        <Checkbox value={check}>{check}</Checkbox>)}
-                                                </Checkbox.Group>
-                                            </Form.Item>
+                                            <div className="no-label">
+                                                <Form.Item label={label} name={name} rules={[
+                                                    { required: required }
+                                                ]} className="adm-ard-result-form-item">
+                                                    <div dangerouslySetInnerHTML={{
+                                                        __html:
+                                                            label,
+                                                    }}></div>
+                                                    <Checkbox.Group>
+                                                        {field.values.map(check =>
+                                                            <Checkbox value={check}>{check}</Checkbox>)}
+                                                    </Checkbox.Group>
+                                                    <br />
+                                                    <Button danger onClick={() => { this.handleDeleteItem(field._id ? field._id : field.id) }}
+                                                        className="adm-ard-result-del-button">Delete</Button>
+                                                </Form.Item>
+                                            </div>
                                         )
                                     }
                                         break;
                                     case 'row': {
                                         return (
-                                            <div className="truth-table-row">
-                                                {field.values.map(value => {
-                                                    if (value.startsWith('_switch_')) {
-                                                        return (
-                                                            <Form.Item className="switch" name={value} valuePropName="checked" initialValue={false}>
-                                                                <Switch checkedChildren="1" unCheckedChildren="0" />
-                                                            </Form.Item>
+                                            <div className="adm-ard-result-form-item">
+                                                <div className="truth-table-row">
+                                                    {field.values.map(value => {
+                                                        if (value.startsWith('_switch_')) {
+                                                            return (
+                                                                <Form.Item className="switch" name={value} valuePropName="checked" initialValue={false}>
+                                                                    <Switch checkedChildren="1" unCheckedChildren="0" />
+                                                                </Form.Item>
 
-                                                        )
-                                                        {/* <Form.Item>
+                                                            )
+                                                            {/* <Form.Item>
                                                                 <InputNumber defaultValue={value} disabled style={{ color: "black", textAlign: "center" }} />
                                                             </Form.Item> */}
-                                                    }
-                                                    else {
-                                                        return (
-                                                            <Form.Item >
-                                                                <InputNumber defaultValue={value} disabled style={{ color: "black", textAlign: "center" }} />
-                                                            </Form.Item>
-                                                        )
-                                                    }
-                                                })}
+                                                        }
+                                                        else {
+                                                            return (
+                                                                <Form.Item >
+                                                                    <InputNumber defaultValue={value} disabled style={{ color: "black", textAlign: "center" }} />
+                                                                </Form.Item>
+                                                            )
+                                                        }
+                                                    })}
+                                                </div>
+                                                {
+                                                    index == this.state.questions.length - 1 &&
+                                                    <>
+                                                        <Button danger onClick={() => { this.handleDeleteTable(field.tableID) }}
+                                                            className="adm-ard-result-del-button">Delete</Button>
+                                                    </>
+                                                }
+                                                {
+                                                    index != this.state.questions.length - 1 &&
+                                                    this.state.questions[index + 1].type != "row" &&
+                                                    <>
+                                                        <Button danger onClick={() => { this.handleDeleteTable(field.tableID) }}
+                                                            className="adm-ard-result-del-button">Delete</Button>
+                                                    </>
+                                                }
+                                                {
+                                                    index != this.state.questions.length - 1 &&
+                                                    this.state.questions[index + 1].type == "row" &&
+                                                    this.state.questions[index + 1].tableID != field.tableID &&
+                                                    <>
+                                                        <Button danger onClick={() => { this.handleDeleteTable(field.tableID) }}
+                                                            className="adm-ard-result-del-button">Delete</Button>
+                                                    </>
+                                                }
                                             </div>
                                         )
                                     }
@@ -349,14 +507,23 @@ class AddExperimentForm extends Component {
 
                                     case 'upload': {
                                         return (
-                                            <Form.Item name={name} label={label} valuePropName="fileList" getValueFromEvent={normFile} rules={[
-                                                { required: required }]}>
-                                                <Upload>
-                                                    <Button icon={<UploadOutlined />}>Click to upload</Button>
-                                                </Upload>
-                                            </Form.Item>
+                                            <div className="no-label">
+                                                <Form.Item name={name} label={label} valuePropName="fileList" getValueFromEvent={normFile} rules={[
+                                                    { required: required }]} className="adm-ard-result-form-item">
+                                                    <div dangerouslySetInnerHTML={{
+                                                        __html:
+                                                            label,
+                                                    }}></div>
+                                                    <Upload>
+                                                        <Button icon={<UploadOutlined />}>Click to upload</Button>
+                                                    </Upload>
+                                                    <Button danger onClick={() => { this.handleDeleteItem(field._id ? field._id : field.id) }}
+                                                        className="adm-ard-result-del-button">Delete</Button>
+                                                </Form.Item>
+                                            </div>
                                         )
                                     }
+                                        break;
                                     default: return null
                                 }
                             })
@@ -373,6 +540,7 @@ class AddExperimentForm extends Component {
                     <Button danger onClick={() => this.setState({ questions: [] })}>Delete Form</Button>
                     <Button onClick={() => this.setState({ inputModal: true })}>Input</Button>
                     <Button onClick={() => this.setState({ textareaModal: true })}>Text Area</Button>
+                    <Button onClick={() => this.setState({ texteditorModal: true })}>Text Editor(for images)</Button>
                     <Button onClick={() => this.setState({ numberModal: true })}>Input Number</Button>
                     <Button onClick={() => this.setState({ checkboxModal: true })}>Checkbox</Button>
                     <Button onClick={() => this.setState({ checkboxgroupModal: true })}>Checkbox Group</Button>
@@ -399,7 +567,7 @@ class AddExperimentForm extends Component {
                             name="label"
                             rules={[{ required: true }]}
                         >
-                            <Input.TextArea />
+                            <TextEditor />
                         </Form.Item>
                         <Form.Item name="required" valuePropName="checked">
                             <Checkbox>Required</Checkbox>
@@ -422,7 +590,30 @@ class AddExperimentForm extends Component {
                             name="label"
                             rules={[{ required: true }]}
                         >
-                            <Input.TextArea />
+                            <TextEditor />
+                        </Form.Item>
+                        <Form.Item name="required" valuePropName="checked">
+                            <Checkbox>Required</Checkbox>
+                        </Form.Item>
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit">Add</Button>
+                        </Form.Item>
+                    </Form>
+                </Modal>
+                <Modal
+                    visible={this.state.texteditorModal}
+                    title="Text Area"
+                    onCancel={() => this.setState({ texteditorModal: false })}
+                    footer={[]}
+                    destroyOnClose
+                >
+                    <Form onFinish={this.handleAddTextEditor}>
+                        <Form.Item
+                            label="Label"
+                            name="label"
+                            rules={[{ required: true }]}
+                        >
+                            <TextEditor />
                         </Form.Item>
                         <Form.Item name="required" valuePropName="checked">
                             <Checkbox>Required</Checkbox>
@@ -445,7 +636,7 @@ class AddExperimentForm extends Component {
                             name="label"
                             rules={[{ required: true }]}
                         >
-                            <Input.TextArea />
+                            <TextEditor />
                         </Form.Item>
                         <Form.Item name="required" valuePropName="checked">
                             <Checkbox>Required</Checkbox>
@@ -468,7 +659,7 @@ class AddExperimentForm extends Component {
                             name="label"
                             rules={[{ required: true }]}
                         >
-                            <Input.TextArea />
+                            <TextEditor />
                         </Form.Item>
 
                         <Form.Item>
@@ -489,7 +680,7 @@ class AddExperimentForm extends Component {
                             name="label"
                             rules={[{ required: true }]}
                         >
-                            <Input.TextArea />
+                            <TextEditor />
                         </Form.Item>
 
                         <Form.Item>
@@ -510,7 +701,7 @@ class AddExperimentForm extends Component {
                             name="label"
                             rules={[{ required: true }]}
                         >
-                            <Input.TextArea autoSize />
+                            <TextEditor />
                         </Form.Item>
 
                         <Form.Item>
@@ -566,7 +757,7 @@ class AddExperimentForm extends Component {
                             name="label"
                             rules={[{ required: true }]}
                         >
-                            <Input.TextArea />
+                            <TextEditor />
                         </Form.Item>
                         <Form.List name="values">
                             {(fields, { add, remove }) => {
@@ -613,7 +804,7 @@ class AddExperimentForm extends Component {
                                                 style={{ width: '60%', alignSelf: "center" }}
                                             >
                                                 <PlusOutlined /> Add options
-                </Button>
+                                            </Button>
                                         </Form.Item>
                                     </div>
                                 );
@@ -640,7 +831,7 @@ class AddExperimentForm extends Component {
                             name="label"
                             rules={[{ required: true }]}
                         >
-                            <Input.TextArea />
+                            <TextEditor />
                         </Form.Item>
                         <Form.List name="values">
                             {(fields, { add, remove }) => {
@@ -687,7 +878,7 @@ class AddExperimentForm extends Component {
                                                 style={{ width: '60%', alignSelf: "center" }}
                                             >
                                                 <PlusOutlined /> Add options
-                </Button>
+                                            </Button>
                                         </Form.Item>
                                     </div>
                                 );
@@ -704,7 +895,7 @@ class AddExperimentForm extends Component {
                 <Modal
                     visible={this.state.tableModal}
                     title="Table"
-                    onCancel={() => this.setState({ tableModal: false, tempValue: '', tempTable: [] })}
+                    onCancel={() => this.setState({ tableModal: false, tempValue: '', tempTable: [], tempTableID: '' })}
                     footer={[]}
                     destroyOnClose
                 >
@@ -718,7 +909,7 @@ class AddExperimentForm extends Component {
                         </Form.Item>
                         <div style={{ display: "flex", justifyContent: "space-around" }}>
                             <Button onClick={() => {
-                                let { tempTable, tempValue } = this.state
+                                let { tempTable, tempValue, tempTableID } = this.state
                                 if (tempValue) {
                                     if (tempTable.length) {
                                         tempTable[tempTable.length - 1].values.push(tempValue)
@@ -726,7 +917,8 @@ class AddExperimentForm extends Component {
                                     else {
                                         tempTable.push({
                                             type: "row",
-                                            values: [tempValue]
+                                            values: [tempValue],
+                                            tableID: tempTableID
                                         })
                                     }
                                     this.setState(
@@ -740,11 +932,12 @@ class AddExperimentForm extends Component {
                                     this.openNotificationWithIcon('warning', 'Please enter the default value')
                             }}>Add Box</Button>
                             <Button onClick={() => {
-                                let { tempTable, tempValue } = this.state
+                                let { tempTable, tempValue, tempTableID } = this.state
                                 if (tempValue) {
                                     tempTable.push({
                                         type: "row",
-                                        values: [tempValue]
+                                        values: [tempValue],
+                                        tableID: tempTableID
                                     })
                                     this.setState(
                                         {
@@ -757,14 +950,15 @@ class AddExperimentForm extends Component {
                                     this.openNotificationWithIcon('warning', 'Please enter the defult value')
                             }}>Add Box in next row</Button>
                             <Button onClick={() => {
-                                let { tempTable } = this.state
+                                let { tempTable, tempTableID } = this.state
                                 if (tempTable.length) {
                                     tempTable[tempTable.length - 1].values.push("_switch_" + uuid())
                                 }
                                 else {
                                     tempTable.push({
                                         type: "row",
-                                        values: ["_switch_" + uuid()]
+                                        values: ["_switch_" + uuid()],
+                                        tableID: tempTableID
                                     })
                                 }
                                 this.setState(
@@ -775,7 +969,7 @@ class AddExperimentForm extends Component {
                             }}>Add user switch</Button>
                         </div>
                         <Form.Item>
-                            <Button type="primary" htmlType="submit">Confirm</Button>
+                            <Button type="primary" htmlType="submit" onClick={() => this.setState({ tempTableID: '' })}>Confirm</Button>
                         </Form.Item>
                         <h3>Table Preview</h3>
                         <Form>{this.state.tempTable.map(row => (
@@ -814,7 +1008,7 @@ class AddExperimentForm extends Component {
                             name="label"
                             rules={[{ required: true }]}
                         >
-                            <Input.TextArea />
+                            <TextEditor />
                         </Form.Item>
                         <Form.Item name="required" valuePropName="checked">
                             <Checkbox>Required</Checkbox>
